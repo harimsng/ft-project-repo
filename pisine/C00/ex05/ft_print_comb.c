@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 01:07:36 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/09 14:40:41 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/09 23:53:12 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,10 @@ void	expand(char first, char second, char third)
 {
 	while (first < '7')
 	{
-		if (first < second && second < third)
-		{
-			write(1, &first, 1);
-			write(1, &second, 1);
-			write(1, &third, 1);
-			write(1, ", ", 2);
-		}
+		write(1, &first, 1);
+		write(1, &second, 1);
+		write(1, &third, 1);
+		write(1, ", ", 2);
 		++third;
 		if (third > '9')
 		{
