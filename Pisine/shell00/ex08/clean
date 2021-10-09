@@ -1,0 +1,1 @@
+find . \( \( -name "*#" -and -name "#*" \) -or -name "*~" \) -type f -print -delete
