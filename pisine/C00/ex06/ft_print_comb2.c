@@ -6,13 +6,12 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:45:35 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/09 14:59:19 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/09 23:57:39 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-void	ft_print_comb2(void);
 void	loop(char *left, char *right);
 void	my_print(char *left, char *right);
 void	last_part(void);

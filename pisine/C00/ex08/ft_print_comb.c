@@ -1,27 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_print_comb.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/10 00:03:17 by hseong            #+#    #+#             */
+/*   Updated: 2021/10/10 00:40:27 by hseong           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
 
-void	ft_putstr(char *str);
 void	initialize(char *arr);
-void	increment(char *arr, int n);
+void	num_print(char *arr, int n);
+void	check_overlap(char *arr, int n);
+void	last_print(int n);
 
 void	ft_print_combn(int n)
 {
 	char	nums[9];
-	char	backup[9];
-	int		temp;
 
 	initialize(nums);
-	initialize(backup);
-	ft_putstr(nums);
-	if (n == 1)
+	while (nums[0] < '9' - n + 1)
 	{
-		ft_putstr("0123456789");
-		return ;
+		num_print(nums, n);
+		++nums[n - 1];
+		check_overlap(nums, n);
 	}
-	while (nums[n - 2] < '9')
-	{
-		
-	}
+	last_print(n);
 }
 
 void	initialize(char *arr)
@@ -36,12 +43,53 @@ void	initialize(char *arr)
 	}
 }
 
-void	ft_putnstr(char *str)
+void	num_print(char *arr, int n)
 {
-	while (*str != '\0')
-		write(1, str++, 1);
+	int		idx;
+
+	idx = 0;
+	while (idx < n)
+	{
+		write(1, arr + idx, 1);
+		++idx;
+	}
+	write(1, ",", 1);
+	write(1, " ", 1);
 }
 
-void	increment(char *arr, int n)
+void	check_overlap(char *arr, int n)
 {
+	int		idx;
+	int		idx2;
 
+	idx = n - 1;
+	while (idx > 0)
+	{
+		if (arr[idx] > '9' + idx - n + 1)
+		{
+			++arr[idx - 1];
+			idx2 = idx;
+			while (idx2 < n)
+			{
+				arr[idx2] = arr[idx2 - 1] + 1;
+				++idx2;
+			}
+		}
+		--idx;
+	}
+}
+
+void	last_print(int n)
+{
+	char	firstnum;
+	int		idx;
+
+	firstnum = '9' - n + 1;
+	idx = 0;
+	while (idx < n)
+	{
+		write(1, &firstnum, 1);
+		++firstnum;
+		++idx;
+	}
+}
