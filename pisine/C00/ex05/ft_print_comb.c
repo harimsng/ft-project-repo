@@ -6,13 +6,13 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 01:07:36 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/08 01:45:56 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/09 14:40:41 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-void	aux(char first, char second, char third);
+void	expand(char first, char second, char third);
 
 void	ft_print_comb(void)
 {
@@ -23,13 +23,13 @@ void	ft_print_comb(void)
 	first = '0';
 	second = '1';
 	third = '2';
-	aux(first, second, third);
+	expand(first, second, third);
 	write(1, "7", 1);
 	write(1, "8", 1);
 	write(1, "9", 1);
 }
 
-void	aux(char first, char second, char third)
+void	expand(char first, char second, char third)
 {
 	while (first < '7')
 	{
