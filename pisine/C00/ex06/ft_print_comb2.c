@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:45:35 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/09 23:57:39 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/10 12:19:57 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,26 +26,26 @@ void	ft_print_comb2(void)
 	right[0] = '0';
 	right[1] = '1';
 	loop(left, right);
-	write(1, "9", 1);
+	last_part();
 }
 
 void	loop(char *left, char *right)
 {
-	while (left[0] != '9' && left[1] != '8')
+while (!(left[0] == '9' && left[1] == '8'))
 	{
 		if (left[0] != right[0] || left[1] != right[1])
 			my_print(left, right);
 		++right[1];
-		if (right[1] > '9')
+		while (right[1] > '9')
 		{
 			++right[0];
 			right[1] = '0';
-		}
-		if (right[0] > '9')
-		{
-			++left[1];
-			right[0] = left[0];
-			right[1] = left[1] + 1;
+			if (right[0] > '9')
+			{
+				++left[1];
+				right[0] = left[0];
+				right[1] = left[1] + 1;
+			}
 		}
 		if (left[1] > '9')
 		{
