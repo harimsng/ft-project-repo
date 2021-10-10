@@ -1,41 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sort_int_tab.c                                  :+:      :+:    :+:   */
+/*   ft_strlowercase.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/10 21:03:52 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/10 21:03:57 by hseong           ###   ########.fr       */
+/*   Created: 2021/10/10 21:04:49 by hseong            #+#    #+#             */
+/*   Updated: 2021/10/10 21:04:50 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_swap(int *a, int *b);
-
-void	ft_sort_int_tab(int *tab, int size)
+char	*ft_strlowercase(char *str)
 {
-	int		idx;
-	int		jdx;
+	char	*ret;
 
-	idx = 0;
-	while (idx < size - 1)
+	ret = str;
+	while (*str != 0)
 	{
-		jdx = idx + 1;
-		while (jdx < size)
-		{
-			if (tab[idx] > tab[jdx])
-				ft_swap(tab + idx, tab + jdx);
-			++jdx;
-		}
-		++idx;
+		if (*str >= 'A' && *str <= 'Z')
+			*str += 32;
+		++str;
 	}
-}
-
-void	ft_swap(int *a, int *b)
-{
-	int		temp;
-
-	temp = *a;
-	*a = *b;
-	*b = temp;
+	return (ret);
 }

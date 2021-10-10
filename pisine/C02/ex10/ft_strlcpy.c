@@ -1,41 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sort_int_tab.c                                  :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/10 21:03:52 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/10 21:03:57 by hseong           ###   ########.fr       */
+/*   Created: 2021/10/10 21:36:15 by hseong            #+#    #+#             */
+/*   Updated: 2021/10/10 21:36:16 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_swap(int *a, int *b);
-
-void	ft_sort_int_tab(int *tab, int size)
+unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size)
 {
-	int		idx;
-	int		jdx;
+	unsigned int	ret;
 
-	idx = 0;
-	while (idx < size - 1)
+	if (size == 0)
+		return (0);
+	ret = 0;
+	while (size > 1 && *src != 0)
 	{
-		jdx = idx + 1;
-		while (jdx < size)
-		{
-			if (tab[idx] > tab[jdx])
-				ft_swap(tab + idx, tab + jdx);
-			++jdx;
-		}
-		++idx;
+		*dest = *src;
+		++dest;
+		++src;
+		++ret;
+		--size;
 	}
-}
-
-void	ft_swap(int *a, int *b)
-{
-	int		temp;
-
-	temp = *a;
-	*a = *b;
-	*b = temp;
+	*dest = 0;
+	while (*src != 0)
+	{
+		++ret;
+		++src;
+	}
+	return (ret);
 }
