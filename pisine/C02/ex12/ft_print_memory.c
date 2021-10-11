@@ -6,14 +6,14 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:19:57 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/11 16:12:47 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/11 18:46:29 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
 void	print_addr(char *ptr);
-void	print_hex(char c);
+void	print_hex(char hex);
 void	print_hexcontent(char *ptr, int len);
 void	print_content(char *ptr, int len);
 
@@ -76,16 +76,24 @@ void	print_hex(char hex)
 
 void	print_hexcontent(char *ptr, int len)
 {
-	while (len > 0)
+	int 		idx;
+
+	idx = 0;
+	while (idx < len)
 	{
 		print_hex(*ptr >> 4);
 		print_hex(*ptr & 15);
-		print_hex(ptr[1] >> 4);
-		print_hex(ptr[1] & 15);
-		ptr += 2;
-		len -= 2;
-		write(1, " ", 1);
+		++ptr;
+		++idx;
+		if (idx % 2 == 0)
+			write(1, " ", 1);
 	}
+	if (idx == 16)
+		return ;
+	if (idx % 2 == 0)
+		write(1, "    ", 4);
+	else
+		write(1, "   ", 3);
 }
 
 // size should be valid
