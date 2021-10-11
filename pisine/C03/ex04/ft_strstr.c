@@ -1,30 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncat.c                                       :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/11 23:14:49 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/11 23:14:52 by hseong           ###   ########.fr       */
+/*   Created: 2021/10/11 23:24:32 by hseong            #+#    #+#             */
+/*   Updated: 2021/10/11 23:37:11 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strncat(char *dest, char *src, unsigned int nb)
+char	*ft_strstr(char *str, char *to_find)
 {
-	unsigned int	len;
-	char			*ret;
+	char	*ret;
+	char	*itr;
 
-	ret = dest;
-	while (*dest != 0)
-		++dest;
-	len = 0;
-	while (len < nb && *src != 0)
+	if (*to_find == 0)
+		return str;
+	ret = 0;
+	while (*str != 0)
 	{
-		*dest = *src;
-		++dest;
-		++src;
-		++len;
+		if (*str == *to_find)
+		{
+			ret = str;
+			itr = to_find;
+			while (*str == *itr && *str != 0 && *itr != 0)
+			{
+				++str;
+				++itr;
+			}
+			if (*itr == 0)
+				break;
+			ret = 0;
+			continue;
+		}
+		++str;
 	}
 	return (ret);
 }
