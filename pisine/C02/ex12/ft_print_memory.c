@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:19:57 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/11 15:19:59 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/11 16:12:47 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ void	*ft_print_memory(void *addr, unsigned int size)
 void	print_addr(char	*ptr)
 {
 	int				bit;
-	char			hex;
+	long long int	hex;
 
 	bit = 60;
 	while (bit >= 0)
 	{
-		hex = (ptr >> bit) & 15;
-		print_hex(hex);
+		hex = ((long long int)ptr >> bit) & 15;
+		print_hex((char)hex);
 		bit -= 4;
 	}
 	write(1, ":", 1);
@@ -93,7 +93,7 @@ void	print_content(char *ptr, int len)
 {
 	while (len > 0)
 	{
-		if (*ptr < 31)
+		if (*ptr < 32)
 			write(1, ".", 1);
 		else
 			write(1, ptr, 1);

@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:45:35 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/10 12:19:57 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/11 16:16:07 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_print_comb2(void)
 
 void	loop(char *left, char *right)
 {
-while (!(left[0] == '9' && left[1] == '8'))
+	while (!(left[0] == '9' && left[1] == '8'))
 	{
 		if (left[0] != right[0] || left[1] != right[1])
 			my_print(left, right);

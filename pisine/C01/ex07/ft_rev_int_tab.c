@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 21:03:46 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/10 21:03:47 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/11 16:16:50 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	ft_rev_int_tab(int *tab, int size)
 void	ft_swap(int *a, int *b)
 {
 	int		temp;
+
 	temp = *a;
 	*a = *b;
 	*b = temp;
