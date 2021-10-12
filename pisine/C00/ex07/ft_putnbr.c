@@ -6,47 +6,32 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 15:00:11 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/10 17:26:12 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/12 09:49:49 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-void	int_max_print(void);
 int		edge_case(int *n);
 
-void	ft_putnbr(int n)
+void	ft_putnbr(int nb)
 {
 	int		denom;
 	char	num;
 
-	if (edge_case(&n))
+	if (edge_case(&nb))
 		return ;
 	denom = 1000000000;
-	while (n / denom == 0)
+	while (nb / denom == 0)
 		denom /= 10;
 	while (denom > 0)
 	{
-		num = '0' + n / denom;
-		n -= (num - '0') * denom;
+		num = '0' + nb / denom;
+		nb -= (num - '0') * denom;
 		write(1, &num, 1);
 		denom /= 10;
 	}
 }	
-
-void	int_max_print(void)
-{
-	write(1, "2", 1);
-	write(1, "1", 1);
-	write(1, "4", 1);
-	write(1, "7", 1);
-	write(1, "4", 1);
-	write(1, "8", 1);
-	write(1, "3", 1);
-	write(1, "6", 1);
-	write(1, "4", 1);
-	write(1, "8", 1);
-}
 
 int	edge_case(int *n)
 {
@@ -55,7 +40,7 @@ int	edge_case(int *n)
 		write(1, "-", 1);
 		if (*n == -2147483648)
 		{
-			int_max_print();
+			write(1, "2147483648", 10);
 			return (1);
 		}
 		*n *= -1;
