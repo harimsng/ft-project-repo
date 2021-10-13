@@ -1,0 +1,31 @@
+int	base_validity(char *base)
+{
+	char	repeat[96];
+	int		len;
+
+	len = 0;
+	while (len < 96)
+		repeat[len++] = 0;
+	len = 0;
+	while (*base != 0)
+	{
+		if (repeat[*base - 32])
+			return (1);
+		else if (*base == '+' || *base == '-')
+			return (1);
+		repeat[*base - 32] = 1;
+		++base;
+		++len;
+	}
+	if (len < 2)
+	   return (1);
+	return (len);
+}
+
+void	base_print(int nbr, char *base, int len)
+{
+	if (nbr == 0)
+		return ;
+	base_print(nbr / len, base, len);
+	write(1, base + nbr % len, 1);
+}
