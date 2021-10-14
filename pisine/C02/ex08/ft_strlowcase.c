@@ -6,11 +6,11 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 21:04:49 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/14 10:23:59 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/14 18:39:39 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strlowercase(char *str)
+char	*ft_strlowcase(char *str)
 {
 	char	*ret;
 

@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:19:57 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/14 11:58:23 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/14 18:50:20 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	print_content(void *addr, int len)
 	ptr = addr;
 	while (len > 0)
 	{
-		if (*ptr < 32)
+		if (*ptr < 32 || *ptr == 127)
 			write(1, ".", 1);
 		else
 			write(1, ptr, 1);

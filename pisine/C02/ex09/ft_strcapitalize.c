@@ -6,8 +6,8 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 21:04:53 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/14 10:24:21 by hseong           ###   ########.fr       */
-/*                                                                            */
+/*   Updated: 2021/10/14 18:38:53 by hseong           ###   ########.fr       */
+/*                                                                           */
 /* ************************************************************************** */
 
 int		alphanumeric(char c);
@@ -41,7 +41,7 @@ char	*ft_strcapitalize(char *str)
 
 int	alphanumeric(char c)
 {
-	if ((c >= '0' && c < '9') || (c >= 65 && c <= 90) || (c >= 97 && c <= 122))
+	if ((c >= '0' && c <= '9') || (c >= 65 && c <= 90) || (c >= 97 && c <= 122))
 		return (1);
 	return (0);
 }

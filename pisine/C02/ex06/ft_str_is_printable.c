@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 21:04:43 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/14 10:22:20 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/14 18:49:21 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_str_is_printable(char *str)
 	{
 		if (*str == 0)
 			return (1);
-		else if (*str < 32)
+		else if (*str < 32 || *str == 127)
 			return (0);
 		++str;
 	}
