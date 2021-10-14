@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 21:37:33 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/10 21:51:20 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/14 10:38:29 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	print_hex(char c);
 
 void	ft_putstr_non_printable(char *str)
 {
+	if (str == 0)
+		return ;
 	while (*str != 0)
 	{
 		if (*str < 32)

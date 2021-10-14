@@ -6,16 +6,16 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:19:57 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/11 18:46:29 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/14 11:58:23 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-void	print_addr(char *ptr);
+void	print_addr(void *addr);
 void	print_hex(char hex);
-void	print_hexcontent(char *ptr, int len);
-void	print_content(char *ptr, int len);
+void	print_hexcontent(void *addr, int len);
+void	print_content(void *addr, int len);
 
 void	*ft_print_memory(void *addr, unsigned int size)
 {
@@ -23,6 +23,8 @@ void	*ft_print_memory(void *addr, unsigned int size)
 	unsigned int	idx;
 	int				sub_len;
 
+	if (addr == 0 || size == 0)
+		return (0);
 	ptr = addr;
 	idx = 0;
 	while (idx < size)
@@ -38,16 +40,18 @@ void	*ft_print_memory(void *addr, unsigned int size)
 	return (addr);
 }
 
-void	print_addr(char	*ptr)
+void	print_addr(void	*addr)
 {
 	int				bit;
 	long long int	hex;
+	char			*ptr;
 
+	ptr = addr;
 	bit = 60;
 	while (bit >= 0)
 	{
 		hex = ((long long int)ptr >> bit) & 15;
-		print_hex((char)hex);
+		print_hex((unsigned char)hex);
 		bit -= 4;
 	}
 	write(1, ":", 1);
@@ -74,31 +78,39 @@ void	print_hex(char hex)
 	}
 }
 
-void	print_hexcontent(char *ptr, int len)
+void	print_hexcontent(void *addr, int len)
 {
-	int 		idx;
+	int				idx;
+	unsigned char	*ptr;
 
+	ptr = addr;
 	idx = 0;
 	while (idx < len)
 	{
 		print_hex(*ptr >> 4);
 		print_hex(*ptr & 15);
-		++ptr;
-		++idx;
-		if (idx % 2 == 0)
+		if (idx % 2 == 1)
 			write(1, " ", 1);
+		++idx;
+		++ptr;
 	}
 	if (idx == 16)
 		return ;
-	if (idx % 2 == 0)
-		write(1, "    ", 4);
-	else
-		write(1, "   ", 3);
+	while (idx < 16)
+	{
+		write(1, "  ", 2);
+		if (idx % 2 == 1)
+			write (1, " ", 1);
+		++idx;
+	}
 }
 
 // size should be valid
-void	print_content(char *ptr, int len)
+void	print_content(void *addr, int len)
 {
+	char			*ptr;
+
+	ptr = addr;
 	while (len > 0)
 	{
 		if (*ptr < 32)

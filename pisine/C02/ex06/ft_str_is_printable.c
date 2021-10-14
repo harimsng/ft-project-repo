@@ -6,12 +6,14 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 21:04:43 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/10 21:04:44 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/14 10:22:20 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_str_is_printable(char *str)
 {
+	if (str == 0)
+		return (0);
 	while (1)
 	{
 		if (*str == 0)

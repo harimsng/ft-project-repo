@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 21:04:53 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/10 21:04:57 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/14 10:24:21 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_strcapitalize(char *str)
 	char	*ret;
 	int		word_flag;
 
+	if (str == 0)
+		return (0);
 	word_flag = 0;
 	ret = str;
 	while (*str != 0)

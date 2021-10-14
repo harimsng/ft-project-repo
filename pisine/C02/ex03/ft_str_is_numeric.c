@@ -6,12 +6,14 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 21:04:33 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/10 21:04:34 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/14 10:19:06 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_str_is_numeric(char *str)
 {
+	if (str == 0)
+		return (0);
 	while (1)
 	{
 		if (*str == 0)

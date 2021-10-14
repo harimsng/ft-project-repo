@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 21:36:15 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/10 21:36:16 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/14 10:37:47 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@ unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size)
 {
 	unsigned int	ret;
 
-	if (size == 0)
+	if (size == 0 || dest == 0 || src == 0)
 		return (0);
 	ret = 0;
 	while (size > 1 && *src != 0)
