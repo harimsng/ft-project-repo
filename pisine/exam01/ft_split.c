@@ -31,7 +31,7 @@ char	**ft_split(char *str)
 	ret = (char **)malloc(sizeof(char *) * arr_len);
 	idx = 0;
 	while (idx < arr_len)
-		ret[idx++] = NULL;
+		ret[idx++] = 0;
 	str = word; // retrieve temp value
 	idx = 0;
 	while (idx < arr_len - 1)
@@ -57,7 +57,7 @@ char	**ft_split(char *str)
 		}
 		++idx;
 	}
-	ret[idx] = NULL;
+	ret[idx] = 0;
 	return (ret);
 }
 
@@ -66,6 +66,6 @@ char	**null_return(void)
 {
 	char	**ret;
 	ret = (char **)malloc(sizeof(char *));
-	*ret = NULL;
+	*ret = 0;
 	return (ret);
 }
