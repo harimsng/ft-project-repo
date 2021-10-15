@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 21:26:33 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/15 23:35:35 by hseong           ###   ########.kr       */
+/*   Updated: 2021/10/16 01:17:48 by hseong           ###   ########.kr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 #include "ft_lib.h"
 
 void		get_it_done(int boxes);
-void		print_result(void);
 int			input_check(char *argv);
-int			map_check(int boxes);
+int			map_check(void);
+int			overlap_detect(void);
 
 const int	g_len = 4;
 static int	g_ret = 0;
@@ -33,7 +33,7 @@ int	main(int argc, char **argv)
 
 	g_values = (int *)malloc(sizeof(int) * g_len * g_len);
 	g_map = (int *)malloc(sizeof(int) * g_len * g_len);
-	if (argc != 2 || input_check(argv[1]))
+	if (argc != 2 || input_check(argv[1]) || g_values == NULL || g_map == NULL)
 	{
 		ft_putstr("Error\n");
 		return (0);
@@ -83,8 +83,11 @@ void	get_it_done(int boxes)
 	int		idx;
 
 	print_result();
-	if (!map_check(boxes))
+	if (!map_check() || !overlap_detect())
+	{
+		g_map[boxes - 1] = 0;
 		return ;
+	}
 	if (boxes == g_len * g_len)
 	{
 		print_result();
@@ -96,24 +99,6 @@ void	get_it_done(int boxes)
 	{
 		g_map[boxes] = idx + 1;
 		get_it_done(boxes + 1);
-		++idx;
-	}
-}
-
-void	print_result(void)
-{
-	int			idx;
-	char		num;
-
-	idx = 0;
-	while (idx < g_len * g_len)
-	{
-		num = g_map[idx] + '0';
-		write(1, &num, 1);
-		if (idx % g_len == g_len - 1)
-			write(1, "\n", 1);
-		else
-			write(1, " ", 1);
 		++idx;
 	}
 }

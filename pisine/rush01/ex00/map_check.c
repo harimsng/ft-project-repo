@@ -1,27 +1,29 @@
 #include "ft_lib.h"
 
-int		col_up(int boxes);
-int		col_down(int boxes);
-int		row_left(int boxes);
-int		row_right(int boxes);
-int		overlap_check(void);
+int		col_up(void);
+int		col_down(void);
+int		row_left(void);
+int		row_right(void);
 
 extern const int	g_len;
 extern int			*g_map;
 extern int			*g_values;
 
-int	map_check(int boxes)
+int	map_check(void)
 {
 	int		ret;
 
-	ret = col_up(boxes) + col_down(boxes);
-	ret += row_left(boxes) + row_right(boxes);
+	ret = col_up() + col_down();
+	ret += row_left() + row_right();
 	if (ret != 4)
+	{
+		ft_putstr("map_check\n");
 		return (0);
+	}
 	return (1);
 }
 
-int	col_up(int boxes)
+int	col_up(void)
 {
 	int		max;
 	int		idx;
@@ -36,8 +38,11 @@ int	col_up(int boxes)
 		cnt = 1;
 		while (jdx < g_len * g_len)
 		{
-			if (jdx >= boxes)
+			if (g_map[jdx] == 0)
+			{
+				ft_putstr("col up\n");
 				return (1);
+			}
 			jdx += g_len;
 			cnt += max_change(&max, g_map[jdx]);
 		}
@@ -48,7 +53,7 @@ int	col_up(int boxes)
 	return (1);
 }
 
-int	col_down(int boxes)
+int	col_down(void)
 {
 	int		max;
 	int		idx;
@@ -63,8 +68,11 @@ int	col_down(int boxes)
 		cnt = 1;
 		while (jdx >= 0)
 		{
-			if (jdx >= boxes)
+			if (g_map[jdx] == 0)
+			{
+				ft_putstr("col down\n");
 				return (1);
+			}
 			jdx -= g_len;
 			cnt += max_change(&max, g_map[jdx]);
 		}
@@ -75,7 +83,7 @@ int	col_down(int boxes)
 	return (1);
 }
 
-int	row_left(int boxes)
+int	row_left(void)
 {
 	int		max;
 	int		idx;
@@ -90,8 +98,11 @@ int	row_left(int boxes)
 		cnt = 1;
 		while (jdx < (1 + idx - 2 * g_len) * g_len)
 		{
-			if (jdx >= boxes)
+			if (g_map[jdx] == 0)
+			{
+				ft_putstr("row left\n");
 				return (1);
+			}
 			++jdx;
 			cnt += max_change(&max, g_map[jdx]);
 		}
@@ -102,7 +113,7 @@ int	row_left(int boxes)
 	return (1);
 }
 
-int	row_right(int boxes)
+int	row_right(void)
 {
 	int		max;
 	int		idx;
@@ -117,8 +128,11 @@ int	row_right(int boxes)
 		cnt = 1;
 		while (jdx >= (idx - 3 * g_len) * g_len)
 		{
-			if (jdx >= boxes)
+			if (g_map[jdx] == 0)
+			{
+				ft_putstr("row right\n");
 				return (1);
+			}
 			--jdx;
 			cnt += max_change(&max, g_map[jdx]);
 		}
@@ -128,7 +142,3 @@ int	row_right(int boxes)
 	}
 	return (1);
 }
-
-void	overlap_check(void)
-{
-	int		
