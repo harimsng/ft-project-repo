@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 21:37:33 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/15 01:08:41 by harimseong       ###   ########.kr       */
+/*   Updated: 2021/10/16 22:15:14 by hseong           ###   ########.kr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ void	ft_putstr_non_printable(char *str)
 		++str;
 	}
 }
+
 // unsigned bitshift example
 // 1010 >> 2 = 0010 = (10 / 2) / 2 = 2
 // signed bitshift
 // 1010 >> 2 = 1110 = (-10 / 2) / 2 = -2
-
 void	print_hex(char c)
 {
 	char	num;
