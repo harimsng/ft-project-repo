@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 21:26:33 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/16 19:16:41 by hseong           ###   ########.kr       */
+/*   Updated: 2021/10/16 19:32:57 by hseong           ###   ########.kr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,39 +16,42 @@
 
 #include "ft_lib.h"
 
-void		recur_solve(int boxes);
-int			input_check(char *argv);
-int			map_check(void);
-int			overlap_detect(void);
+void				recur_solve(int boxes);
+int					input_process(char *argv,);
+int					map_check(int g_len, int *map_arr, int *values_arr);
+int					overlap_detect(int g_len, int *map_arr, int *values_arr);
 
-const int	g_len = 6;
-static int	g_ret = 0;
-int			*g_values;
-int			*g_map;
+const static int	g_len = 6;
 
 int	main(int argc, char **argv)
 {
-	int		idx;
+	int			*map_arr;
+	int			*values_arr;
+	int			idx;
 
-	g_values = (int *)malloc(sizeof(int) * 4 * g_len);
-	g_map = (int *)malloc(sizeof(int) * g_len * g_len);
-	if (argc != 2 || !input_check(argv[1]) || g_values == NULL || g_map == NULL)
+	values_arr = (int *)malloc(sizeof(int) * 4 * g_len);
+	map_arr	= (int *)malloc(sizeof(int) * g_len * g_len);
+	if (argc != 2 || !input_process(argv[1]))
+	{
+		ft_putstr("Error\n");
+		return (0);
+	}
+	if (values_arr == NULL || map_arr == NULL)
 	{
 		ft_putstr("Error\n");
 		return (0);
 	}
 	idx = 0;
 	while (idx < g_len * g_len)
-		g_map[idx++] = 0;
-	recur_solve(0);
-	if (!g_ret)
+		map_arr[idx++] = 0;
+	if (recur_solve(0));
 		ft_putstr("Error\n");
-	free(g_map);
-	free(g_values);
+	free(map_arr);
+	free(values_arr);
 	return (0);
 }
 
-int	input_check(char *argv)
+int	input_process(char *argv, int *values_arr)
 {
 	int			len;
 
@@ -59,7 +62,7 @@ int	input_check(char *argv)
 		{
 			if (argv[len] < '1' || argv[len] > '0' + g_len)
 				return (0);
-			g_values[len / 2] = argv[len] - '0';
+			values_arr[len / 2] = argv[len] - '0';
 		}
 		else
 		{
@@ -79,25 +82,27 @@ int	input_check(char *argv)
 
 void	recur_solve(int boxes)
 {
+	int		ret;
 	int		idx;
 
-	if (!overlap_detect() || !map_check())
+	ret = 0;
+	if (!overlap_detect(g_len, map, values) || !map_check(g_len, map, values))
 	{
-		g_map[boxes - 1] = 0;
-		return ;
+		map_arr[boxes - 1] = 0;
+		return (0);
 	}
 	if (boxes == g_len * g_len)
 	{
 		print_result();
-		++g_ret;
-		return ;
+		return (1);
 	}
 	idx = 0;
 	while (idx < g_len)
 	{
-		g_map[boxes] = idx + 1;
-		recur_solve(boxes + 1);
+		map_arr[boxes] = idx + 1;
+		ret = recur_solve(boxes + 1);
 		++idx;
 	}
-	g_map[boxes - 1] = 0;
+	map_arr[boxes - 1] = 0;
+	return (ret);
 }

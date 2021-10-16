@@ -1,0 +1,5 @@
+test.c
+main.c
+*.swp
+*.out
+*.o
