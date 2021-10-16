@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 23:24:32 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/12 17:17:07 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/16 23:15:25 by hseong           ###   ########.kr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@ char	*ft_strstr(char *str, char *to_find)
 	char	*ret;
 	char	*itr;
 
-	if (*to_find == 0)
+	if (str == 0)
+		return (0);
+	if (*to_find == 0 || to_find == 0)
 		return (str);
 	ret = 0;
 	while (*str != 0)
