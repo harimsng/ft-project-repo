@@ -1,4 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_check.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/16 19:16:14 by hseong            #+#    #+#             */
+/*   Updated: 2021/10/16 19:16:15 by hseong           ###   ########.kr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_lib.h"
+
+#include <unistd.h>
 
 int		col_up(void);
 int		col_down(void);
@@ -11,16 +25,9 @@ extern int			*g_values;
 
 int	map_check(void)
 {
-	int		ret;
-
-	ret = col_up() + col_down();
-	ret += row_left() + row_right();
-	if (ret != 4)
-	{
-		ft_putstr("map_check\n");
-		return (0);
-	}
-	return (1);
+	if (col_up() && col_down() && row_left() && row_right())
+		return (1);
+	return (0);
 }
 
 int	col_up(void)
@@ -39,12 +46,9 @@ int	col_up(void)
 		while (jdx < g_len * g_len)
 		{
 			if (g_map[jdx] == 0)
-			{
-				ft_putstr("col up\n");
 				return (1);
-			}
-			jdx += g_len;
 			cnt += max_change(&max, g_map[jdx]);
+			jdx += g_len;
 		}
 		if (g_values[idx] != cnt)
 			return (0);
@@ -69,12 +73,9 @@ int	col_down(void)
 		while (jdx >= 0)
 		{
 			if (g_map[jdx] == 0)
-			{
-				ft_putstr("col down\n");
 				return (1);
-			}
-			jdx -= g_len;
 			cnt += max_change(&max, g_map[jdx]);
+			jdx -= g_len;
 		}
 		if (g_values[idx] != cnt)
 			return (0);
@@ -99,12 +100,9 @@ int	row_left(void)
 		while (jdx < (1 + idx - 2 * g_len) * g_len)
 		{
 			if (g_map[jdx] == 0)
-			{
-				ft_putstr("row left\n");
 				return (1);
-			}
-			++jdx;
 			cnt += max_change(&max, g_map[jdx]);
+			++jdx;
 		}
 		if (g_values[idx] != cnt)
 			return (0);
@@ -129,12 +127,9 @@ int	row_right(void)
 		while (jdx >= (idx - 3 * g_len) * g_len)
 		{
 			if (g_map[jdx] == 0)
-			{
-				ft_putstr("row right\n");
 				return (1);
-			}
-			--jdx;
 			cnt += max_change(&max, g_map[jdx]);
+			--jdx;
 		}
 		if (g_values[idx] != cnt)
 			return (0);
