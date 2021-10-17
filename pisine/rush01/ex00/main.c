@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 21:26:33 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/16 19:32:57 by hseong           ###   ########.kr       */
+/*   Updated: 2021/10/17 17:46:35 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ int					map_check(int g_len, int *map_arr, int *values_arr);
 int					overlap_detect(int g_len, int *map_arr, int *values_arr);
 
 const static int	g_len = 6;
+int					*map_arr;
+int					*value_arr;
 
 int	main(int argc, char **argv)
 {
-	int			*map_arr;
-	int			*values_arr;
 	int			idx;
 
 	values_arr = (int *)malloc(sizeof(int) * 4 * g_len);

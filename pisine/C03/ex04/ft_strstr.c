@@ -6,20 +6,27 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 23:24:32 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/16 23:15:25 by hseong           ###   ########.kr       */
+/*   Updated: 2021/10/17 17:44:06 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+char	*expand(char *str, char *to_find);
+
 char	*ft_strstr(char *str, char *to_find)
+{
+	if (str == (void *)0)
+		return ((void *)0);
+	if (*to_find == 0 || to_find == (void *)0)
+		return (str);
+	return (expand(str, to_find));
+}
+
+char	*expand(char *str, char *to_find)
 {
 	char	*ret;
 	char	*itr;
 
-	if (str == 0)
-		return (0);
-	if (*to_find == 0 || to_find == 0)
-		return (str);
-	ret = 0;
+	ret = (void *)0;
 	while (*str != 0)
 	{
 		if (*str == *to_find)
@@ -33,8 +40,8 @@ char	*ft_strstr(char *str, char *to_find)
 			}
 			if (*itr == 0)
 				break ;
-			ret = 0;
-			continue ;
+			str = ret;
+			ret = (void *)0;
 		}
 		++str;
 	}
