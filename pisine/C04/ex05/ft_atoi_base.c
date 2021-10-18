@@ -6,34 +6,49 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 19:21:54 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/13 19:21:59 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/18 15:09:34 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int		base_validity(char *base);
-int		str_decode(char *str, char *base, int base_len, int str_len);
+int		str_decode(char *str, char *base, int baselen, int strlen);
+int		strlen_base(char *str, char *base);
+int		ret_check(int *num, int nsign);
 
 int	ft_atoi_base(char *str, char *base)
 {
-	int		base_len;
-	int		str_len;
+	int		baselen;
+	int		strlen;
+	int		nsign;
+	int		ret;
 
-	str_len = 0;
-	while (str[str_len] != 0)
-		++str_len;
-	base_len = base_validity(base);
-	return (str_decode(str + str_len - 1, base, base_len, str_len));
+	baselen = base_validity(base);
+	if (baselen == 1)
+		return (0);
+	while ((*str >= 9 && *str <= 13) || *str == 32)
+		++str;
+	nsign = 0;
+	while (*str == '-' || *str == '+')
+	{
+		nsign += *str == '-';
+		++str;
+	}
+	strlen = strlen_base(str, base);
+	if (strlen == 0)
+		return (0);
+	ret = str_decode(str + strlen - 1, base, baselen, strlen);
+	return (ret_check(&ret, nsign));
 }
 
 int	base_validity(char *base)
 {
 	char	repeat[96];
-	int		base_len;
+	int		baselen;
 
-	base_len = 0;
-	while (base_len < 96)
-		repeat[base_len++] = 0;
-	base_len = 0;
+	baselen = 0;
+	while (baselen < 96)
+		repeat[baselen++] = 0;
+	baselen = 0;
 	while (*base != 0)
 	{
 		if (repeat[*base - 32])
@@ -42,25 +57,59 @@ int	base_validity(char *base)
 			return (1);
 		repeat[*base - 32] = 1;
 		++base;
-		++base_len;
+		++baselen;
 	}
-	if (base_len < 2)
+	if (baselen < 2)
 		return (1);
-	return (base_len);
+	return (baselen);
 }
 
-int	str_decode(char *str, char *base, int base_len, int str_len)
+int	str_decode(char *str, char *base, int baselen, int strlen)
 {
-	int		num;
+	int		order;
 
-	if (str_len == 0)
+	if (strlen == 0)
 		return (0);
-	num = 0;
-	while (base[num] != 0)
+	order = 0;
+	while (base[order] != 0)
 	{
-		if (base[num] == *str)
+		if (base[order] == *str)
 			break ;
-		++num;
+		++order;
 	}
-	return (num + base_len * str_decode(str - 1, base, base_len, str_len - 1));
+	return (order + baselen * str_decode(str - 1, base, baselen, strlen - 1));
+}
+
+int	strlen_base(char *str, char *base)
+{
+	int		strlen;
+	int		str_flag;
+	int		idx;
+
+	strlen = 0;
+	while (*str != 0)
+	{
+		idx = 0;
+		str_flag = 0;
+		while (base[idx] != 0)
+		{
+			if (base[idx] == *str)
+				str_flag = 1;
+			++idx;
+		}
+		if (str_flag == 0)
+			break ;
+		++strlen;
+		++str;
+	}
+	return (strlen);
+}
+
+int	ret_check(int *ret, int nsign)
+{
+	if (*ret == -2147483648)
+		return (-2147483648);
+	else if (nsign % 2 == 1)
+		return (-1 * (*ret));
+	return (*ret);
 }

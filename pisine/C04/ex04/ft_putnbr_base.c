@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 19:21:51 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/18 14:10:09 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/18 15:05:50 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	int_min_check(int nbr, char *base, int len)
 	if (nbr == -2147483648)
 	{
 		num = (long long int)2147483648 % len;
-		num_print((long long int)2147483648 / len, base, len); 
+		num_print((long long int)2147483648 / len, base, len);
 		write(1, base + num, 1);
 		return (1);
 	}
