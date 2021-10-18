@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 19:21:51 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/17 21:56:09 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/18 14:10:09 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		base_validity(char *base);
 void	num_print(int nbr, char *base, int len);
-int		int_min_check(int nbr, int len);
+int		int_min_check(int nbr, char *base, int len);
 
 void	ft_putnbr_base(int nbr, char *base)
 {
@@ -26,7 +26,8 @@ void	ft_putnbr_base(int nbr, char *base)
 	if (nbr < 0)
 	{
 		write(1, "-", 1);
-		int_min_check(nbr, len);
+		if (int_min_check(nbr, base, len))
+			return ;
 		nbr *= -1;
 	}
 	else if (nbr == 0)
@@ -65,18 +66,20 @@ void	num_print(int nbr, char *base, int len)
 {
 	if (nbr == 0)
 		return ;
-	num_print((long long int)nbr / len, base, len);
+	num_print(nbr / len, base, len);
 	write(1, base + nbr % len, 1);
 }
 
-int	int_min_check(int nbr, int len)
+int	int_min_check(int nbr, char *base, int len)
 {
-	int		int_min;
 	char	num;
 
 	if (nbr == -2147483648)
 	{
-		int_min = (long long int)2147483648 / len;
-		num_print( 
+		num = (long long int)2147483648 % len;
+		num_print((long long int)2147483648 / len, base, len); 
+		write(1, base + num, 1);
+		return (1);
 	}
+	return (0);
 }
