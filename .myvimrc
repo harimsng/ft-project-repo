@@ -9,3 +9,5 @@ set showmode
 set noundofile
 set backupdir-=.
 set backupdir^=~/tmp,/tmp
+
+syntax on
