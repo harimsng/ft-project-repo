@@ -6,22 +6,28 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 22:33:53 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/13 22:33:54 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/18 18:31:38 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+int	recur_is_prime(int nb, int num);
+
 int	ft_is_prime(int nb)
 {
-	int		denom;
-
-	if (nb % 2 == 0 || nb < 2)
+	if (nb == 2)
+		return (1);
+	if (nb <= 1 || nb % 2 == 0)
 		return (0);
-	denom = 3;
-	while (denom <= 46341)
-	{
-		if (nb % denom == 0)
-			return (0);
-		denom += 2;
-	}
-	return (1);
+	return (recur_is_prime(nb, 3));
+}
+
+int	recur_is_prime(int nb, int num)
+{
+	if (num > 46340)
+		return (1);
+	else if (num * num > nb)
+		return (1);
+	else if (nb % num == 0)
+		return (0);
+	return (recur_is_prime(nb, num + 2));
 }

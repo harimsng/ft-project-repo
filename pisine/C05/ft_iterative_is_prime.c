@@ -1,20 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_recursive_power.c                               :+:      :+:    :+:   */
+/*   ft_is_prime.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/13 22:34:06 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/18 18:31:36 by hseong           ###   ########.fr       */
+/*   Created: 2021/10/13 22:33:53 by hseong            #+#    #+#             */
+/*   Updated: 2021/10/13 22:33:54 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_recursive_power(int nb, int power)
+int	ft_is_prime(int nb)
 {
-	if (power < 0 || (nb == 0 && power > 0))
+	int		denom;
+
+	if (nb % 2 == 0 || nb < 2)
 		return (0);
-	else if (power == 0)
-		return (1);
-	return (nb * ft_recursive_power(nb, power - 1));
+	denom = 3;
+	while (denom <= 46341)
+	{
+		if (nb % denom == 0)
+			return (0);
+		denom += 2;
+	}
+	return (1);
 }

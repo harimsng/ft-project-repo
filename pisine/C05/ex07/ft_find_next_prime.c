@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 22:36:00 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/13 23:57:17 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/18 18:31:39 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,26 @@ int	recur(int nb);
 
 int	ft_find_next_prime(int nb)
 {
-	if (nb < 2)
+	if (nb <= 2)
 		return (2);
-	return (recur(nb));
+	return (recur(nb + (nb % 2 == 0)));
 }
 
+// 46341 * 46341 = 2147488281 > INT_MAX
+// 46340 * 46340 = 2147395600 < INT_MAX
 int	recur(int nb)
 {
 	int		num;
-	int		max;
 
 	num = 3;
-	max = 36341;
-	if (nb < 46341)
-		max = nb;
-	while (num < max)
+	while (num * num <= nb && num < 46341)
 	{
 		if (nb % num == 0)
 		{
-			nb = recur(nb + 1);
+			nb = recur(nb + 2);
 			break ;
 		}
-		++num;
+		num += 2;
 	}
 	return (nb);
 }

@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 19:31:13 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/14 21:08:24 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/18 18:30:22 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,12 @@ int	validity_check(int *queens, int col)
 	int		jdx;
 
 	idx = 0;
-	while (idx < col)
+	while (idx < col - 1)
 	{
-		jdx = 0;
+		jdx = idx + 1;
 		while (jdx < col)
 		{
-			if (jdx == idx)
-			{
-				++jdx;
-				continue ;
-			}
-			else if (queens[idx] == queens[jdx])
+			if (queens[idx] == queens[jdx])
 				return (0);
 			else if (abs(queens[idx] - queens[jdx]) == abs(idx - jdx))
 				return (0);
