@@ -6,25 +6,28 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 15:10:21 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/19 15:42:53 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/19 15:50:13 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
+char	*zeroinput(char *base_to);
+
 char	*str_encode(int num, char *base_to, int bt_len, int nsign)
 {
 	int		str_len;
 	int		idx;
-	int		temp;
 	char	*ret;
 
+	if (num == 0)
+		return (zeroinput(base_to));
 	str_len = nsign;
-	temp = num;
-	while (temp > 0)
+	idx = num;
+	while (idx > 0)
 	{
 		++str_len;
-		temp /= bt_len;
+		idx /= bt_len;
 	}
 	ret = (char *)malloc(sizeof(char) * (str_len + 1));
 	if (nsign)
@@ -37,5 +40,14 @@ char	*str_encode(int num, char *base_to, int bt_len, int nsign)
 		num /= bt_len;
 		--idx;
 	}
+	return (ret);
+}
+
+char	*zeroinput(char *base_to)
+{
+	char	*ret;
+
+	ret = (char *)malloc(sizeof(char));
+	*ret = base_to[0];	
 	return (ret);
 }

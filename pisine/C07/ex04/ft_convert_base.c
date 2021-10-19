@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 15:10:14 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/19 15:15:47 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/19 15:46:07 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
 		return ((void *)0);
 	str_len = str_check(nbr, base_from);
 	num = str_decode(nbr + str_len - 1, base_from, bf_len, str_len);
-	printf("%d\n", num);
-	return (str_encode(num, base_to, bt_len, nsign));
+	return (str_encode(num, base_to, bt_len, nsign % 2));
 }
 
 int	base_validity(char *base)

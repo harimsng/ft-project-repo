@@ -10,7 +10,7 @@ int	main(void)
 	char	*bt;
 	char	*ptr;
 
-	nbr = "cbacbacba";
+	nbr = " \t\v\f\r\n  -+2+--cbacbacba";
 	bf = "abc";
 	bt = "cba";
 	ptr = ft_convert_base(nbr, bf, bt);
