@@ -10,9 +10,9 @@ int	main(void)
 	char	*bt;
 	char	*ptr;
 
-	nbr = " \t\v\f\r\n  -+2+--cbacbacba";
-	bf = "abc";
-	bt = "cba";
+	nbr = " \t\v\f\r\n  -++--#%%%@%#$";
+	bf = "!@#$%";
+	bt = "gtaio_luSnemf";
 	ptr = ft_convert_base(nbr, bf, bt);
 	printf("%s\n", ptr);
 	free(ptr);
