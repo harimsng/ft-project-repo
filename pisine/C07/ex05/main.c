@@ -19,5 +19,6 @@ int	main(int argc, char **argv)
 		free(*str_arr);
 		++str_arr;
 	}
+//	free(str_arr);
 	return (0);
 }
