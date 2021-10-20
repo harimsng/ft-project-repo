@@ -6,12 +6,10 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 15:10:14 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/20 14:00:01 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/20 16:25:26 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdio.h>
 int		base_validity(char *base);
 int		str_check(char *str, char *base_from);
 int		str_decode(char *nbr, char *base_from, int bf_len, int str_len);

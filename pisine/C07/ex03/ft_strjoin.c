@@ -9,7 +9,7 @@ char	*ft_strjoin(int size, char **strs, char *sep)
 {
 	char	*ret;
 
-	if (initialize(size, strs, sep, &ret) == 1)
+	if (initialize(size, strs, sep, &ret))
 		return (ret);
 	transfer(size, strs, sep, ret);
 	return (ret);
@@ -45,7 +45,7 @@ int	ft_mystrlen(char *str)
 {
 	int		len;
 
-	if (str == (void *)0)
+	if (str == 0)
 		return (0);
 	len = 0;
 	while (str[len] != 0)
