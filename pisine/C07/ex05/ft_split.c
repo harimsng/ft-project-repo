@@ -45,7 +45,7 @@ int	find_next_thing(char **str, char *charset, int select)
 }
 
 // if ret is not given, it returns the size of the array for malloc.
-// then it is given so that ret becomes array of strings(array of char pointers).
+// then it is given so that ret becomes array of strings(array of pointers).
 // str_len has room for null
 int	get_len_alloc(char *str, char *charset, char **ret)
 {

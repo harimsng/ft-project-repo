@@ -28,7 +28,7 @@ int	ft_strslen(int size, char **strs)
 		if (strs[idx] == 0)
 		{
 			++idx;
-			continue;
+			continue ;
 		}
 		jdx = 0;
 		while (strs[idx][jdx] != 0)
@@ -53,7 +53,7 @@ int	ft_mystrlen(char *str)
 	return (len);
 }
 
-int initialize(int size, char **strs, char *sep, char **ret)
+int	initialize(int size, char **strs, char *sep, char **ret)
 {
 	int		len;
 	int		seplen;
@@ -65,7 +65,7 @@ int initialize(int size, char **strs, char *sep, char **ret)
 		return (1);
 	}
 	seplen = ft_mystrlen(sep);
-	len = ft_strslen(size, strs); 
+	len = ft_strslen(size, strs);
 	*ret = (char *)malloc(sizeof(char) * (len + seplen * (size - 1) + 1));
 	return (0);
 }
@@ -86,7 +86,7 @@ void	transfer(int size, char **strs, char *sep, char *ret)
 		while (jdx < str_len)
 			*(ret++) = strs[idx][jdx++];
 		if (idx == size - 1)
-			break;
+			break ;
 		jdx = 0;
 		while (jdx < sep_len)
 			*(ret++) = sep[jdx++];

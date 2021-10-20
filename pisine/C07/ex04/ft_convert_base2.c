@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 15:10:21 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/19 15:50:13 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/20 14:00:19 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,6 @@ char	*zeroinput(char *base_to)
 	char	*ret;
 
 	ret = (char *)malloc(sizeof(char));
-	*ret = base_to[0];	
+	*ret = base_to[0];
 	return (ret);
 }

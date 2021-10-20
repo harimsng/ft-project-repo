@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 15:10:14 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/19 15:46:07 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/20 14:00:01 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,10 @@ int	str_decode(char *nbr, char *base_from, int bf_len, int str_len)
 			break ;
 		++num;
 	}
-	
 	return (num + bf_len * str_decode(nbr - 1, base_from, bf_len, str_len - 1));
 }
 
-int str_check(char *str, char *base_from)
+int	str_check(char *str, char *base_from)
 {
 	int		ret;
 	int		idx;
