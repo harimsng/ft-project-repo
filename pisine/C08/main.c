@@ -28,8 +28,7 @@ int	main(int argc, char **argv)
 		free((ptr + idx)->copy);
 		++idx;
 	}
-
-	printf("%p\n", (ptr + idx)->copy);
+	printf("%p\n", (ptr + idx)->str);
 	free((ptr + idx)->copy);
 	printf("%p\n", ptr);
 	free(ptr);
