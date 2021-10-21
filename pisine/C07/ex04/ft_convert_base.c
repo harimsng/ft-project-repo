@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 15:10:14 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/21 12:24:57 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/21 16:13:46 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ int	base_validity(char *base)
 		++base;
 		++len;
 	}
+	if (len < 2)
+		return (1);
 	return (len);
 }
 

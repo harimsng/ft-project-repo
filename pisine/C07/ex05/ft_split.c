@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 16:24:57 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/21 10:10:33 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/21 16:25:01 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,11 @@ int	find_next_thing(char **str, char *charset, int select)
 		idx = 0;
 		while (*ptr != charset[idx] && charset[idx])
 			++idx;
-		++len;
 		if ((charset[idx] != 0) == select)
 			break ;
+		++len;
 		++ptr;
 	}
-	if (!(*ptr))
-		return (0);
 	*str = ptr;
 	return (len);
 }
@@ -67,15 +65,12 @@ int	get_len_alloc(char *str, char *charset, char **ret)
 	arr_len = 0;
 	while (*str)
 	{
-		if (!find_next_thing(&str, charset, 1))
-			break ;
-		if (!find_next_thing(&str, charset, 0))
+		find_next_thing(&str, charset, 0);
+		if (!(*str))
 			break ;
 		str_len = find_next_thing(&str, charset, 1);
-		if (!str_len)
-			break ;
 		if (ret)
-			ret[arr_len] = (char *)malloc(sizeof(char) * (str_len));
+			ret[arr_len] = (char *)malloc(sizeof(char) * (str_len + 1));
 		++arr_len;
 	}
 	if (ret)
@@ -91,10 +86,9 @@ void	assign_elements(char *str, char *charset, char **ret)
 
 	while (*ret != 0)
 	{
-		find_next_thing(&str, charset, 1);
 		find_next_thing(&str, charset, 0);
 		assign = str;
-		str_len = find_next_thing(&str, charset, 1) - 1;
+		str_len = find_next_thing(&str, charset, 1);
 		idx = 0;
 		while (idx < str_len)
 			(*ret)[idx++] = *(assign++);
