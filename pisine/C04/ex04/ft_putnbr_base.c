@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 19:21:51 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/18 15:05:50 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/21 12:27:27 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	base_validity(char *base)
 		if (repeat[*base - 32])
 			return (1);
 		else if (*base == '+' || *base == '-')
+			return (1);
+		else if (*base < 32 || *base == 127)
 			return (1);
 		repeat[*base - 32] = 1;
 		++base;

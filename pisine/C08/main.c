@@ -10,14 +10,13 @@ void		*ft_print_memory(void *addr, unsigned int size);
 
 int	main(int argc, char **argv)
 {
-	t_stock_str		*ptr;
-	int				idx;
-
 	if (argc == 1)
 		return (0);
-	ptr = ft_strs_to_tab(argc - 1, argv + 1);	
-	ft_print_memory(ptr, 161);
-	ft_print_memory(ptr->str, 161);
+	t_stock_str		*ptr = ft_strs_to_tab(argc - 1, argv + 1);	
+	int				idx;
+
+//	ft_print_memory(ptr, 161);
+//	ft_print_memory(ptr->str, 161);
 	ft_show_tab(ptr);
 	printf("free starts\n");
 	printf("ptr = %p\n", ptr);
@@ -28,9 +27,8 @@ int	main(int argc, char **argv)
 		free((ptr + idx)->copy);
 		++idx;
 	}
-	printf("%p\n", (ptr + idx)->str);
-	free((ptr + idx)->copy);
-	printf("%p\n", ptr);
+	printf("null %p\n", (ptr + idx)->str);
+	printf("ptr = %p\n", ptr);
 	free(ptr);
 	return (0);
 }

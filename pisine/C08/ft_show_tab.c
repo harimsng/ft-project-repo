@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 17:21:45 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/20 17:46:44 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/21 13:22:51 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	ft_show_tab(t_stock_str *par)
 		return ;
 	while (par->str)
 	{
-		ft_putstr("test\n");
 		ft_putstr(par->str);
 		write(1, "\n", 1);
 		ft_putnbr(par->size);

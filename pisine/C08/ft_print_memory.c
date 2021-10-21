@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:19:57 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/15 00:40:58 by harimseong       ###   ########.kr       */
+/*   Updated: 2021/10/21 09:15:08 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	print_hexcontent(void *addr, int len)
 	idx = 0;
 	while (idx < len)
 	{
-		print_hex(*ptr >> 4);
+		print_hex(*ptr & 240);
 		print_hex(*ptr & 15);
 		if (idx % 2 == 1)
 			write(1, " ", 1);
