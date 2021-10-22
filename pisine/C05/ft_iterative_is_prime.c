@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 22:33:53 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/13 22:33:54 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/21 19:48:11 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_is_prime(int nb)
 	if (nb % 2 == 0 || nb < 2)
 		return (0);
 	denom = 3;
-	while (denom <= 46341)
+	while (denom * denom <= nb)
 	{
 		if (nb % denom == 0)
 			return (0);

@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 15:10:14 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/20 16:25:26 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/21 16:13:46 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
 	int		str_len;
 	int		num;
 
-	if (nbr == (void *)0 || base_from == (void *)0 || base_to == (void *)0)
-		return ((void *)0);
+	if (nbr == 0 || base_from == 0 || base_to == 0)
+		return (0);
 	while ((*nbr > 8 && *nbr < 14) || *nbr == 32)
 		++nbr;
 	nsign = 0;
@@ -33,7 +33,7 @@ char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
 	bf_len = base_validity(base_from);
 	bt_len = base_validity(base_to);
 	if (bf_len == 1 || bt_len == 1)
-		return ((void *)0);
+		return (0);
 	str_len = str_check(nbr, base_from);
 	num = str_decode(nbr + str_len - 1, base_from, bf_len, str_len);
 	return (str_encode(num, base_to, bt_len, nsign % 2));
@@ -51,7 +51,11 @@ int	base_validity(char *base)
 		table[idx++] = 0;
 	while (*base)
 	{
-		if (*base == '-' || *base == '+' || *base == ' ')
+		if (*base == '-' || *base == '+')
+			return (1);
+		else if (*base == 32 || (*base > 8 && *base < 14))
+			return (1);
+		else if (*base < 32 || *base == 127)
 			return (1);
 		else if (table[*base - 32])
 			return (1);
@@ -59,6 +63,8 @@ int	base_validity(char *base)
 		++base;
 		++len;
 	}
+	if (len < 2)
+		return (1);
 	return (len);
 }
 

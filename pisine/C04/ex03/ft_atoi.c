@@ -6,11 +6,11 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 19:21:44 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/18 15:10:07 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/21 11:51:24 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	edge_check(char *str);
+int	edge_check(char *str, int nsign);
 
 int	ft_atoi(char *str)
 {
@@ -26,7 +26,7 @@ int	ft_atoi(char *str)
 		++str;
 	}
 	ret = 0;
-	if (edge_check(str))
+	if (edge_check(str, nsign))
 		return (-2147483648);
 	while (*str >= 48 && *str < 58)
 	{
@@ -39,7 +39,7 @@ int	ft_atoi(char *str)
 	return (ret);
 }
 
-int	edge_check(char *str)
+int	edge_check(char *str, int nsign)
 {
 	int		idx;
 	char	*int_min;
@@ -48,7 +48,7 @@ int	edge_check(char *str)
 	int_min = "2147483648";
 	while (idx < 10 && str[idx] == int_min[idx])
 		++idx;
-	if (idx == 10)
+	if (idx == 10 && str[idx] < '0' && str[idx] > '9' && nsign % 2)
 		return (1);
 	return (0);
 }

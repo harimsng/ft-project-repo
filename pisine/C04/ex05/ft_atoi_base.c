@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 19:21:54 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/18 23:15:32 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/21 12:27:49 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@ int		str_decode(char *str, char *base, int baselen, int strlen);
 int		strlen_base(char *str, char *base);
 int		ret_check(int *num, int nsign);
 
+// loop is better?
 int	ft_atoi_base(char *str, char *base)
 {
 	int		baselen;
@@ -53,7 +54,11 @@ int	base_validity(char *base)
 	{
 		if (repeat[*base - 32])
 			return (1);
-		else if (*base == '+' || *base == '-' || *base == ' ')
+		else if (*base == '+' || *base == '-') 
+			return (1);
+		else if (*base == 32 || (*base >= 9 && *base <= 13))
+			return (1);
+		else if (*base < 32 || *base == 127)
 			return (1);
 		repeat[*base - 32] = 1;
 		++base;
