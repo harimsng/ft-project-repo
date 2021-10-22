@@ -21,7 +21,7 @@ all: $(TARGET)
 $(TARGET): $(OBJ_FILES)
 	ar rc $@ $(OBJ_FILES)
 
-$(OBJ_FILES): %.o : %.c 
+$(OBJ_FILES): %.o : %.c $(HDR_FILES) 
 	$(CC) $(CFLAGS) $< -c -o $@
 
 clean:

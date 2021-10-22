@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/22 20:15:54 by hseong            #+#    #+#             */
+/*   Updated: 2021/10/22 20:15:55 by hseong           ###   ########.kr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdlib.h>
 
 char	*find_next(int (*thing)(char, char *), char *str, char *charset);
@@ -18,7 +30,7 @@ char	**ft_split(char *str, char *charset)
 	{
 		temp = find_next(find_word, temp, charset);
 		if (!*temp)
-			break;
+			break ;
 		temp = find_next(find_delim, temp, charset);
 		++arr_len;
 	}
@@ -31,7 +43,7 @@ char	**ft_split(char *str, char *charset)
 		str = find_next(find_delim, temp, charset);
 		ret[idx++] = ft_strndup(temp, (unsigned int)(str - temp));
 	}
-	return (ret); 
+	return (ret);
 }
 
 char	*ft_strndup(char *str, unsigned int size)

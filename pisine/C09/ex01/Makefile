@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/10/22 21:53:35 by hseong            #+#    #+#              #
+#    Updated: 2021/10/22 21:53:38 by hseong           ###   ########.kr        #
+#                                                                              #
+# **************************************************************************** #
+
 CC=gcc
 CFLAGS=-Wall -Wextra -Werror
 
@@ -21,7 +33,7 @@ all: $(TARGET)
 $(TARGET): $(OBJ_FILES)
 	ar rc $@ $(OBJ_FILES)
 
-$(OBJ_FILES): %.o : %.c 
+$(OBJ_FILES): %.o : %.c $(HDR_FILES) 
 	$(CC) $(CFLAGS) $< -c -o $@
 
 clean:
