@@ -6,32 +6,29 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 17:41:10 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/23 20:25:50 by hseong           ###   ########.kr       */
+/*   Updated: 2021/10/23 23:21:07 by hseong           ###   ########.kr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft.h"
 #include "../includes/ft_dict.h"
 
-int		parser(char *filename, t_dict **arr, int *arr_len);
-void	error_detect(int num);
+void	translate(char *num);
+int		parser(const char *filename, t_dict **arr, int *arr_len);
+int		error_detect(int num);
+int		arg_check(int argc, char **argv);
+
+static const char	*filename = "numbers.dict";
 
 int	main(int argc, char **argv)
 {
-	char		*filename;
 	t_dict		*arr;
 	int			arr_len;
 	int			idx;
 
-	filename = "numbers.dict";
-	if (argc == 1 || argc > 3)
-	{
-		ft_putstr("Error\n");
+	if (arg_check(argc, argv)
+			|| error_detect(parser(filename, &arr, &arr_len)))
 		return (0);
-	}
-	else if (argc == 3)
-		filename = argv[1];
-	error_detect(parser(filename, &arr, &arr_len));
 	idx = 0;
 	while (idx < arr_len)
 	{
@@ -42,14 +39,37 @@ int	main(int argc, char **argv)
 		ft_putstr("\n");
 		++idx;
 	}
-	//free each arr.value and arr
+	//translate(argv[argc - 1]);
+	idx = 0;
+	while (idx < arr_len)
+		free(arr[idx++].value);
+	free(arr);
 	return (0);
 }
 
-void	error_detect(int num)
+int	arg_check(int argc, char **argv)
+{
+	if (argc == 1 || argc > 3 || ft_atou(argv[argc - 1]) == -1)
+	{
+		ft_putstr("Error\n");
+		return (1);
+	}
+	else if (argc == 3)
+		filename = argv[1];
+	return (0);	
+}
+
+int	error_detect(int num)
 {
 	if (num == -1)
+	{
 		ft_putstr("Dict Error\n");
+		return (1);
+	}
 	else if (num == -2)
+	{
 		ft_putstr("Malloc Error\n");
+		return (1);
+	}
+	return (0);
 }
