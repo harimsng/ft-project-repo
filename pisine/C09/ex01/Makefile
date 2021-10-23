@@ -6,7 +6,7 @@
 #    By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/22 21:53:35 by hseong            #+#    #+#              #
-#    Updated: 2021/10/22 21:53:38 by hseong           ###   ########.kr        #
+#    Updated: 2021/10/22 22:21:26 by hseong           ###   ########.kr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,9 +37,9 @@ $(OBJ_FILES): %.o : %.c $(HDR_FILES)
 	$(CC) $(CFLAGS) $< -c -o $@
 
 clean:
-	rm $(OBJ_FILES) 
+	rm -f $(OBJ_FILES) 
 
 fclean: clean
-	rm $(TARGET)
+	rm -f $(TARGET)
 
 re: fclean all
