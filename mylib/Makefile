@@ -25,9 +25,9 @@ $(OBJ_FILES): %.o : %.c $(HDR_FILES)
 	$(CC) $(CFLAGS) $< -c -o $@
 
 clean:
-	rm $(OBJ_FILES) 
+	rm -f $(OBJ_FILES) 
 
 fclean: clean
-	rm $(TARGET)
+	rm -f $(TARGET)
 
 re: fclean all
