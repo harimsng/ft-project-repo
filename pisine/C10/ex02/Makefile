@@ -4,7 +4,7 @@ CFLAGS=-Wall -Wextra -Werror
 NAME=ft_tail
 
 SRC_DIR=srcs
-SRCS=ft_tail.c
+SRCS=ft_tail.c ft_putstr.c ft_puterr.c
 SRC_FILES=$(SRCS:%=$(SRC_DIR)/%)
 OBJS=$(SRCS:%.c=%.o)
 OBJ_FILES=$(OBJS:%=$(SRC_DIR)/%)

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_cat.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/25 17:24:12 by hseong            #+#    #+#             */
+/*   Updated: 2021/10/25 17:26:22 by hseong           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/ft.h"
 
-#define	BUF_LEN		30000
+#define BUF_LEN 30000
 
 void	print_file(int fd);
 int		get_files(char **argv);
@@ -20,8 +32,12 @@ void	print_file(int fd)
 	char		buf[BUF_LEN + 1];
 	int			read_size;
 
-	while ((read_size = read(fd, buf, BUF_LEN)) > 0)
+	read_size = read(fd, buf, BUF_LEN);
+	while (read_size > 0)
+	{
 		write(1, buf, read_size);
+		read_size = read(fd, buf, BUF_LEN);
+	}
 	if (read_size < 0)
 		error_check(read_size, 0);
 }
@@ -36,7 +52,8 @@ int	get_files(char **argv)
 			print_file(0);
 		else
 		{
-			if ((fd = open(*argv, O_RDONLY)) < 0)
+			fd = open(*argv, O_RDONLY);
+			if (fd < 0)
 				error_check(1, *argv);
 			else
 				print_file(fd);
