@@ -14,11 +14,13 @@ int	main(void)
 	while (idx < LEN)
 	{
 		arr[idx] = idx;
-		printf("%d ", arr[idx]);
 		++idx;
 	}
+	idx = 0;
 	arr[5] = 0;
-	printf("\nis it sorted? (1 or 0)%d\n", ft_is_sort(arr, LEN, ft_intcmp));
+	while (idx < LEN)
+		printf("%d ", arr[idx++]);
+	printf("\nis it sorted? (1 or 0) : %d\n", ft_is_sort(arr, LEN, ft_intcmp));
 	return (0);
 
 }
