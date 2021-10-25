@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:24:20 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/25 22:31:58 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/25 22:56:04 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 // 									...
 //
 // 									==> test2 <==
+// No such file or directory	ex) $> tail -c 5 nonexist
 
 int	main(int argc, char **argv)
 {
