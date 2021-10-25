@@ -4,7 +4,7 @@ CFLAGS=-Wall -Wextra -Werror
 NAME=do-op
 
 SRC_DIR=srcs
-SRCS=do-op.c
+SRCS=main.c ft_atol.c ft_ltoa.c ft_putstr.c ft_op.c
 SRC_FILES=$(SRCS:%=$(SRC_DIR)/%)
 OBJS=$(SRCS:%.c=%.o)
 OBJ_FILES=$(OBJS:%=$(SRC_DIR)/%)

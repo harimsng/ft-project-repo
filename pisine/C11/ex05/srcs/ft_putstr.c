@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft.h                                               :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/25 20:31:41 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/25 20:46:07 by hseong           ###   ########.fr       */
+/*   Created: 2021/10/25 21:24:26 by hseong            #+#    #+#             */
+/*   Updated: 2021/10/25 21:24:26 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_H
-# define FT_H
+#include <unistd.h>
 
-# include <unistd.h>
-
-long long		ft_atol(char *str);
-char			*ft_ltoa(long long num);
-void			ft_putstr(char *str);
-
-#endif
+void	ft_putstr(char *str)
+{
+	while (*str)
+		write(1, str++, 1);
+}
