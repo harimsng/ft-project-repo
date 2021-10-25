@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:24:12 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/25 17:26:22 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/25 22:42:40 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 #define BUF_LEN 30000
 
-void	print_file(int fd);
+int		print_file(int fd);
 int		get_files(char **argv);
 void	error_check(int num, char *str);
 
 int	main(int argc, char **argv)
 {
 	if (argc == 1)
-		print_file(0);
+		error_check(print_file(0), 0);
 	else
 		get_files(argv + 1);
 	return (0);
 }
 
-void	print_file(int fd)
+int	print_file(int fd)
 {
 	char		buf[BUF_LEN + 1];
 	int			read_size;
@@ -39,7 +39,8 @@ void	print_file(int fd)
 		read_size = read(fd, buf, BUF_LEN);
 	}
 	if (read_size < 0)
-		error_check(read_size, 0);
+		return (1);
+	return (0);
 }
 
 int	get_files(char **argv)
@@ -53,10 +54,8 @@ int	get_files(char **argv)
 		else
 		{
 			fd = open(*argv, O_RDONLY);
-			if (fd < 0)
+			if (fd < 0 || print_file(fd))
 				error_check(1, *argv);
-			else
-				print_file(fd);
 		}
 		++argv;
 	}
@@ -67,7 +66,7 @@ void	error_check(int num, char *str)
 {
 	if (num == 0)
 		return ;
-	if (str && *str)
+	if (str)
 	{
 		ft_puterr(str);
 		ft_puterr(": ");

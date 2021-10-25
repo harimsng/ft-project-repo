@@ -6,15 +6,25 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:24:20 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/25 17:24:27 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/25 22:31:58 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft.h"
 
-int	main(void)
+// option requires an argument	ex) $> tail -c
+// illegal offset				ex) $> tail -c a
+// standard input				ex) $> tail -c 5
+// multiple input				ex) $> tail -c 3 test test2
+// 									==> test <==
+// 									...
+//
+// 									==> test2 <==
+
+int	main(int argc, char **argv)
 {
-	
+	if (srgc < 3)
+		return (0);
 
 	return (0);
 }
