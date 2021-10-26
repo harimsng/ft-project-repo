@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:24:12 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/25 22:42:40 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/27 00:51:02 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 #define BUF_LEN 30000
 
-int		print_file(int fd);
-int		get_files(char **argv);
-void	error_check(int num, char *str);
+static const char	*prog_name = "cat: ";
+
+int					print_file(int fd);
+int					get_files(char **argv);
+void				error_check(int num, char *str);
 
 int	main(int argc, char **argv)
 {
@@ -66,6 +68,7 @@ void	error_check(int num, char *str)
 {
 	if (num == 0)
 		return ;
+	ft_puterr(prog_name);
 	if (str)
 	{
 		ft_puterr(str);

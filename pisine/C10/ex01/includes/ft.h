@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:26:42 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/25 17:26:44 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/27 00:52:22 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,6 @@
 # include <string.h>
 
 void	ft_putstr(char *str);
-void	ft_puterr(char *str);
+void	ft_puterr(const char *str);
 
 #endif

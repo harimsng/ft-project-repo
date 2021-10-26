@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:24:20 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/27 01:56:28 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/27 02:03:20 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 // multiple input				ex) $> tail -c 3 test test2
 // 									==> test <==
 // 									...
-//
+//									(newline)
 // 									==> test2 <==
 // No such file or directory	ex) $> tail -c 5 nonexist
 
@@ -119,6 +119,8 @@ void	print_files(int fd, int buf_size)
 
 void	error_msg(char *str)
 {
+	if (errno == EISDIR)
+		return ;
 	ft_puterr(prog_name);
 	if (str)
 	{
