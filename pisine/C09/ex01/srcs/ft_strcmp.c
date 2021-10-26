@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar.c                                       :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/22 21:53:51 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/26 13:14:55 by hseong           ###   ########.fr       */
+/*   Created: 2021/10/22 21:54:00 by hseong            #+#    #+#             */
+/*   Updated: 2021/10/22 21:54:01 by hseong           ###   ########.kr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft.h"
-#include <unistd.h>
-
-void	ft_putchar(char c)
+int	ft_strcmp(char *s1, char *s2)
 {
-	write(1, &c, 1);
+	while (*s1 == *s2 && *s1 && *s2)
+	{
+		++s1;
+		++s2;
+	}
+	return ((unsigned char)*s1 - (unsigned char)*s2);
 }

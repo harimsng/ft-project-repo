@@ -5,15 +5,26 @@ char	*ft_strncpy(char *dest, char *src, unsigned int n);
 
 int	main(void)
 {
-	char	str[10];
-	char	*dest;
+	char	dest1[10] = {'0',};
+	char	dest2[10] = {'0',};
 	char	*src;
 	int		len;
 
-	dest = str;
-	src = "123091293";
+	src = "12393";
 	len = 5;
-	ft_strncpy(dest, src, len);
-	dest = str;
+	printf("%s\n", strncpy(dest1, src, len));
+	printf("%s\n", ft_strncpy(dest2, src, len));
+	src = "12393";
+	len = 10;
+	printf("%s\n", strncpy(dest1, src, len));
+	printf("%s\n", ft_strncpy(dest2, src, len));
+	src = "12393";
+	len = 2;
+	printf("%s\n", strncpy(dest1, src, len));
+	printf("%s\n", ft_strncpy(dest2, src, len));
+	src = "12393";
+	len = 8;
+	printf("%s\n", strncpy(dest1, src, len));
+	printf("%s\n", ft_strncpy(dest2, src, len));
 	return (0);
 }

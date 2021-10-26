@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar.c                                       :+:      :+:    :+:   */
+/*   ft_swap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/22 21:53:51 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/26 13:14:55 by hseong           ###   ########.fr       */
+/*   Created: 2021/10/22 21:54:04 by hseong            #+#    #+#             */
+/*   Updated: 2021/10/22 21:54:06 by hseong           ###   ########.kr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft.h"
-#include <unistd.h>
-
-void	ft_putchar(char c)
+void	ft_swap(int *a, int *b)
 {
-	write(1, &c, 1);
+	int		temp;
+
+	temp = *a;
+	*a = *b;
+	*b = temp;
 }

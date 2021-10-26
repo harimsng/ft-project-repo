@@ -1,31 +1,24 @@
+NAME=libft.a
+
 CC=gcc
 CFLAGS=-Wall -Wextra -Werror
 
-NAME=libft.a
-
-SRC_DIR=srcs
-SRCS=ft_putchar.c ft_putstr.c ft_strcmp.c ft_swap.c ft_strlen.c
-SRC_FILES=$(SRCS:%=$(SRC_DIR)/%)
+SRCS=srcs/ft_putchar.c srcs/ft_swap.c srcs/ft_putstr.c srcs/ft_strlen.c srcs/ft_strcmp.c
 OBJS=$(SRCS:%.c=%.o)
-OBJ_FILES=$(OBJS:%.o=$(SRC_DIR)/%.o)
 
 HDR_DIR=includes
-HDR=ft.h
-HDR_FILES:=$(HDR:%=$(HDR_DIR)/%)
+HDR=includes/ft.h
 
 all: $(NAME)
 
-$(NAME): $(OBJ_FILES)
-	ar rc $@ $(OBJ_FILES)
+$(NAME): $(OBJS)
+	ar rcs $@ $^
 
-$(OBJ_FILES): %.o: %.c $(HDR_FILES) 
-	$(CC) $(CFLAGS) $< -c -o $@
-
-$(OBJS): %.o: $(SRC_DIR)/%.c
-	$(CC) $(CFLAGS) $< -c -o $(SRC_DIR)/$@
+$(OBJS): srcs/%.o: srcs/%.c
+	$(CC) $(CFLAGS) -c -o $@ $< -I $(HDR_DIR)
 
 clean:
-	rm -f $(OBJ_FILES) 
+	rm -f $(OBJS)
 
 fclean: clean
 	rm -f $(NAME)
@@ -33,3 +26,4 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
+

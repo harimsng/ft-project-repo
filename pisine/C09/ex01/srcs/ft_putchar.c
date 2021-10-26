@@ -6,11 +6,10 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 21:53:51 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/26 13:14:55 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/26 13:49:30 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft.h"
 #include <unistd.h>
 
 void	ft_putchar(char c)

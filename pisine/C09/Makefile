@@ -16,13 +16,10 @@ HDR_FILES:=$(HDR:%=$(HDR_DIR)/%)
 all: $(NAME)
 
 $(NAME): $(OBJ_FILES)
-	ar rc $@ $(OBJ_FILES)
+	ar rcs $@ $(OBJ_FILES)
 
-$(OBJ_FILES): %.o: %.c $(HDR_FILES) 
-	$(CC) $(CFLAGS) $< -c -o $@
-
-$(OBJS): %.o: $(SRC_DIR)/%.c
-	$(CC) $(CFLAGS) $< -c -o $(SRC_DIR)/$@
+%.o: %.c
+	$(CC) $(CFLAGS) $< -c -o $@ -I./includes
 
 clean:
 	rm -f $(OBJ_FILES) 
