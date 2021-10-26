@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:26:48 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/26 18:58:01 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/27 01:40:22 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,13 @@
 # include <string.h>
 # include <libgen.h>
 
-void	ft_putstr(char *str);
-void	ft_puterr(char *str);
-int		ft_stoi(char *str);
-char	*ft_strdup(char *src);
-void	ft_strcpy(char *src, char *dest);
+void			ft_putstr(char *str);
+void			ft_puterr(const char *str);
+int				ft_stoi(char *str);
+char			*ft_strdup(char *src);
+void			ft_strcpy(char *src, char *dest);
+unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size); 
+int				ft_str_is_numeric(char *str);
+int				ft_strlen(char *str);
 
 #endif

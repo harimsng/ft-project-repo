@@ -1,4 +1,4 @@
-int	s_atoi(char *str)
+int	ft_stoi(char *str)
 {
 	int		ret;
 

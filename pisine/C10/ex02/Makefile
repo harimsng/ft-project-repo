@@ -4,7 +4,8 @@ CFLAGS=-Wall -Wextra -Werror
 NAME=ft_tail
 
 SRC_DIR=srcs
-SRCS=ft_tail.c ft_putstr.c ft_puterr.c
+SRCS=ft_tail.c ft_putstr.c ft_puterr.c ft_stoi.c ft_str_is_numeric.c\
+	 ft_strlcpy.c
 SRC_FILES=$(SRCS:%=$(SRC_DIR)/%)
 OBJS=$(SRCS:%.c=%.o)
 OBJ_FILES=$(OBJS:%=$(SRC_DIR)/%)
@@ -18,11 +19,8 @@ all: $(NAME)
 $(NAME): $(OBJ_FILES)
 	$(CC) $(CFLAGS) -o $@ $^
 
-$(OBJ_FILES): %.o: %.c $(HDR_FILES)
-	$(CC) $(CFLAGS) -c -o $@ $<
-
-$(OBJS): %.o: $(SRC_DIR)/%.c $(HDR_FILES)
-	$(CC) $(CFLAGS) -c -o $(SRC_DIR)/$@ $<
+$(OBJ_FILES): %.o: %.c
+	$(CC) $(CFLAGS) -c -o $@ $< -I $(HDR_DIR)
 
 .PHONY: all clean fclean re
 
