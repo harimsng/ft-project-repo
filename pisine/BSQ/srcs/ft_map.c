@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 18:43:44 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/28 02:35:38 by hseong           ###   ########.kr       */
+/*   Updated: 2021/10/28 03:09:48 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	get_mapdata(int fd, t_map *data)
 {
 	t_uc		buf[4];
 	int			read_size;
-	
+
 	read_size = read(fd, buf, 1);
 	while (read_size > 0 && *buf >= '0' && *buf <= '9')
 	{
@@ -72,22 +72,22 @@ int	data_check(t_uc *str)
 	else if (str[0] < 32 || str[0] == 127 || str[1] < 32 || str[1] == 127
 		|| str[2] < 32 || str[2] == 127)
 		return (1);
-	return(0);
+	return (0);
 }
 
 int	read_map(int fd, t_map *data, int num_line, int idx)
 {
 	t_uc			*buf;
 	int				read_size;
-	
+
 	buf = (t_uc *)malloc(sizeof(t_uc) * data->width + 1);
 	read_size = data->width + 1;
 	while (read_size == data->width + 1 && ++num_line < data->lines)
 	{
 		idx = -1;
 		read_size = read(fd, buf, data->width + 1);
-		if ((read_size < 0 && ft_free(buf)) || 
-			(ft_strcheck(buf, data->width) && ft_free(buf)))
+		if ((read_size < 0 && ft_free(buf))
+			|| (ft_strcheck(buf, data->width) && ft_free(buf)))
 			break ;
 		while (++idx < data->width)
 		{
@@ -98,7 +98,7 @@ int	read_map(int fd, t_map *data, int num_line, int idx)
 				return (1);
 		}
 	}
-	if((num_line != data->lines && ft_free(buf))
+	if ((num_line != data->lines && ft_free(buf))
 		|| (read(fd, buf, 1) > 0 && ft_free(buf)) || !ft_free(buf))
 		return (1);
 	return (0);
@@ -110,7 +110,7 @@ int	get_width(int fd, t_map *data)
 	t_uc				*first_line;
 	t_uc				buf;
 	int					read_size;
-	
+
 	first_line = malloc(sizeof(t_uc) * 1000);
 	read_size = read(fd, &buf, 1);
 	while (read_size > 0 && buf && buf != '\n')

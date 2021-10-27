@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_solve.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/28 03:04:53 by hseong            #+#    #+#             */
+/*   Updated: 2021/10/28 03:08:45 by hseong           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/ft.h"
 
 t_uc	three_min(t_uc a, t_uc b, t_uc c);
@@ -9,17 +21,17 @@ void	ft_solve(t_map *data, int pos)
 	int			jdx;
 
 	edge_solve(data);
-	idx = 1;
-	while (idx < data->lines)
+	idx = 0;
+	while (++idx < data->lines)
 	{
-		jdx = 1;
-		while (jdx < data->width)
+		jdx = 0;
+		while (++jdx < data->width)
 		{
 			pos = idx * data->width + jdx;
 			if (data->map[pos])
 			{
 				data->map[pos] += three_min(data->map[pos - data->width],
-					   data->map[pos - data->width - 1], data->map[pos - 1]);
+						data->map[pos - data->width - 1], data->map[pos - 1]);
 				if ((t_uc)data->map[pos] > (t_uc)data->len)
 				{
 					data->len = data->map[pos];
@@ -27,11 +39,7 @@ void	ft_solve(t_map *data, int pos)
 					data->y = idx;
 				}
 			}
-			ft_putnbr(data->map[pos]);
-			++jdx;
 		}
-		++idx;
-		ft_putchar('\n');
 	}
 }
 
@@ -67,5 +75,5 @@ void	edge_solve(t_map *data)
 t_uc	three_min(t_uc a, t_uc b, t_uc c)
 {
 	return (a * (a <= c && a < b) + b * (b < c && b <= a)
-			+ c * (c < a && c <= b) + a * (a == b && b == c));
+		+ c * (c < a && c <= b) + a * (a == b && b == c));
 }
