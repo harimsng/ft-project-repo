@@ -1,17 +1,19 @@
 #ifndef FT_MAPDATA_H
 # define FT_MAPDATA_H
 
-# define MAX_WIDTH 128
+typedef unsigned char	t_uc;
 
-// 1 <= row, col < 1280
 typedef struct
 {
-	unsigned int		lines;
-	unsigned int		width;
+	int					lines;
+	int					width;
 	char				empty;
 	char				obs;
 	char				full;
-	unsigned long long	(*pos)[MAX_WIDTH >> 6];
+	t_uc				*map;
+	int					x;
+	int					y;
+	int					len;
 }	t_map;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 18:43:42 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/27 22:08:26 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/28 02:17:56 by hseong           ###   ########.kr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,48 +14,61 @@
 
 # include <stdio.h>
 
-t_map	*ft_map(char *filename);
+void	ft_mapprint(t_map *data);
 
 int	main(int argc, char **argv)
 {
 	t_map			*data;
-	unsigned int	idx;
-	unsigned int	jdx;
 
-	if (argc < 2)
+	if (argc == 1)
+	{
+		data = ft_map(0);
+		if (!data && ft_puterr("map error\n"))
+			return (0);
+		ft_solve(data, 0);
+		ft_mapprint(data);
 		return (0);
-	printf("main1\n");
-	data = ft_map(argv[1]);
-	printf("main2\n");
-	printf("%u\n", data->lines);
-	printf("%u\n", data->width);
-	printf("%c\n", data->empty);
-	printf("%c\n", data->obs);
-	printf("%c\n", data->full);
+	}
+	++argv;
+	while (*argv)
+	{
+		data = ft_map(*argv++);
+		if (!data && ft_puterr("map error\n"))
+			continue ;
+		ft_solve(data, 0);
+		ft_mapprint(data);
+	}
+	return (0);
+}
+
+void	ft_mapprint(t_map *data)
+{
+	int			idx;
+	int			jdx;
+
+	ft_putnbr(data->x);
+	ft_putchar('\n');
+	ft_putnbr(data->y);
+	ft_putchar('\n');
+	ft_putnbr(data->len);
+	ft_putchar('\n');
+
 	idx = 0;
 	while (idx < data->lines)
 	{
 		jdx = 0;
-		printf("%llu\n", data->pos[idx][0]);
-		printf("%llu\n", data->pos[idx][1]);
 		while (jdx < data->width)
 		{
-			printf("%d ", 0 != ((1 << jdx) & ((data->pos)[idx][jdx >> 6])));
+			if (!data->map[data->width * idx + jdx])
+				ft_putchar(data->obs);
+			else if (idx > data->y - data->len && idx <= data->y 
+					&& jdx > data->x - data->len && jdx <= data->x)
+				ft_putchar(data->full);
+			else
+				ft_putchar(data->empty);
 			++jdx;
 		}
-		printf("\n");
+		ft_putchar('\n');
 		++idx;
 	}
-/*
-	if (argc == 1)
-		ft_map(0);
-	else
-	{
-		while (*argv)
-		{
-
-		}
-
-*/	
-	return (0);
 }

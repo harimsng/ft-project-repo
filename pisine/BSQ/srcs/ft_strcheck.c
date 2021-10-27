@@ -1,6 +1,6 @@
-int	ft_strcheck(char *str, unsigned int size)
+int	ft_strcheck(unsigned char *str, int size)
 {
-	unsigned int	len;
+	int	len;
 
 	len = 0;
 	while (str[len] && str[len] != '\n' && len < size)

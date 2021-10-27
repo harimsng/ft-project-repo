@@ -6,42 +6,34 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 18:43:44 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/27 22:16:10 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/28 02:35:38 by hseong           ###   ########.kr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft.h"
 
-int	read_map(int fd, t_map *data, unsigned int num_line);
+int	read_map(int fd, t_map *data, int num_line, int idx);
 int	get_mapdata(int fd, t_map *data);
 int	get_width(int fd, t_map *data);
-int	data_check(char *str);
+int	data_check(t_uc *str);
 
 // even number of printable character?
 t_map	*ft_map(char *filename)
 {
+	t_map			*data;
 	int				fd;
-	unsigned int	idx;
-	t_map		*data;
 
 	data = (t_map *)malloc(sizeof(t_map));
-	*data = (t_map){0, 0, 0, 0, 0, 0};
-	data->pos = malloc(sizeof(unsigned long long) * data->lines);
-	idx = 0;
-	while (idx < data->lines)
-	{
-		data->pos[idx][0] = 0;
-		data->pos[idx++][1] = 0;
-	}	
+	if (!data)
+		return (0);
+	*data = (t_map){0, 0, 0, 0, 0, 0, 0, 0, 0};
 	fd = 0;
 	if (filename)
 		fd = open(filename, O_RDONLY);
-	ft_putstr("ft_map1\n");
-	if (!data->pos || get_mapdata(fd, data) || read_map(fd, data, 1))
+	if (fd < 0 || get_mapdata(fd, data) || read_map(fd, data, 0, 0))
 	{
-		ft_putstr("ft_map error\n");
-		if (fd != 0)
-			if (close(fd) < 0)
+		if (fd > 0)
+			close(fd);
 		return (0);
 	}
 	if (fd != 0)
@@ -51,28 +43,27 @@ t_map	*ft_map(char *filename)
 
 int	get_mapdata(int fd, t_map *data)
 {
-	char		buf[4];
+	t_uc		buf[4];
 	int			read_size;
 	
 	read_size = read(fd, buf, 1);
 	while (read_size > 0 && *buf >= '0' && *buf <= '9')
 	{
-		data->lines = data->lines * 10 + (unsigned int)*buf - '0';
+		data->lines = data->lines * 10 + (int)*buf - '0';
 		read_size = read(fd, buf, 1);
 	}
 	if (read_size < 0 || data->lines == 0)
 		return (1);
 	read_size = read(fd, buf + 1, 3);
-	if (read_size < 0 || data_check(buf) || get_width(fd, data))
+	if (read_size < 0 || data_check(buf))
 		return (1);
 	data->empty = buf[0];
 	data->obs = buf[1];
 	data->full = buf[2];
-	ft_putstr("get_mapdata end\n");
-	return (0);	
+	return (get_width(fd, data));
 }
 
-int	data_check(char *str)
+int	data_check(t_uc *str)
 {
 	if (str[3] != '\n')
 		return (1);
@@ -84,56 +75,60 @@ int	data_check(char *str)
 	return(0);
 }
 
-int	read_map(int fd, t_map *data, unsigned int num_line)
+int	read_map(int fd, t_map *data, int num_line, int idx)
 {
-	char			*buf;
+	t_uc			*buf;
 	int				read_size;
-	unsigned int	idx;
 	
-	buf = (char *)malloc(sizeof(char) * data->width + 1);
-	while (num_line < data->lines)
+	buf = (t_uc *)malloc(sizeof(t_uc) * data->width + 1);
+	read_size = data->width + 1;
+	while (read_size == data->width + 1 && ++num_line < data->lines)
 	{
-		idx = 0;
+		idx = -1;
 		read_size = read(fd, buf, data->width + 1);
 		if ((read_size < 0 && ft_free(buf)) || 
 			(ft_strcheck(buf, data->width) && ft_free(buf)))
-			return (1);
-		while (idx < data->width)
+			break ;
+		while (++idx < data->width)
 		{
-			ft_putstr("read_loop1\n");
-			if (buf[idx++] == data->obs)
-			{
-				ft_putstr("obstacle\n");
-				data->pos[num_line][idx >> 6]
-					|= 1 << (idx & 63);
-			}
+			data->map[num_line * data->width + idx] = 1;
+			if (buf[idx] == data->obs)
+				data->map[num_line * data->width + idx] = 0;
+			else if (buf[idx] != data->empty && ft_free(buf))
+				return (1);
 		}
 	}
-	free(buf);
-	ft_putstr("read_map end\n");
+	if((num_line != data->lines && ft_free(buf))
+		|| (read(fd, buf, 1) > 0 && ft_free(buf)) || !ft_free(buf))
+		return (1);
 	return (0);
 }
 
+// buffer is a character
 int	get_width(int fd, t_map *data)
 {
-	char				buf[MAX_WIDTH];
+	t_uc				*first_line;
+	t_uc				buf;
 	int					read_size;
-	unsigned int		idx;
-
-	idx = 0;
-	read_size = read(fd, buf, MAX_WIDTH);
-	while (read_size > 0 && buf[idx] && buf[idx] != '\n')
+	
+	first_line = malloc(sizeof(t_uc) * 1000);
+	read_size = read(fd, &buf, 1);
+	while (read_size > 0 && buf && buf != '\n')
 	{
-		if (buf[idx] == data->obs)
+		first_line[data->width] = 1;
+		if (buf == data->obs)
+			first_line[data->width] = 0;
+		else if (buf != data->empty)
 		{
-			(data->pos)[0][idx >> 6] |= 1 << (idx & 63);
+			read(fd, first_line, 1000);
+			return (1);
 		}
-		++idx;
-		ft_putnbr(idx);
+		++data->width;
+		read_size = read(fd, &buf, 1);
 	}
-	data->width = idx;
-	if (data->width == 0 || read_size < 0)
+	data->map = malloc(sizeof(t_uc) * data->width * data->lines);
+	if (data->width == 0 || read_size < 0 || !data->map)
 		return (1);
-	ft_putstr("get_width end\n");
+	ft_strccpy(data->map, first_line, data->width);
 	return (0);
 }

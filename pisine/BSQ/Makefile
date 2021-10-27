@@ -5,7 +5,7 @@ CFLAGS=-Wall -Wextra -Werror
 
 SRC_DIR=srcs
 SRCS=ft_bsq.c ft_map.c ft_strcheck.c ft_free.c ft_putstr.c ft_strlen.c\
-	 ft_putnbr.c
+	 ft_putnbr.c ft_putchar.c ft_puterr.c ft_strccpy.c ft_solve.c
 SRC_FILES=$(SRCS:%=$(SRC_DIR)/%)
 OBJ_FILES=$(SRC_FILES:%.c=%.o)
 
