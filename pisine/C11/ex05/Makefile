@@ -21,9 +21,6 @@ $(NAME): $(OBJ_FILES)
 $(OBJ_FILES): %.o: %.c $(HDR_FILES)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-$(OBJS): %.o: $(SRC_DIR)/%.c $(HDR_FILES)
-	$(CC) $(CFLAGS) -c -o $(SRC_DIR)/$@ $<
-
 .PHONY: all clean fclean re
 
 clean:
