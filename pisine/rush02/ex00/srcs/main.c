@@ -6,16 +6,16 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 17:41:10 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/23 23:21:07 by hseong           ###   ########.kr       */
+/*   Updated: 2021/10/23 23:43:33 by hseong           ###   ########.kr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft.h"
 #include "../includes/ft_dict.h"
 
-void	translate(char *num);
+void	translate(unsigned int num);
 int		parser(const char *filename, t_dict **arr, int *arr_len);
-int		error_detect(int num);
+int		error_detect(int ret_val);
 int		arg_check(int argc, char **argv);
 
 static const char	*filename = "numbers.dict";
@@ -39,7 +39,7 @@ int	main(int argc, char **argv)
 		ft_putstr("\n");
 		++idx;
 	}
-	//translate(argv[argc - 1]);
+	translate((unsigned int)ft_atou(argv[argc - 1]));
 	idx = 0;
 	while (idx < arr_len)
 		free(arr[idx++].value);
@@ -59,7 +59,7 @@ int	arg_check(int argc, char **argv)
 	return (0);	
 }
 
-int	error_detect(int num)
+int	error_detect(int ret_val)
 {
 	if (num == -1)
 	{
