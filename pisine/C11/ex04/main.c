@@ -22,7 +22,7 @@ int	main(void)
 	arr[3] = 6;
 	arr[4] = 5;
 	arr[5] = 5;
-	arr[6] = 5;
+	arr[6] = 6;
 	arr[7] = 2;
 	arr[8] = 1;
 	arr[9] = 0;
@@ -37,6 +37,7 @@ int	main(void)
 		arr[idx] = LEN - idx;
 		++idx;
 	}
+	arr[5] = -2;
 	idx = 0;
 	while (idx < LEN)
 		printf("%d ", arr[idx++]);

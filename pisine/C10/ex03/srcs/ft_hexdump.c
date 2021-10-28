@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 16:37:56 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/28 16:54:14 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/28 19:22:26 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,6 @@
 // ..0b0 ....
 // ...
 
-static const char	*prog_name = "hexdump: ";
-
-int					print_input(char *filename, int option);
 void				print_error(char *filename);
 
 int	main(int argc, char **argv)
@@ -53,18 +50,4 @@ int	main(int argc, char **argv)
 		++argv;
 	}
 	return (0);
-}
-
-void	print_error(char *filename)
-{
-	ft_puterr(prog_name);
-	ft_puterr(filename);
-	ft_puterr(": ");
-	ft_puterr(strerr(errno));
-	ft_puterr("\n");
-}
-
-int	print_input(char *filename, int option)
-{
-
 }
