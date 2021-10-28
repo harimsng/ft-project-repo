@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 18:43:44 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/28 03:09:48 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/28 12:33:32 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	read_map(int fd, t_map *data, int num_line, int idx);
 int	get_mapdata(int fd, t_map *data);
-int	get_width(int fd, t_map *data);
+int	get_width(int fd, t_map *data, t_uc buf, int read_size);
 int	data_check(t_uc *str);
 
 // even number of printable character?
@@ -32,6 +32,8 @@ t_map	*ft_map(char *filename)
 		fd = open(filename, O_RDONLY);
 	if (fd < 0 || get_mapdata(fd, data) || read_map(fd, data, 0, 0))
 	{
+		ft_free(data->map);
+		ft_free(data);
 		if (fd > 0)
 			close(fd);
 		return (0);
@@ -60,7 +62,7 @@ int	get_mapdata(int fd, t_map *data)
 	data->empty = buf[0];
 	data->obs = buf[1];
 	data->full = buf[2];
-	return (get_width(fd, data));
+	return (get_width(fd, data, 0, 0));
 }
 
 int	data_check(t_uc *str)
@@ -105,15 +107,13 @@ int	read_map(int fd, t_map *data, int num_line, int idx)
 }
 
 // buffer is a character
-int	get_width(int fd, t_map *data)
+int	get_width(int fd, t_map *data, t_uc buf, int read_size)
 {
 	t_uc				*first_line;
-	t_uc				buf;
-	int					read_size;
 
 	first_line = malloc(sizeof(t_uc) * 1000);
 	read_size = read(fd, &buf, 1);
-	while (read_size > 0 && buf && buf != '\n')
+	while (read_size > 0 && buf != '\n')
 	{
 		first_line[data->width] = 1;
 		if (buf == data->obs)
@@ -121,14 +121,17 @@ int	get_width(int fd, t_map *data)
 		else if (buf != data->empty)
 		{
 			read(fd, first_line, 1000);
+			free(first_line);
 			return (1);
 		}
 		++data->width;
 		read_size = read(fd, &buf, 1);
 	}
 	data->map = malloc(sizeof(t_uc) * data->width * data->lines);
-	if (data->width == 0 || read_size < 0 || !data->map)
+	if ((data->width == 0 || read_size < 0
+			|| !data->map) && ft_free(first_line))
 		return (1);
 	ft_strccpy(data->map, first_line, data->width);
+	free(first_line);
 	return (0);
 }

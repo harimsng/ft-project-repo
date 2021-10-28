@@ -6,13 +6,14 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 18:43:42 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/28 03:08:57 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/28 12:33:17 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft.h"
 
 void	ft_mapprint(t_map *data);
+int		double_free(void *addr1, void *addr2);
 
 int	main(int argc, char **argv)
 {
@@ -25,6 +26,7 @@ int	main(int argc, char **argv)
 			return (0);
 		ft_solve(data, 0);
 		ft_mapprint(data);
+		double_free(data->map, data);
 		return (0);
 	}
 	++argv;
@@ -35,6 +37,7 @@ int	main(int argc, char **argv)
 			continue ;
 		ft_solve(data, 0);
 		ft_mapprint(data);
+		double_free(data->map, data);
 	}
 	return (0);
 }
@@ -62,4 +65,13 @@ void	ft_mapprint(t_map *data)
 		ft_putchar('\n');
 		++idx;
 	}
+}
+
+int	double_free(void *addr1, void *addr2)
+{
+	if (addr1)
+		free(addr1);
+	if (addr2)
+		free(addr2);
+	return (1);
 }
