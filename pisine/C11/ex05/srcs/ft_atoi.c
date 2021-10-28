@@ -6,13 +6,13 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 20:31:47 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/25 20:31:48 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/28 12:56:39 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-long long	ft_atol(char *str)
+int	ft_atoi(char *str)
 {
-	long long	ret;
+	int	ret;
 	int			nsign;
 	int			len;
 

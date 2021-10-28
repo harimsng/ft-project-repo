@@ -16,8 +16,17 @@ int	main(void)
 		arr[idx] = idx;
 		++idx;
 	}
-	idx = 0;
+	arr[0] = 7;
+	arr[1] = 7;
+	arr[2] = 6;
+	arr[3] = 6;
+	arr[4] = 5;
 	arr[5] = 5;
+	arr[6] = 5;
+	arr[7] = 2;
+	arr[8] = 1;
+	arr[9] = 0;
+	idx = 0;
 	while (idx < LEN)
 		printf("%d ", arr[idx++]);
 	printf("\nis it sorted? (1 or 0) : %d\n", ft_is_sort(arr, LEN, ft_intcmp));

@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 20:31:41 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/25 20:46:07 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/28 12:55:33 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include <unistd.h>
 
-long long		ft_atol(char *str);
-char			*ft_ltoa(long long num);
+int				ft_atoi(char *str);
+char			*ft_itoa(int num);
 void			ft_putstr(char *str);
 
 #endif

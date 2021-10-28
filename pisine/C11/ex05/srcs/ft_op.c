@@ -6,31 +6,31 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 20:31:48 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/25 21:14:56 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/28 12:54:51 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-long long	ft_long_add(long long a, long long b)
+int	ft_add(int a, int b)
 {
 	return (a + b);
 }
 
-long long	ft_long_sub(long long a, long long b)
+int	ft_sub(int a, int b)
 {
 	return (a - b);
 }
 
-long long	ft_long_mul(long long a, long long b)
+int	ft_mul(int a, int b)
 {
 	return (a * b);
 }
 
-long long	ft_long_div(long long a, long long b)
+int	ft_div(int a, int b)
 {
 	return (a / b);
 }
 
-long long	ft_long_mod(long long a, long long b)
+int	ft_mod(int a, int b)
 {
 	return (a % b);
 }

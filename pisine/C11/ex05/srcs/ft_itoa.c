@@ -6,21 +6,21 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 20:31:28 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/25 21:12:24 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/28 12:56:54 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-int		long_min(long long *num);
+int		int_min(int *num);
 
-void	ft_ltoa(long long num)
+void	ft_itoa(int num)
 {
-	long long	den;
+	int	den;
 
-	if (long_min(&num))
+	if (int_min(&num))
 		return ;
-	den = 1000000000000000000;
+	den = 1000000000;
 	while (num / den == 0)
 		den /= 10;
 	while (den)
@@ -31,11 +31,11 @@ void	ft_ltoa(long long num)
 	}
 }
 
-int	long_min(long long *num)
+int	int_min(int *num)
 {
-	if (*num == -9223372036854775807)
+	if (*num == -2147483648)
 	{
-		write(1, "-9223372036854775807", 20);
+		write(1, "-2147483648", 11);
 		return (1);
 	}
 	else if (*num == 0)
