@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/08 17:24:15 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/08 20:19:44 by hseong           ###   ########.fr       */
+/*   Created: 2021/11/08 21:06:58 by hseong            #+#    #+#             */
+/*   Updated: 2021/11/08 21:38:13 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+// result doesn't match the standard function.
+int	ft_isalpha(int c)
 {
-	char		*ret;
-	size_t		idx;
 
-	if (!s || ft_strlen(s) < start)
-		return (NULL);
-	len -= (ft_strlen(s) < start + len) * (ft_strlen(s) - start - len);
-	ret = (char *)malloc(sizeof(char) * len + 1);
-	if (!ret)
-		return (NULL);
-	idx = 0;
-	while (idx < len)
-	{
-		ret[idx] = s[start + idx];
-		++idx;
-	}
-	ret[idx] = 0;
-	return (ret);
+	if (c == -1)
+		return (0);
+	if ((c > 64 && c < 91)
+			|| (c > 96 && c < 123))
+		return (1);
+	return (0);
 }

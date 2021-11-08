@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/08 17:24:15 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/08 20:19:44 by hseong           ###   ########.fr       */
+/*   Created: 2021/11/08 20:09:12 by hseong            #+#    #+#             */
+/*   Updated: 2021/11/08 20:28:56 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char		*ret;
-	size_t		idx;
+	char		*temp;
+	int			idx;
 
-	if (!s || ft_strlen(s) < start)
-		return (NULL);
-	len -= (ft_strlen(s) < start + len) * (ft_strlen(s) - start - len);
-	ret = (char *)malloc(sizeof(char) * len + 1);
+	ret = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!ret)
 		return (NULL);
+	temp = ret;
 	idx = 0;
-	while (idx < len)
-	{
-		ret[idx] = s[start + idx];
-		++idx;
-	}
-	ret[idx] = 0;
+	while (s1[idx])
+		*temp++ = s1[idx++];
+	idx = 0;
+	while (s2[idx])
+		*temp++ = s2[idx++];
+	*temp = 0;
 	return (ret);
 }

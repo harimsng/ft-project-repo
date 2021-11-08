@@ -1,34 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/08 17:24:15 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/08 20:19:44 by hseong           ###   ########.fr       */
+/*   Created: 2021/11/08 20:29:06 by hseong            #+#    #+#             */
+/*   Updated: 2021/11/08 21:04:57 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_strtrim(char const *s1, char const *set)
 {
 	char		*ret;
-	size_t		idx;
+	size_t		right;
+	size_t		left;
 
-	if (!s || ft_strlen(s) < start)
-		return (NULL);
-	len -= (ft_strlen(s) < start + len) * (ft_strlen(s) - start - len);
-	ret = (char *)malloc(sizeof(char) * len + 1);
+	right = 0;
+	left = 0;
+	while (s1[right])
+	{
+		if (ft_strchr(set, s1[right++]))
+			continue ;
+		++left;
+	}
+	ret = (char *)malloc(sizeof(char) * (left + 1));
 	if (!ret)
 		return (NULL);
-	idx = 0;
-	while (idx < len)
+	ret[left] = 0;
+	right = 0;
+	left = 0;
+	while (s1[right])
 	{
-		ret[idx] = s[start + idx];
-		++idx;
+		if (ft_strchr(set, s1[right++]))
+			continue ;
+		ret[left++] = s1[right - 1];
 	}
-	ret[idx] = 0;
 	return (ret);
 }
