@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/08 17:57:47 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/08 17:58:49 by hseong           ###   ########.fr       */
+/*   Created: 2021/11/08 19:05:38 by hseong            #+#    #+#             */
+/*   Updated: 2021/11/08 19:16:30 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *str)
+// check s == NULL case in MacOS
+char	*ft_strdup(const char *s)
 {
-	size_t		len;
+	size_t		size;
+	char		*ret;
 
-	len = 0;
-	while (str[len])
-		++len;
-	return (len);
+	size = ft_strlen(s);
+	ret = (char *)malloc(sizeof(char) * size + 1);
+	if (!ret)
+		return (NULL);
+	while (*s)
+		*ret++ = *s++;
+	*ret = 0;
+	return (ret - size);
 }
