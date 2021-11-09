@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 23:25:37 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/08 17:59:32 by hseong           ###   ########.fr       */
+/*   Updated: 2021/11/09 16:51:05 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void		*ft_memset(void *s, int c, size_t n);
 void		ft_bzero(void *s, size_t n);
 void		*ft_memcpy(void *dest, const void *src, size_t n);
 void		*ft_memmove(void *dest, const void *src, size_t n);
-size_t		ft_strlcpy(char );
-size_t		ft_strlcat();
+size_t		ft_strlcpy(char *dest, const char *src, size_t size);
+size_t		ft_strlcat(char *dest, const char *src, size_t size);
 int			ft_toupper(int c);
 int			ft_tolower(int c);
 char		*ft_strchr(const char *s, int c);

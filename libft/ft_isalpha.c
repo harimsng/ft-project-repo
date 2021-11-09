@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 21:06:58 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/08 21:38:13 by hseong           ###   ########.fr       */
+/*   Updated: 2021/11/09 18:42:12 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 // result doesn't match the standard function.
 int	ft_isalpha(int c)
 {
-
-	if (c == -1)
-		return (0);
 	if ((c > 64 && c < 91)
 			|| (c > 96 && c < 123))
 		return (1);

@@ -1,33 +1,42 @@
 CC=gcc
 CFLAGS=-Wall -Wextra -Werror
 
-TARGET=libft.a
+NAME=libft.a
 
-SRC_DIR:=srcs
-SRCS:=ft_putchar.c ft_putstr.c ft_strcmp.c ft_swap.c ft_strlen.c ft_putnbr.c
-SRC_FILES:=$(SRCS:%=$(SRC_DIR)/%)
+SRCS=ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c\
+	  ft_strlen.c ft_memset.c ft_bzero.c ft_memcpy.c ft_memmove.c\
+	  ft_strlcpy.c ft_strlcat.c ft_toupper.c ft_tolower.c ft_strchr.c\
+	  ft_strrchr.c ft_strncmp.c ft_memchr.c ft_memcmp.c ft_strnstr.c\
+	  ft_atoi.c ft_calloc.c ft_strdup.c\
+	  ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c\
+	  ft_strmapi.c ft_striteri.c ft_putchar_fd.c ft_putstr_fd.c\
+	  ft_putendl_fd.c ft_putnbr_fd.c
 
-OBJS:=$(SRCS:%.c=%.o)
-OBJ_FILES:=$(OBJS:%=$(SRC_DIR)/%)
+BNS=ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c\
+	ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c\
+	ft_lstmap.c
 
-HDR_DIR=includes
-HDR=ft.h
-HDR_FILES:=$(HDR:%=$(HDR_DIR)/%)
+OBJS=$(SRCS:%.c=%.o)
+
+HDR=libft.h
 
 .PHONY: all clean fclean re
 
-all: $(TARGET)
+all: $(NAME)
 
-$(TARGET): $(OBJ_FILES)
-	ar rc $@ $(OBJ_FILES)
+bonus: $(OBJS) $(BNSS)
+	ar rcs $(NAME) $^
 
-$(OBJ_FILES): %.o : %.c $(HDR_FILES) 
-	$(CC) $(CFLAGS) $< -c -o $@
+$(NAME): $(OBJS)
+	ar rcs $@ $^
+
+$(OBJS): %.o : %.c
+	$(CC) $(CFLAGS) $< -c -o $@ -I.
 
 clean:
-	rm -f $(OBJ_FILES) 
+	rm -f $(OBJS) 
 
 fclean: clean
-	rm -f $(TARGET)
+	rm -f $(NAME)
 
 re: fclean all

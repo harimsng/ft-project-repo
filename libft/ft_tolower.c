@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/08 20:32:02 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/09 18:14:46 by hseong           ###   ########.fr       */
+/*   Created: 2021/11/09 17:07:53 by hseong            #+#    #+#             */
+/*   Updated: 2021/11/09 17:47:12 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// need manual
-char	*ft_strchr(const char *s, int c)
+int	ft_tolower(int c)
 {
-	if (c < -128 || c > 127 || c == -1)
-		return (NULL);
-	while (*s && *s != c)
-		++s;
-	if (*s != c)
-		return (NULL);
-	return ((char *)s);
+	if (c > -129 && c < -1)
+		c = (c | 128) & 255;
+	return (c + 32 * (c > 64 && c < 91));
 }

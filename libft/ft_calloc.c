@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/08 20:32:02 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/09 18:14:46 by hseong           ###   ########.fr       */
+/*   Created: 2021/11/09 18:53:45 by hseong            #+#    #+#             */
+/*   Updated: 2021/11/09 19:02:16 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// need manual
-char	*ft_strchr(const char *s, int c)
+void	*ft_calloc(size_t count, size_t size)
 {
-	if (c < -128 || c > 127 || c == -1)
+	void	*ret;
+
+	ret = malloc(count * size);
+	if (!ret)
 		return (NULL);
-	while (*s && *s != c)
-		++s;
-	if (*s != c)
-		return (NULL);
-	return ((char *)s);
+	ft_memset(ret, 0, count * size);
+	return (ret);
 }

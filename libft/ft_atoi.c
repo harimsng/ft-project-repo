@@ -1,25 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/08 20:32:02 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/09 18:14:46 by hseong           ###   ########.fr       */
+/*   Created: 2021/11/09 18:37:12 by hseong            #+#    #+#             */
+/*   Updated: 2021/11/09 18:53:30 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// need manual
-char	*ft_strchr(const char *s, int c)
+static int	ft_isspace(int c);
+
+int	ft_atoi(const char *str)
 {
-	if (c < -128 || c > 127 || c == -1)
-		return (NULL);
-	while (*s && *s != c)
-		++s;
-	if (*s != c)
-		return (NULL);
-	return ((char *)s);
+	int		ret;
+	int		neg;
+
+	while (ft_isspace(*str))
+		++str;
+	neg = *str == '-';
+	str += (neg || *str == '+');
+	ret = 0;
+	while (ft_isdigit(*str))
+		ret = 10 * ret + *str++ - 48;
+	return (ret * (1 - 2 * neg));
+}
+
+static int	ft_isspace(int c)
+{
+	if ((c > 8 && c < 14) || c == 32)
+		return (1);
+	return (0);
 }
