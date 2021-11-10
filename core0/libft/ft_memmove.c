@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 19:43:49 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/10 21:54:43 by hseong           ###   ########.fr       */
+/*   Updated: 2021/11/11 01:18:36 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,7 @@ static void	*ft_revmemcpy(void *dst, const void *src, size_t len)
 
 	s = src;
 	d = dst;
-	while (len)
-	{
+	while (len--)
 		d[len] = s[len];
-		--len;
-	}
 	return (dst);
 }

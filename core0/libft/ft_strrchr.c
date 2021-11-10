@@ -6,12 +6,13 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 18:03:33 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/09 18:24:29 by hseong           ###   ########.fr       */
+/*   Updated: 2021/11/11 03:10:02 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+// should check manual
 char	*ft_strrchr(const char *s, int c)
 {
 	char	*ret;

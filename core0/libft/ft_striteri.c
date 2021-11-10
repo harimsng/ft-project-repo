@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 17:34:22 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/10 17:35:47 by hseong           ###   ########.fr       */
+/*   Updated: 2021/11/10 23:55:51 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
 	unsigned int	idx;
 
+	if (!s || !f)
+		return ;
 	idx = 0;
 	while (s[idx])
 	{

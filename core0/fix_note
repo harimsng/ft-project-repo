@@ -1,0 +1,19 @@
+C is dangerous as much as strong
+
+exact use of increment(decrement) operator which is either postfix or prefix.
+	ft_memchr
+watch size_t(or unsigned types) variable -1 overflow
+	ft_memchr
+where to put index increment(decrement) operation in loop.
+
+keep in mind the constness of string in string manipulation function.
+	ft_split
+decide a valid range of variables, or decide the range causing UB.
+	every functions...
+analyize original testcases if possible, and results of the execution.
+	ft_memmove
+be careful when length of string is related.
+	ft_memmove	ft_strncmp
+if there is no information when implementing a non-standard function,
+find similar functions in other languages.
+	ft_substr	ft_strtrim

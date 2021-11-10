@@ -6,14 +6,15 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 19:12:35 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/10 19:54:33 by hseong           ###   ########.fr       */
+/*   Updated: 2021/11/11 01:47:53 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	**fill_strarr(char *s, char c, size_t size);
+static char	**fill_strarr(const char *s, char c, size_t size);
 static void	*fail_free(char **strarr, size_t size);
+static char	*ft_strndup(const char *s, size_t size);
 
 char	**ft_split(char const *s, char c)
 {
@@ -27,10 +28,11 @@ char	**ft_split(char const *s, char c)
 		size += (s[idx] != c && (s[idx + 1] == c || s[idx + 1] == 0));
 		++idx;
 	}
-	return (fill_strarr((char *)s, c, size));
+	return (fill_strarr((const char *)s, c, size));
 }
 
-static char	**fill_strarr(char *s, char c, size_t size)
+// assume s to read only string literal.
+static char	**fill_strarr(const char *s, char c, size_t size)
 {
 	char		**strarr;
 	size_t		idx;
@@ -48,8 +50,7 @@ static char	**fill_strarr(char *s, char c, size_t size)
 		jdx = 0;
 		while (s[jdx] && s[jdx] != c)
 			++jdx;
-		s[jdx] = 0;
-		strarr[idx] = ft_strdup(s);
+		strarr[idx] = ft_strndup(s, jdx);
 		if (!strarr[idx])
 			return (fail_free(strarr, idx));
 		s += jdx + 1;
@@ -67,4 +68,24 @@ static void	*fail_free(char **strarr, size_t size)
 		free(strarr[idx++]);
 	free(strarr);
 	return (NULL);
+}
+
+static char	*ft_strndup(const char *s, size_t size)
+{
+	char		*ret;
+	size_t		idx;
+
+	idx = ft_strlen(s);
+	size = (idx < size) * idx + (idx >= size) * size;
+	ret = (char *)malloc(sizeof(char) * (size + 1));
+	if (!ret)
+		return (NULL);
+	ret[size] = 0;
+	idx = 0;
+	while (idx < size)
+	{
+		ret[idx] = s[idx];
+		++idx;
+	}
+	return (ret);
 }

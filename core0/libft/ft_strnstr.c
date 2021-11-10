@@ -6,12 +6,13 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 00:58:54 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/10 01:30:05 by hseong           ###   ########.fr       */
+/*   Updated: 2021/11/11 03:33:11 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+// should check manual
 char	*ft_strnstr(const char *s1, const char *s2, size_t n)
 {
 	size_t		len;

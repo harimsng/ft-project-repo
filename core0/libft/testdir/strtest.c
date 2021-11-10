@@ -7,11 +7,11 @@ int main(void)
 {
 	char	*str;
 
-/*	str = ft_substr("0123456789", 5, 1);
+	str = ft_substr("tripouille", 100, 1);
 	printf("|%s|\n", str);
 	free(str);
 
-	str = strdup(NULL);
+/*	str = strdup(NULL);
 	printf("%s\n", str);
 	free(str);
 
@@ -43,7 +43,7 @@ int main(void)
 	str = ft_strjoin("", "a");
 	printf("|%s|\n", str);
 	free(str);
-*/
+
 	str = ft_strtrim("1234567890", "24680");
 	printf("|%s|\n", str);
 	free(str);
@@ -51,5 +51,5 @@ int main(void)
 21v22w23x24y25z", "0123456789");
 	printf("|%s|\n", str);
 	free(str);
-	return (0);
+*/	return (0);
 }
