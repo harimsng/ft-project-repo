@@ -6,18 +6,18 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 17:23:10 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/08 17:23:20 by hseong           ###   ########.fr       */
+/*   Updated: 2021/11/10 18:30:04 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h" 
 
 static int			check_num(int *n);
-static const char	*tab = "0123456789";
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	int		denom;
+	const char	*tab = "0123456789";
+	int			denom;
 
 	if (check_num(&n, fd))
 		return ;
@@ -37,7 +37,7 @@ int	check_num(int *n, int fd)
 	if (*n == -2147483648)
 	{
 		write(fd, "-2147483648", 11);
-		return (1);		
+		return (1);
 	}
 	else if (*n == 0)
 	{

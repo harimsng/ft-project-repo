@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 18:27:48 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/09 18:35:47 by hseong           ###   ########.fr       */
+/*   Updated: 2021/11/10 01:14:55 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	if (!n--)
+	if (!n)
 		return (0);
-	while (n && *s1 && *s2 && *s1 == *s2)
+	while (--n && *s1 && *s2 && *s1 == *s2)
 	{
-		--n;
 		++s1;
 		++s2;
 	}
-	return ((255 & *s1) - (255 & *s2));
+	return ((unsigned char)*s1 - (unsigned char)*s2);
 }

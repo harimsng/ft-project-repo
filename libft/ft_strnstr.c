@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/08 21:21:20 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/10 18:24:50 by hseong           ###   ########.fr       */
+/*   Created: 2021/11/10 00:58:54 by hseong            #+#    #+#             */
+/*   Updated: 2021/11/10 01:30:05 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// int32 0A0B0C0D	> i [0A], i+1 [0B], i+2 [0C], i+3[0D]
-// big endian 		: msb is at lower address.
-// int32 0A0B0C0D	> i [0D], i+1 [0C], i+2 [0B], i+3[0A]
-// little endian	: lsb is at lower address.
-void	*ft_memset(void *b, int c, size_t len)
+char	*ft_strnstr(const char *s1, const char *s2, size_t n)
 {
-	unsigned char	*ptr;
+	size_t		len;
 
-	ptr = b;
-	while (len--)
-		*ptr++ = (unsigned char)c;
-	return (b);
+	if (!*s2)
+		return ((char *)s1);
+	len = ft_strlen(s2);
+	while (n-- >= len && *s1)
+	{
+		if (*s1 == *s2)
+			if (!ft_strncmp(s1, s2, len))
+				return ((char *)s1);
+		++s1;
+	}
+	return (NULL);
 }

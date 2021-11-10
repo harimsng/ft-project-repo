@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/08 21:21:20 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/10 18:24:50 by hseong           ###   ########.fr       */
+/*   Created: 2021/11/10 17:26:49 by hseong            #+#    #+#             */
+/*   Updated: 2021/11/10 17:32:26 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// int32 0A0B0C0D	> i [0A], i+1 [0B], i+2 [0C], i+3[0D]
-// big endian 		: msb is at lower address.
-// int32 0A0B0C0D	> i [0D], i+1 [0C], i+2 [0B], i+3[0A]
-// little endian	: lsb is at lower address.
-void	*ft_memset(void *b, int c, size_t len)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	unsigned char	*ptr;
+	char			*range;
+	unsigned int	idx;
+	unsigned int	len;
 
-	ptr = b;
-	while (len--)
-		*ptr++ = (unsigned char)c;
-	return (b);
+	idx = 0;
+	len = ft_strlen(s);
+	range = (char *)malloc(sizeof(char) * len + 1);
+	if (!range)
+		return (NULL);
+	while (idx < len)
+	{
+		range[idx] = f(idx, s[idx]);
+		++idx;
+	}
+	range[idx] = 0;
+	return (range);
 }

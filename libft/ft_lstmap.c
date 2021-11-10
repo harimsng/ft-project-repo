@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 20:27:07 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/09 20:50:51 by hseong           ###   ########.fr       */
+/*   Updated: 2021/11/09 20:57:32 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	t_list		*head;
 	t_list		*node;
 
-	if (!lst || (head = ft_lstnew(f(lst->content))))
+	if (!lst)
 		return (NULL);
-//	if (!head)
-//		return (NULL);
+	head = ft_lstnew(f(lst->content));
+	if (!head)
+		return (NULL);
 	node = head;
 	lst = lst->next;
 	while (lst)

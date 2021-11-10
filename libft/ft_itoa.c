@@ -6,17 +6,17 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 18:04:39 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/08 19:42:04 by hseong           ###   ########.fr       */
+/*   Updated: 2021/11/10 18:29:35 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static const char	*tab = "9876543210123456789";
 static void			ft_str_rev(char *s, size_t size);
 
 char	*ft_itoa(int n)
 {
+	const char	*tab = "9876543210123456789";
 	char		buf[12];
 	size_t		size;
 	int			temp;
@@ -35,7 +35,7 @@ char	*ft_itoa(int n)
 	return (ft_strdup(buf));
 }
 
-static void			ft_str_rev(char *s, size_t size)
+static void	ft_str_rev(char *s, size_t size)
 {
 	size_t		idx;
 	char		temp;
