@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 17:14:26 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/08 17:15:03 by hseong           ###   ########.fr       */
+/*   Updated: 2021/11/10 21:56:14 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 void	ft_putendl_fd(char *s, int fd)
 {
 	while (*s)
-		write(fd, s, 1);
+		write(fd, s++, 1);
 	write(fd, "\n", 1);
 }

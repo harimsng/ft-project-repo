@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 17:23:10 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/10 20:09:43 by hseong           ###   ########.fr       */
+/*   Updated: 2021/11/10 22:00:27 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_putnbr_fd(int n, int fd)
 	while (denom > 0)
 	{
 		write(fd, tab + n / denom, 1);
-		n = n % denom;
+		n %= denom;
 		denom /= 10;
 	}
 }
@@ -47,6 +47,7 @@ int	check_num(int *n, int fd)
 	else if (*n < 0)
 	{
 		*n *= -1;
+		write(fd, "-", 1);
 		return (0);
 	}
 	return (0);

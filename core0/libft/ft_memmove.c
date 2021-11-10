@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 19:43:49 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/10 20:04:07 by hseong           ###   ########.fr       */
+/*   Updated: 2021/11/10 21:54:43 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ static void	*ft_revmemcpy(void *dst, const void *src, size_t len);
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	if (dst < src)
-		ft_memcpy(dst, src, len);
-	else if (dst > src)
+	if (dst < src + len && dst > src)
 		ft_revmemcpy(dst, src, len);
+	else
+		ft_memcpy(dst, src, len);
 	return (dst);
 }
 
