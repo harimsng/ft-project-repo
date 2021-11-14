@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 23:25:37 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/10 19:34:29 by hseong           ###   ########.fr       */
+/*   Updated: 2021/11/15 01:56:35 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <limits.h>
 
 int			ft_isalpha(int c);
 int			ft_isdigit(int c);
