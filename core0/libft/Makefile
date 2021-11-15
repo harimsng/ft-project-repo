@@ -38,8 +38,10 @@ so:
 	$(CC) $(CFLAGS) -fpic -c $(SRCS) $(BNS)
 	gcc -shared -o libft.so $(OBJS) $(BNS_OBJS)
 
-bonus: $(OBJS) $(BNS_OBJS)
-	ar rcs $(NAME) $^
+bonus: merge all
+
+merge:
+	$(OBJS += $(BNS_OBJS))
 
 $(NAME): $(OBJS)
 	ar rcs $@ $^
