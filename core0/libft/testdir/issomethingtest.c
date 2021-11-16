@@ -5,11 +5,11 @@
 
 int main(void)
 {
-	for (int i = -10; i < 100; ++i)
-		printf("%d %d %d\n", i, ft_isalpha(i), isalpha(i));
+	for (int i = 0; i < 300; ++i)
+		printf("%d %d %d\n", i, ft_isalnum(i), isalnum(i));
 	printf("\n");
-	for (int i = -10; i < 100; ++i)
-		printf("%d %d %d\n", i, ft_isalpha(i), isalpha(i));
+	for (int i = 0; i < 300; ++i)
+		printf("%d %d %d\n", i, ft_isalnum(i), isalnum(i));
 
 /*	for (int i = -65536; i < 65536; ++i)
 	{

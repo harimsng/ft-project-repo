@@ -34,6 +34,10 @@ HDR=libft.h
 
 all: $(NAME)
 
+so:
+	$(CC) $(CFLAGS) -fpic -c $(SRCS) $(BNS)
+	gcc -shared -o libft.so $(OBJS) $(BNS_OBJS)
+
 bonus: merge all
 
 merge:
