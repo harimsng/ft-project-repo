@@ -4,11 +4,17 @@
 
 int	main(void)
 {
-	char	*str = "";
+	char	*str = "abcdefg1234567890";
+	int		idx = 0;
 
-	printf("%p\n", strchr(str, 0));
-	printf("%p\n", ft_strchr(str, 0));
-	printf("%p\n", strrchr(str, 0));
-	printf("%p\n", ft_strrchr(str, 0));
+	idx = -300;
+	while (idx < 300)
+	{
+		printf("%p\n", strchr(str, idx));
+		printf("%p\n", ft_strchr(str, idx));
+		printf("%p\n", strrchr(str, idx));
+		printf("%p\n", ft_strrchr(str, idx));
+		++idx;
+	}
 	return (0);
 }

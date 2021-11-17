@@ -4,12 +4,10 @@
 
 int	main(void)
 {
-	for (int i = -65536; i < 65536; ++i)
+	for (int i = -256; i < 256; ++i)
 	{
-		if (toupper(i) != ft_toupper(i))
-			printf("%d %d %d\n", i, toupper(i), ft_toupper(i));
-		if (tolower(i) != ft_tolower(i))
-			printf("%d %d %d\n\n", i, tolower(i), ft_tolower(i));
+		printf("%d %d %d\n", i, toupper(i), ft_toupper(i));
+		printf("%d %d %d\n\n", i, tolower(i), ft_tolower(i));
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 17:26:49 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/11 00:06:28 by hseong           ###   ########.fr       */
+/*   Updated: 2021/11/17 17:11:57 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	unsigned int	idx;
 	unsigned int	len;
 
+	if (!s)
+		return (NULL);
 	idx = 0;
 	len = ft_strlen(s);
 	range = (char *)malloc(sizeof(char) * len + 1);

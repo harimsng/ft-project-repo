@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 19:12:35 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/11 01:47:53 by hseong           ###   ########.fr       */
+/*   Updated: 2021/11/17 16:01:16 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	**ft_split(char const *s, char c)
 	return (fill_strarr((const char *)s, c, size));
 }
 
-// assume s to read only string literal.
+// assume s is read only string literal.
 static char	**fill_strarr(const char *s, char c, size_t size)
 {
 	char		**strarr;
