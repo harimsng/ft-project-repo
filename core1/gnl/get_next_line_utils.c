@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 22:35:53 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/19 22:30:29 by hseong           ###   ########.fr       */
+/*   Updated: 2021/11/20 03:30:55 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,12 @@ void	*ft_memset(void *addr, int c, size_t size)
 	return (addr);
 }
 
-size_t	ft_strlcpy(char *dest, const char *src, size_t size)
+char	*ft_strcpy(char *dest, const char *src)
 {
-	size_t		ret;
+	char	*ret;
 
-	ret = 0;
-	while (src[ret])
-		++ret;
-	if (!size)
-		return (ret);
-	while (--size && *src)
+	ret = dest;
+	while (*src)
 		*dest++ = *src++;
 	*dest = 0;
 	return (ret);

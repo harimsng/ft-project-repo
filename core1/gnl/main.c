@@ -1,16 +1,18 @@
 #include "get_next_line.h"
+#include <stdio.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 
 void	ft_putstr(const char *s);
 
-int	main(void)
+int	main()
 {
 	char	*line;
 	int		fd;
 
-	fd = open("test2", O_RDONLY);
+	fd = 0;
+//	fd = open("test", O_RDONLY);
 	while ((line = get_next_line(fd)))
 	{
 		ft_putstr(line);

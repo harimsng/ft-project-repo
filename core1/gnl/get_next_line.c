@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 22:35:55 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/20 03:09:55 by hseong           ###   ########.fr       */
+/*   Updated: 2021/11/20 04:49:38 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,14 @@ char	*get_next_line(int fd)
 	ft_memset(buf, 0, BUFFER_SIZE + 1);
 	read_size = gnl_storage(buf, fd, 0);
 	read_size += read(fd, buf + read_size, BUFFER_SIZE - read_size);
+	if (read_size < 1)
+		return (NULL);
 	line = ft_strdup("");
-	while (line && read_size > 0)
+	while (line && read_size > -1)
 	{
 		buf_end = gnl_getnl(buf);
-		if (buf_end != buf + BUFFER_SIZE)
-		{
-			gnl_storage(buf_end + 1, fd, 1);
+		if (buf_end != buf + BUFFER_SIZE && !gnl_storage(buf_end + 1, fd, 1))
 			return (gnl_strjoin(line, buf));
-		}
 		line = gnl_strjoin(line, buf);
 		ft_memset(buf, 0, BUFFER_SIZE);
 		read_size = read(fd, buf, BUFFER_SIZE);
@@ -57,7 +56,7 @@ int	gnl_storage(char *buf, int fd, int io)
 	{
 		if (idx <= 0)
 			return (0);
-		ft_strlcpy(buf, fd_buf[idx - 1] + 4, ft_strlen(fd_buf[idx - 1] + 4) + 1);
+		ft_strcpy(buf, fd_buf[idx - 1] + 4);
 		ft_memset(fd_buf[idx - 1], 0, BUFFER_SIZE + 5);
 		return (ft_strlen(buf));
 	}
@@ -68,7 +67,7 @@ int	gnl_storage(char *buf, int fd, int io)
 	fd_buf[idx][1] = (fd % 1000) / 100;
 	fd_buf[idx][2] = (fd % 100) / 10;
 	fd_buf[idx][3] = fd % 10;
-	ft_strlcpy(fd_buf[idx] + 4, buf, ft_strlen(buf) + 1);
+	ft_strcpy(fd_buf[idx] + 4, buf);
 	return (0);
 }
 
