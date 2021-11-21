@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 22:35:55 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/22 00:18:31 by hseong           ###   ########.fr       */
+/*   Updated: 2021/11/22 03:10:54 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,36 @@ int		gnl_storage(char *buf, int fd, int io);
 char	*gnl_strjoin(char const *s1, char const *s2);
 char	*gnl_getnl(const char *s);
 int		gnl_get_fd(t_buf *fd_buf, int fd);
+void	gnl_process(t_line line, t_buf fd_buf, int fd, ssize_t *read_size);
 
 char	*get_next_line(int fd)
 {
-	char		buf[BUFFER_SIZE + 1];
-	char		*line;
-	char		*buf_end;
-	ssize_t		read_size;
+	static t_buf	fd_buf[3] = {{-1, 0, {0,}}, {-1, 0, {0,}}, {-1, 0, {0,}}};
+	t_line			line;
+	ssize_t			read_size;
 
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
-	ft_memset(buf, 0, BUFFER_SIZE + 1);
-	read_size = gnl_storage(buf, fd, 0);
-	if (read_size == -1)
+	line = (t_line){0, (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))};
+	if (!line.str)
 		return (NULL);
-	read_size += read(fd, buf + read_size, BUFFER_SIZE - read_size) - 1;
-	line = (char *)malloc(sizeof(char));
-	*line = 0;
+	ft_memset(line.str, 0, BUFFER_SIZE + 1);
+	ft_strcpy(line.str, fd_buf[idx].buf);
+	while (line.str && read_size > -1)
+		gnl_process(line, fd_buf[idx], fd, &read_size);
+	if (read_size < 0)
+		free(line.str);
+	return (line.str);
+}
+
+void	gnl_process(t_line line, t_buf fd_buf, int fd, ssize_t *read_size);
+{
+
+}
+
+
+
+
 	while (line && read_size > -1)
 	{
 		buf_end = gnl_getnl(buf);

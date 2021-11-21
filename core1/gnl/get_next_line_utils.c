@@ -6,26 +6,11 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 22:35:53 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/20 03:30:55 by hseong           ###   ########.fr       */
+/*   Updated: 2021/11/22 02:13:11 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-char	*ft_strdup(const char *s)
-{
-	size_t		len;
-	char		*ret;
-
-	len = ft_strlen(s);
-	ret = (char *)malloc(sizeof(char) * (len + 1));
-	if (!ret)
-		return (NULL);
-	while (*s)
-		*ret++ = *s++;
-	*ret = 0;
-	return (ret - len);
-}
 
 void	*ft_memset(void *addr, int c, size_t size)
 {
