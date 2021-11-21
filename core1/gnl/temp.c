@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 22:35:55 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/20 04:49:38 by hseong           ###   ########.fr       */
+/*   Updated: 2021/11/21 21:54:06 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,8 @@
 int		gnl_storage(char *buf, int fd, int io);
 char	*gnl_strjoin(char const *s1, char const *s2);
 char	*gnl_getnl(const char *s);
-int		gnl_get_fd(char fd_buf[][BUFFER_SIZE + 5], int fd);
+int		gnl_get_fd(t_buf *fd_buf, int fd);
 
-// OPEN_MAX
 char	*get_next_line(int fd)
 {
 	char		buf[BUFFER_SIZE + 1];
@@ -29,64 +28,63 @@ char	*get_next_line(int fd)
 		return (NULL);
 	ft_memset(buf, 0, BUFFER_SIZE + 1);
 	read_size = gnl_storage(buf, fd, 0);
-	read_size += read(fd, buf + read_size, BUFFER_SIZE - read_size);
-	if (read_size < 1)
+	if (read_size == -1)
 		return (NULL);
-	line = ft_strdup("");
+	read_size += read(fd, buf + read_size, BUFFER_SIZE - read_size);
+	line = (char *)malloc(sizeof(char));
+	*line = 0;
 	while (line && read_size > -1)
 	{
 		buf_end = gnl_getnl(buf);
-		if (buf_end != buf + BUFFER_SIZE && !gnl_storage(buf_end + 1, fd, 1))
+		if (buf_end != buf + BUFFER_SIZE && !gnl_storage(buf, fd, buf_end - buf + 1))
 			return (gnl_strjoin(line, buf));
 		line = gnl_strjoin(line, buf);
-		ft_memset(buf, 0, BUFFER_SIZE);
+		ft_memset(buf, 0, BUFFER_SIZE + 1);
 		read_size = read(fd, buf, BUFFER_SIZE);
 	}
 	free(line);
 	return (NULL);
 }
 
+// !!io, io : INPUT to buffer
+// !io		: OUTPUT from buffer
 int	gnl_storage(char *buf, int fd, int io)
 {
-	static char		fd_buf[3][BUFFER_SIZE + 5] = {{0, }, {0, }, {0, }};
+	static t_buf	fd_buf[3]
+		= {{-1, 0, {0, }}, {-1, 0, {0, }}, {-1, 0, {0, }}};
 	int				idx;
 
 	idx = gnl_get_fd(fd_buf, fd);
-	if (!io)
-	{
-		if (idx <= 0)
-			return (0);
-		ft_strcpy(buf, fd_buf[idx - 1] + 4);
-		ft_memset(fd_buf[idx - 1], 0, BUFFER_SIZE + 5);
-		return (ft_strlen(buf));
-	}
-	if (idx >= 0)
+	if ((!io && idx <= 0) || (!!io && idx >= 0))
 		return (0);
-	idx = -idx - 1;
-	fd_buf[idx][0] = fd / 1000;
-	fd_buf[idx][1] = (fd % 1000) / 100;
-	fd_buf[idx][2] = (fd % 100) / 10;
-	fd_buf[idx][3] = fd % 10;
-	ft_strcpy(fd_buf[idx] + 4, buf);
-	return (0);
+	idx = idx * (1 - 2 * !!io) - 1;
+	if (fd_buf[idx].eof)
+	{
+		fd_buf[idx].eof = 0;
+		fd_buf[idx].fd = -1;
+		return (-1);
+	}
+	fd_buf[idx].fd = -!io + fd * !!io;
+	!io && ft_strcpy(buf, fd_buf[idx].buf)
+		&& ft_memset(fd_buf[idx].buf, 0, BUFFER_SIZE + 1);
+	!!io && ft_strcpy(fd_buf[idx].buf, buf + io);
+	fd_buf[idx].eof = !!io * !buf[io - !!io];
+	return (!io * ft_strlen(buf));
 }
 
-int	gnl_get_fd(char fd_buf[][BUFFER_SIZE + 5], int fd)
+int	gnl_get_fd(t_buf *fd_buf, int fd)
 {
 	int		idx;
 	int		fd_empty;
-	int		fd_comp;
 
 	idx = 0;
 	fd_empty = 0;
 	while (idx < 3)
 	{
-		fd_comp = fd_buf[idx][0] * 1000 + fd_buf[idx][1] * 100
-			+ fd_buf[idx][2] * 10 + fd_buf[idx][3];
-		if (fd_comp == 0)
-			fd_empty = idx + 1;
-		else if (fd_comp == fd)
+		if (fd_buf[idx].fd == fd)
 			return (idx + 1);
+		if (fd_buf[idx].fd == -1)
+			fd_empty = idx + 1;
 		++idx;
 	}
 	return (-fd_empty);

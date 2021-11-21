@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 22:35:48 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/20 03:31:11 by hseong           ###   ########.fr       */
+/*   Updated: 2021/11/21 20:05:45 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+
+typedef struct s_buf
+{
+	int		fd;
+	int		eof;
+	char	buf[BUFFER_SIZE + 1];
+}			t_buf;
 
 char		*get_next_line(int fd);
 char		*ft_strdup(const char *s);
