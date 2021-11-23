@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 22:35:48 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/23 09:11:07 by hseong           ###   ########.fr       */
+/*   Updated: 2021/11/23 12:44:54 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_buf
 {
 	int				fd;
 	int				size;
-	unsigned char	buf[BUFFER_SIZE + 1];
+	unsigned char	str[BUFFER_SIZE + 1];
 }					t_buf;
 
 char		*get_next_line(int fd);
