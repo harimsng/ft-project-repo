@@ -1,7 +1,7 @@
 if input is given in stdin withoug newline, function doesn't end.
 
 	after revision
-one of the edge case conditions was missing.
+one of the edge case conditions was missing. then edge case should be handled properly.
 
 mistaken operator precedence between + and ==.
 
@@ -13,5 +13,8 @@ when newline is included in buffer, actually copied characters = length to newli
 stored length = length to character right before newline.
 there must be two variable used as length and newline flag (or length and newline included length).
 
+*trivial*
 if you fix variable error, make sure to fix every occurences of the variable.
-trivial!!!
+
+dereferencing failure(SIGSEGV) occured when immediate return is necessary but delayed.
+over-simplifying can result those things.
