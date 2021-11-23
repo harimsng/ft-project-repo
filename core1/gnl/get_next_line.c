@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 22:35:55 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/23 21:51:04 by hseong           ###   ########.fr       */
+/*   Updated: 2021/11/24 01:23:02 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,14 @@ int	gnl_load_buf(t_buf *fd_buf, t_buf **buf, int fd)
 		(*buf)->size = !eof_flag * (*buf)->size;
 		return (eof_flag);
 	}
-	while (idx > 0 && fd_buf[idx - 1].fd != -1)
+	while (idx > 0 && fd_buf[idx - 1].fd != -1
+		&& !(fd_buf[idx - 1].fd == 0 && fd_buf[idx - 1].size == -2))
 		--idx;
 	if (idx == 0)
 		return (1);
 	*buf = fd_buf + idx - 1;
 	(*buf)->fd = fd;
+	(*buf)->size += 2 * ((*buf)->size == -2);
 	return (0);
 }
 
