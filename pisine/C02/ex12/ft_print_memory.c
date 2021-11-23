@@ -6,22 +6,22 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:19:57 by hseong            #+#    #+#             */
-/*   Updated: 2021/10/15 00:40:58 by harimseong       ###   ########.kr       */
+/*   Updated: 2021/11/22 09:42:41 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
 void	print_addr(void *addr);
-void	print_hex(char hex);
-void	print_hexcontent(void *addr, int len);
-void	print_content(void *addr, int len);
+void	print_hex(unsigned char hex);
+void	print_hexcontent(void *addr, size_t len);
+void	print_content(void *addr, size_t len);
 
-void	*ft_print_memory(void *addr, unsigned int size)
+void	*ft_print_memory(void *addr, size_t size)
 {
-	char			*ptr;
-	unsigned int	idx;
-	int				sub_len;
+	unsigned char	*ptr;
+	size_t			idx;
+	size_t			sub_len;
 
 	if (addr == 0 || size == 0)
 		return (0);
@@ -43,44 +43,30 @@ void	*ft_print_memory(void *addr, unsigned int size)
 void	print_addr(void	*addr)
 {
 	int				bit;
-	long long int	hex;
-	char			*ptr;
+	unsigned char	hex;
+	unsigned char	*ptr;
 
 	ptr = addr;
 	bit = 60;
 	while (bit >= 0)
 	{
-		hex = ((unsigned long long int)ptr >> bit) & 15;
-		print_hex((unsigned char)hex);
+		hex = (unsigned char)(((unsigned long long int)ptr >> bit) & 15);
+		print_hex(hex);
 		bit -= 4;
 	}
-	write(1, ":", 1);
-	write(1, " ", 1);
+	write(1, ": ", 2);
 }
 
 // hex range should be [0, 15]
-void	print_hex(char hex)
+void	print_hex(unsigned char hex)
 {
-	if (hex > 15)
-	{
-		write(1, "-1", 1);
-		return ;
-	}
-	else if (hex > 9)
-	{
-		hex = 'a' + hex - 10;
-		write(1, &hex, 1);
-	}
-	else
-	{
-		hex = '0' + hex;
-		write(1, &hex, 1);
-	}
+	hex = (hex > 9) * ('a' + hex - 10) + (hex <= 9) * ('0' + hex);
+	write(1, &hex, 1);
 }
 
-void	print_hexcontent(void *addr, int len)
+void	print_hexcontent(void *addr, size_t len)
 {
-	int				idx;
+	size_t			idx;
 	unsigned char	*ptr;
 
 	ptr = addr;
@@ -89,31 +75,23 @@ void	print_hexcontent(void *addr, int len)
 	{
 		print_hex(*ptr >> 4);
 		print_hex(*ptr & 15);
-		if (idx % 2 == 1)
-			write(1, " ", 1);
+		write(1, " ", idx % 2);
 		++idx;
 		++ptr;
 	}
-	if (idx == 16)
-		return ;
 	while (idx < 16)
-	{
-		write(1, "  ", 2);
-		if (idx % 2 == 1)
-			write (1, " ", 1);
-		++idx;
-	}
+		write(1, "   ", 2 + idx++ % 2);
 }
 
 // size should be valid
-void	print_content(void *addr, int len)
+void	print_content(void *addr, size_t len)
 {
-	char			*ptr;
+	unsigned char	*ptr;
 
 	ptr = addr;
-	while (len > 0)
+	while (len)
 	{
-		if (*ptr < 32 || *ptr == 127)
+		if (*ptr < 32 || *ptr > 126)
 			write(1, ".", 1);
 		else
 			write(1, ptr, 1);

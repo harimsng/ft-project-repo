@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 22:35:53 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/22 02:13:11 by hseong           ###   ########.fr       */
+/*   Updated: 2021/11/22 09:53:14 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,31 @@ size_t	ft_strlen(const char *s)
 	while (s[ret])
 		++ret;
 	return (ret);
+}
+
+size_t	ft_strlcpy(char *dest, const char *src, size_t size)
+{
+	size_t		ret;
+
+	ret = 0;
+	while (src[ret])
+		++ret;
+	if (!size)
+		return (ret);
+	while (*src && size-- - 1)
+		*dest++ = *src++;
+	*dest = 0;
+	return (ret);
+}
+
+void	*ft_memcpy(void	*dest, const void *src, size_t size)
+{
+	unsigned char		d;
+	const unsigned char	s;
+
+	d = dest;
+	s = src;
+	while (size--)
+		*d++ = *s++;
+	return (dest);
 }

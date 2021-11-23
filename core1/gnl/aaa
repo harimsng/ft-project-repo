@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 22:35:55 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/23 09:24:23 by hseong           ###   ########.fr       */
+/*   Updated: 2021/11/22 19:17:37 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		gnl_storage(char *buf, int fd, int io);
 char	*gnl_strjoin(char const *s1, char const *s2);
 char	*gnl_getnl(const char *s);
-int		gnl_get_buf(t_buf *fd_buf, int fd);
+int		gnl_get_fd(t_buf *fd_buf, int fd);
 void	gnl_process(t_line line, t_buf fd_buf, ssize_t *read_size);
 
 char	*get_next_line(int fd)
@@ -27,10 +27,15 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
-	idx = gnl_get_buf(fd_buf, fd);
+	idx = gnl_get_idx(fd_buf, fd);
 	line = (t_line){128, fd_buf[idx].size, NULL};
-	line.str = (unsigned char *)malloc(sizeof(char) * (line.cap + 1));
-	ft_memcpy(line.str, fd_buf[idx].buf, BUFFER_SIZE);
+	while (line.cap <= BUFFER_SIZE)
+		line.cap <<= 1;
+	line.str = (char *)malloc(sizeof(char) * (line.cap));
+	if (idx > 0)
+		ft_memcpy(line.arr, fd_buf[idx].buf, BUFFER_SIZE); 
+	else (idx < 0)
+		ft_memcpy(line.arr, fd_buf[-idx - 1].buf, BUFFER_SIZE);
 	read_size = -1 + (idx != 0);
 	while (line.str && read_size > -1)
 		gnl_process(line, fd_buf[idx], &read_size);
@@ -47,15 +52,19 @@ void	gnl_process(t_line line, t_buf fd_buf, ssize_t *read_size);
 size_t	gnl_get_idx(t_buf *fd_buf, int fd)
 {
 	size_t		idx;
+	size_t		empty;
 
 	idx = 0;
-	while (idx < 3 && fd_buf[idx].fd != fd)
+	empty = 0;
+	while (idx < 3)
+	{
+		if (fd_buf[idx].fd == fd)
+			return (idx + 1);
+		if (fd_buf[idx].fd == -1)
+			empty = -idx - 1;
 		++idx;
-	if (idx < 3)
-		return (idx + 1);
-	while (idx > 0 && fd_buf[idx - 1].fd != -1)
-		--idx;
-	return (idx);
+	}
+	return (empty);
 }
 
 
