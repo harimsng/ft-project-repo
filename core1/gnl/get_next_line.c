@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 22:35:55 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/23 17:48:24 by hseong           ###   ########.fr       */
+/*   Updated: 2021/11/23 19:54:51 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,11 @@ char	*get_next_line(int fd)
 	line.str = (unsigned char *)malloc(sizeof(char) * (line.cap));
 	while (line.str && !gnl_process(&line, buf))
 		continue ;
-	if (buf->size == -1)
+	if (buf->size == -1 || line.size == 0)
+	{
 		free(line.str);
+		return (NULL);
+	}
 	return ((char *)line.str);
 }
 
@@ -45,7 +48,8 @@ int	gnl_process(t_line *line, t_buf *buf)
 	read_size = gnl_strjoin(line, buf);
 	if (read_size != buf->size)
 	{
-		buf->size = buf->size - read_size;
+		read_size += buf->str[read_size] == '\n';
+		buf->size -= read_size;
 		ft_memcpy(buf->str, buf->str + read_size, buf->size);
 		return (1);
 	}
@@ -85,6 +89,7 @@ int	gnl_strjoin(t_line *line, t_buf *buf)
 {
 	unsigned char	*ptr;
 	int				idx;
+	int				nl_flag;
 
 	if (line->size + buf->size >= line->cap)
 	{
@@ -99,9 +104,9 @@ int	gnl_strjoin(t_line *line, t_buf *buf)
 	idx = 0;
 	while (idx < buf->size && buf->str[idx] != '\n')
 		++idx;
-	idx += (buf->str[idx] == '\n' && buf->size);
-	ft_memcpy(line->str + line->size, buf->str, idx);
-	line->size += idx;
+	nl_flag = (buf->str[idx] == '\n' && idx < buf->size);
+	ft_memcpy(line->str + line->size, buf->str, idx + nl_flag);
+	line->size += idx + nl_flag;
 	line->str[line->size] = 0;
-	return (idx);
+	return (idx); 
 }

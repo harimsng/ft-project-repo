@@ -1,1 +1,17 @@
 if input is given in stdin withoug newline, function doesn't end.
+
+	after revision
+one of the edge case conditions was missing.
+
+mistaken operator precedence between + and ==.
+
+used a value as a EOF flag which is changed in the middle so that unexpected behavior happens.
+
+variables which are almost same (i.e, when their difference is one or zero) can be misused.
+problem caused by subtle difference between them was hard to debug. 
+when newline is included in buffer, actually copied characters = length to newline,
+stored length = length to character right before newline.
+there must be two variable used as length and newline flag (or length and newline included length).
+
+if you fix variable error, make sure to fix every occurences of the variable.
+trivial!!!
