@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 22:35:55 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/24 01:23:02 by hseong           ###   ########.fr       */
+/*   Updated: 2021/11/24 20:36:00 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,5 @@ int	gnl_strjoin(t_line *line, t_buf *buf)
 	ft_memcpy(line->str + line->size, buf->str, idx + nl_flag);
 	line->size += idx + nl_flag;
 	line->str[line->size] = 0;
-	return (idx); 
+	return (idx);
 }
