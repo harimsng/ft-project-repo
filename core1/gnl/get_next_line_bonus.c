@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/24 20:35:26 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/24 20:36:11 by hseong           ###   ########.fr       */
+/*   Created: 2021/11/18 22:35:55 by hseong            #+#    #+#             */
+/*   Updated: 2021/11/25 09:56:32 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,23 @@ char	*get_next_line(int fd)
 // if buf->size != BUFFER_SIZE, EOF have been read.
 int	gnl_process(t_line *line, t_buf *buf)
 {
-	int				read_size;
+	int			read_size;
 
 	buf->size += read(buf->fd, buf->str + buf->size, BUFFER_SIZE - buf->size);
 	if (buf->size < 0)
 		return (1);
+	buf->str[buf->size] = 0;
 	read_size = gnl_strjoin(line, buf);
 	if (read_size != buf->size)
 	{
-		read_size += buf->str[read_size] == '\n';
+		++read_size;
 		buf->size -= read_size;
 		ft_memcpy(buf->str, buf->str + read_size, buf->size);
-		return (1);
+		if (buf->size || (!buf->size && read_size == BUFFER_SIZE)
+			|| BUFFER_SIZE == 1)
+			return (1);
 	}
-	else if (buf->size != BUFFER_SIZE)
+	if (buf->size != BUFFER_SIZE)
 	{
 		buf->size = -2 * (buf->fd == 0);
 		buf->fd = -(buf->fd != 0);
@@ -111,7 +114,7 @@ int	gnl_strjoin(t_line *line, t_buf *buf)
 	idx = 0;
 	while (idx < buf->size && buf->str[idx] != '\n')
 		++idx;
-	nl_flag = (buf->str[idx] == '\n' && idx < buf->size);
+	nl_flag = buf->str[idx] == '\n';
 	ft_memcpy(line->str + line->size, buf->str, idx + nl_flag);
 	line->size += idx + nl_flag;
 	line->str[line->size] = 0;

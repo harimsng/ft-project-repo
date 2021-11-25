@@ -18,3 +18,5 @@ if you fix variable error, make sure to fix every occurences of the variable.
 
 dereferencing failure(SIGSEGV) occured when immediate return is necessary but delayed.
 over-simplifying can result those things.
+
+side effects of modifying a word to resolve a problem can be produce bigger problem.

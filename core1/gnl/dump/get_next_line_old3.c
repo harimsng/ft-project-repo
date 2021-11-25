@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 22:35:55 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/25 10:13:41 by hseong           ###   ########.fr       */
+/*   Updated: 2021/11/25 04:35:35 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*get_next_line(int fd)
 	line = (t_line){128, 0, NULL};
 	line.str = (unsigned char *)malloc(sizeof(char) * (line.cap));
 	while (line.str && !gnl_process(&line, buf))
-		continue ;
+		buf->size = 0;
 	if (buf->size == -1 || line.size == 0)
 	{
 		buf->fd = -1;
@@ -38,44 +38,32 @@ char	*get_next_line(int fd)
 	return ((char *)line.str);
 }
 
-//	if read_size != buf->size, there's newline in the buffer.
-//		if buf->size != 0
-//			entire buffer has not been written to line->str,
-//			because of multiple newlines.
-//			so there's leftover in the buffer.
-//		if buf->size == 0 && read_size == BUFFER_SIZE.
-//			there's no leftover but end with newline.
-//		if BUFFER_SIZE == 1
-//			there's always no leftover.
-//		else
-//			buffer has a newline and EOF.
-//	if buf->size != BUFFER_SIZE, EOF have been read.
+// if read_size != buf->size, there's newline in the buffer.
+// if buf->size != BUFFER_SIZE, EOF have been read.
 int	gnl_process(t_line *line, t_buf *buf)
 {
-	int			read_size;
+	int				read_size;
+	int				nl_flag;
+	int				eof_flag;
 
 	buf->size += read(buf->fd, buf->str + buf->size, BUFFER_SIZE - buf->size);
 	if (buf->size < 0)
 		return (1);
-	buf->str[buf->size] = 0;
 	read_size = gnl_strjoin(line, buf);
-	if (read_size != buf->size)
+	eof_flag = buf->size != BUFFER_SIZE;
+	nl_flag = read_size != buf->size;
+	if (nl_flag)
 	{
-		++read_size;
+		read_size += buf->str[read_size] == '\n';
 		buf->size -= read_size;
 		ft_memcpy(buf->str, buf->str + read_size, buf->size);
-		if (buf->size || (!buf->size && read_size == BUFFER_SIZE)
-			|| BUFFER_SIZE == 1)
-			return (1);
 	}
-	if (buf->size != BUFFER_SIZE)
+	if (eof_flag)
 	{
 		buf->size = -2 * (buf->fd == 0);
 		buf->fd = -(buf->fd != 0);
-		return (1);
 	}
-	buf->size = 0;
-	return (0);
+	return (nl_flag || eof_flag);
 }
 
 int	gnl_load_buf(t_buf *fd_buf, t_buf **buf, int fd)
@@ -124,7 +112,7 @@ int	gnl_strjoin(t_line *line, t_buf *buf)
 	idx = 0;
 	while (idx < buf->size && buf->str[idx] != '\n')
 		++idx;
-	nl_flag = buf->str[idx] == '\n';
+	nl_flag = (buf->str[idx] == '\n' && idx < buf->size);
 	ft_memcpy(line->str + line->size, buf->str, idx + nl_flag);
 	line->size += idx + nl_flag;
 	line->str[line->size] = 0;
