@@ -6,19 +6,20 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 22:35:55 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/25 10:13:41 by hseong           ###   ########.fr       */
+/*   Updated: 2021/11/28 02:10:55 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
 int		gnl_load_buf(t_buf *fd_buf, t_buf **buf, int fd);
-int		gnl_process(t_line *line, t_buf *buf);
-int		gnl_strjoin(t_line *line, t_buf *buf);
+int		gnl_append(t_line *line, t_buf *buf);
+int		gnl_read(t_buf *buf);
 
+// maximum number of opened fd + stdin = 257
 char	*get_next_line(int fd)
 {
-	static t_buf	fd_buf[3] = {{-1, 0, {0,}}, {-1, 0, {0,}}, {-1, 0, {0,}}};
+	static t_buf	fd_buf[257];
 	t_buf			*buf;
 	t_line			line;
 
@@ -26,107 +27,95 @@ char	*get_next_line(int fd)
 		return (NULL);
 	line = (t_line){128, 0, NULL};
 	line.str = (unsigned char *)malloc(sizeof(char) * (line.cap));
-	while (line.str && !gnl_process(&line, buf))
+	if (!line.str || !buf->str)
+		return (NULL);
+	while (gnl_append(&line, buf) && gnl_read(buf))
 		continue ;
 	if (buf->size == -1 || line.size == 0)
 	{
-		buf->fd = -1;
-		buf->size = 0;
 		free(line.str);
+		free(buf->str);
+		buf->fd = 0;
+		buf->str = NULL;
 		return (NULL);
 	}
 	return ((char *)line.str);
 }
+//	buf->size == -1
+//		read() error
+//	line.size == 0
+//		only EOF has been read(nothing left in the fd)
 
-//	if read_size != buf->size, there's newline in the buffer.
-//		if buf->size != 0
-//			entire buffer has not been written to line->str,
-//			because of multiple newlines.
-//			so there's leftover in the buffer.
-//		if buf->size == 0 && read_size == BUFFER_SIZE.
-//			there's no leftover but end with newline.
-//		if BUFFER_SIZE == 1
-//			there's always no leftover.
-//		else
-//			buffer has a newline and EOF.
-//	if buf->size != BUFFER_SIZE, EOF have been read.
-int	gnl_process(t_line *line, t_buf *buf)
+int	gnl_read(t_buf *buf)
 {
-	int			read_size;
-
-	buf->size += read(buf->fd, buf->str + buf->size, BUFFER_SIZE - buf->size);
+	buf->size = read(buf->fd * (buf->fd != INT_MAX), buf->str, BUFFER_SIZE);
 	if (buf->size < 0)
-		return (1);
+		return (0);
+	else if (!buf->size)
+	{
+		free(buf->str);
+		buf->fd = 0;
+		buf->str = NULL;
+		return (0);
+	}
 	buf->str[buf->size] = 0;
-	read_size = gnl_strjoin(line, buf);
-	if (read_size != buf->size)
-	{
-		++read_size;
-		buf->size -= read_size;
-		ft_memcpy(buf->str, buf->str + read_size, buf->size);
-		if (buf->size || (!buf->size && read_size == BUFFER_SIZE)
-			|| BUFFER_SIZE == 1)
-			return (1);
-	}
-	if (buf->size != BUFFER_SIZE)
-	{
-		buf->size = -2 * (buf->fd == 0);
-		buf->fd = -(buf->fd != 0);
-		return (1);
-	}
-	buf->size = 0;
-	return (0);
+	return (1);
 }
 
+//		check whether preserved fd buffer exists or not.
+// 		if it exists, set t_buf pointer to point to the fd buffer.
+//
+//		if fd buffer is not found,
+//		find empty buffer which has buf->fd = -1 and set the pointer.
+//		if there's no empty buffer, return error.
 int	gnl_load_buf(t_buf *fd_buf, t_buf **buf, int fd)
 {
 	int				idx;
-	int				eof_flag;
 
 	idx = 0;
-	while (idx < 3 && fd_buf[idx].fd != fd)
+	fd += INT_MAX * (!fd);
+	while (idx < 257 && fd_buf[idx].fd != fd)
 		++idx;
-	if (idx < 3)
-	{
-		*buf = fd_buf + idx;
-		eof_flag = (*buf)->size == -2;
-		(*buf)->fd = !eof_flag * (*buf)->fd - eof_flag;
-		(*buf)->size = !eof_flag * (*buf)->size;
-		return (eof_flag);
-	}
-	while (idx > 0 && fd_buf[idx - 1].fd != -1
-		&& !(fd_buf[idx - 1].fd == 0 && fd_buf[idx - 1].size == -2))
+	if (idx < 257)
+		return (!(*buf = fd_buf + idx)->str);
+	while (idx > 0 && fd_buf[idx - 1].str)
 		--idx;
 	if (idx == 0)
 		return (1);
 	*buf = fd_buf + idx - 1;
+	(*buf)->str = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	(*buf)->size = 0;
+	(*buf)->str[(*buf)->size] = 0;
 	(*buf)->fd = fd;
-	(*buf)->size += 2 * ((*buf)->size == -2);
 	return (0);
 }
 
-int	gnl_strjoin(t_line *line, t_buf *buf)
+//		if expected line size is bigger than capacity,
+//		allocate new array with proper capacity and memcpy original contents.
+//		memcpy contents of buffer into line->str and add null at the end.
+int	gnl_append(t_line *line, t_buf *buf)
 {
 	unsigned char	*ptr;
 	int				idx;
-	int				nl_flag;
 
 	if (line->size + buf->size >= line->cap)
 	{
 		line->cap *= 2 * (line->size + buf->size) / line->cap;
-		ptr = (unsigned char *)malloc(sizeof(char) * (line->cap));
+		ptr = malloc(sizeof(char) * (line->cap));
 		if (!ptr)
-			return (0);
+			return (line->size = 0);
 		ft_memcpy(ptr, line->str, line->size + 1);
 		free(line->str);
 		line->str = ptr;
 	}
 	idx = 0;
-	while (idx < buf->size && buf->str[idx] != '\n')
-		++idx;
-	nl_flag = buf->str[idx] == '\n';
-	ft_memcpy(line->str + line->size, buf->str, idx + nl_flag);
-	line->size += idx + nl_flag;
+	while (idx < buf->size && buf->str[idx++] != '\n')
+		continue ;
+	ft_memcpy(line->str + line->size, buf->str, idx);
+	ft_memcpy(buf->str, buf->str + idx, buf->size - idx);
+	line->size += idx;
 	line->str[line->size] = 0;
-	return (idx);
+	buf->size -= idx;
+	buf->str[buf->size] = 0;
+	return (!line->size || line->str[line->size - 1] != '\n');
 }

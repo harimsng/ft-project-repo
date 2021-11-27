@@ -3,6 +3,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <time.h>
 
 void	ft_putstr(const char *s);
 
@@ -19,7 +20,8 @@ int	main(int argc, char **argv)
 	 11, 12, 13, 7, 8,
 	 9, 10, 11, 12, 13,
 	 0, 1, 13, 14, -1};
-
+//	clock_t	start, end;
+//	double	time;
 
 //	fd = 100;
 //	if (argc != 2)
@@ -41,6 +43,8 @@ int	main(int argc, char **argv)
 	fd[12] = open("test12", O_RDONLY);
 	fd[13] = open("test1_2", O_RDONLY);
 	fd[14] = open("test1_3", O_RDONLY);
+
+//	start = clock();
 	for (int i = 0; procedure[i] != -1; ++i)
 	{
 		line = get_next_line(fd[procedure[i]]);
@@ -50,6 +54,9 @@ int	main(int argc, char **argv)
 			printf("line%d\t:|%s|\n", i, line);
 		free(line);
 	}
+//	end = clock();
+//	time = ((double)(end - start)) / (CLOCKS_PER_SEC);
+//	printf("\ntime : %f\n", time);
 	return (0);
 }
 void	ft_putstr(const char *s)

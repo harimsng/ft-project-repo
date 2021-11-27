@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 22:35:48 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/23 15:38:26 by hseong           ###   ########.fr       */
+/*   Updated: 2021/11/27 09:01:50 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+
+# define INT_MAX 2147483647
 
 typedef struct s_line
 {
@@ -27,7 +29,7 @@ typedef struct s_buf
 {
 	int				fd;
 	int				size;
-	unsigned char	str[BUFFER_SIZE + 1];
+	unsigned char	*str;
 }					t_buf;
 
 char		*get_next_line(int fd);
