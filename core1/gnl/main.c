@@ -5,21 +5,23 @@
 #include <fcntl.h>
 #include <time.h>
 
+#define TEST(i) ("test" #i)
+
 void	ft_putstr(const char *s);
 
 int	main(int argc, char **argv)
 {
 	char	*line;
-	int		fd[15];
-	int		procedure[100] =
-	{0, 0, 0, 1, 2,
-	 3, 4, 5, 6, 1,
-	 0, 1, 2, 3, 4,
-	 13, 14, 14, 1, 1,
-	 0, 7, 8, 9, 10,
-	 11, 12, 13, 7, 8,
-	 9, 10, 11, 12, 13,
-	 0, 1, 13, 14, -1};
+	int		fd[257];
+//	int		procedure[300];
+//	{0, 0, 0, 1, 2,
+//	 3, 4, 5, 6, 1,
+//	 1, 1, 2, 3, 4,
+//	 13, 14, 14, 1, 1,
+//	 2, 7, 8, 9, 10,
+//	 11, 12, 13, 7, 8,
+//	 9, 10, 11, 12, 13,
+//	 3, 1, 13, 14, -1};
 //	clock_t	start, end;
 //	double	time;
 
@@ -43,11 +45,13 @@ int	main(int argc, char **argv)
 	fd[12] = open("test12", O_RDONLY);
 	fd[13] = open("test1_2", O_RDONLY);
 	fd[14] = open("test1_3", O_RDONLY);
+	for (int i = 15; i < 257; ++i)
+		fd[i] = open(TEST(i), O_RDWR | O_CREAT);
 
 //	start = clock();
-	for (int i = 0; procedure[i] != -1; ++i)
+	for (int i = 0; i < 257; ++i)
 	{
-		line = get_next_line(fd[procedure[i]]);
+		line = get_next_line(fd[i]);
 		if (!line)
 			printf("line%d\t:(null)\n", i);
 		else
@@ -57,8 +61,11 @@ int	main(int argc, char **argv)
 //	end = clock();
 //	time = ((double)(end - start)) / (CLOCKS_PER_SEC);
 //	printf("\ntime : %f\n", time);
+	while (1)
+		continue ;
 	return (0);
 }
+
 void	ft_putstr(const char *s)
 {
 	while (*s)
