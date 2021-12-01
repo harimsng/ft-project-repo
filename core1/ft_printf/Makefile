@@ -1,21 +1,34 @@
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
 
-NAME	= ft_printf
-SRC_DIR	= srcs
-SRCS	= ft_printf.c
-OBJS	= $(SRCS:%.c=%.o)
+NAME	= libftprintf.a 
+LIB		= libft/libft.a
 
-HDR_DIR	= includes
+SRC_DIR	= src
+SRCS	= print_char.c		print_string.c\
+		  print_pointer.c	print_integer.c\
+	  	  print_unsigned.c  print_lowhex.c\
+		  print_uphex.c		print_percent.c
+
+LIB_DIR = libft
+LIB_SRC = ft_putchar_fd.c	ft_putstr_fd.c\
+		  ft_putnbr_fd.c
+
+SRC_DEP	= $(SRCS:%=$(SRC_DIR)/%)
+SRC_DEP += $(LIB_SRC:%=$(LIB_DIR)/%)
+SRC_DEP += ft_printf.c
+
 HDRS	= ft_printf.h
+
+OBJS	= $(SRC_DEP:%.c=%.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	ar rcs $@ $^
+	ar rcs $@ $(OBJS)
 
 $(OBJS): %.o: %.c
-	$(CC) $(CFLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS) -c -o $@ $< -I. -I./$(LIB_DIR)
 
 clean:
 	rm -f $(OBJS)
