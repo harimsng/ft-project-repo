@@ -11,8 +11,8 @@ SRCS	= print_char.c		print_string.c\
 		  print_uphex.c		print_percent.c
 
 LIB_DIR = libft
-LIB_SRC = ft_putchar_fd.c	ft_putstr_fd.c\
-		  ft_putnbr_fd.c
+LIB_SRC = ft_strchr.c		ft_strlen.c\
+		  ft_strlcpy.c
 
 SRC_DEP	= $(SRCS:%=$(SRC_DIR)/%)
 SRC_DEP += $(LIB_SRC:%=$(LIB_DIR)/%)

@@ -6,14 +6,19 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 11:36:32 by hseong            #+#    #+#             */
-/*   Updated: 2021/12/01 17:57:23 by hseong           ###   ########.fr       */
+/*   Updated: 2021/12/02 19:35:03 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	print_percent(va_list arg)
+int	print_percent(va_list arg, void *buf)
 {
+	char	*str;
+	
 	(void)arg;
-	return (ft_putchar_fd('%', 1));
+	str = buf;
+	*str++ = '%';
+	*str = 0;
+	return (0);
 }

@@ -6,14 +6,18 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 11:32:33 by hseong            #+#    #+#             */
-/*   Updated: 2021/12/01 17:44:12 by hseong           ###   ########.fr       */
+/*   Updated: 2021/12/02 19:33:26 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	print_char(va_list arg)
+int	print_char(va_list arg, void *buf)
 {
-	return (ft_putchar_fd(va_arg(arg, int), 1));
-//	return (write(1, &c, 1);
+	char	*str;
+
+	str = buf;
+	*str++ = (char)(va_arg(arg, int));
+	*str = 0;
+	return (0);
 }
