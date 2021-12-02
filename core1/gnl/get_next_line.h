@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 22:35:48 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/29 18:02:06 by hseong           ###   ########.fr       */
+/*   Updated: 2021/11/30 22:28:20 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,5 @@ typedef struct s_buf
 
 char		*get_next_line(int fd);
 void		*ft_memcpy(void *dest, const void *src, size_t size);
-void		*ft_calloc(size_t count, size_t size);
 
 #endif

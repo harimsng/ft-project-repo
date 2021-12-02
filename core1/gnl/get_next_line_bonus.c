@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/29 19:55:18 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/29 19:55:22 by hseong           ###   ########.fr       */
+/*   Created: 2021/11/18 22:35:55 by hseong            #+#    #+#             */
+/*   Updated: 2021/11/30 22:02:20 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 int		gnl_load_buf(t_buf *fd_buf, t_buf *buf, int fd);
 int		gnl_save_buf(t_buf *fd_buf, t_buf *buf);
 int		gnl_append(t_line *line, t_buf *buf);
-void	gnl_reset_buf(t_buf *buf);
 
-// maximum number of opened fd + stdin = 257
 char	*get_next_line(int fd)
 {
 	static t_buf	fd_buf[257];
@@ -41,16 +39,10 @@ char	*get_next_line(int fd)
 		free(line.str);
 		line.str = NULL;
 	}
-	gnl_reset_buf(&buf);
+	free(buf.str);
 	return ((char *)line.str);
 }
-//	buf->size == -1
-//		read() error
-//	line.size == 0
-//		only EOF has been read(nothing left in the fd)
 
-//		check whether preserved fd_buf exists or not.
-// 		if it exists, move its contents to buf.
 int	gnl_load_buf(t_buf *fd_buf, t_buf *buf, int fd)
 {
 	int				idx;
@@ -66,7 +58,9 @@ int	gnl_load_buf(t_buf *fd_buf, t_buf *buf, int fd)
 		return (0);
 	ft_memcpy(buf->str, fd_buf[idx].str, fd_buf[idx].size);
 	buf->size = fd_buf[idx].size;
-	gnl_reset_buf(fd_buf + idx);
+	free(fd_buf->str);
+	fd_buf->fd = 0;
+	fd_buf->str = NULL;
 	return (0);
 }
 
@@ -86,8 +80,6 @@ int	gnl_save_buf(t_buf *fd_buf, t_buf *buf)
 	return (0);
 }
 
-//		if expected line size is bigger than capacity,
-//		allocate new array with proper capacity and memcpy original contents.
 int	gnl_append(t_line *line, t_buf *buf)
 {
 	unsigned char	*ptr;
@@ -112,12 +104,4 @@ int	gnl_append(t_line *line, t_buf *buf)
 	line->str[line->size] = 0;
 	buf->size -= idx;
 	return (!line->size || line->str[line->size - 1] != '\n');
-}
-
-void gnl_reset_buf(t_buf *buf)
-{
-	free(buf->str);
-	buf->str = NULL;
-	buf->fd = 0;
-	buf->size = 0;
 }
