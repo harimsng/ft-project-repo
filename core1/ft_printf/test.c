@@ -15,23 +15,25 @@ int	main(void)
 
 	test = -65;
 //	printf("%d\n", printf("|%0-0-   ++####+ 0+#09.5d|\n", test));
-	printf("%d\n", printf("|%--++9.5d|\n", test));
-	printf("%d\n", printf("|%--#####9.5x|\n", test));
-	printf("%d\n", printf("|%--9.5u|\n", test));
-	printf("%d\n", printf("|%--9c|\n", test));
-	printf("%d\n", printf("|%--6.2s|\n", str));
-	printf("%d\n", printf("|%--9p|\n", str));
-	printf("%d\n", printf("|%0-0-   ++####+ 0+#09.5|\n", str));
-/*
+	printf("%d\n", printf("u|%.2s|\n", str, printf("%d\n", 1 + 1)));
+	printf("%d\n", printf("d|%.3d|\n", test));
+	printf("%d\n", printf("x|%0--#####19.5x|\n", test));
+	printf("%d\n", printf("u|%--9.5u|\n", test));
+	printf("%d\n", printf("c|%--9c|\n", test));
+	printf("%d\n", printf("s|%--6.2s|\n", str));
+	printf("%d\n", printf("p|%--19p|\n", str));
+	printf("%d\n", printf("|%0-0-   ++####+ 0+#0.5|\n", str));
+
 	printf("________________________________________\n");
-	printf("%d\n", ft_printf("|%--++++9.5d|\n", test));
-	printf("%d\n", ft_printf("|%--#####9.5x|\n", test));
-	printf("%d\n", ft_printf("|%--9.5u|\n", test));
-	printf("%d\n", ft_printf("|%--9c|\n", test));
-	printf("%d\n", ft_printf("|%--9.5s|\n", str));
-	printf("%d\n", ft_printf("|%--#9p|\n", str));
-	printf("%d\n", ft_printf("|%0-0-   ++####+ 0+#09.5|\n", str));
-*/
+	printf("%d\n", ft_printf("u|%.2s|\n", str, ft_printf("%d\n", 1 + 1)));
+	printf("%d\n", ft_printf("d|%.3d|\n", test));
+	printf("%d\n", ft_printf("x|%0--#####19.5x|\n", test));
+	printf("%d\n", ft_printf("u|%--9.5u|\n", test));
+	printf("%d\n", ft_printf("c|%--9c|\n", test));
+	printf("%d\n", ft_printf("s|%--6.2s|\n", str));
+	printf("%d\n", ft_printf("p|%--19p|\n", str));
+	printf("%d\n", ft_printf("|%0-0-   ++####+ 0+#0.5|\n", str));
+
 	printf("%d %s\n", errno, strerror(errno));
 	return (0);
 }

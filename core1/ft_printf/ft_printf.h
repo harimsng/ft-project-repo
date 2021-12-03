@@ -6,12 +6,14 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 20:33:23 by hseong            #+#    #+#             */
-/*   Updated: 2021/12/02 21:09:13 by hseong           ###   ########.fr       */
+/*   Updated: 2021/12/03 20:50:31 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
+
+#include <stdio.h>
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -20,7 +22,7 @@
 
 # define MAX_CONV 9
 # define MAX_FLAG 7
-# define MAX_BIT 1024
+# define MAX_BIT 1023
 # define NUMERIC_BUF_SIZE 32
 
 typedef int 			(*t_conv)(va_list, void *);
@@ -49,20 +51,23 @@ int						print_uphex(va_list arg, void *buf);
 int						print_percent(va_list arg, void *buf);
 
 //	flags
-//						padding option
-void					opt_negative_field(void);
-void					opt_zero_padding(void);
-//						preceding character
-void					opt_blank(void);
-void					opt_plus_sign(void);
-//						alternative form(preceding characters)
-void					opt_alt_form(void);
+//	padding option
+int						opt_padding(t_format_info info, int len);
+//void					opt_negative_field(void);
+//void					opt_zero_padding();
+//	preceding character
+//void					opt_blank(void);
+//void					opt_plus_sign(void);
+//	alternative form(preceding characters)
+//void					opt_alt_form(void);
 
 //	width, precision
 //						padding width
-void					opt_min_field(void);
+//void					opt_min_field(void);
 //						precision
-void					opt_precision(void);
+int						opt_precision(t_format_info info, char *buf, int len);
+//	precision for string is its maximum length.
+//	precision for integer is minimum number of digits.
 
 /*
  * flag collision
@@ -70,6 +75,7 @@ void					opt_precision(void);
  * '-'				<> '0'
  * '.'				<> '0' (with 'd', 'i', 'u', 'x', 'X', ...)
  * '+'				<> ' '
+ * negative number	<> '+'
  * 'x', 'u'			<> '+', ' '
  * 's'				<> '0', '+', ' ', '#'
  * 'c', 'p'			<> '0', '+', ' ', '#', '.'
@@ -104,6 +110,5 @@ static const char		g_flag_group[MAX_FLAG] =
 //	there're processed separately.
 
 static const char		*hex_tab = "0123456789abcdef0123456789ABCDEF";
-static const char		*pre_hex = "0x0X";
 
 #endif

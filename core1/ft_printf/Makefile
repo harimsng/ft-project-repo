@@ -8,11 +8,13 @@ SRC_DIR	= src
 SRCS	= print_char.c		print_string.c\
 		  print_pointer.c	print_integer.c\
 	  	  print_unsigned.c  print_lowhex.c\
-		  print_uphex.c		print_percent.c
+		  print_uphex.c		print_percent.c\
+		  opt_padding.c		opt_precision.c
 
 LIB_DIR = libft
 LIB_SRC = ft_strchr.c		ft_strlen.c\
-		  ft_strlcpy.c
+		  ft_strlcpy.c		ft_atoi.c\
+		  ft_isdigit.c
 
 SRC_DEP	= $(SRCS:%=$(SRC_DIR)/%)
 SRC_DEP += $(LIB_SRC:%=$(LIB_DIR)/%)
