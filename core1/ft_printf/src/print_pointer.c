@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 11:33:29 by hseong            #+#    #+#             */
-/*   Updated: 2021/12/02 19:56:16 by hseong           ###   ########.fr       */
+/*   Updated: 2021/12/08 17:36:53 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	print_pointer(va_list arg, void *buf)
 	str = buf;
 	num = (unsigned long long)(va_arg(arg, unsigned long long));
 	bits = 60;
+	*str++ = '0';
+	*str++ = 'x';
 	while (bits && !(num >> bits & 15))
 		bits -= 4;
 	while (bits >= 0)

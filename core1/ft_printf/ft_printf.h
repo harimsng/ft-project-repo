@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 20:33:23 by hseong            #+#    #+#             */
-/*   Updated: 2021/12/03 20:50:31 by hseong           ###   ########.fr       */
+/*   Updated: 2021/12/08 18:54:47 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 # define NUMERIC_BUF_SIZE 32
 
 typedef int 			(*t_conv)(va_list, void *);
-typedef unsigned char	bool;
 
 typedef struct s_format_info
 {
@@ -48,7 +47,6 @@ int						print_integer(va_list arg, void *buf);
 int						print_unsigned(va_list arg, void *buf);
 int						print_lowhex(va_list arg, void *buf);
 int						print_uphex(va_list arg, void *buf);
-int						print_percent(va_list arg, void *buf);
 
 //	flags
 //	padding option
@@ -92,22 +90,18 @@ static const t_conv		g_conv_func[MAX_CONV] =
 	print_unsigned,
 	print_lowhex,
 	print_uphex,
-	print_percent
 };
 
 static const char		g_conv_group[MAX_CONV] =
 {
-	99, 115, 112, 105, 100, 117, 120, 88, 37
+	99, 115, 112, 105, 100, 117, 120, 88
 };
-//  'c', 's', 'p', 'i', 'd', 'u', 'x', 'X', '%'
+//  'c', 's', 'p', 'i', 'd', 'u', 'x', 'X'
 
 static const char		g_flag_group[MAX_FLAG] = 
 {
 	'-', '0', ' ', '+', '#'
 };
-//	'-', '0', ' ', '+', '#' ('.', digit string)
-//	'.' and digit string for precision and minimum field width aren't necessary here.
-//	there're processed separately.
 
 static const char		*hex_tab = "0123456789abcdef0123456789ABCDEF";
 

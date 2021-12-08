@@ -9,8 +9,8 @@ int	main(void)
 
 // character
 	printf("%d %d\n",
-		ft_printf("abcdefg12345!@#$\n", -255, -256, -257, 0, -1), 
-		printf("abcdefg12345!@#$\n", -255, -256, -257, 0, -1)); 
+		ft_printf("abcdefg12345!@#$\n"),
+		printf("abcdefg12345!@#$\n"));
 
 	printf("%d %d\n",
 		ft_printf("%c %c_%c_%c_%c\n", -255, -256, -257, 0, -1), 
