@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 20:33:23 by hseong            #+#    #+#             */
-/*   Updated: 2021/12/08 18:54:47 by hseong           ###   ########.fr       */
+/*   Updated: 2021/12/08 21:20:05 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,9 @@ static const char		g_conv_group[MAX_CONV] =
 
 static const char		g_flag_group[MAX_FLAG] = 
 {
-	'-', '0', ' ', '+', '#'
+	'-', '0', ' ', '+', '#', '-'
 };
+// 6th element is for negative sign.
 
 static const char		*hex_tab = "0123456789abcdef0123456789ABCDEF";
 

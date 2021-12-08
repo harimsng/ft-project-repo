@@ -6,8 +6,8 @@ int	main(void)
 	printf("positive integer test\n");
 
 	printf("%d %d\n"
-			,printf("|%+d|\n",12345678)
-			,ft_printf("|%+d|\n",12345678)
+			,printf("|%d|\n",12345678)
+			,ft_printf("|%d|\n",12345678)
 	);
 	printf("%d %d\n"
 			,printf("|%+ d|\n",12345678)

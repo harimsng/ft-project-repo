@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 20:40:01 by hseong            #+#    #+#             */
-/*   Updated: 2021/12/08 20:07:38 by hseong           ###   ########.fr       */
+/*   Updated: 2021/12/08 21:22:27 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int			fpf_write(t_format_info *info, char *buf);
 static void			fpf_read(const char **format, t_format_info *info);
 static void			fpf_bits_refine(t_format_info *info);
 
-static const char	*pre_cha = " +0x0X";
+static const char	*pre_cha = " +-0x0X";
 
 int	ft_printf(const char *format, ...)
 {
@@ -68,27 +68,31 @@ static int	fpf_format_io(const char **format, va_list arg)
 		return (INT_MIN);
 	else if (info.conv != 1 && g_conv_func[info.conv](arg, buf_ptr) < 0)
 		return (INT_MIN);
-	info.bit_flag &= MAX_BIT - 8 * (*(char *)buf_ptr == '-');
+	if (info.conv > 1 && *(char *)buf_ptr == '-')
+	{
+		info.bit_flag &= MAX_BIT - 8 * (*(char *)buf_ptr == '-');
+		info.bit_flag |= 32 * (*(char *)buf_ptr == '-');
+		buf_ptr = (char *)buf_ptr + 1;
+	}
 	return (fpf_write(&info, buf_ptr));
 }
 
-// len = length of output without only padding.
+// len = length of arg.
 // precision doesn't include preceding characters.
 static int	fpf_write(t_format_info *info, char *buf)
 {
 	int			len;
 	int			ret;
 
-	len = info->precision + !!(info->bit_flag & 28) + !!(info->bit_flag & 16);
+	len = ft_strlen(buf);
 	ret = 0;
 	if (!(info->bit_flag & 1) && !(info->bit_flag & 2))
 		ret += opt_padding(*info, len);
-	if (info->bit_flag & 28)
+	if (info->bit_flag & 60)
 		ret += write(1, pre_cha + !!(info->bit_flag & 8)
-			+ 2 * (info->conv == 6) + 4 * (info->conv == 7),
+			+ 2 * !!(info->bit_flag & 32)
+			+ 3 * (info->conv == 6) + 5 * (info->conv == 7),
 			1 + (info->conv == 6 || info->conv == 7));
-	else if (info->conv > 1 && buf[0] == '-')
-		ret += write(1, "-", 1);
 	ret += opt_precision(*info, buf, len);
 	if ((info->bit_flag & 1) && !(info->bit_flag & 2))
 		ret += opt_padding(*info, len);
