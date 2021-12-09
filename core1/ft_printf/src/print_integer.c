@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 11:34:14 by hseong            #+#    #+#             */
-/*   Updated: 2021/12/02 19:51:19 by hseong           ###   ########.fr       */
+/*   Updated: 2021/12/09 19:06:32 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	print_integer(va_list arg, void *buf)
 	den = 1000000000;
 	while (!(num / den))
 		den /= 10;
-	while (num > 0)
+	while (den > 0)
 	{
 		*str++ = num / den + '0';
 		num %= den;

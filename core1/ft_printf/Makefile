@@ -26,6 +26,8 @@ OBJS	= $(SRC_DEP:%.c=%.o)
 
 all: $(NAME)
 
+bonus: all
+
 $(NAME): $(OBJS)
 	ar rcs $@ $(OBJS)
 

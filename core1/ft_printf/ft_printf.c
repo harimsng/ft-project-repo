@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 20:40:01 by hseong            #+#    #+#             */
-/*   Updated: 2021/12/08 21:22:27 by hseong           ###   ########.fr       */
+/*   Updated: 2021/12/09 21:36:16 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,10 @@ static int	fpf_format_io(const char **format, va_list arg)
 	fpf_read(format, &info);
 	fpf_bits_refine(&info);
 	if (info.conv < 0)
-		return (info.min_field);
-	if (info.min_field < 0 || info.precision < 0)
-		return (INT_MIN);
-	if (info.conv == 1 && g_conv_func[1](arg, &buf_ptr) < 0)
-		return (INT_MIN);
-	else if (info.conv != 1 && g_conv_func[info.conv](arg, buf_ptr) < 0)
+		return (info.min_width);
+	if (info.min_width < 0 || info.precision < 0
+		|| (info.conv == 1 && g_conv_func[1](arg, &buf_ptr) < 0)
+		|| (info.conv != 1 && g_conv_func[info.conv](arg, buf_ptr) < 0))
 		return (INT_MIN);
 	if (info.conv > 1 && *(char *)buf_ptr == '-')
 	{
@@ -79,12 +77,16 @@ static int	fpf_format_io(const char **format, va_list arg)
 
 // len = length of arg.
 // precision doesn't include preceding characters.
+// minimum width include preceding charcters(' ', '-', '+').
 static int	fpf_write(t_format_info *info, char *buf)
 {
 	int			len;
 	int			ret;
 
-	len = ft_strlen(buf);
+	len = ft_strlen(buf) + (!info->conv && !buf[0]);
+	info->precision += !info->precision * len
+		+ (info->bit_flag & 2 && info->min_width)
+		* (info->min_width - !!(info->bit_flag & 16) - !!(info->bit_flag & 60));
 	ret = 0;
 	if (!(info->bit_flag & 1) && !(info->bit_flag & 2))
 		ret += opt_padding(*info, len);
@@ -111,7 +113,7 @@ static void	fpf_read(const char **format, t_format_info *info)
 		ptr = ft_strchr(g_flag_group, **format);
 	}
 	if (**format >= '0' && **format <= '9')
-		info->min_field = ft_atoi(*format);
+		info->min_width = ft_atoi(*format);
 	while (**format >= '0' && **format <= '9')
 		++*format;
 	if (**format == '.' && *(*format + 1) >= '0' && *(*format + 1) <= '9')

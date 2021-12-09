@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 20:33:23 by hseong            #+#    #+#             */
-/*   Updated: 2021/12/08 21:20:05 by hseong           ###   ########.fr       */
+/*   Updated: 2021/12/09 18:51:50 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef int 			(*t_conv)(va_list, void *);
 typedef struct s_format_info
 {
 	int		bit_flag;
-	int		min_field;
+	int		min_width;
 	int		precision;
 	int		conv;
 }						t_format_info;
@@ -61,7 +61,7 @@ int						opt_padding(t_format_info info, int len);
 
 //	width, precision
 //						padding width
-//void					opt_min_field(void);
+//void					opt_min_width(void);
 //						precision
 int						opt_precision(t_format_info info, char *buf, int len);
 //	precision for string is its maximum length.
@@ -69,7 +69,7 @@ int						opt_precision(t_format_info info, char *buf, int len);
 
 /*
  * flag collision
- * latters are ignored or resulting UB.
+ * latters are ignored or result UB(warning occurs).
  * '-'				<> '0'
  * '.'				<> '0' (with 'd', 'i', 'u', 'x', 'X', ...)
  * '+'				<> ' '
@@ -102,6 +102,7 @@ static const char		g_flag_group[MAX_FLAG] =
 {
 	'-', '0', ' ', '+', '#', '-'
 };
+// 	1	 2	  4	   8	16	 32
 // 6th element is for negative sign.
 
 static const char		*hex_tab = "0123456789abcdef0123456789ABCDEF";
