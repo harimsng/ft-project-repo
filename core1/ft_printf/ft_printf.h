@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 20:33:23 by hseong            #+#    #+#             */
-/*   Updated: 2021/12/09 18:51:50 by hseong           ###   ########.fr       */
+/*   Updated: 2021/12/10 17:05:05 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include "libft/libft.h"
 
 # define MAX_CONV 9
-# define MAX_FLAG 7
+# define MAX_FLAG 9
 # define MAX_BIT 1023
 # define NUMERIC_BUF_SIZE 32
 
@@ -30,6 +30,7 @@ typedef int 			(*t_conv)(va_list, void *);
 typedef struct s_format_info
 {
 	int		bit_flag;
+	int		len_flag;
 	int		min_width;
 	int		precision;
 	int		conv;
@@ -103,7 +104,7 @@ static const char		g_flag_group[MAX_FLAG] =
 	'-', '0', ' ', '+', '#', '-'
 };
 // 	1	 2	  4	   8	16	 32
-// 6th element is for negative sign.
+// 6th element: negative sign.
 
 static const char		*hex_tab = "0123456789abcdef0123456789ABCDEF";
 

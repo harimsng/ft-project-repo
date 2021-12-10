@@ -5,6 +5,18 @@ int	main(void)
 {
 	char	*str = "0123456789";
 	printf("%d %d\n",
+		printf("%s\n", NULL),
+		ft_printf("%s\n", NULL)
+	);
+	printf("%d %d\n",
+		printf("%.s\n", str),
+		ft_printf("%.s\n", str)
+	);
+	printf("%d %d\n",
+		printf("%.0s\n", str),
+		ft_printf("%.0s\n", str)
+	);
+	printf("%d %d\n",
 		printf("%s\n", str),
 		ft_printf("%s\n", str)
 	);

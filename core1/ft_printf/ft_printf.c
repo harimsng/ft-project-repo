@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 20:40:01 by hseong            #+#    #+#             */
-/*   Updated: 2021/12/09 21:36:16 by hseong           ###   ########.fr       */
+/*   Updated: 2021/12/10 17:33:17 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	fpf_format_io(const char **format, va_list arg)
 	if (**format == '%')
 		return (write(1, "%", 1));
 	buf_ptr = (void *)buf;
-	info = (t_format_info){0, 0, 0, 0};
+	info = (t_format_info){0, 0, 0, 0, 0};
 	fpf_read(format, &info);
 	fpf_bits_refine(&info);
 	if (info.conv < 0)
@@ -84,8 +84,7 @@ static int	fpf_write(t_format_info *info, char *buf)
 	int			ret;
 
 	len = ft_strlen(buf) + (!info->conv && !buf[0]);
-	info->precision += !info->precision * len
-		+ (info->bit_flag & 2 && info->min_width)
+	info->precision += (info->bit_flag & 2 && info->min_width)
 		* (info->min_width - !!(info->bit_flag & 16) - !!(info->bit_flag & 60));
 	ret = 0;
 	if (!(info->bit_flag & 1) && !(info->bit_flag & 2))
@@ -113,11 +112,17 @@ static void	fpf_read(const char **format, t_format_info *info)
 		ptr = ft_strchr(g_flag_group, **format);
 	}
 	if (**format >= '0' && **format <= '9')
+	{
 		info->min_width = ft_atoi(*format);
+		info->len_flag |= 1;
+	}
 	while (**format >= '0' && **format <= '9')
 		++*format;
-	if (**format == '.' && *(*format + 1) >= '0' && *(*format + 1) <= '9')
+	if (**format == '.')
+	{
 		info->precision = ft_atoi(++*format);
+		info->len_flag |= 2;
+	}
 	while (**format >= '0' && **format <= '9')
 		++*format;
 	ptr = ft_strchr(g_conv_group, **format);
@@ -126,11 +131,12 @@ static void	fpf_read(const char **format, t_format_info *info)
 
 static void	fpf_bits_refine(t_format_info *info)
 {
-	info->bit_flag &= (MAX_BIT ^ (2 * (info->bit_flag & 1 || info->precision
+	info->bit_flag &= (MAX_BIT ^ (2 * (info->bit_flag & 1 || info->len_flag & 2
 		|| info->conv == 1 || info->conv == 0)));
 	info->bit_flag &= (MAX_BIT ^ (4 * (info->bit_flag & 8 || info->conv == 6
 		|| info->conv == 7 || info->conv == 1 || info->conv == 0)));
 	info->bit_flag &= (MAX_BIT ^ (8 * (info->conv == 8 || info->conv == 7
 		|| info->conv == 6)));
 	info->bit_flag &= (MAX_BIT ^ (16 * (info->conv != 6 && info->conv != 7)));
+	info->len_flag &= 3 ^ (2 * (info->conv == 0 || info->conv == 2));
 }
