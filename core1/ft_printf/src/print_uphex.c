@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 11:35:42 by hseong            #+#    #+#             */
-/*   Updated: 2021/12/02 19:59:25 by hseong           ###   ########.fr       */
+/*   Updated: 2021/12/10 18:24:44 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	print_uphex(va_list arg, void *buf)
 {
-	char		*str;
-	unsigned	num;
-	int			bits;
+	char			*str;
+	unsigned int	num;
+	int				bits;
 
 	str = buf;
 	num = va_arg(arg, unsigned);
@@ -25,7 +25,7 @@ int	print_uphex(va_list arg, void *buf)
 		bits -= 4;
 	while (bits >= 0)
 	{
-		*str++ = hex_tab[16 + (num >> bits & 15)];
+		*str++ = g_hex_tab[16 + (num >> bits & 15)];
 		bits -= 4;
 	}
 	*str = 0;

@@ -6,14 +6,12 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 20:33:23 by hseong            #+#    #+#             */
-/*   Updated: 2021/12/10 17:05:05 by hseong           ###   ########.fr       */
+/*   Updated: 2021/12/10 18:27:20 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
-
-#include <stdio.h>
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -25,12 +23,12 @@
 # define MAX_BIT 1023
 # define NUMERIC_BUF_SIZE 32
 
-typedef int 			(*t_conv)(va_list, void *);
+typedef int				(*t_conv)(va_list, void *);
 
 typedef struct s_format_info
 {
 	int		bit_flag;
-	int		len_flag;
+	int		bit_len;
 	int		min_width;
 	int		precision;
 	int		conv;
@@ -49,22 +47,8 @@ int						print_unsigned(va_list arg, void *buf);
 int						print_lowhex(va_list arg, void *buf);
 int						print_uphex(va_list arg, void *buf);
 
-//	flags
-//	padding option
-int						opt_padding(t_format_info info, int len);
-//void					opt_negative_field(void);
-//void					opt_zero_padding();
-//	preceding character
-//void					opt_blank(void);
-//void					opt_plus_sign(void);
-//	alternative form(preceding characters)
-//void					opt_alt_form(void);
-
-//	width, precision
-//						padding width
-//void					opt_min_width(void);
-//						precision
-int						opt_precision(t_format_info info, char *buf, int len);
+int						opt_padding(t_format_info *info, int len);
+int						opt_precision(t_format_info *info, char *buf, int len);
 //	precision for string is its maximum length.
 //	precision for integer is minimum number of digits.
 
@@ -99,13 +83,13 @@ static const char		g_conv_group[MAX_CONV] =
 };
 //  'c', 's', 'p', 'i', 'd', 'u', 'x', 'X'
 
-static const char		g_flag_group[MAX_FLAG] = 
+static const char		g_flag_group[MAX_FLAG] =
 {
 	'-', '0', ' ', '+', '#', '-'
 };
 // 	1	 2	  4	   8	16	 32
 // 6th element: negative sign.
 
-static const char		*hex_tab = "0123456789abcdef0123456789ABCDEF";
+static const char		*g_hex_tab = "0123456789abcdef0123456789ABCDEF";
 
 #endif

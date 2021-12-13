@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 11:34:46 by hseong            #+#    #+#             */
-/*   Updated: 2021/12/02 19:59:16 by hseong           ###   ########.fr       */
+/*   Updated: 2021/12/10 18:30:07 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	print_unsigned(va_list arg, void *buf)
 {
-	char		*str;
-	unsigned	num;
-	unsigned	den;
+	char			*str;
+	unsigned int	num;
+	unsigned int	den;
 
 	str = buf;
 	num = va_arg(arg, unsigned);
@@ -27,7 +27,7 @@ int	print_unsigned(va_list arg, void *buf)
 		den /= 10;
 	while (den)
 	{
-		*str++ = hex_tab[num / den];
+		*str++ = g_hex_tab[num / den];
 		num %= den;
 		den /= 10;
 	}

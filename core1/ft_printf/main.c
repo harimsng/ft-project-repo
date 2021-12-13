@@ -36,6 +36,10 @@ int	main(void)
 		printf("%s %s\n", NULL, "123"));
 
 	printf("%d %d\n",
+		ft_printf("1234__%d__abcd\n", INT_MIN),
+		printf("1234__%d__abcd\n", INT_MIN));
+
+	printf("%d %d\n",
 		ft_printf("%% %%\n"),
 		printf("%% %%\n"));
 
