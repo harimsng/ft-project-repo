@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 21:27:14 by hseong            #+#    #+#             */
-/*   Updated: 2022/01/21 21:49:02 by hseong           ###   ########.fr       */
+/*   Updated: 2022/01/24 21:35:41 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,20 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t len)
 	}	
 	*dst = 0;
 	return (ret);
+}
+
+void	*ft_memset(void *b, int c, size_t len)
+{
+	unsigned int	*ptr;
+	int				bound;
+	int				idx;
+
+	bound = len % 8;
+	idx = 0;
+	ptr = (unsigned char *)b;
+	while (idx < bound)
+		*ptr++ = ((unsigned char)c >> (idx * 4)) & 15;	
+
 }
 
 int	storage_chaining(t_data *storage, t_buf *buf, int fd)

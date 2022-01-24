@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 21:14:13 by hseong            #+#    #+#             */
-/*   Updated: 2022/01/21 21:49:05 by hseong           ###   ########.fr       */
+/*   Updated: 2022/01/24 21:30:03 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ int		eol_check(t_buf *buf);
 char	*get_next_line(int fd)
 {
 	static t_data	storage[1024];
-	t_buf			buf;
-	char			*line;
+	t_line			buf;
+	t_line			line;
 
+	line = {ft_memset(malloc(128), 0, 128), 0};
 	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (NULL);
 	fd_load(storage + fd % 1024, &buf, fd);
@@ -78,6 +79,7 @@ int	eol_check(t_buf *buf)
 
 	while (idx < buf->size && buf->str[idx] != '\n')
 		++idx;
+
 	if (idx < buf->size || buf->size != BUFFER_SIZE)
 	{
 		buf->size = idx;
