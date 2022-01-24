@@ -6,16 +6,23 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 23:25:37 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/15 01:56:35 by hseong           ###   ########.fr       */
+/*   Updated: 2022/01/24 21:45:04 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# define WORD_BYTES (16)
+
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
+
+typedef struct s_word
+{
+	unsigned long long int	byte[WORD_BYTES];
+}			t_word;
 
 int			ft_isalpha(int c);
 int			ft_isdigit(int c);
