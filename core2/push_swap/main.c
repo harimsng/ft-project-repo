@@ -1,18 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/26 21:15:31 by hseong            #+#    #+#             */
-/*   Updated: 2022/01/26 21:16:08 by hseong           ###   ########.fr       */
+/*   Created: 2022/01/26 21:11:57 by hseong            #+#    #+#             */
+/*   Updated: 2022/01/26 21:16:01 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	push_swap(t_meta_list *meta_list)
+int	main(int argc, char *argv[])
 {
-	(void)meta_list;
+	t_meta_list	meta_list;
+
+	meta_list = (t_meta_list){NULL, 0};
+	if (get_list(argc, argv, &meta_list) == 0)
+		return (print_error());
+	push_swap(&meta_list);
+	print_list(&meta_list);
+	return (0);
+}
+
+int	print_error(void)
+{
+	write(2, "Error\n", 6);
+	return (1);
 }

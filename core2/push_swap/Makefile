@@ -4,7 +4,7 @@ CC		=	gcc
 CFLAGS	=	-Wall -Wextra -Werror
 
 SRC		=	push_swap.c		linked_list.c\
-			verify_args.c
+			verify_args.c	
 
 OBJ		=	$(SRC:%.c=%.o)
 
@@ -13,7 +13,7 @@ INCLUDE	=	push_swap.h		linked_list.h
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) -o $@ $^ -I.
+	$(CC) $(CFLAGS) -o $@ main.c $^ -I.
 
 $(OBJ): %.o: %.c
 	$(CC) $(CFLAGS) -o $@ -c $< -I.

@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   ft_debug.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/26 21:15:31 by hseong            #+#    #+#             */
-/*   Updated: 2022/01/26 21:16:08 by hseong           ###   ########.fr       */
+/*   Created: 2022/01/26 21:13:31 by hseong            #+#    #+#             */
+/*   Updated: 2022/01/26 21:14:36 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#ifndef FT_DEBUG_H
+# define FT_DEBUG_H
 
-void	push_swap(t_meta_list *meta_list)
-{
-	(void)meta_list;
-}
+#include <stdio.h>
+#define DEBUG(M, ...) printf("%s: %s: %d [ " M " ]\n",\
+		__FILE__, __func__, __LINE__, ##__VA_ARGS__);
+
+#endif
