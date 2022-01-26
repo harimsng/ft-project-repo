@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 19:59:15 by hseong            #+#    #+#             */
-/*   Updated: 2022/01/26 20:15:19 by hseong           ###   ########.fr       */
+/*   Updated: 2022/01/26 20:58:57 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ int		push_front(t_meta_list *meta_list, int num);
 int		push_back(t_meta_list *meta_list, int num);
 void	pop_front(t_meta_list *meta_list);
 void	pop_back(t_meta_list *meta_list);
+void	print_list(t_meta_list *meta_list);
 
 #endif

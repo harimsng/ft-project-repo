@@ -6,11 +6,14 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 19:57:06 by hseong            #+#    #+#             */
-/*   Updated: 2022/01/26 20:44:22 by hseong           ###   ########.fr       */
+/*   Updated: 2022/01/26 21:04:25 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+static int	verify_arg(char *arg, t_meta_list *meta_list);
+static int	int_test(char **arg_ptr, t_meta_list *meta_list);
 
 int	get_list(int argc, char **argv, t_meta_list *meta_list)
 {
@@ -26,9 +29,6 @@ int	get_list(int argc, char **argv, t_meta_list *meta_list)
 
 int	verify_arg(char *arg, t_meta_list *meta_list)
 {
-	char	*arg_end;
-	char	*arg_start;
-
 	while (int_test(&arg, meta_list))
 		++arg;
 	if (meta_list->size == 0)
@@ -36,12 +36,14 @@ int	verify_arg(char *arg, t_meta_list *meta_list)
 	return (1);
 }
 
-int	int_test(char *arg, t_meta_list *meta_list)
+int	int_test(char **arg_ptr, t_meta_list *meta_list)
 {
 	ssize_t		num;
+	char		*arg;
 	int			nsign;
 	int			len;
 
+	arg = *arg_ptr;
 	len = 0;
 	num = 0;
 	while (*arg == ' ')
@@ -54,13 +56,11 @@ int	int_test(char *arg, t_meta_list *meta_list)
 		++len;
 	}
 	num *= 1 - 2 * nsign;
-	if (len > 10 || len == 0
-		|| num < INT_MIN || num > INT_MAX
+	if (len > 10 || len == 0 || num < INT_MIN || num > INT_MAX
 		|| (*arg != ' ' && *arg != 0))
-	{
 		meta_list->size = 0;
-		return (0);
-	}
-	push_front(meta_list, num);
+	else
+		push_back(meta_list, num);
+	*arg_ptr = arg;
 	return (*arg == ' ');
 }
