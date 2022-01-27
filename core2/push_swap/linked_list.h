@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 19:59:15 by hseong            #+#    #+#             */
-/*   Updated: 2022/01/26 20:58:57 by hseong           ###   ########.fr       */
+/*   Updated: 2022/01/27 20:35:37 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_meta_list
 
 }		t_meta_list;
 
+void	mergesort_list(t_list *head);
 int		push_front(t_meta_list *meta_list, int num);
 int		push_back(t_meta_list *meta_list, int num);
 void	pop_front(t_meta_list *meta_list);

@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 19:57:06 by hseong            #+#    #+#             */
-/*   Updated: 2022/01/26 21:04:25 by hseong           ###   ########.fr       */
+/*   Updated: 2022/01/27 20:40:27 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static int	verify_arg(char *arg, t_meta_list *meta_list);
 static int	int_test(char **arg_ptr, t_meta_list *meta_list);
+static int	duplicate_check(t_meta_list *meta_list);
+t_list		*ft_lstclone(t_list *head);
 
 int	get_list(int argc, char **argv, t_meta_list *meta_list)
 {
@@ -22,7 +24,8 @@ int	get_list(int argc, char **argv, t_meta_list *meta_list)
 	idx = 1;
 	while (idx < argc && verify_arg(argv[idx], meta_list))
 		++idx;
-	if (idx != argc)
+	print_list(meta_list);
+	if (idx != argc || duplicate_check(meta_list))
 		return (0);
 	return (1);
 }
@@ -63,4 +66,19 @@ int	int_test(char **arg_ptr, t_meta_list *meta_list)
 		push_back(meta_list, num);
 	*arg_ptr = arg;
 	return (*arg == ' ');
+}
+
+int	duplicate_check(t_meta_list *meta_list)
+{
+	t_list	*head;
+
+	head = meta_list->head;
+	mergesort_list(head);
+	while (head->next != NULL)
+	{
+		if (head->num == head->next->num)
+			return (1);
+		head = head->next;
+	}
+	return (0);
 }

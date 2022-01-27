@@ -4,7 +4,7 @@ CC		=	gcc
 CFLAGS	=	-Wall -Wextra -Werror
 
 SRC		=	push_swap.c		linked_list.c\
-			verify_args.c	
+			verify_args.c	mergesort_list.c\
 
 OBJ		=	$(SRC:%.c=%.o)
 

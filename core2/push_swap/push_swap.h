@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 19:57:01 by hseong            #+#    #+#             */
-/*   Updated: 2022/01/26 21:14:50 by hseong           ###   ########.fr       */
+/*   Updated: 2022/01/27 20:45:40 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define INT_MAX (2147483647)
 
 int		get_list(int argc, char **argv, t_meta_list *meta_list);
-int		print_error();
+int		print_error(void);
 void	push_swap(t_meta_list *meta_list);
 
 #endif
