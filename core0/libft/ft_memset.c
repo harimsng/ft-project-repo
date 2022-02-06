@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 21:21:20 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/10 18:24:50 by hseong           ###   ########.fr       */
+/*   Updated: 2022/01/24 21:56:37 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,19 @@
 void	*ft_memset(void *b, int c, size_t len)
 {
 	unsigned char	*ptr;
+	t_word			*word;
+	t_word			num;
+	int				idx;
 
-	ptr = b;
+	ptr = (unsigned char *)b;
+	idx = len % (8 * WORD_BYTES);
+	while (idx--)
+		*ptr++ = (unsigned char)c;
+	len /= (8 * WORD_BYTES);
+	word = (t_word *)ptr;
+	idx = 0;
+	while (idx < WORD_BYTES)
+		num[idx++] = c + (c << 32);
 	while (len--)
 		*ptr++ = (unsigned char)c;
 	return (b);

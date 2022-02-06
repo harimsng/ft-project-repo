@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/08 22:36:54 by hseong            #+#    #+#             */
-/*   Updated: 2022/01/24 21:55:23 by hseong           ###   ########.fr       */
+/*   Created: 2022/01/26 19:57:01 by hseong            #+#    #+#             */
+/*   Updated: 2022/02/06 19:08:28 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef PUSH_SWAP_H
+# define PUSH_SWAP_H
 
-void	ft_bzero(void *s, size_t n)
-{
-	unsigned char	*ptr;
-	t_word			*word;
-	t_word			zero;
-	int				idx;
+# include <unistd.h>
+# include <stdlib.h>
+# include "linked_list.h"
 
-	ptr = (unsigned char *)s;
-	idx = n % (8 * WORD_BYTES);
-	while (idx--)
-		*ptr++ = 0;
-	n /= 8 * WORD_BYTES;
-	word = (t_word *)ptr;
-	idx = 0;
-	while (idx < WORD_BYTES)
-		zero.byte[idx++] = 0;
-	while (n--)
-		*word++ = zero;
-}
+#include "ft_debug.h"
+
+# define INT_MIN (-2147483648LL)
+# define INT_MAX (2147483647)
+
+int		get_list(int argc, char **argv, t_list *list);
+int		print_error(void);
+void	push_swap(t_list *list);
+
+#endif

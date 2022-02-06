@@ -1,33 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   linked_list.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/08 22:36:54 by hseong            #+#    #+#             */
-/*   Updated: 2022/01/24 21:55:23 by hseong           ###   ########.fr       */
+/*   Created: 2022/01/26 19:59:15 by hseong            #+#    #+#             */
+/*   Updated: 2022/02/06 21:12:04 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef LINKED_LIST_H
+# define LINKED_LIST_H
 
-void	ft_bzero(void *s, size_t n)
+typedef struct s_node
 {
-	unsigned char	*ptr;
-	t_word			*word;
-	t_word			zero;
-	int				idx;
+	struct s_node	*next;
+	int				num;
+}		t_node;
 
-	ptr = (unsigned char *)s;
-	idx = n % (8 * WORD_BYTES);
-	while (idx--)
-		*ptr++ = 0;
-	n /= 8 * WORD_BYTES;
-	word = (t_word *)ptr;
-	idx = 0;
-	while (idx < WORD_BYTES)
-		zero.byte[idx++] = 0;
-	while (n--)
-		*word++ = zero;
-}
+typedef struct s_list
+{
+	t_node		*head;
+	size_t		size;
+
+}		t_list;
+
+void	mergesort_list(t_node **head);
+int		push_front(t_list *list, int num);
+int		push_back(t_list *list, int num);
+void	pop_front(t_list *list);
+void	pop_back(t_list *list);
+void	print_list(t_node *node);
+
+#endif

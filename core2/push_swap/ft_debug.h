@@ -1,33 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_debug.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/08 22:36:54 by hseong            #+#    #+#             */
-/*   Updated: 2022/01/24 21:55:23 by hseong           ###   ########.fr       */
+/*   Created: 2022/01/26 21:13:31 by hseong            #+#    #+#             */
+/*   Updated: 2022/01/27 20:47:28 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef FT_DEBUG_H
+# define FT_DEBUG_H
 
-void	ft_bzero(void *s, size_t n)
-{
-	unsigned char	*ptr;
-	t_word			*word;
-	t_word			zero;
-	int				idx;
+#include <stdio.h>
+#define DEBUG(M, ...) printf("%s:%s:%d DEBUG: " M "\n",\
+		__FILE__, __func__, __LINE__, ##__VA_ARGS__);
 
-	ptr = (unsigned char *)s;
-	idx = n % (8 * WORD_BYTES);
-	while (idx--)
-		*ptr++ = 0;
-	n /= 8 * WORD_BYTES;
-	word = (t_word *)ptr;
-	idx = 0;
-	while (idx < WORD_BYTES)
-		zero.byte[idx++] = 0;
-	while (n--)
-		*word++ = zero;
-}
+#endif
