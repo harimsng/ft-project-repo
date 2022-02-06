@@ -6,11 +6,13 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 11:35:13 by hseong            #+#    #+#             */
-/*   Updated: 2021/12/10 18:24:49 by hseong           ###   ########.fr       */
+/*   Updated: 2022/01/18 13:26:26 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+static const char	*g_hex_tab = "0123456789abcdef";
 
 int	print_lowhex(va_list arg, void *buf)
 {

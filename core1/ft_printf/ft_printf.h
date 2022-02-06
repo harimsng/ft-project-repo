@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 20:33:23 by hseong            #+#    #+#             */
-/*   Updated: 2021/12/10 18:27:20 by hseong           ###   ########.fr       */
+/*   Updated: 2022/01/18 13:18:42 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,5 @@ static const char		g_flag_group[MAX_FLAG] =
 };
 // 	1	 2	  4	   8	16	 32
 // 6th element: negative sign.
-
-static const char		*g_hex_tab = "0123456789abcdef0123456789ABCDEF";
 
 #endif
