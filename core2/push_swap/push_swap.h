@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 19:57:01 by hseong            #+#    #+#             */
-/*   Updated: 2022/01/27 20:45:40 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/06 19:08:28 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # define INT_MIN (-2147483648LL)
 # define INT_MAX (2147483647)
 
-int		get_list(int argc, char **argv, t_meta_list *meta_list);
+int		get_list(int argc, char **argv, t_list *list);
 int		print_error(void);
-void	push_swap(t_meta_list *meta_list);
+void	push_swap(t_list *list);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 21:10:12 by hseong            #+#    #+#             */
-/*   Updated: 2022/01/21 21:49:03 by hseong           ###   ########.fr       */
+/*   Updated: 2022/01/25 13:42:13 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct
 {
 	char	str[BUFFER_SIZE];
 	size_t	size;
-}		t_buf;
+}		t_line;
 
 typedef struct s_data
 {
@@ -34,6 +34,7 @@ typedef struct s_data
 
 // utility functions
 size_t	ft_strlcpy(char *dst, const char *src, size_t len);
+void	*ft_memset(void *b, int c, size_t len);
 int		storage_chaining(t_data *storage, t_buf *buf, int fd);
 void	storage_free(t_data **storage, int fd);
 
