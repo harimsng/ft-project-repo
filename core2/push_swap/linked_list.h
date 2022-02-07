@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 19:59:15 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/06 21:12:04 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/07 21:51:22 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 typedef struct s_node
 {
-	struct s_node	*next;
 	int				num;
+	struct s_node	*next;
 }		t_node;
 
 typedef struct s_list
