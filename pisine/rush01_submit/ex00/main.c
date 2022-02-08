@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 21:26:33 by hseong            #+#    #+#             */
-/*   Updated: 2021/12/02 01:26:58 by hseong           ###   ########.fr       */
+/*   Updated: 2021/10/16 19:16:41 by hseong           ###   ########.kr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int			input_check(char *argv);
 int			map_check(void);
 int			overlap_detect(void);
 
-const int	g_len = 4;
+const int	g_len = 6;
 static int	g_ret = 0;
 int			*g_values;
 int			*g_map;
@@ -42,7 +42,7 @@ int	main(int argc, char **argv)
 		g_map[idx++] = 0;
 	recur_solve(0);
 	if (!g_ret)
-		ft_putstr("No Solution\n");
+		ft_putstr("Error\n");
 	free(g_map);
 	free(g_values);
 	return (0);

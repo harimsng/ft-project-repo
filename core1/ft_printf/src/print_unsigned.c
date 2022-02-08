@@ -6,13 +6,11 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 11:34:46 by hseong            #+#    #+#             */
-/*   Updated: 2022/01/18 13:27:36 by hseong           ###   ########.fr       */
+/*   Updated: 2021/12/10 18:30:07 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-static const char	*g_hex_tab = "0123456789";
 
 int	print_unsigned(va_list arg, void *buf)
 {

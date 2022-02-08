@@ -6,24 +6,15 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 14:59:54 by hseong            #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2022/02/07 21:46:46 by hseong           ###   ########.fr       */
-=======
-/*   Updated: 2022/02/08 10:58:48 by hseong           ###   ########.fr       */
->>>>>>> 511aba7e2c1489c556070bba3d98026fef51c588
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 static t_node	*split_list(t_node **head, size_t size);
-<<<<<<< HEAD
 static t_node	*join_list(t_node **head_ptr, t_node *mid, size_t size);
-=======
-static t_node	*join_list(t_node **headptr, t_node *mid, size_t size);
->>>>>>> 511aba7e2c1489c556070bba3d98026fef51c588
 static t_node	*head_access(t_node *head);
-static void		move_node(t_node **sortnode, t_node **node, size_t *count);
 
 void	mergesort_list(t_node **head)
 {
@@ -46,28 +37,19 @@ void	mergesort_list(t_node **head)
 
 t_node	*split_list(t_node **head, size_t size)
 {
-<<<<<<< HEAD
 	t_node	**mid;
-=======
-	t_node	*mid;
->>>>>>> 511aba7e2c1489c556070bba3d98026fef51c588
 	t_node	*tail;
 	size_t	mid_len;
 	size_t	idx;
 
 	if (size < 2)
 		return (*head);
-<<<<<<< HEAD
 	mid = head;
-=======
-	mid = *head;
->>>>>>> 511aba7e2c1489c556070bba3d98026fef51c588
 	mid_len = size / 2;
 	DEBUG("size = %zu, mid = %zu", size, mid_len);
 	idx = 0;
 	while (idx < mid_len)
 	{
-<<<<<<< HEAD
 		mid = &((*mid)->next);
 		++idx;
 	}
@@ -78,50 +60,7 @@ t_node	*split_list(t_node **head, size_t size)
 }
 
 t_node	*join_list(t_node **head_ptr, t_node *mid, size_t size)
-=======
-		mid = mid->next;
-		++idx;
-	}
-	tail = split_list(head, size / 2);
-	tail->next = mid;
-	split_list(&(tail->next), (size + 1) / 2);
-	return (join_list(head, mid, size));
-}
-
-t_node	*join_list(t_node **headptr, t_node *mid, size_t size)
 {
-	t_node	*head;
-	t_node	*sortnode;
-	size_t	head_count;
-	size_t	mid_count;
-
-	head = *headptr;
-	head_count = size / 2;
-	mid_count = (size + 1) / 2;
-	if (head->num < mid->num)
-		move_node(&sortnode, &head, &head_count);
-	else
-		move_node(&sortnode, &mid, &mid_count);
-	*headptr = sortnode;
-	while (size--)
-	{
-		if (head_count > 0 && (head->num < mid->num || mid_count == 0))
-			move_node(&(sortnode->next), &head, &head_count);
-		else
-			move_node(&(sortnode->next), &mid, &mid_count);
-	}
-	return (sortnode);
-}
-
-static void		move_node(t_node **sortnode, t_node **node, size_t *count)
->>>>>>> 511aba7e2c1489c556070bba3d98026fef51c588
-{
-	*sortnode = *node;
-	*node = (*node)->next;
-	*count -= 1;
-}
-
-/*
 	t_node	*head;
 	t_node	*sortnode;
 	t_node	**temp_ptr;
@@ -133,7 +72,7 @@ static void		move_node(t_node **sortnode, t_node **node, size_t *count)
 	head_count = size / 2;
 	mid_count = (size + 1) / 2;
 	mid_bound = mid;
-	head = *headptr;
+	head = *head_ptr;
 	if (head->num > mid->num)
 	{
 		--mid_count;
@@ -146,7 +85,7 @@ static void		move_node(t_node **sortnode, t_node **node, size_t *count)
 	}
 	--size;
 	sortnode = *temp_ptr;
-	*headptr = sortnode;
+	*head_ptr = sortnode;
 	*temp_ptr = (*temp_ptr)->next;
 	while (head_count && mid_count)
 	{
@@ -174,7 +113,7 @@ static void		move_node(t_node **sortnode, t_node **node, size_t *count)
 	print_list(head_access(NULL));
 	return (sortnode);
 }
-*/
+
 static t_node *head_access(t_node *head)
 {
 	static t_node	*list_head;
