@@ -1,16 +1,16 @@
-NAME	= libdoublyll.a
+NAME	= libdlinkedlist.a
 
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
 
-SRC		= doublyll.c\
-		  doublyll_io.c\
-		  doublyll_cur.c\
-		  doublyll_mergesort.c\
-		  doublyll_dep.c
+SRC		= dlinkedlist.c\
+		  dlinkedlist_io.c\
+		  dlinkedlist_cur.c\
+		  dlinkedlist_mergesort.c\
+		  dlinkedlist_dep.c
 OBJ		= $(SRC:%.c=%.o)
 
-INCLUDE	= doublyll.h
+INCLUDE	= dlinkedlist.h
 
 all: $(NAME)
 

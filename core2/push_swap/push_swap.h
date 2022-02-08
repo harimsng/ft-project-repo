@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 19:57:01 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/06 19:08:28 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/08 20:14:49 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-# include "linked_list.h"
+# include "dlinkedlist.h"
 
 #include "ft_debug.h"
 

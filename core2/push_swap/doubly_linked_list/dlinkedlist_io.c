@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   doublyll_io.c                                      :+:      :+:    :+:   */
+/*   dlinkedlist_io.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/08 17:27:12 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/08 20:08:38 by hseong           ###   ########.fr       */
+/*   Created: 2022/02/08 20:18:08 by hseong            #+#    #+#             */
+/*   Updated: 2022/02/08 20:24:00 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doublyll.h"
+#include "dlinkedlist.h"
 
 void	print_node(t_node *node)
 {
 	dep_print_node(node);
 }
 
-void	print_list_foward(t_doublyll *list)
+void	print_dlist_foward(t_dlist *list)
 {
 	t_node	*node;
 	size_t	idx;
@@ -34,7 +34,7 @@ void	print_list_foward(t_doublyll *list)
 	}
 }
 
-void	print_list_backward(t_doublyll *list)
+void	print_dlist_backward(t_dlist *list)
 {
 	t_node	*node;
 	size_t	idx;

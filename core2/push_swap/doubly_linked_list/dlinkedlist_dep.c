@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   doublyll_cur.c                                     :+:      :+:    :+:   */
+/*   dlinkedlist_dep.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/08 17:20:13 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/08 17:26:37 by hseong           ###   ########.fr       */
+/*   Created: 2022/02/08 20:18:02 by hseong            #+#    #+#             */
+/*   Updated: 2022/02/08 20:23:04 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doublyll.h"
+#include "dlinkedlist.h"
 
-void	move_front(t_doublyll *list)
+void	dep_delete_item(t_item item)
 {
-	if (list->cur == list->head)
-		return ;
-	list->cur = list->cur->prev;
+	(void)item;
 }
 
-void	move_back(t_doublyll *list)
+void	dep_print_node(t_node *node)
 {
-	if (list->cur == list->tail)
-		return ;
-	list->cur = list->cur->next;
+	ft_putnbr_space(node->item);
 }

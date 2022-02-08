@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   doublyll.c                                         :+:      :+:    :+:   */
+/*   dlinkedlist.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/08 16:48:47 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/08 19:21:35 by hseong           ###   ########.fr       */
+/*   Created: 2022/02/08 20:17:50 by hseong            #+#    #+#             */
+/*   Updated: 2022/02/08 20:22:55 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doublyll.h"
+#include "dlinkedlist.h"
 
-int	push_front(t_doublyll *list, t_item item)
+int	push_front(t_dlist *list, t_item item)
 {
 	t_node	*new_node;
 
@@ -36,7 +36,7 @@ int	push_front(t_doublyll *list, t_item item)
 	return (1);
 }
 
-int	push_back(t_doublyll *list, t_item item)
+int	push_back(t_dlist *list, t_item item)
 {
 	t_node	*new_node;
 
@@ -60,7 +60,7 @@ int	push_back(t_doublyll *list, t_item item)
 	return (1);
 }
 
-void	pop_front(t_doublyll *list)
+void	pop_front(t_dlist *list)
 {
 	t_node	*del_node;
 
@@ -79,7 +79,7 @@ void	pop_front(t_doublyll *list)
 	free(del_node);
 }
 
-void	pop_back(t_doublyll *list)
+void	pop_back(t_dlist *list)
 {
 	t_node	*del_node;
 

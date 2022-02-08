@@ -1,9 +1,9 @@
 #include <stdio.h>
-#include "doublyll.h"
+#include "dlinkedlist.h"
 
 int	main(void)
 {
-	t_doublyll	list = {NULL, NULL, NULL, 0};
+	t_dlist list = {NULL, NULL, NULL, 0};
 
 	push_front(&list, 126);
 	list.cur = list.head;
@@ -13,11 +13,11 @@ int	main(void)
 		list.cur = list.cur->next;
 	}
 	printf("before sort\n");
-	print_list_foward(&list);
-	mergesort_doublyll(&list);
+	print_dlist_foward(&list);
+	mergesort_dlist(&list);
 	printf("\nafter sort\n");
-	print_list_foward(&list);
+	print_dlist_foward(&list);
 	printf("\nbackward\n");
-	print_list_backward(&list);
+	print_dlist_backward(&list);
 	return (0);
 }

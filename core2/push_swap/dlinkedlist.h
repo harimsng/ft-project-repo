@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   doublyll.h                                         :+:      :+:    :+:   */
+/*   dlinkedlist.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/08 16:48:54 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/08 19:05:45 by hseong           ###   ########.fr       */
+/*   Created: 2022/02/08 20:19:18 by hseong            #+#    #+#             */
+/*   Updated: 2022/02/08 20:24:09 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DOUBLYLL_H
-# define DOUBLYLL_H
+#ifndef DLINKEDLIST_H
+# define DLINKEDLIST_H
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -25,33 +25,33 @@ typedef struct s_node
 	struct s_node	*prev;
 }				t_node;
 
-typedef struct s_doublyll
+typedef struct s_dlist
 {
 	t_node		*head;
 	t_node		*tail;
 	t_node		*cur;
 	size_t		size;
 
-}				t_doublyll;
+}				t_dlist;
 
 // CREATE AND DELETE
-int		push_front(t_doublyll *list, t_item item);
-int		push_back(t_doublyll *list, t_item item);
-void	pop_front(t_doublyll *list);
-void	pop_back(t_doublyll *list);
+int		push_front(t_dlist *list, t_item item);
+int		push_back(t_dlist *list, t_item item);
+void	pop_front(t_dlist *list);
+void	pop_back(t_dlist *list);
 
 // UPDATE
-void	move_front(t_doublyll *list);
-void	move_back(t_doublyll *list);
+void	move_front(t_dlist *list);
+void	move_back(t_dlist *list);
 
 // READ
 void	print_node(t_node *node);
-void	print_list_foward(t_doublyll *list);
-void	print_list_backward(t_doublyll *list);
+void	print_dlist_foward(t_dlist *list);
+void	print_dlist_backward(t_dlist *list);
 
 // utils
 void	ft_putnbr_space(int num);
-void	mergesort_doublyll(t_doublyll *list);
+void	mergesort_dlist(t_dlist *list);
 
 // depends on specification
 void	dep_delete_item(t_item item);

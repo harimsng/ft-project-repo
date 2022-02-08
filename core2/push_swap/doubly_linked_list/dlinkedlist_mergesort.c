@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   doublyll_mergesort.c                               :+:      :+:    :+:   */
+/*   dlinkedlist_mergesort.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/08 17:44:43 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/08 20:07:13 by hseong           ###   ########.fr       */
+/*   Created: 2022/02/08 20:18:17 by hseong            #+#    #+#             */
+/*   Updated: 2022/02/08 20:25:23 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doublyll.h"
-
-#include "../ft_debug.h"
+#include "dlinkedlist.h"
 
 static t_node	*split_list(t_node **head, size_t len);
 static t_node	*join_list(t_node **headptr, t_node *mid, size_t len);
 static void		move_node(t_node **sortnode, t_node **node, size_t *count);
 
-void	mergesort_doublyll(t_doublyll *list)
+void	mergesort_dlist(t_dlist *list)
 {
 	t_node	**headptr;
 	t_node	*node;
