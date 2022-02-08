@@ -6,11 +6,13 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 17:44:43 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/08 19:09:05 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/08 20:07:13 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doublyll.h"
+
+#include "../ft_debug.h"
 
 static t_node	*split_list(t_node **head, size_t len);
 static t_node	*join_list(t_node **headptr, t_node *mid, size_t len);
@@ -19,11 +21,23 @@ static void		move_node(t_node **sortnode, t_node **node, size_t *count);
 void	mergesort_doublyll(t_doublyll *list)
 {
 	t_node	**headptr;
+	t_node	*node;
+	size_t	idx;
+	size_t	size = list->size;
 
 	headptr = &(list->head);
 	if (headptr == NULL || *headptr == NULL || list->size == 1)
 		return ;
-	split_list(headptr, list->size);
+	list->tail = split_list(headptr, list->size);
+	idx = 1;
+	node = *headptr;
+	node->prev = NULL;
+	while (idx < size)
+	{
+		node->next->prev = node;
+		node = node->next;
+		++idx;
+	}
 }
 
 t_node	*split_list(t_node **headptr, size_t len)
@@ -46,7 +60,7 @@ t_node	*split_list(t_node **headptr, size_t len)
 	tail = split_list(headptr, len / 2);
 	tail->next = mid;
 	split_list(&(tail->next), (len + 1) / 2);
-	return (join_list(headptr, mid, len));
+	return (join_list(headptr, tail->next, len));
 }
 
 t_node	*join_list(t_node **headptr, t_node *mid, size_t len)

@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 17:27:12 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/08 19:06:41 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/08 20:08:38 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	print_list_backward(t_doublyll *list)
 	{
 		print_node(node);
 		node = node->prev;
-		++idx;
+		--idx;
 	}
 }
 
