@@ -19,5 +19,8 @@ int	main(void)
 	print_dlist_foward(&list);
 	printf("\nbackward\n");
 	print_dlist_backward(&list);
+	printf("\npop_back\n");
+	while (list.size)
+		printf("%d ", pop_back(&list));
 	return (0);
 }

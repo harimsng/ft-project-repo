@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 20:19:18 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/08 20:24:09 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/09 21:12:32 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ typedef struct s_dlist
 // CREATE AND DELETE
 int		push_front(t_dlist *list, t_item item);
 int		push_back(t_dlist *list, t_item item);
-void	pop_front(t_dlist *list);
-void	pop_back(t_dlist *list);
+t_item	pop_front(t_dlist *list);
+t_item	pop_back(t_dlist *list);
 
-// UPDATE
+// UPDATE cur
 void	move_front(t_dlist *list);
 void	move_back(t_dlist *list);
 
