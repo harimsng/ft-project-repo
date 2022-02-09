@@ -6,14 +6,14 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 19:45:23 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/09 21:17:03 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/09 21:29:47 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_DEQUE_H
 # define FT_DEQUE_H
 
-#include "dlinkedlist.h"
+# include "dlinkedlist.h"
 
 typedef t_dlist	t_deque;
 

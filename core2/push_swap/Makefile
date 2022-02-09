@@ -3,17 +3,21 @@ NAME	=	push_swap
 CC		=	gcc
 CFLAGS	=	-Wall -Wextra -Werror
 
-SRC		=	push_swap.c		linked_list.c\
-			verify_args.c	mergesort_list.c\
+SRC		=	push_swap.c\
+			verify_args.c
 
 OBJ		=	$(SRC:%.c=%.o)
 
-INCLUDE	=	push_swap.h		linked_list.h
+INCLUDE	=	push_swap.h\
+			ft_deque.h
+
+LIB		=	ftdeque
+LIBDIR	=	deque
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) -o $@ main.c $^ -I.
+	$(CC) $(CFLAGS) -o $@ main.c $^ -I. -l$(LIB) -L$(LIBDIR)
 
 $(OBJ): %.o: %.c
 	$(CC) $(CFLAGS) -o $@ -c $< -I.

@@ -21,8 +21,6 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	ar rcs $@ $^
-	cp $(NAME) ..
-	cp $(INCLUDE) ..
 
 $(OBJ): %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $< -I.

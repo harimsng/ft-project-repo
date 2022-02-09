@@ -6,14 +6,13 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 21:15:31 by hseong            #+#    #+#             */
-/*   Updated: 2022/01/27 20:36:41 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/09 21:40:49 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	push_swap(t_meta_list *meta_list)
+void	push_swap(t_list *list)
 {
-	(void)meta_list;
-//	mergesort_list(meta_list->head);
+	(void)list;
 }

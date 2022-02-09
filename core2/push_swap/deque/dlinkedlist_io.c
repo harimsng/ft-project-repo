@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 20:18:08 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/08 20:24:00 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/09 21:47:58 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	print_node(t_node *node)
 	dep_print_node(node);
 }
 
-void	print_dlist_foward(t_dlist *list)
+void	print_dlist_forward(t_dlist *list)
 {
 	t_node	*node;
 	size_t	idx;

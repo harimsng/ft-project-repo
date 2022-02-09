@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 20:19:18 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/09 20:43:40 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/09 21:47:44 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	move_back(t_dlist *list);
 
 // READ
 void	print_node(t_node *node);
-void	print_dlist_foward(t_dlist *list);
+void	print_dlist_forward(t_dlist *list);
 void	print_dlist_backward(t_dlist *list);
 
 // utils

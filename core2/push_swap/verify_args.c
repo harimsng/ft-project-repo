@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 19:57:06 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/06 19:10:47 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/09 21:51:09 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,11 @@ int	get_list(int argc, char **argv, t_list *list)
 	int		idx;
 
 	idx = 1;
+	if (argc == 1)
+		return (1);
 	while (idx < argc && verify_arg(argv[idx], list))
 		++idx;
-	print_list(list);
+	print_dlist_forward(list);
 	if (idx != argc || duplicate_check(list))
 		return (0);
 	return (1);
@@ -73,10 +75,10 @@ int	duplicate_check(t_list *list)
 	t_node	*head;
 
 	head = list->head;
-	mergesort_list(head);
+	mergesort_dlist(list);
 	while (head->next != NULL)
 	{
-		if (head->num == head->next->num)
+		if (head->item == head->next->item)
 			return (1);
 		head = head->next;
 	}

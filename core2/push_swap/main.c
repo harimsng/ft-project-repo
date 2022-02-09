@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 21:11:57 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/06 21:12:33 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/09 21:46:23 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ int	main(int argc, char *argv[])
 {
 	t_list	list;
 
-	list = (t_list){NULL, 0};
+	list = (t_list){NULL, NULL, NULL, 0};
 	if (get_list(argc, argv, &list) == 0)
 		return (print_error());
-	print_list(list.head);
+	print_dlist_forward(&list);
 	push_swap(&list);
-	print_list(list.head);
+	print_dlist_forward(&list);
 	return (0);
 }
 
