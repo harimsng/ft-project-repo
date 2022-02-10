@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   linked_list_io.c                                   :+:      :+:    :+:   */
+/*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/08 15:56:27 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/08 18:02:54 by hseong           ###   ########.fr       */
+/*   Created: 2022/02/10 15:12:55 by hseong            #+#    #+#             */
+/*   Updated: 2022/02/10 16:00:14 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "linked_list.h"
+#include "ft_utils.h"
 
-void	print_list(t_list *list)
+void	ft_putstr_fd(const char *s, int fd)
 {
-	t_node	*node;
+	size_t		len;
 
-	node = list->head;
-	while (node->next != NULL)
-	{
-		print_node(node);
-		node = node->next;
-	}
-}
-
-void	print_node(t_node *node)
-{
-	dep_print_node(node);
+	len = 0;
+	while (s[len])
+		++len;
+	write(fd, s, len);
 }
 
 void	ft_putnbr_space(int num)
@@ -38,9 +31,9 @@ void	ft_putnbr_space(int num)
 
 	bignum = num;
 	den = 1000000000;
-	idx = num <= 0;
-	buf[0] = '0' * (num == 0) + '-' * (num < 0);
-	num *= 1 - 2 * (num < 0);
+	idx = bignum <= 0;
+	buf[0] = '0' * (bignum == 0) + '-' * (bignum < 0);
+	bignum *= 1 - 2 * (bignum < 0);
 	while (den && !(bignum / den))
 		den /= 10;
 	while (den)

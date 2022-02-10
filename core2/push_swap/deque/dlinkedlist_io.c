@@ -6,18 +6,18 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 20:18:08 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/09 21:47:58 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/10 19:31:59 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dlinkedlist.h"
 
-void	print_node(t_node *node)
+void	dlist_init(t_dlist *list)
 {
-	dep_print_node(node);
+	*list = (t_dlist){NULL, NULL, NULL, 0, 0};
 }
 
-void	print_dlist_forward(t_dlist *list)
+void	print_dlist_forward(t_dlist *list, void (*print_item)(t_item))
 {
 	t_node	*node;
 	size_t	idx;
@@ -28,13 +28,13 @@ void	print_dlist_forward(t_dlist *list)
 	idx = 0;
 	while (idx < size)
 	{
-		print_node(node);
+		print_item(node->item);
 		node = node->next;
 		++idx;
 	}
 }
 
-void	print_dlist_backward(t_dlist *list)
+void	print_dlist_backward(t_dlist *list, void (*print_item)(t_item))
 {
 	t_node	*node;
 	size_t	idx;
@@ -45,32 +45,8 @@ void	print_dlist_backward(t_dlist *list)
 	idx = size;
 	while (idx > 0)
 	{
-		print_node(node);
+		print_item(node->item);
 		node = node->prev;
 		--idx;
 	}
-}
-
-void	ft_putnbr_space(int num)
-{
-	long long int	bignum;
-	long long int	den;
-	char			buf[12];
-	int				idx;
-
-	bignum = num;
-	den = 1000000000;
-	idx = num <= 0;
-	buf[0] = '0' * (num == 0) + '-' * (num < 0);
-	num *= 1 - 2 * (num < 0);
-	while (den && !(bignum / den))
-		den /= 10;
-	while (den)
-	{
-		buf[idx++] = bignum / den + 48;
-		bignum %= den;
-		den /= 10;
-	}
-	buf[idx++] = ' ';
-	write(1, buf, idx);
 }

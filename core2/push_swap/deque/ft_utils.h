@@ -1,34 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_deque_swap.c                                    :+:      :+:    :+:   */
+/*   ft_utils.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/09 20:02:07 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/09 20:24:28 by hseong           ###   ########.fr       */
+/*   Created: 2022/02/10 15:13:57 by hseong            #+#    #+#             */
+/*   Updated: 2022/02/10 15:24:16 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_deque.h"
+#ifndef FT_UTILS_H
+# define FT_UTILS_H
 
-void	inst_swap(t_deque *deque)
-{
-	t_node	*up;
-	t_node	*down;
+# include <unistd.h>
 
-	up = deque->head;
-	down = deque->head->prev;
-	down->prev->next = up;
-	up->prev = down->prev;
-	up->next = down;
-	down->prev = up;
-	down->next = NULL;
-	deque->head = down;
-}
+void	ft_putstr_fd(const char *s, int fd);
+void	ft_putnbr_space(int num);
 
-void	inst_swap_two(t_deque *first, t_deque *second)
-{
-	inst_swap(first);
-	inst_swap(second);
-}
+#endif

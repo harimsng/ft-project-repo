@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dlinkedlist_dep.c                                  :+:      :+:    :+:   */
+/*   ft_deque_item.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/08 20:18:02 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/08 20:23:04 by hseong           ###   ########.fr       */
+/*   Created: 2022/02/10 19:45:09 by hseong            #+#    #+#             */
+/*   Updated: 2022/02/10 19:47:17 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dlinkedlist.h"
+#include "ft_deque.h"
 
-void	dep_delete_item(t_item item)
+void	print_item(t_item item)
 {
-	(void)item;
+	ft_putnbr_space(item);
 }
 
-void	dep_print_node(t_node *node)
+void	delete_item(t_item item)
 {
-	ft_putnbr_space(node->item);
+	(void)item;
 }

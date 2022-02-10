@@ -1,32 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_deque_swap.c                                    :+:      :+:    :+:   */
+/*   push_swap_inst_1.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/09 20:02:07 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/09 21:26:32 by hseong           ###   ########.fr       */
+/*   Created: 2022/02/10 16:48:50 by hseong            #+#    #+#             */
+/*   Updated: 2022/02/10 19:58:49 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_deque.h"
+#include "push_swap.h"
 
-void	inst_swap(t_deque *deque)
+void	pa(t_deque *a, t_deque *b)
 {
-	t_item	up;
-	t_item	down;	
-
-	if (deque->size <= 1)
-		return ;
-	up = pop_front(deque);
-	down = pop_front(deque);
-	push_front(deque, up);
-	push_front(deque, down);
+	inst_push(a, b);
+	write(1, "pa\n", 3);
 }
 
-void	inst_swap_two(t_deque *first, t_deque *second)
+void	pb(t_deque *b, t_deque *a)
 {
-	inst_swap(first);
-	inst_swap(second);
+	inst_push(b, a);
+	write(1, "pb\n", 3);
+}
+
+void	sa(t_deque *a)
+{
+	inst_swap(a);
+	write(1, "sa\n", 3);
+}
+
+void	sb(t_deque *b)
+{
+	inst_swap(b);
+	write(1, "sb\n", 3);
+}
+
+void	ss(t_deque *a, t_deque *b)
+{
+	inst_swap(a);
+	inst_swap(b);
+	write(1, "ss\n", 3);
 }

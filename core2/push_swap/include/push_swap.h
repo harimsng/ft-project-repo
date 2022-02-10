@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 19:57:01 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/09 21:39:08 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/10 21:23:12 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,25 @@
 # define INT_MIN (-2147483648LL)
 # define INT_MAX (2147483647)
 
-typedef	t_dlist	t_list;
-
-int		get_list(int argc, char **argv, t_list *list);
+int		get_list(int argc, char **argv, t_deque *deque);
 int		print_error(void);
-void	push_swap(t_list *list);
+void	push_swap(t_deque *a_deque, t_deque *b_deque);
+
+void	pa(t_deque *a, t_deque *b);
+void	pb(t_deque *b, t_deque *a);
+void	sa(t_deque *a);
+void	sb(t_deque *b);
+void	ss(t_deque *a, t_deque *b);
+void	ra(t_deque *a);
+void	rb(t_deque *b);
+void	rr(t_deque *a, t_deque *b);
+void	rra(t_deque *a);
+void	rrb(t_deque *b);
+void	rrr(t_deque *a, t_deque *b);
+
+void	join_box(t_deque *a, t_deque *b, size_t box);
+
+void	print_data(t_deque *a_deque, t_deque *b_deque);
+void	delete_data(t_deque *a_deque, t_deque *b_deque);
 
 #endif

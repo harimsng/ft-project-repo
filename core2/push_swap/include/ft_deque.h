@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_deque_reverse_rotation.c                        :+:      :+:    :+:   */
+/*   ft_deque.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/09 20:29:32 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/09 21:30:48 by hseong           ###   ########.fr       */
+/*   Created: 2022/02/09 19:45:23 by hseong            #+#    #+#             */
+/*   Updated: 2022/02/10 19:50:07 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_deque.h"
+#ifndef FT_DEQUE_H
+# define FT_DEQUE_H
 
-int	inst_revrot(t_deque *deque)
-{
-	deque->tail->prev = deque->head;
-	deque->head->next = deque->tail;
-	deque->head = deque->head->next;
-	deque->head->next = NULL;
-	deque->tail = deque->tail->prev;
-	deque->tail->prev = NULL;
-}
+# include "dlinkedlist.h"
+# include "ft_utils.h"
+
+typedef t_dlist	t_deque;
+
+// basis instruction
+void	inst_swap(t_deque *deque);
+int		inst_push(t_deque *to, t_deque *from);
+void	inst_rotation(t_deque *deque);
+void	inst_revrot(t_deque *deque);
+
+// functions depend on t_item
+void	print_item(t_item item);
+void	delete_item(t_item item);
+
+#endif

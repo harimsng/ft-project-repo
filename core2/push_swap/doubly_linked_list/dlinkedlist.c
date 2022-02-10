@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 20:17:50 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/09 21:10:34 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/10 19:31:07 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	push_back(t_dlist *list, t_item item)
 	return (1);
 }
 
-t_item	pop_front(t_dlist *list)
+t_item	pop_front(t_dlist *list, void (*delete_item)(t_item))
 {
 	t_node	*del_node;
 	t_item	pop_item;
@@ -72,13 +72,13 @@ t_item	pop_front(t_dlist *list)
 	list->head = list->head->next;
 	if (list->head != NULL)
 		list->head->prev = NULL;
-	dep_delete_item(del_node->item);
+	delete_item(del_node->item);
 	free(del_node);
 	--list->size;
 	return (pop_item);
 }
 
-t_item	pop_back(t_dlist *list)
+t_item	pop_back(t_dlist *list, void (*delete_item)(t_item))
 {
 	t_node	*del_node;
 	t_item	pop_item;
@@ -90,8 +90,28 @@ t_item	pop_back(t_dlist *list)
 	list->tail = list->tail->prev;
 	if (list->tail != NULL)
 		list->tail->next = NULL;
-	dep_delete_item(del_node->item);
+	delete_item(del_node->item);
 	free(del_node);
 	--list->size;
 	return (pop_item);
+}
+
+void	delete_dlist(t_dlist *list, void (*delete_item)(t_item))
+{
+	size_t		size;
+	t_node		*trav_node;
+
+	size = list->size;
+	if (size == 0)
+		return ;
+	trav_node = list->head->next;
+	while (size > 1)
+	{
+		delete_item(trav_node->prev->item);
+		free(trav_node->prev);
+		trav_node = trav_node->next;
+		--size;
+	}
+	free(list->tail);
+	dlist_init(list);
 }

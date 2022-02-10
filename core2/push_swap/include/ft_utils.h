@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   linked_list_dep.c                                  :+:      :+:    :+:   */
+/*   ft_utils.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/08 16:11:46 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/08 17:42:41 by hseong           ###   ########.fr       */
+/*   Created: 2022/02/10 15:13:57 by hseong            #+#    #+#             */
+/*   Updated: 2022/02/10 15:24:16 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "linked_list.h"
+#ifndef FT_UTILS_H
+# define FT_UTILS_H
 
-void	dep_delete_item(t_item item)
-{
-	(void)item;
-}
+# include <unistd.h>
 
-void	dep_print_node(t_node *node)
-{
-	ft_putnbr_space(node->item);
-}
+void	ft_putstr_fd(const char *s, int fd);
+void	ft_putnbr_space(int num);
+
+#endif

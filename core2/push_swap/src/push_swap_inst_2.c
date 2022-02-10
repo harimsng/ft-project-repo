@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_deque_rot.c                                     :+:      :+:    :+:   */
+/*   push_swap_inst_2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/09 20:17:43 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/09 21:20:57 by hseong           ###   ########.fr       */
+/*   Created: 2022/02/10 16:57:43 by hseong            #+#    #+#             */
+/*   Updated: 2022/02/10 19:59:12 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_deque.h"
+#include "push_swap.h"
 
-void	inst_rotation(t_deque *deque)
+void	ra(t_deque *a)
 {
-	if (deque->size <= 1)
-		return ;
-	push_back(deque, pop_front(deque));
+	inst_rotation(a);
+	write(1, "ra\n", 3);
 }
 
-void	inst_rotation_two(t_deque *first, t_deque *second)
+void	rb(t_deque *b)
 {
-	inst_rotation(first);
-	inst_rotation(second);
+	inst_rotation(b);
+	write(1, "rb\n", 3);
+}
+
+void	rr(t_deque *a, t_deque *b)
+{
+	inst_rotation(a);
+	inst_rotation(b);
+	write(1, "rr\n", 3);
 }

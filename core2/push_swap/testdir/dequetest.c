@@ -14,20 +14,20 @@ int	main(void)
 	push_back(&deque2, 12345);
 
 	printf("\nbefore rotation\n");
-	print_dlist_foward(&deque);
+	print_deque_forward(&deque);
 	inst_rotation(&deque);
 	inst_rotation(&deque);
 	inst_rotation(&deque);
 	printf("\nafter rotation\n");
-	print_dlist_foward(&deque);
+	print_deque_forward(&deque);
 	inst_revrot(&deque);
 	inst_revrot(&deque);
 	inst_revrot(&deque);
 	printf("\nafter reverse rotation\n");
-	print_dlist_foward(&deque);
+	print_deque_forward(&deque);
 	inst_swap(&deque);
 	printf("\nafter swap\n");
-	print_dlist_foward(&deque);
+	print_deque_forward(&deque);
 
 	inst_push(&deque2, &deque);
 	inst_push(&deque2, &deque);
@@ -37,8 +37,8 @@ int	main(void)
 	inst_push(&deque2, &deque);
 	inst_push(&deque2, &deque);
 	printf("\nafter push\n");
-	print_dlist_foward(&deque);
+	print_deque_forward(&deque);
 	printf("\ndeque2:\n");
-	print_dlist_foward(&deque2);
+	print_deque_forward(&deque2);
 	return (0);
 }

@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_deque_rot.c                                     :+:      :+:    :+:   */
+/*   push_swap_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/09 20:17:43 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/09 20:40:25 by hseong           ###   ########.fr       */
+/*   Created: 2022/02/10 19:52:27 by hseong            #+#    #+#             */
+/*   Updated: 2022/02/10 20:02:55 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_deque.h"
+#include "push_swap.h"
 
-void	inst_rotation(t_deque *deque)
+void	print_data(t_deque *a, t_deque *b)
 {
-	if (deque->size == 0)
-		return ;
-	deque->head->next = deque->tail;
-	deque->tail->prev = deque->head;
-	deque->tail = deque->tail->prev;
-	deque->tail->prev = NULL;
-	deque->head = deque->head->prev;
-	deque->head->next = NULL;
+	ft_putstr_fd("print deque A >> ", 1);
+	print_dlist_forward(a, print_item);
+	ft_putstr_fd("\n", 1);
+	ft_putstr_fd("print deque B >> ", 1);
+	print_dlist_forward(b, print_item);
+	ft_putstr_fd("\n", 1);
 }
 
-void	inst_rotation_two(t_deque *first, t_deque *second)
+void	delete_data(t_deque *a, t_deque *b)
 {
-	inst_ratation(first);
-	inst_ratation(first);
+	delete_dlist(a, delete_item);
+	delete_dlist(b, delete_item);
 }

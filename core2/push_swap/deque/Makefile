@@ -7,14 +7,13 @@ SRC		= dlinkedlist.c\
 		  dlinkedlist_io.c\
 		  dlinkedlist_cur.c\
 		  dlinkedlist_mergesort.c\
-		  dlinkedlist_dep.c\
-		  ft_deque_swap.c\
-		  ft_deque_push.c\
-		  ft_deque_rotation.c\
-		  ft_deque_reverse_rotation.c
+		  ft_utils.c\
+		  ft_deque_item.c\
+		  ft_deque.c
 OBJ		= $(SRC:%.c=%.o)
 
 INCLUDE	= dlinkedlist.h\
+		  ft_utils.h\
 		  ft_deque.h
 
 all: $(NAME)

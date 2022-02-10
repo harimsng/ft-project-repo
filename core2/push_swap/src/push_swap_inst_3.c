@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dlinkedlist_dep.c                                  :+:      :+:    :+:   */
+/*   push_swap_inst_3.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/08 20:18:02 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/08 20:23:04 by hseong           ###   ########.fr       */
+/*   Created: 2022/02/10 18:01:19 by hseong            #+#    #+#             */
+/*   Updated: 2022/02/10 19:59:35 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dlinkedlist.h"
+#include "push_swap.h"
 
-void	dep_delete_item(t_item item)
+void	rra(t_deque *a)
 {
-	(void)item;
+	inst_revrot(a);
+	write(1, "rra\n", 4);
 }
 
-void	dep_print_node(t_node *node)
+void	rrb(t_deque *b)
 {
-	ft_putnbr_space(node->item);
+	inst_revrot(b);
+	write(1, "rrb\n", 4);
+}
+
+void	rrr(t_deque *a, t_deque *b)
+{
+	inst_revrot(a);
+	inst_revrot(b);
+	write(1, "rrr\n", 4);
 }
