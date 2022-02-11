@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 21:11:57 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/10 20:39:00 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/11 21:35:48 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@ int	main(int argc, char *argv[])
 	dlist_init(&a_deque);
 	dlist_init(&b_deque);
 	if (get_list(argc, argv, &a_deque) == 0)
-		return (print_error());
+	{
+		delete_data(&a_deque, &b_deque);
+		print_error();
+		return (1);
+	}
 	push_swap(&a_deque, &b_deque);
 	print_data(&a_deque, &b_deque);
 	delete_data(&a_deque, &b_deque);
@@ -28,6 +32,6 @@ int	main(int argc, char *argv[])
 
 int	print_error(void)
 {
-	ft_putstr_fd("Error\n", 1);
+	ft_putstr_fd("Error\n", 2);
 	return (1);
 }

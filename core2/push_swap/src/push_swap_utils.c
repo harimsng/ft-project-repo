@@ -6,18 +6,36 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 19:52:27 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/10 20:02:55 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/11 21:45:15 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+t_bool	sort_check(t_deque *a)
+{
+	t_node	*trav;
+	size_t	idx;
+	size_t	size;
+
+	trav = a->head;
+	idx = 1;
+	size = a->size;
+	while (idx < size)
+	{
+		if (trav->item > trav->next->item)
+			return (FALSE);
+		++idx;
+	}
+	return (TRUE);
+}
+
 void	print_data(t_deque *a, t_deque *b)
 {
-	ft_putstr_fd("print deque A >> ", 1);
+	ft_putstr_fd("deque A >> ", 1);
 	print_dlist_forward(a, print_item);
 	ft_putstr_fd("\n", 1);
-	ft_putstr_fd("print deque B >> ", 1);
+	ft_putstr_fd("deque B >> ", 1);
 	print_dlist_forward(b, print_item);
 	ft_putstr_fd("\n", 1);
 }

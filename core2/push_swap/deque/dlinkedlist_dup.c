@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dlinkedlist_cur.c                                  :+:      :+:    :+:   */
+/*   dlinkedlist_dup.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/08 20:17:56 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/10 19:27:47 by hseong           ###   ########.fr       */
+/*   Created: 2022/02/11 17:25:35 by hseong            #+#    #+#             */
+/*   Updated: 2022/02/11 17:41:18 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dlinkedlist.h"
 
-void	move_front(t_dlist *list)
+t_dlist	*duplicate_dlist(t_dlist *list)
 {
-	if (list->cur == list->head)
-		return ;
-	list->cur = list->cur->prev;
-	--list->idx;
-}
+	t_dlist		*clone;
+	size_t		size;
+	size_t		idx;
 
-void	move_back(t_dlist *list)
-{
-	if (list->cur == list->tail)
-		return ;
-	list->cur = list->cur->next;
-	++list->idx;
-}
-
-void	set_cur(t_dlist *list, t_item item)
-{
-	list->cur->item = item;
+	clone = malloc(sizeof(t_dlist));
+	dlist_init(clone);
+	size = list->size;
+	idx = 0;
+	list->cur = list->head;
+	while (idx < size)
+	{
+		push_back(clone, list->cur->item);
+		move_back(list);
+		++idx;
+	}
+	list->cur = NULL;
+	return (clone);
 }

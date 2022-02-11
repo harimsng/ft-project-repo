@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 20:19:18 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/10 19:32:44 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/11 17:24:29 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,6 @@ void	print_dlist_backward(t_dlist *list, void (*print_item)(t_item));
 // utils
 void	ft_putnbr_space(int num);
 void	mergesort_dlist(t_dlist *list);
+t_dlist	*duplicate_dlist(t_dlist *list);
 
 #endif

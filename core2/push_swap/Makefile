@@ -9,7 +9,8 @@ SRC		=	push_swap.c\
 			push_swap_inst_2.c\
 			push_swap_inst_3.c\
 			push_swap_utils.c\
-			verify_args.c\
+			push_swap_sort.c\
+			verify_args.c
 
 SRCDIR	=	src
 SRC		:=	$(SRC:%=$(SRCDIR)/%)
@@ -42,7 +43,8 @@ $(NAME): $(OBJ) $(LIBNAME)
 	$(CC) $(CFLAGS) -o $@ main.c $^ -I$(INCLDIR) -l$(LIB) -L$(LIBDIR)
 
 $(LIBNAME):
-	cd deque && $(MAKE) && $(MAKE) clean
+	$(MAKE) -C $(LIBDIR)
+	$(MAKE) -C $(LIBDIR) clean
 
 $(OBJ): %.o: %.c
 	$(CC) $(CFLAGS) -o $@ -c $< -I$(INCLDIR)

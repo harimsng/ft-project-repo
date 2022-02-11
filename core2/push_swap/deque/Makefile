@@ -7,6 +7,7 @@ SRC		= dlinkedlist.c\
 		  dlinkedlist_io.c\
 		  dlinkedlist_cur.c\
 		  dlinkedlist_mergesort.c\
+		  dlinkedlist_dup.c\
 		  ft_utils.c\
 		  ft_deque_item.c\
 		  ft_deque.c

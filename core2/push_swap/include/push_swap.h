@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 19:57:01 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/10 21:23:12 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/11 21:49:55 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@
 
 # define INT_MIN (-2147483648LL)
 # define INT_MAX (2147483647)
+# define TRUE (1)
+# define FALSE (0)
+
+typedef int	t_bool;
 
 int		get_list(int argc, char **argv, t_deque *deque);
 int		print_error(void);
@@ -38,7 +42,8 @@ void	rra(t_deque *a);
 void	rrb(t_deque *b);
 void	rrr(t_deque *a, t_deque *b);
 
-void	join_box(t_deque *a, t_deque *b, size_t box);
+t_bool	sort_blocks(t_deque *a, t_deque *b);
+t_bool	sort_check(t_deque *a);
 
 void	print_data(t_deque *a_deque, t_deque *b_deque);
 void	delete_data(t_deque *a_deque, t_deque *b_deque);

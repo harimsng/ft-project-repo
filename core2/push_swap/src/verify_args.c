@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 19:57:06 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/10 18:19:07 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/11 17:39:49 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	verify_arg(char *arg, t_deque *deque)
 {
 	while (int_test(&arg, deque))
 		++arg;
-	if (deque->size == 0)
+	if (deque->tail == NULL)
 		return (0);
 	return (1);
 }
@@ -61,7 +61,7 @@ int	int_test(char **arg_ptr, t_deque *deque)
 	num *= 1 - 2 * nsign;
 	if (len > 10 || len == 0 || num < INT_MIN || num > INT_MAX
 		|| (*arg != ' ' && *arg != 0))
-		deque->size = 0;
+		deque->tail = NULL;
 	else
 		push_back(deque, num);
 	*arg_ptr = arg;
@@ -70,15 +70,18 @@ int	int_test(char **arg_ptr, t_deque *deque)
 
 int	duplicate_check(t_deque *deque)
 {
-	t_node	*head;
+	t_deque *test;
+	t_node	*node;
 
-	mergesort_dlist(deque);
-	head = deque->head;
-	while (head->next != NULL)
+	test = duplicate_dlist(deque);
+	mergesort_dlist(test);
+	node = test->head;
+	while (node->next != NULL)
 	{
-		if (head->item == head->next->item)
+		if (node->item == node->next->item)
 			return (1);
-		head = head->next;
+		node = node->next;
 	}
+	delete_dlist(test, delete_item);
 	return (0);
 }
