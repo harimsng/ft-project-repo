@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 19:57:01 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/11 21:49:55 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/14 20:25:55 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	rra(t_deque *a);
 void	rrb(t_deque *b);
 void	rrr(t_deque *a, t_deque *b);
 
-t_bool	sort_blocks(t_deque *a, t_deque *b);
+t_bool	sort_loop(t_deque *a, t_deque *b);
 t_bool	sort_check(t_deque *a);
 
 void	print_data(t_deque *a_deque, t_deque *b_deque);

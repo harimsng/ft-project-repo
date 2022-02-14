@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 21:15:31 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/11 21:49:58 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/14 23:45:29 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ static void	prep_blocks(t_deque *a, t_deque *b, size_t size);
 void	push_swap(t_deque *a, t_deque *b)
 {
 	size_t		size;
-	size_t		box;
 
 	if (a->size <= 1)
 		return ;
-	box = 2;
 	size = a->size;
 	split_half(a, b);
+	print_data(a, b);
 	prep_blocks(a, b, size);
-	while (sort_blocks(a, b))
+	print_data(a, b);
+	while (sort_loop(a, b))
 		continue ;
 }
 
@@ -67,8 +67,6 @@ void	prep_blocks(t_deque *a, t_deque *b, size_t size)
 	size_t	modulus;
 	int		flag;
 
-	printf("a size = %zu\n", a->size);
-	printf("b size = %zu\n", b->size);
 	modulus = size % 4;
 	size /= 4;
 	while (size)

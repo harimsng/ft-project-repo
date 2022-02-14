@@ -2,7 +2,7 @@ NAME	=	push_swap
 
 CC		=	gcc
 CFLAGS	=	-Wall -Wextra -Werror
-DEBUG	=	-g -fsanitize=address
+DEBUG	=	-g #-fsanitize=address
 
 SRC		=	push_swap.c\
 			push_swap_inst_1.c\

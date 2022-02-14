@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 19:52:27 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/11 21:45:15 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/14 21:32:00 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_bool	sort_check(t_deque *a)
 	{
 		if (trav->item > trav->next->item)
 			return (FALSE);
+		trav = trav->next;
 		++idx;
 	}
 	return (TRUE);
