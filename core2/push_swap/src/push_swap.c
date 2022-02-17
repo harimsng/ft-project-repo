@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 21:15:31 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/14 23:45:29 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/17 18:16:41 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ void	push_swap(t_deque *a, t_deque *b)
 		return ;
 	size = a->size;
 	split_half(a, b);
-	print_data(a, b);
 	prep_blocks(a, b, size);
-	print_data(a, b);
 	while (sort_loop(a, b))
 		continue ;
 }

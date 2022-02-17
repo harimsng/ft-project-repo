@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 21:38:43 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/14 23:43:21 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/17 18:16:20 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ t_bool	sort_loop(t_deque *a, t_deque *b)
 	if (b->size == 0 && sort_check(a))
 		return (FALSE);
 	split_blocks(a, b);
-	print_data(a, b);
 	return (TRUE);
 }
 
@@ -60,7 +59,7 @@ static size_t	get_depth(t_node *node, t_bool direction)
 	}
 	else
 	{
-		while (node->next != NULL && node->item < node->next->item)
+		while (node->next != NULL && node->item > node->next->item)
 		{
 			node = node->next;
 			++depth;
@@ -71,12 +70,9 @@ static size_t	get_depth(t_node *node, t_bool direction)
 
 static void	join_blocks(t_deque *a, t_deque *b, size_t alen, size_t blen)
 {
-	size_t	len;
-
-	len = alen + blen;
-	while (len)
+	while (alen * blen)
 	{
-		if (alen && (blen == 0 || a->tail->item > b->head->item))
+		if (a->tail->item > b->head->item)
 		{
 			rra(a);
 			--alen;
@@ -86,8 +82,11 @@ static void	join_blocks(t_deque *a, t_deque *b, size_t alen, size_t blen)
 			pa(a, b);
 			--blen;
 		}
-		--len;
 	}
+	while (alen--)
+		rra(a);
+	while (blen--)
+		pa(a, b);
 }
 
 static void		split_blocks(t_deque *a, t_deque *b)
