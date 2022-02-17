@@ -1,11 +1,7 @@
-#include <stdlib.h>
 #include <stdio.h>
 
 int	main(void)
 {
-	bool	flag = 1;
-	char	*test = malloc(1);
-	printf("%c\n", *test);
-	printf("%c\n", (char)flag);
+	printf("%d\n", -3243987 % 1000);
 	return (0);
 }
