@@ -13,8 +13,10 @@ int	main(int argc, char *argv[])
 	int		rand_num;
 	int		numbers;
 	int		file = open("testcase.txt", O_WRONLY | O_CREAT | O_TRUNC);
+	clock_t	clock_num;
 
-	srand((unsigned int)time(NULL));
+	clock_num = clock();
+	srand((unsigned int)time(NULL) + (unsigned int)clock_num);
 	if (argc != 2)
 	{
 		printf("input error: ./test (number of numbers)  #range: [0, 1000]");

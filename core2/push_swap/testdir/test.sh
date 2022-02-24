@@ -7,7 +7,7 @@ else
 INPUT="`cat testcase.txt`"
 #	echo $INPUT
 	cat testcase.txt | xargs ../push_swap > instruction_temp.txt
-	echo "number of instructions"
+	echo "number of operations"
 	cat instruction_temp.txt | wc -l
 	./checker_Mac $INPUT < instruction_temp.txt
 fi

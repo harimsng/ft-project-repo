@@ -2,16 +2,16 @@ NAME	=	push_swap
 
 CC		=	gcc
 CFLAGS	=	-Wall -Wextra -Werror
-DEBUG	=	-g #-fsanitize=address
+DEBUG	=	-g #-fsanitize=address #option for lldb
 
 SRC		=	push_swap_mergesort_1.c\
 			push_swap_mergesort_2.c\
 			push_swap_inst_1.c\
 			push_swap_inst_2.c\
 			push_swap_inst_3.c\
-			push_swap_utils.c\
+			push_swap_utils_1.c\
+			push_swap_utils_2.c\
 			verify_args.c
-#			push_swap_quicksort.c\
 
 SRCDIR	=	src
 SRC		:=	$(SRC:%=$(SRCDIR)/%)
@@ -35,6 +35,7 @@ endif
 all: $(NAME)
 
 debug: 
+	$(MAKE) fclean
 	$(MAKE) DFLAG=1
 
 $(NAME): $(OBJ) $(LIBNAME)

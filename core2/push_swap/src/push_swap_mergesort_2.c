@@ -6,34 +6,38 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 21:38:43 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/24 11:22:12 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/25 01:13:02 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static t_bool	get_blocks(t_deque *a, t_deque *b);
-static void		split_blocks(t_deque *a, t_deque *b);
+static t_bool	join_loop(t_deque *a, t_deque *b);
+static void		split_deque(t_deque *a, t_deque *b);
 static void		join_blocks(t_deque *a, t_deque *b, size_t alen, size_t blen);
 
 t_bool	sort_loop(t_deque *a, t_deque *b)
 {
-	while (get_blocks(a, b))
+	while (join_loop(a, b))
 		continue ;
 	if (b->size == 0 && sort_check(a))
 		return (FALSE);
-	split_blocks(a, b);
+	split_deque(a, b);
 	return (TRUE);
 }
 
-t_bool	get_blocks(t_deque *a, t_deque *b)
+t_bool	join_loop(t_deque *a, t_deque *b)
 {
 	size_t		a_depth;
 	size_t		b_depth;
 
-	a_depth = get_depth_des(a->tail, 0);
-	b_depth = get_depth_des(b->head, 1);
-	if (b_depth == 0 || b_depth == b->size)
+	join_edge(a, TRUE);
+	join_edge(b, FALSE);
+	a->cur = a->tail;
+	b->cur = b->head;
+	a_depth = partial_check(&a->cur, a->size, TAIL, DEC);
+	b_depth = partial_check(&b->cur, b->size, HEAD, DEC);
+	if (b->size == 0)
 		return (FALSE);
 	join_blocks(a, b, a_depth, b_depth);
 	return (TRUE);
@@ -60,7 +64,28 @@ void	join_blocks(t_deque *a, t_deque *b, size_t alen, size_t blen)
 		pa(a, b);
 }
 
-void		split_blocks(t_deque *a, t_deque *b)
+void		split_deque(t_deque *a, t_deque *b)
+{
+	size_t	blocks;
+	t_node	*node;
+
+	blocks = get_blocks(a, INC);
+	blocks = (blocks + 1) / 2;
+	node = a->head;
+	while (blocks)
+	{
+		while (node->item < node->next->item)
+		{
+			node = node->next;
+			pb(b, a);
+		}
+		node = node->next;
+		pb(b, a);
+		--blocks;
+	}
+}
+/*
+void		split_deque(t_deque *a, t_deque *b)
 {
 	t_node		*head;
 	t_node		*tail;
@@ -83,3 +108,4 @@ void		split_blocks(t_deque *a, t_deque *b)
 			tail = tail->prev;
 	}
 }
+*/

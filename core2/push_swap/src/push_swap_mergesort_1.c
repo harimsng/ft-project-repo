@@ -6,14 +6,14 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 21:15:31 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/24 18:52:02 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/25 00:05:35 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 static void		split_half(t_deque *a, t_deque *b);
-static void		prep_blocks(t_deque *a, t_deque *b);
+static void		prep_deques(t_deque *a, t_deque *b);
 static t_bool	item_comp(t_item a, t_item b, t_item tail);
 
 void	push_swap_mergesort(t_deque *a, t_deque *b)
@@ -22,7 +22,7 @@ void	push_swap_mergesort(t_deque *a, t_deque *b)
 		return ;
 	if (a->size >= 4)
 		split_half(a, b);
-	prep_blocks(a, b);
+	prep_deques(a, b);
 	while (sort_loop(a, b))
 		continue ;
 }
@@ -43,12 +43,12 @@ void	split_half(t_deque *a, t_deque *b)
 // a-> size >= b->size
 
 /*
-void	prep_blocks(t_deque *a, t_deque *b)
+void	prep_deques(t_deque *a, t_deque *b)
 {
 
 }
 */
-void	prep_blocks(t_deque *a, t_deque *b)
+void	prep_deques(t_deque *a, t_deque *b)
 {
 	size_t	idx;
 	size_t	flag;
@@ -58,8 +58,10 @@ void	prep_blocks(t_deque *a, t_deque *b)
 	{
 		flag = 0;
 		if (item_comp(a->head->item, a->head->next->item, a->tail->item))
+			flag |= 1;
 		if (idx < b->size
 			&& item_comp(b->head->next->item, b->head->item, b->tail->item))
+			flag |= 2;
 /*
 		if ((a->head->next->item < a->head->item
 			&& a->tail->item > a->head->item)
@@ -80,7 +82,7 @@ void	prep_blocks(t_deque *a, t_deque *b)
 			sb(b);
 		else if (flag == 3)
 			ss(a, b);
-		if (idx < b->size - 1)
+		if (idx + 1 < b->size)
 			rr(a, b);
 		++idx;
 	}
@@ -88,7 +90,8 @@ void	prep_blocks(t_deque *a, t_deque *b)
 
 t_bool	item_comp(t_item a, t_item b, t_item tail)
 {
-	if ((b > a && tail <= b && tail >= a)
-		|| (a < b && b > tail))
-		return (true);
+	if ((a > b && (tail <= b || tail >= a))
+		|| (a < b && b > tail && tail > a))
+		return (TRUE);
+	return (FALSE);
 }
