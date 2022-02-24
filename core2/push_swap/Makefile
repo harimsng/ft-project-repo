@@ -4,13 +4,14 @@ CC		=	gcc
 CFLAGS	=	-Wall -Wextra -Werror
 DEBUG	=	-g #-fsanitize=address
 
-SRC		=	push_swap.c\
+SRC		=	push_swap_mergesort_1.c\
+			push_swap_mergesort_2.c\
 			push_swap_inst_1.c\
 			push_swap_inst_2.c\
 			push_swap_inst_3.c\
 			push_swap_utils.c\
-			push_swap_sort.c\
 			verify_args.c
+#			push_swap_quicksort.c\
 
 SRCDIR	=	src
 SRC		:=	$(SRC:%=$(SRCDIR)/%)
@@ -35,9 +36,6 @@ all: $(NAME)
 
 debug: 
 	$(MAKE) DFLAG=1
-
-DFLAGS:
-	$(CFLAGS += DEBUG)
 
 $(NAME): $(OBJ) $(LIBNAME)
 	$(CC) $(CFLAGS) -o $@ main.c $^ -I$(INCLDIR) -l$(LIB) -L$(LIBDIR)

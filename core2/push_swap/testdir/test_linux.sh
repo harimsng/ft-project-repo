@@ -9,5 +9,5 @@ INPUT="`cat testcase.txt`"
 	cat testcase.txt | xargs ../push_swap > instruction_temp.txt
 	echo "number of instructions"
 	cat instruction_temp.txt | wc -l
-	./checker_Mac $INPUT < instruction_temp.txt
+	./checker_linux $INPUT < instruction_temp.txt
 fi

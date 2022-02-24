@@ -6,11 +6,14 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 21:11:57 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/17 19:37:20 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/23 22:15:47 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+int	get_list(int argc, char *argv[], t_deque *deque);
+int	print_error(void);
 
 int	main(int argc, char *argv[])
 {
@@ -24,7 +27,7 @@ int	main(int argc, char *argv[])
 		print_error();
 		return (1);
 	}
-	push_swap(&a_deque, &b_deque);
+	push_swap_mergesort(&a_deque, &b_deque);
 	delete_data(&a_deque, &b_deque);
 	return (0);
 }

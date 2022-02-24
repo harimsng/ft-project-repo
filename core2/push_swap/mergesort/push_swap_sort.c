@@ -70,7 +70,7 @@ static size_t	get_depth(t_node *node, t_bool direction)
 
 static void	join_blocks(t_deque *a, t_deque *b, size_t alen, size_t blen)
 {
-	while (alen * blen)
+	while (alen && blen)
 	{
 		if (a->tail->item > b->head->item)
 		{

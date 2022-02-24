@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 19:57:01 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/14 20:25:55 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/24 11:06:46 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+
 # include "ft_deque.h"
 
 #include "ft_debug.h"
@@ -26,9 +27,7 @@
 
 typedef int	t_bool;
 
-int		get_list(int argc, char **argv, t_deque *deque);
-int		print_error(void);
-void	push_swap(t_deque *a_deque, t_deque *b_deque);
+void	push_swap_mergesort(t_deque *a_deque, t_deque *b_deque);
 
 void	pa(t_deque *a, t_deque *b);
 void	pb(t_deque *b, t_deque *a);
@@ -41,6 +40,9 @@ void	rr(t_deque *a, t_deque *b);
 void	rra(t_deque *a);
 void	rrb(t_deque *b);
 void	rrr(t_deque *a, t_deque *b);
+
+size_t	get_depth_des(t_node *node, t_bool direction);
+size_t	get_depth_asc(t_node *node, t_bool direction);
 
 t_bool	sort_loop(t_deque *a, t_deque *b);
 t_bool	sort_check(t_deque *a);

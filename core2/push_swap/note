@@ -1,3 +1,5 @@
 new_node = list->head
 ...
 new_node->next = list->head
+
+wheel sort on final stage?

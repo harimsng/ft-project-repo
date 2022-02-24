@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 19:52:27 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/14 21:32:00 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/23 22:44:07 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,58 @@ void	delete_data(t_deque *a, t_deque *b)
 {
 	delete_dlist(a, delete_item);
 	delete_dlist(b, delete_item);
+}
+
+// direction == 0	: from tail to head
+//			 == 1	: from head to tail
+size_t	get_depth_descen(t_node *node, t_bool direction)
+{
+	size_t		depth;
+
+	if (node == NULL)
+		return (0);
+	depth = 1;
+	if (direction == 0)
+	{
+		while (node->prev != NULL && node->item > node->prev->item)
+		{
+			node = node->prev;
+			++depth;
+		}
+	}
+	else
+	{
+		while (node->next != NULL && node->item > node->next->item)
+		{
+			node = node->next;
+			++depth;
+		}
+	}
+	return (depth);
+}
+
+size_t	get_depth_ascen(t_node *node, t_bool direction)
+{
+	size_t		depth;
+
+	if (node == NULL)
+		return (0);
+	depth = 1;
+	if (direction == 0)
+	{
+		while (node->prev != NULL && node->item < node->prev->item)
+		{
+			node = node->prev;
+			++depth;
+		}
+	}
+	else
+	{
+		while (node->next != NULL && node->item < node->next->item)
+		{
+			node = node->next;
+			++depth;
+		}
+	}
+	return (depth);
 }
