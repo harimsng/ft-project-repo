@@ -1,8 +1,10 @@
 NAME	=	push_swap
 
+
 CC		=	gcc
 CFLAGS	=	-Wall -Wextra -Werror
 DEBUG	=	-g #-fsanitize=address #option for lldb
+
 
 SRC		=	push_swap_mergesort_1.c\
 			push_swap_mergesort_2.c\
@@ -12,17 +14,26 @@ SRC		=	push_swap_mergesort_1.c\
 			push_swap_utils_1.c\
 			push_swap_utils_2.c\
 			verify_args.c
-
 SRCDIR	=	src
 SRC		:=	$(SRC:%=$(SRCDIR)/%)
-
 OBJ		=	$(SRC:%.c=%.o)
+
+
+BNS_SRC	=	checker.c\
+			check_inst.c\
+			get_next_line.c\
+			get_next_line_utils.c
+BNS_DIR	=	checker
+BNS_SRC	:=	$(BNS_SRC:%=$(BNS_DIR)/%)
+BNS_OBJ	=	$(BNS_SRC:%.c=%.o)
 
 INCLUDE	=	push_swap.h\
 			dlinkedlist.h\
-			ft_deque.h
-
+			ft_deque.h\
+			checker.h\
+			get_next_line.h
 INCLDIR	=	include
+
 
 LIB		=	ftdeque
 LIBDIR	=	deque
@@ -33,6 +44,8 @@ CFLAGS += $(DEBUG)
 endif
 
 all: $(NAME)
+
+bonus: ft_checker 
 
 debug: 
 	$(MAKE) fclean
@@ -48,11 +61,17 @@ $(LIBNAME):
 $(OBJ): %.o: %.c
 	$(CC) $(CFLAGS) -o $@ -c $< -I$(INCLDIR)
 
+ft_checker: $(BNS_OBJ) $(OBJ)
+	$(CC) $(CFLAGS) $^ -o $@ -I$(INCLDIR) -l$(LIB) -L$(LIBDIR)
+
+$(BNS_OBJ): %.o: %.c
+	$(CC) $(CFLAGS) -o $@ -c $< -I$(INCLDIR) -DBUFFER_SIZE=64
+
 clean:
-	rm -f $(OBJ)
+	@rm -f $(OBJ) $(BNS_OBJ)
 
 fclean: clean
-	rm -f $(NAME) $(LIBNAME)
+	@rm -f $(NAME) $(LIBNAME)
 
 re: fclean all
 	
