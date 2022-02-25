@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 21:13:10 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/25 01:22:08 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/25 21:31:03 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,19 @@
 
 void	join_edge(t_deque *deque, t_bool which)
 {
+	t_deque	*arr[2];
+
 	if (which == TRUE)
 	{
+		arr[0] = deque;
 		while (deque->head->item > deque->tail->item)
-			rra(deque);
+			rra(arr);
 	}
 	else if (deque->size > 1)
 	{
+		arr[1] = deque;
 		while (deque->head->item < deque->tail->item)
-			rrb(deque);
+			rrb(arr);
 	}
 }
 
@@ -44,9 +48,4 @@ size_t	get_blocks(t_deque *deque, t_bool dir)
 		node = node->next;
 	}
 	return (count);
-}
-
-void	move_block(t_deque *a, t_deque *b)
-{
-
 }

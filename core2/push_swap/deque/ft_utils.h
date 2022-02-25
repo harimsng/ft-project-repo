@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 15:13:57 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/10 15:24:16 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/25 22:36:18 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,7 @@
 
 void	ft_putstr_fd(const char *s, int fd);
 void	ft_putnbr_space(int num);
+size_t	ft_strlen(const char *s);
+int		ft_strncmp(const char *s1, const char *s2, size_t size);
 
 #endif

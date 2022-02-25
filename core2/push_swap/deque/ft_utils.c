@@ -6,10 +6,11 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 15:12:55 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/10 16:00:14 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/25 22:36:35 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "ft_utils.h"
 
 void	ft_putstr_fd(const char *s, int fd)
@@ -44,4 +45,28 @@ void	ft_putnbr_space(int num)
 	}
 	buf[idx++] = ' ';
 	write(1, buf, idx);
+}
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	len;
+
+	len = 0;
+	while (s[len] != 0)
+		++len;
+	return (len);
+}
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	if (n == 0)
+		return (0);
+	--n;
+	while (n && *s1 && *s2 && *s1 == *s2)
+	{
+		++s1;
+		++s2;
+		--n;
+	}
+	return ((unsigned char)*s1 - (unsigned char)*s2);
 }

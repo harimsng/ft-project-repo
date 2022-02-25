@@ -1,33 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_inst_2.c                                 :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/10 16:57:43 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/25 21:05:39 by hseong           ###   ########.fr       */
+/*   Created: 2021/11/18 22:35:48 by hseong            #+#    #+#             */
+/*   Updated: 2021/11/30 22:28:20 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include "push_swap.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-void	ra(t_deque *deques[2])
-{
-	inst_rotation(deques[0]);
-	write(1, "ra\n", 3);
-}
+# include <unistd.h>
+# include <stdlib.h>
 
-void	rb(t_deque *deques[2])
-{
-	inst_rotation(deques[1]);
-	write(1, "rb\n", 3);
-}
+# define INT_MAX 2147483647
 
-void	rr(t_deque *deques[2])
+typedef struct s_line
 {
-	inst_rotation(deques[0]);
-	inst_rotation(deques[1]);
-	write(1, "rr\n", 3);
-}
+	int				cap;
+	int				size;
+	unsigned char	*str;
+}					t_line;
+
+typedef struct s_buf
+{
+	int				fd;
+	int				size;
+	unsigned char	*str;
+}					t_buf;
+
+char		*get_next_line(int fd);
+void		*ft_memcpy(void *dest, const void *src, size_t size);
+
+#endif

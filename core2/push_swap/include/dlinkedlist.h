@@ -6,14 +6,13 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 20:19:18 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/22 18:13:48 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/25 19:46:19 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DLINKEDLIST_H
 # define DLINKEDLIST_H
 
-# include <unistd.h>
 # include <stdlib.h>
 
 typedef int		t_item;

@@ -6,53 +6,56 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 21:15:31 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/25 00:05:35 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/25 21:25:19 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void		split_half(t_deque *a, t_deque *b);
-static void		prep_deques(t_deque *a, t_deque *b);
+static const inst_func	g_prep_table[4] = {no_inst, sa, sb, ss};
+
+static void		split_half(t_deque *deques[2]);
+static void		prep_deques(t_deque *deques[2]);
 static t_bool	item_comp(t_item a, t_item b, t_item tail);
 
 void	push_swap_mergesort(t_deque *a, t_deque *b)
 {
-	if (a->size <= 1)
+	t_deque	*deques[2];
+
+	deques[0] = a;
+	deques[1] = b;
+	if ((deques[0])->size <= 1)
 		return ;
-	if (a->size >= 4)
-		split_half(a, b);
-	prep_deques(a, b);
-	while (sort_loop(a, b))
+	if ((deques[0])->size >= 4)
+		split_half(deques);
+	prep_deques(deques);
+	while (sort_loop(deques))
 		continue ;
 }
 
-void	split_half(t_deque *a, t_deque *b)
+void	split_half(t_deque *deques[2])
 {
 	size_t	idx;
 	size_t	half;
 
 	idx = 0;
-	half = a->size / 2;
+	half = (deques[0])->size / 2;
 	while (idx < half)
 	{
-		pb(b, a);
+		pb(deques);
 		++idx;
 	}
 }
-// a-> size >= b->size
 
-/*
-void	prep_deques(t_deque *a, t_deque *b)
-{
-
-}
-*/
-void	prep_deques(t_deque *a, t_deque *b)
+void	prep_deques(t_deque *deques[2])
 {
 	size_t	idx;
 	size_t	flag;
+	t_deque	*a;
+	t_deque	*b;
 
+	a = deques[0];
+	b = deques[1];
 	idx = 1;
 	while (idx < a->size)
 	{
@@ -62,28 +65,9 @@ void	prep_deques(t_deque *a, t_deque *b)
 		if (idx < b->size
 			&& item_comp(b->head->next->item, b->head->item, b->tail->item))
 			flag |= 2;
-/*
-		if ((a->head->next->item < a->head->item
-			&& a->tail->item > a->head->item)
-			|| ())
-
-			&& (a->tail->item <= a->head->next->item
-			|| a->tail->item > a->head->item))
-			flag |= 1;
-		if (idx < b->size
-			&& b->head->next->item > b->head->item
-			&& (b->tail->item >= b->head->next->item
-			|| b->tail->item < b->head->item))
-			flag |= 2;
-			*/
-		if (flag == 1)
-			sa(a);
-		else if (flag == 2)
-			sb(b);
-		else if (flag == 3)
-			ss(a, b);
+		g_prep_table[flag](deques);
 		if (idx + 1 < b->size)
-			rr(a, b);
+			rr(deques);
 		++idx;
 	}
 }

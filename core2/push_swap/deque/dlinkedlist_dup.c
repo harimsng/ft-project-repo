@@ -6,10 +6,11 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 17:25:35 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/11 17:41:18 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/25 19:39:46 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "dlinkedlist.h"
 
 t_dlist	*duplicate_dlist(t_dlist *list)

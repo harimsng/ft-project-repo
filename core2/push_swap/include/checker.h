@@ -1,33 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_inst_2.c                                 :+:      :+:    :+:   */
+/*   checker.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/10 16:57:43 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/25 21:05:39 by hseong           ###   ########.fr       */
+/*   Created: 2022/02/25 19:28:09 by hseong            #+#    #+#             */
+/*   Updated: 2022/02/25 20:01:18 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include "push_swap.h"
+#ifndef CHECKER_H
+# define CHECKER_H
 
-void	ra(t_deque *deques[2])
-{
-	inst_rotation(deques[0]);
-	write(1, "ra\n", 3);
-}
+# include "push_swap.h"
 
-void	rb(t_deque *deques[2])
-{
-	inst_rotation(deques[1]);
-	write(1, "rb\n", 3);
-}
+char	*get_next_line(int fd);
+t_bool	check_inst(t_deque *a_deque, t_deque *b_deque);
 
-void	rr(t_deque *deques[2])
-{
-	inst_rotation(deques[0]);
-	inst_rotation(deques[1]);
-	write(1, "rr\n", 3);
-}
+#endif

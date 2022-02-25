@@ -6,10 +6,11 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 20:17:50 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/14 23:31:30 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/25 19:39:21 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "dlinkedlist.h"
 
 int	push_front(t_dlist *list, t_item item)
