@@ -12,7 +12,7 @@ int	main(void)
 {
 	int		table[ELEMENTS] =
 	{
-		2595, 2621, 1971, 2592, 2618, 2594, 67516, 2620, 68192, 1944, 50616
+		2637, 2663, 3105, 2634, 2660, 2636, 2662, 3078, 80142, 68650, 69326
 	};
 	int		result_table[ELEMENTS] = {0, };
 	int		divider = ELEMENTS;

@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 19:31:52 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/25 22:43:07 by hseong           ###   ########.fr       */
+/*   Updated: 2022/02/27 18:34:42 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ static void	print_error(void);
 
 int	main(int argc, char *argv[])
 {
-	t_deque a_deque;
-	t_deque b_deque;
+	t_deque 		a_deque;
+	t_deque 		b_deque;
+	unsigned int	result_bit;
 
 	dlist_init(&a_deque);
 	dlist_init(&b_deque);
@@ -31,10 +32,13 @@ int	main(int argc, char *argv[])
 		print_error();
 		return (1);
 	}
-	if (check_inst(&a_deque, &b_deque) == TRUE)
+	result_bit = check_inst(&a_deque, &b_deque);
+	if (result_bit == OK_BIT)
 		write(1, "OK\n", 3);
-	else
+	else if (result_bit == KO_BIT)
 		write(1, "KO\n", 3);
+	else
+		print_error();
 	delete_data(&a_deque, &b_deque);
 	return (0);
 }

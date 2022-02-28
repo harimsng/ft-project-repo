@@ -20,16 +20,16 @@ INCLUDE	= dlinkedlist.h\
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	ar rcs $@ $^
+	@ar rcs $@ $^
 
 $(OBJ): %.o: %.c
-	$(CC) $(CFLAGS) -c -o $@ $< -I.
+	@$(CC) $(CFLAGS) -c -o $@ $< -I.
 
 clean:
-	rm -f $(OBJ)
+	@rm -f $(OBJ)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 

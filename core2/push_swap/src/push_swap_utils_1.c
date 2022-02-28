@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 19:52:27 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/25 01:06:20 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/01 00:26:52 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 t_bool	sort_check(t_deque *a)
 {
 	size_t	size;
+
+	if (a->size == 0)
+		return (FALSE);
 	a->cur = a->head;
 	size = partial_check(&a->cur, a->size, HEAD, INC);
 	return (size == a->size);

@@ -45,33 +45,37 @@ endif
 
 all: $(NAME)
 
-bonus: ft_checker 
+bonus: all ft_checker 
 
 debug: 
-	$(MAKE) fclean
-	$(MAKE) DFLAG=1
+	@echo "debug mode"
+	@$(MAKE) fclean
+	@$(MAKE) DFLAG=1
 
 $(NAME): $(OBJ) $(LIBNAME)
-	$(CC) $(CFLAGS) -o $@ main.c $^ -I$(INCLDIR) -l$(LIB) -L$(LIBDIR)
+	@echo "push_swap compiling"
+	@$(CC) $(CFLAGS) -o $@ main.c $^ -I$(INCLDIR) -l$(LIB) -L$(LIBDIR)
 
 $(LIBNAME):
-	$(MAKE) -C $(LIBDIR)
-	$(MAKE) -C $(LIBDIR) clean
+	@echo "library ftdeque compiling"
+	@$(MAKE) -C $(LIBDIR)
+	@$(MAKE) -C $(LIBDIR) clean
 
 $(OBJ): %.o: %.c
-	$(CC) $(CFLAGS) -o $@ -c $< -I$(INCLDIR)
+	@$(CC) $(CFLAGS) -o $@ -c $< -I$(INCLDIR)
 
 ft_checker: $(BNS_OBJ) $(OBJ)
-	$(CC) $(CFLAGS) $^ -o $@ -I$(INCLDIR) -l$(LIB) -L$(LIBDIR)
+	@echo "ft_checker compiling"
+	@$(CC) $(CFLAGS) $^ -o $@ -I$(INCLDIR) -l$(LIB) -L$(LIBDIR)
 
 $(BNS_OBJ): %.o: %.c
-	$(CC) $(CFLAGS) -o $@ -c $< -I$(INCLDIR) -DBUFFER_SIZE=64
+	@$(CC) $(CFLAGS) -o $@ -c $< -I$(INCLDIR) -DBUFFER_SIZE=64
 
 clean:
 	@rm -f $(OBJ) $(BNS_OBJ)
 
 fclean: clean
-	@rm -f $(NAME) $(LIBNAME)
+	@rm -f $(NAME) $(LIBNAME) ft_checker
 
 re: fclean all
 	
