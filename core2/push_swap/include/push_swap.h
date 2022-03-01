@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 19:57:01 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/25 21:09:29 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/01 18:18:23 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,10 @@
 # define INC (1)
 # define DEC (0)
 
-typedef int	t_bool;
+typedef int		t_bool;
+typedef void	(*t_inst_func)(t_deque *[2]);
 
 void	push_swap_mergesort(t_deque *a_deque, t_deque *b_deque);
-
-typedef void	(*inst_func)(t_deque *[2]);
 
 // ft_deque interface
 void	pa(t_deque *deques[2]);
@@ -43,9 +42,6 @@ void	rra(t_deque *deques[2]);
 void	rrb(t_deque *deques[2]);
 void	rrr(t_deque *deques[2]);
 void	no_inst(t_deque *deques[2]);
-// r : front to back
-// rr : back to front
-
 
 // utility functions
 t_bool	sort_loop(t_deque *deques[2]);

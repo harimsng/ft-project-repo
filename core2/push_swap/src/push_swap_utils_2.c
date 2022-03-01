@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 21:13:10 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/25 21:31:03 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/01 18:17:12 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ size_t	get_blocks(t_deque *deque, t_bool dir)
 		size -= partial_check(&node, size, HEAD, dir);
 		++count;
 		if (node == deque->tail)
-			break;
+			break ;
 		node = node->next;
 	}
 	return (count);

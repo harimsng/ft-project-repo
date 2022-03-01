@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 21:11:57 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/25 19:50:21 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/01 20:35:54 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(int argc, char *argv[])
 
 	dlist_init(&a_deque);
 	dlist_init(&b_deque);
+	a_deque.flag = TRUE;
 	if (get_list(argc, argv, &a_deque) == 0)
 	{
 		delete_data(&a_deque, &b_deque);

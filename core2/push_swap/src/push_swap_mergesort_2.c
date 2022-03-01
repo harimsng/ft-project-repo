@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 21:38:43 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/25 21:28:43 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/01 18:21:10 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	join_blocks(t_deque *deques[2], size_t alen, size_t blen)
 		pa(deques);
 }
 
-void		split_deque(t_deque *deques[2])
+void	split_deque(t_deque *deques[2])
 {
 	size_t	blocks;
 	t_node	*node;

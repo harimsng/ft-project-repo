@@ -6,41 +6,18 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 20:02:37 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/01 00:40:24 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/01 18:19:40 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 
-static const char		*g_inst_string[11] =
-{
-	"pa\n",
-	"pb\n",
-	"sa\n",
-	"sb\n",
-	"ss\n",
-	"ra\n",
-	"rb\n",
-	"rr\n",
-	"rra\n",
-	"rrb\n",
-	"rrr\n"
-};
+static const char			*g_inst_string[11]
+	= {"pa\n", "pb\n", "sa\n", "sb\n", "ss\n", "ra\n", "rb\n", "rr\n",
+	"rra\n", "rrb\n", "rrr\n"};
 
-// a = 97, b = 98, p = 112, r = 114, s = 115
-// sa -> s + 26 * a = 2637 % 17 -> 2
-// sb -> s + 26 * b = 2663 % 17 -> 11
-// ss -> s + 26 * s = 3105 % 17 -> 16
-// pa -> p + 26 * a = 2635 % 17 -> 8
-// pb -> p + 26 * b = 2660 % 17 -> 0
-// ra -> r + 26 * a = 2636 % 17 -> 10
-// rra-> r + 26 * r + 26^2 * a = 68650 % 17 -> 9
-// rb -> r + 26 * b = 2662 % 17 -> 2
-// rrb-> r + 26 * r + 26^2 * b = 69325 % 17 -> 5
-// rr -> r + 26 * r = 3078 % 17 -> 6
-// rrr-> r + 26 * r + 26^2 * r = 80142 % 17 -> 7
-static const inst_func	g_inst_table[31] =
-{
+static const t_inst_func	g_inst_table[31]
+	= {
 	NULL,
 	ra,
 	sa,
@@ -123,3 +100,15 @@ static size_t	get_key(char *buf)
 			+ 26 * buf[1]
 			+ 26 * 26 * buf[2]) % 31);
 }
+// a = 97, b = 98, p = 112, r = 114, s = 115
+// sa -> s + 26 * a = 2637 % 31 -> 2
+// sb -> s + 26 * b = 2663 % 31 -> 11
+// ss -> s + 26 * s = 3105 % 31 -> 16
+// pa -> p + 26 * a = 2635 % 31 -> 8
+// pb -> p + 26 * b = 2660 % 31 -> 0
+// ra -> r + 26 * a = 2636 % 31 -> 10
+// rra-> r + 26 * r + 26^2 * a = 68650 % 31 -> 9
+// rb -> r + 26 * b = 2662 % 31 -> 2
+// rrb-> r + 26 * r + 26^2 * b = 69325 % 31 -> 5
+// rr -> r + 26 * r = 3078 % 31 -> 6
+// rrr-> r + 26 * r + 26^2 * r = 80142 % 31 -> 7

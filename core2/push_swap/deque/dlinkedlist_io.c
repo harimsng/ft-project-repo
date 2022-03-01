@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 20:18:08 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/25 19:39:57 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/01 20:38:31 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	dlist_init(t_dlist *list)
 {
-	*list = (t_dlist){NULL, NULL, NULL, 0, 0};
+	*list = (t_dlist){NULL, NULL, NULL, 0, 0, 0};
 }
 
 void	print_dlist_forward(t_dlist *list, void (*print_item)(t_item))

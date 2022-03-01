@@ -14,16 +14,17 @@ SRC		=	push_swap_mergesort_1.c\
 			push_swap_utils_1.c\
 			push_swap_utils_2.c\
 			verify_args.c
-SRCDIR	=	src
-SRC		:=	$(SRC:%=$(SRCDIR)/%)
+SRC_DIR	=	src
+SRC		:=	$(SRC:%=$(SRC_DIR)/%)
 OBJ		=	$(SRC:%.c=%.o)
 
 
+BNS_NAME=	checker
 BNS_SRC	=	checker.c\
 			check_inst.c\
 			get_next_line.c\
 			get_next_line_utils.c
-BNS_DIR	=	checker
+BNS_DIR	=	checker_dir
 BNS_SRC	:=	$(BNS_SRC:%=$(BNS_DIR)/%)
 BNS_OBJ	=	$(BNS_SRC:%.c=%.o)
 
@@ -32,12 +33,12 @@ INCLUDE	=	push_swap.h\
 			ft_deque.h\
 			checker.h\
 			get_next_line.h
-INCLDIR	=	include
+INCL_DIR=	include
 
 
 LIB		=	ftdeque
-LIBDIR	=	deque
-LIBNAME	=	$(LIBDIR)/lib$(LIB).a
+LIB_DIR	=	deque
+LIBNAME	=	$(LIB_DIR)/lib$(LIB).a
 
 ifeq ($(DFLAG), 1)
 CFLAGS += $(DEBUG)
@@ -45,37 +46,40 @@ endif
 
 all: $(NAME)
 
-bonus: all ft_checker 
+bonus: all checker 
 
 debug: 
 	@echo "debug mode"
 	@$(MAKE) fclean
 	@$(MAKE) DFLAG=1
 
+norm:
+	@norminette $(LIB_DIR) $(INCL_DIR) $(SRC_DIR) $(BNS_DIR) main.c
+
 $(NAME): $(OBJ) $(LIBNAME)
 	@echo "push_swap compiling"
-	@$(CC) $(CFLAGS) -o $@ main.c $^ -I$(INCLDIR) -l$(LIB) -L$(LIBDIR)
+	@$(CC) $(CFLAGS) -o $@ main.c $^ -I$(INCL_DIR) -l$(LIB) -L$(LIB_DIR)
 
 $(LIBNAME):
 	@echo "library ftdeque compiling"
-	@$(MAKE) -C $(LIBDIR)
-	@$(MAKE) -C $(LIBDIR) clean
+	@$(MAKE) -C $(LIB_DIR)
+	@$(MAKE) -C $(LIB_DIR) clean
 
 $(OBJ): %.o: %.c
-	@$(CC) $(CFLAGS) -o $@ -c $< -I$(INCLDIR)
+	@$(CC) $(CFLAGS) -o $@ -c $< -I$(INCL_DIR)
 
-ft_checker: $(BNS_OBJ) $(OBJ)
-	@echo "ft_checker compiling"
-	@$(CC) $(CFLAGS) $^ -o $@ -I$(INCLDIR) -l$(LIB) -L$(LIBDIR)
+$(BNS_NAME): $(BNS_OBJ) $(OBJ)
+	@echo "checker compiling"
+	@$(CC) $(CFLAGS) $^ -o $@ -I$(INCL_DIR) -l$(LIB) -L$(LIB_DIR)
 
 $(BNS_OBJ): %.o: %.c
-	@$(CC) $(CFLAGS) -o $@ -c $< -I$(INCLDIR) -DBUFFER_SIZE=64
+	@$(CC) $(CFLAGS) -o $@ -c $< -I$(INCL_DIR) -DBUFFER_SIZE=64
 
 clean:
 	@rm -f $(OBJ) $(BNS_OBJ)
 
 fclean: clean
-	@rm -f $(NAME) $(LIBNAME) ft_checker
+	@rm -f $(NAME) $(LIBNAME) $(BNS_NAME)
 
 re: fclean all
 	

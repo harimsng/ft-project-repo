@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 22:35:55 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/30 22:31:06 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/01 18:15:04 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	gnl_load_buf(t_buf *fd_buf, t_buf *buf, int fd)
 	int				idx;
 
 	fd += INT_MAX * (!fd);
-	*buf = (t_buf){fd, 0, malloc(sizeof(char) * BUFFER_SIZE)}; 
+	*buf = (t_buf){fd, 0, malloc(sizeof(char) * BUFFER_SIZE)};
 	if (!(buf->str))
 		return (1);
 	idx = 0;
@@ -76,7 +76,7 @@ int	gnl_save_buf(t_buf *fd_buf, t_buf *buf)
 	fd_buf[idx].fd = buf->fd;
 	fd_buf[idx].size = buf->size;
 	fd_buf[idx].str = malloc(sizeof(char) * buf->size);
-	ft_memcpy(fd_buf[idx].str, buf->str, buf->size);	
+	ft_memcpy(fd_buf[idx].str, buf->str, buf->size);
 	return (0);
 }
 

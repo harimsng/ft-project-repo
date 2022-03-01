@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 19:57:06 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/11 17:39:49 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/01 18:17:33 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	int_test(char **arg_ptr, t_deque *deque)
 
 int	duplicate_check(t_deque *deque)
 {
-	t_deque *test;
+	t_deque	*test;
 	t_node	*node;
 
 	test = duplicate_dlist(deque);

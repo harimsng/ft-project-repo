@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 19:31:52 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/27 18:34:42 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/01 20:36:18 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,13 @@ static void	print_error(void);
 
 int	main(int argc, char *argv[])
 {
-	t_deque 		a_deque;
-	t_deque 		b_deque;
+	t_deque			a_deque;
+	t_deque			b_deque;
 	unsigned int	result_bit;
 
 	dlist_init(&a_deque);
 	dlist_init(&b_deque);
+	a_deque.flag = FALSE;
 	if (argc == 1)
 		return (0);
 	if (get_list(argc, argv, &a_deque) == 0)

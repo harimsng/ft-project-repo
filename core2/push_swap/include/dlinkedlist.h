@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 20:19:18 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/25 19:46:19 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/01 20:38:11 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_dlist
 	t_node		*cur;
 	size_t		size;
 	size_t		idx;
+	int			flag;
 }				t_dlist;
 
 void	dlist_init(t_dlist *list);

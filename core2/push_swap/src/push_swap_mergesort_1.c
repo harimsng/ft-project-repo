@@ -6,13 +6,13 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 21:15:31 by hseong            #+#    #+#             */
-/*   Updated: 2022/02/25 21:25:19 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/01 18:29:44 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static const inst_func	g_prep_table[4] = {no_inst, sa, sb, ss};
+static const t_inst_func	g_prep_table[4] = {no_inst, sa, sb, ss};
 
 static void		split_half(t_deque *deques[2]);
 static void		prep_deques(t_deque *deques[2]);
