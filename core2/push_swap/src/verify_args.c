@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 19:57:06 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/01 18:17:33 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/02 20:40:13 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,13 @@ int	duplicate_check(t_deque *deque)
 	while (node->next != NULL)
 	{
 		if (node->item == node->next->item)
+		{
+			delete_dlist(test, delete_item);
 			return (1);
+		}
 		node = node->next;
 	}
 	delete_dlist(test, delete_item);
+	free(test);
 	return (0);
 }

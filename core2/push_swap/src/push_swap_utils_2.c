@@ -6,12 +6,15 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 21:13:10 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/01 18:17:12 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/02 17:10:34 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+// HEAD = 1, TAIL = 0
+// INC = 1, DEC = 0
+// which TRUE = a, FALSE = b
 void	join_edge(t_deque *deque, t_bool which)
 {
 	t_deque	*arr[2];
@@ -26,7 +29,7 @@ void	join_edge(t_deque *deque, t_bool which)
 	{
 		arr[1] = deque;
 		while (deque->head->item < deque->tail->item)
-			rrb(arr);
+			rb(arr);
 	}
 }
 

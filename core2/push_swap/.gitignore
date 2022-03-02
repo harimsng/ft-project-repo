@@ -3,3 +3,5 @@
 *.a
 deprecated
 note
+instruction_temp.txt
+testcase.txt

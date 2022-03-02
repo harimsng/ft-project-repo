@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 21:38:43 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/01 18:21:10 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/01 23:37:51 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,29 +93,3 @@ void	split_deque(t_deque *deques[2])
 		--blocks;
 	}
 }
-
-/*
-void		split_deque(t_deque *a, t_deque *b)
-{
-	t_node		*head;
-	t_node		*tail;
-
-	head = a->head;
-	tail = a->tail;
-	while (head != tail)
-	{
-		while (head->item < head->next->item)
-		{
-			head = head->next;
-			pb(b, a);
-		}
-		head = head->next;
-		pb(b, a);
-		if (head == tail)
-			return ;
-		tail = tail->prev;
-		while (tail != head && tail->prev->item < tail->item)
-			tail = tail->prev;
-	}
-}
-*/

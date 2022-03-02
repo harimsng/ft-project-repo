@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 21:15:31 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/01 18:29:44 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/02 20:43:15 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	push_swap_mergesort(t_deque *a, t_deque *b)
 
 	deques[0] = a;
 	deques[1] = b;
-	if ((deques[0])->size <= 1)
+	if ((deques[0])->size <= 1 || sort_check(a))
 		return ;
 	if ((deques[0])->size >= 4)
 		split_half(deques);
@@ -35,11 +35,13 @@ void	push_swap_mergesort(t_deque *a, t_deque *b)
 
 void	split_half(t_deque *deques[2])
 {
+	t_deque	*a;
 	size_t	idx;
 	size_t	half;
 
+	a = deques[0];
 	idx = 0;
-	half = (deques[0])->size / 2;
+	half = a->size / 2;
 	while (idx < half)
 	{
 		pb(deques);
