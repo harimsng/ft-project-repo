@@ -6,14 +6,14 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 21:11:57 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/01 20:35:54 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/04 01:50:28 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	get_list(int argc, char *argv[], t_deque *deque);
-int	print_error(void);
+int			get_list(int argc, char *argv[], t_deque *deque);
+static void	print_error(void);
 
 int	main(int argc, char *argv[])
 {
@@ -23,6 +23,7 @@ int	main(int argc, char *argv[])
 	dlist_init(&a_deque);
 	dlist_init(&b_deque);
 	a_deque.flag = TRUE;
+	b_deque.flag = TRUE;
 	if (get_list(argc, argv, &a_deque) == 0)
 	{
 		delete_data(&a_deque, &b_deque);
@@ -34,8 +35,7 @@ int	main(int argc, char *argv[])
 	return (0);
 }
 
-int	print_error(void)
+static void	print_error(void)
 {
 	ft_putstr_fd("Error\n", 2);
-	return (1);
 }

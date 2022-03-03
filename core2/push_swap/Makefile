@@ -1,24 +1,24 @@
 NAME	=	push_swap
 
-
 CC		=	gcc
 CFLAGS	=	-Wall -Wextra -Werror
-DEBUG	=	-g #-fsanitize=address #option for lldb
+DEBUG	=	-g -fsanitize=address #option for lldb
 
-
+# MANDATORY
 SRC		=	push_swap_mergesort_1.c\
 			push_swap_mergesort_2.c\
 			push_swap_inst_1.c\
 			push_swap_inst_2.c\
 			push_swap_inst_3.c\
-			push_swap_utils_1.c\
-			push_swap_utils_2.c\
+			push_swap_utils.c\
+			push_swap_optimizer.c\
+			push_swap_block.c\
 			verify_args.c
 SRC_DIR	=	src
 SRC		:=	$(SRC:%=$(SRC_DIR)/%)
 OBJ		=	$(SRC:%.c=%.o)
 
-
+# BONUS
 BNS_NAME=	checker
 BNS_SRC	=	checker.c\
 			check_inst.c\
@@ -28,6 +28,7 @@ BNS_DIR	=	checker_dir
 BNS_SRC	:=	$(BNS_SRC:%=$(BNS_DIR)/%)
 BNS_OBJ	=	$(BNS_SRC:%.c=%.o)
 
+# HEADER
 INCLUDE	=	push_swap.h\
 			dlinkedlist.h\
 			ft_deque.h\
@@ -35,18 +36,20 @@ INCLUDE	=	push_swap.h\
 			get_next_line.h
 INCL_DIR=	include
 
-
+# LIBRARY
 LIB		=	ftdeque
 LIB_DIR	=	deque
 LIBNAME	=	$(LIB_DIR)/lib$(LIB).a
 
 ifeq ($(DFLAG), 1)
 CFLAGS += $(DEBUG)
+CC		= clang
 endif
 
+# TARGETS
 all: $(NAME)
 
-bonus: all checker 
+bonus: all $(BNS_NAME)
 
 debug: 
 	@echo "debug mode"
@@ -58,7 +61,7 @@ norm:
 
 $(NAME): $(OBJ) $(LIBNAME)
 	@echo "push_swap compiling"
-	@$(CC) $(CFLAGS) -o $@ main.c $^ -I$(INCL_DIR) -l$(LIB) -L$(LIB_DIR)
+	@$(CC) $(CFLAGS) -o $@ $^ main.c -I$(INCL_DIR) -l$(LIB) -L$(LIB_DIR)
 
 $(LIBNAME):
 	@echo "library ftdeque compiling"

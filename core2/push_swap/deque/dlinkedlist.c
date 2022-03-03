@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 20:17:50 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/02 20:40:09 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/02 22:44:16 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,24 +89,4 @@ t_item	pop_back(t_dlist *list, void (*delete_item)(t_item))
 	free(del_node);
 	--list->size;
 	return (pop_item);
-}
-
-void	delete_dlist(t_dlist *list, void (*delete_item)(t_item))
-{
-	size_t		size;
-	t_node		*trav_node;
-
-	size = list->size;
-	if (size == 0)
-		return ;
-	trav_node = list->head->next;
-	while (size > 1)
-	{
-		delete_item(trav_node->prev->item);
-		free(trav_node->prev);
-		trav_node = trav_node->next;
-		--size;
-	}
-	free(list->tail);
-	dlist_init(list);
 }

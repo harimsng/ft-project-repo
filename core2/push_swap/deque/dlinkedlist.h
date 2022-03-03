@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 20:19:18 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/01 20:34:28 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/02 22:40:27 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int		push_back(t_dlist *list, t_item item);
 t_item	pop_front(t_dlist *list, void (*delete_item)(t_item));
 t_item	pop_back(t_dlist *list, void (*delete_item)(t_item));
 void	delete_dlist(t_dlist *list, void (*delete_item)(t_item));
+void	empty_dlist(t_dlist *list, void (*delete_item)(t_item));
 
 // UPDATE cur
 void	move_front(t_dlist *list);

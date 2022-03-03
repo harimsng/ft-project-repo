@@ -1,6 +1,7 @@
 *.out
 *.o
 *.a
+tempdir
 deprecated
 note
 instruction_temp.txt

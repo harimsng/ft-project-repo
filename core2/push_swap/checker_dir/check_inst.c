@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 20:02:37 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/01 18:19:40 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/03 22:33:28 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,14 @@ static size_t	get_key(char *buf);
 
 t_bool	check_inst(t_deque *a_deque, t_deque *b_deque)
 {
-	t_deque	*deque_set[2];
 	char	*inst_buf;
 
-	deque_set[0] = a_deque;
-	deque_set[1] = b_deque;
 	inst_buf = get_next_line(0);
 	while (inst_buf != NULL)
 	{
 		if (verify_inst(inst_buf) == ERROR_BIT)
 			return (ERROR_BIT);
-		g_inst_table[get_key(inst_buf)](deque_set);
+		g_inst_table[get_key(inst_buf)](a_deque, b_deque);
 		inst_buf = get_next_line(0);
 	}
 	return (!sort_check(a_deque) || (b_deque->size != 0));

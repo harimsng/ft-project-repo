@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 21:15:31 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/02 20:43:15 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/04 00:45:24 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,66 +14,92 @@
 
 static const t_inst_func	g_prep_table[4] = {no_inst, sa, sb, ss};
 
-static void		split_half(t_deque *deques[2]);
-static void		prep_deques(t_deque *deques[2]);
-static t_bool	item_comp(t_item a, t_item b, t_item tail);
+static void		split_half(t_deque *a, t_deque *b);
+static void		prep_deques(t_deque *a, t_deque *b);
+static t_bool	a_item_comp(t_node *first, t_node *second, t_node *third);
+static t_bool	b_item_comp(t_node *first, t_node *second, t_node *third);
 
 void	push_swap_mergesort(t_deque *a, t_deque *b)
 {
-	t_deque	*deques[2];
-
-	deques[0] = a;
-	deques[1] = b;
-	if ((deques[0])->size <= 1 || sort_check(a))
+	if (a->size <= 1 || sort_check(a))
 		return ;
-	if ((deques[0])->size >= 4)
-		split_half(deques);
-	prep_deques(deques);
-	while (sort_loop(deques))
+	if (a->size >= 4)
+		split_half(a, b);
+	prep_deques(a, b);
+	while (sort_cycle(a, b))
 		continue ;
 }
 
-void	split_half(t_deque *deques[2])
+void	split_half(t_deque *a, t_deque *b)
 {
-	t_deque	*a;
 	size_t	idx;
 	size_t	half;
 
-	a = deques[0];
 	idx = 0;
 	half = a->size / 2;
 	while (idx < half)
 	{
-		pb(deques);
+		pb(a, b);
 		++idx;
 	}
 }
 
-void	prep_deques(t_deque *deques[2])
+void	prep_deques(t_deque *a, t_deque *b)
 {
 	size_t	idx;
 	size_t	flag;
-	t_deque	*a;
-	t_deque	*b;
 
-	a = deques[0];
-	b = deques[1];
 	idx = 1;
 	while (idx < a->size)
 	{
 		flag = 0;
-		if (item_comp(a->head->item, a->head->next->item, a->tail->item))
+		if (a_item_comp(a->head, a->head->next, a->head->next->next))
 			flag |= 1;
 		if (idx < b->size
-			&& item_comp(b->head->next->item, b->head->item, b->tail->item))
+			&& b_item_comp(b->head, b->head->next, b->head->next->next))
 			flag |= 2;
-		g_prep_table[flag](deques);
+		g_prep_table[flag](a, b);
 		if (idx + 1 < b->size)
-			rr(deques);
+			rrr(a, b);
 		++idx;
 	}
 }
 
+t_bool	a_item_comp(t_node *first, t_node *second, t_node *third)
+{
+	t_item		a;
+	t_item		b;
+	t_item		c;
+
+	a = first->item;
+	if (second == NULL)
+		return (FALSE);
+	b = second->item;
+	if (third == NULL)
+		return (a > b);
+	c = third->item;
+	return ((a < b && c < b && c > a)
+		|| (a > b && (c < b || c > a)));
+}
+
+t_bool	b_item_comp(t_node *first, t_node *second, t_node *third)
+{
+	t_item		a;
+	t_item		b;
+	t_item		c;
+
+	a = first->item;
+	if (second == NULL)
+		return (FALSE);
+	b = second->item;
+	if (third == NULL)
+		return (b > a);
+	c = third->item;
+	return ((a > b && c > b && c < a)
+		|| (a < b && (c > b || c < a)));
+}
+/*
+static t_bool	item_comp(t_item a, t_item b, t_item tail);
 t_bool	item_comp(t_item a, t_item b, t_item tail)
 {
 	if ((a > b && (tail <= b || tail >= a))
@@ -81,3 +107,4 @@ t_bool	item_comp(t_item a, t_item b, t_item tail)
 		return (TRUE);
 	return (FALSE);
 }
+*/
