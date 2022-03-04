@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 21:15:31 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/04 00:45:24 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/04 16:42:41 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	split_half(t_deque *a, t_deque *b)
 	size_t	half;
 
 	idx = 0;
-	half = a->size / 2;
+	half = (a->size + (a->size > 10)) / 2;
 	while (idx < half)
 	{
 		pb(a, b);
@@ -59,7 +59,7 @@ void	prep_deques(t_deque *a, t_deque *b)
 			&& b_item_comp(b->head, b->head->next, b->head->next->next))
 			flag |= 2;
 		g_prep_table[flag](a, b);
-		if (idx + 1 < b->size)
+		if (idx + 1 - (a->size > 10) < b->size)
 			rrr(a, b);
 		++idx;
 	}

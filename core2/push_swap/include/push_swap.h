@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 19:57:01 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/04 01:49:33 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/04 16:42:18 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ void	delete_data(t_deque *a_deque, t_deque *b_deque);
 // optimizing funcions
 void	join_edge(t_deque *deque, t_bool which);
 void	join_deques(t_deque *a, t_deque *b);
+void	inst_queue(int inst_idx);
 
 #endif
