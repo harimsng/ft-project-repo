@@ -6,11 +6,12 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 19:57:06 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/02 22:43:32 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/04 17:42:47 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <unistd.h>
 
 static int	verify_arg(char *arg, t_deque *deque);
 static int	int_test(char **arg_ptr, t_deque *deque);

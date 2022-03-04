@@ -6,13 +6,12 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 15:20:23 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/04 16:47:26 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/04 17:46:13 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <unistd.h>
-# include <stdio.h>
 
 static const char	*g_inst_table[]
 	= {
@@ -26,7 +25,7 @@ static const char	*g_inst_table[]
 	"rr\n",
 	"rra\n",
 	"rrb\n",
-	"rrr\n",
+	"rrr\n"
 	};
 
 static void	flush_queue(t_dlist *queue);
@@ -36,7 +35,6 @@ void	inst_queue(int inst_idx)
 {
 	static t_dlist	queue = {NULL, NULL, NULL, 0, 0, 0};
 
-//	printf("inst_queue\n");
 	if (inst_idx == -1)
 	{
 		flush_queue(&queue);
