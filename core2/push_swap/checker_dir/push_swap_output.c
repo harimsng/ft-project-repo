@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 15:20:23 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/04 17:46:13 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/04 19:09:14 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static const char	*g_inst_table[]
 	"rra\n",
 	"rrb\n",
 	"rrr\n"
-	};
+};
 
 static void	flush_queue(t_dlist *queue);
 static void	check_inst(t_dlist *dueue);

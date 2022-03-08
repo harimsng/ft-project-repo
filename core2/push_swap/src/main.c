@@ -6,11 +6,12 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 21:11:57 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/04 16:30:40 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/05 18:30:06 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+# include <stdio.h>
 
 int			get_list(int argc, char *argv[], t_deque *deque);
 static void	print_error(void);
