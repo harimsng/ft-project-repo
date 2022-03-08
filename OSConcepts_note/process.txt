@@ -1,0 +1,217 @@
+CHAPTER 3. PROCESS
+
+		3.1 The Process Concept
+
+3.1.1 the process
+	a program in execution (loaded into memory).
+	single CPU core can execute only one program at a time. 
+
+	program counter (PC)
+		its value represents current activity of process.
+		stores next instruction of the process.
+
+	memory layout
+		stack
+		heap
+		data segment
+		text segment
+
+	activation record
+		it is pushed to stack when function call happens.
+		it has function parameters, local variables, return address.
+	
+3.1.2 process state
+	new
+	ready
+	waiting
+	running
+	terminated
+	halt
+	...
+
+3.1.3 PCB (process control block) it is a repository for all the data needed to start or restart a process.
+
+3.1.4 thread
+	it represents a sequnce of instructions to be executed of a process.	
+		
+
+		3.2 Process Scheduling
+
+needed to run multiple processes.
+in Linux, there's a pointer to current process(struct tast_struct).
+	this struct stores informations of a process.
+I/O bound, CPU bound.
+
+3.2.1 scheduling queues
+	ready queue
+		consists of pointers to a PCB of a process.
+		these processes wait CPU core allocation.
+	wait queue
+		I/O
+		interrupt
+		child termination
+		time slice expired
+
+	diagram
+	---> [ ready queue ] --------> [ CPU ] ---
+	 ___________|				 	  |______
+	|										 |
+	|		tasks and wait queues			 |
+	|----<----[I/O]----<---------------------|
+	|										 |
+	|----<----[child process]----<-----------|
+	|										 |
+	|----<----[time splice expired]----<-----|
+	|										 |
+	|----<----[interrupt]----<---------------|
+
+3.2.2 cpu scheduling
+	CPU scheduler select a process in ready queue and allocate a CPU core to the process.
+	it must select a new process for the CPU frequently.
+	even CPU bound process cannot allocated a CPU core for long time.
+	swapping
+		intermediate form of scheduling 
+		some processes may be removed from memory for long time,
+		to reduce degree of multiprogramming.
+		PCB is swapped between memory and disk.
+		it happens only when memory space is full and must be freed up.
+
+3.2.3 context switch
+	context
+		an interrupt causes system to save context of current process in the PCB.
+		this information is needed to resume the process.
+	current process's context is saved to the PCB and suspended.
+	then new process's context is loaded and ran by CPU.
+	this context switching is pure overhead. no progress while this is happening.
+
+		3.3 Operations on Processes
+
+there are mechanisms for dynamic creation and deletion of processes.
+useful commands		: ps -el, pstree
+root of process tree: init or systemd(PID=1)
+3.3.1 process creation
+	PID	: process identifier
+	process has unique PID.
+	resources(CPU time, memory, files, I/O devices) are given to new process either from OS
+		or from parent process.
+		latter prevents system overloading too many child processes cause.
+
+	initial data can be transfered to child process.
+	two execution possibility
+		parent process can wait until some or all of its child processes have terminated.
+		run concurrently.
+
+	two address-space possibility
+		child process is duplicate of parent process.
+		it has new process loaded into i.
+
+	unix operating systems
+	fork()	: it creates new process(child) which is duplicate of calling process(parent).
+		copy of address space of original process allows them to communiate easily.
+
+	exec*() : calling process is replaced by new program. only PID is remained same.
+		memory image is replaced by new program.
+
+	exit()	: process termination with exit status parameter.
+	wait()	: parent process waits termination of child process. exit status is passed.
+
+3.3.2 process termination
+after finishing final statement, it asks OS to delete it by using exit(). 
+	resources(open files, I/O buffer, physical and virtual memory) are deallocated and reclaimed
+	by OS.
+
+another termination case is getting system call causing termination from its parent process.
+	the parent process needs PID of the child process in this case.
+
+parent process may terminate execution of one of its child process for variety of reasons.
+	resouce usage exceeded
+	child process's task is not needed
+	parent process exiting(in some systems)
+		it causes cascading termination.
+
+when a process terminated, its process table must remain
+	until parent process gets its exit status by using wait().
+	while the child process exited and not reaped, it is called zombie process.
+	if parent process doesn't reap it with wait(), it remains on process table
+	until parent process exit
+	which causes system to give new parent(init or systemd) to zombie process
+	and reaps the zombie process.
+
+
+		3.4 Interprocess Communication(IPC)
+
+a process is either independent or cooperative.
+	independent: the process does not share data with any other processes.
+	cooperative: the process that can affect or be affected by the other processes.
+
+reasons for providing cooperative environment
+	information sharing
+	computational speedup
+	modularity
+
+cooperating processes require an IPC mechanism.
+two fundamental IPC mechanisms
+	shared-memory
+	 _______________
+	|   process A   |
+	|_______________|
+	|_shared_memory_|
+	|   process B   |
+	|_______________|
+	|      ...      |
+	|_______________|
+	|_____kernel____|
+	
+		relatively easy to implement
+		no conflict need to be avoided
+
+	message passing
+	 _______________
+	|   process A   |__
+	|_______________|  |
+  __|   process B   |  |
+ |  |_______________|  |
+ |  |      ...      |  |
+ |  |_______________|  |
+ |  | messege queue |  |
+ '->|m0|m1|m2|...|mn|<-'
+    |__|__|__|___|__|
+    |_____kernel____|
+
+		can be faster than message passing.
+		it needs fewer system calls which require
+		the more time-consuming tasks of kernel intervention.
+		system calls are required only to establish shared-memory region.
+
+
+		3.5 IPC in Shared-Memory Systems
+
+typically, shared-memory region reside in the address space of the process creating the segment.
+processes that wish to communicate using shared-memory  must attach it to their address-space. 
+normally, a process shouldn't access address-space of other process,
+	but this mechanism removes this restriction.
+it's reponsibility of the processes that ensuring not to write to same location simutaneously.
+
+producer and consumer processes
+	those processes can run concurrently using a buffer reside in shared-memory.
+	producer process write new item to the buffer.
+	consumer process read an item from the buffer and removes it.
+	those processes must be synchronized to prevent wrong consuming.
+
+unbounded buffer
+	producer process can write an item without limitation.
+	consumer process should check wether buffer is empty or not before reading.
+		if buffer is empty, it waits until new item is added.
+
+bounded buffer
+	producer process check buffer size and waits when it's full.
+	consumer process waits when it's empty.
+
+the buffer is implemented as a circular array with two logical pointers.
+[1, 2, 3, 0, 0]
+ ^        ^ 
+out       in 
+	out	: first full position in the buffer.
+	in	: next free position.
+the situation where producer and consumer attempt to access to the buffer concurrently
+	is concerned in later chapter.
