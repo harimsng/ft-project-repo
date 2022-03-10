@@ -200,7 +200,7 @@ producer and consumer processes
 
 unbounded buffer
 	producer process can write an item without limitation.
-	consumer process should check wether buffer is empty or not before reading.
+	consumer process should check whether buffer is empty or not before reading.
 		if buffer is empty, it waits until new item is added.
 
 bounded buffer
@@ -215,3 +215,6 @@ out       in
 	in	: next free position.
 the situation where producer and consumer attempt to access to the buffer concurrently
 	is concerned in later chapter.
+
+
+		3.6 IPC in Messeage-Passing Systems
