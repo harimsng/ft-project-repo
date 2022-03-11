@@ -6,15 +6,17 @@ DEBUG	= -g3 -fsanitize=address
 RM		= rm -f
 
 
-SRC		=
+SRC		= pipex.c
 SRC_DIR	= src
+SRC		:= $(SRC_DIR)/$(SRC)
 OBJ		= $(SRC:%.c=%.o)
 
-INCL	= 
+INCL	= pipex.h
 INCL_DIR= include
 
-ifeq (DEBUG_FLAG, 1)
-	CFLAGS += DEBUG
+ifeq ($(DEBUG_FLAG), 1)
+CFLAGS += $(DEBUG)
+CC		= clang
 endif
 
 all: $(NAME)
@@ -24,10 +26,10 @@ debug:
 	$(MAKE) DEBUG_FLAG=1
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $^ -o $@ -I$(INCL_DIR)
 
 $(OBJ): %.o: %.c
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $^ -o $@ -I$(INCL_DIR)
 
 .PHONY: all clean fclean re debug
 
