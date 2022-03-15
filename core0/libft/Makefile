@@ -27,6 +27,9 @@ BNS = ft_lstnew.c ft_lstadd_front.c\
 	ft_lstclear.c ft_lstiter.c\
 	ft_lstmap.c
 
+ADD = ft_execvpe.c
+SRC += $(ADD)
+
 OBJS = $(SRCS:%.c=%.o)
 BNS_OBJS = $(BNS:%.c=%.o)
 

@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 23:25:37 by hseong            #+#    #+#             */
-/*   Updated: 2022/01/24 21:45:04 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/15 17:05:21 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@
 # include <stdlib.h>
 # include <limits.h>
 
+typedef long long unsigned int	t_uint64;
+
 typedef struct s_word
 {
-	unsigned long long int	byte[WORD_BYTES];
+	t_uint64	byte[WORD_BYTES];
 }			t_word;
 
 int			ft_isalpha(int c);
