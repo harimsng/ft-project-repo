@@ -6,88 +6,99 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 18:51:36 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/15 20:17:39 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/16 20:39:27 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static t_bool	check_args(int argc, char **argv, t_cmd_info *cmd_info);
-static t_bool	set_io_files(t_cmd_info *cmd_info, int *io_fd);
-static void		make_pipe_arr(t_cmd_info *cmd_info);
-
-static const char	*nullptr = NULL;
+static void	close_fd(t_cmd_info *cmd_info);
+static void	dealloc_info(t_proc_info *proc_info, t_cmd_info *cmd_info);
+static void	dealloc_argv(char **argv);
+static void	wait_child(t_proc_info *proc_info, t_cmd_info *cmd_info);
 
 int	main(int argc, char *argv[])
 {
-	t_process_info	*proc_info;
-	t_cmd_info		cmd_info;
+	t_proc_info	*proc_info;
+	t_cmd_info	cmd_info;
 
 	cmd_info = (t_cmd_info){argc, argv, 0, 0, NULL, {0, 0}, 0};
-	if (set_io_files(&cmd_info, io_fd) == FALSE
-		|| check_args(argc, argv, &cmd_info) == FALSE)
+	if (check_args(argc, argv, &cmd_info) == FALSE
+		|| set_io_files(&cmd_info, cmd_info.io_fd) == FALSE)
 		exit(1);
-	proc_info = malloc(sizeof(t_process_info) * cmd_info.cmd_num);
-	ft_memset(proc_info, 0, sizeof(t_process_info) * cmd_info.cmd_num);
+	proc_info = malloc(sizeof(t_proc_info) * cmd_info.cmd_num);
+	if (proc_info == NULL)
+		return (1);
+	ft_memset(proc_info, 0, sizeof(t_proc_info) * cmd_info.cmd_num);
 	set_proc_info(proc_info, &cmd_info, argv + 2 + cmd_info.here_doc);
-	gen_proc(proc_info, &cmd_info);
-	free_info(proc_info, &cmd_info);
+	gen_process(proc_info, &cmd_info);
+	close_fd(&cmd_info);
+	wait_child(proc_info, &cmd_info);
+	dealloc_info(proc_info, &cmd_info);
 	return (0);
 }
 
-t_bool	check_args(int argc, char **argv, t_cmd_info *cmd_info)
-{
-	cmd_info->here_doc = ft_strcmp(argv[1], "here_doc") == 0;
-	if (argc < 5 + cmd_info->here_doc)
-	{
-		write(2, "Invalid arguments.\n", 19);
-		return (FALSE);
-	}
-	cmd_info->cmd_num = argc - 3 - cmd_info->here_doc;
-	cmd_info->pipe_num = cmd_info->cmd_num - 1;
-	cmd_info->pipe_arr = malloc(sizeof(int) 2 * * cmd_info->pipe_num);//will this work?[
-	make_pipe_arr(cmd_info);
-	return (TRUE);
-}
-
-t_bool	set_io_files(t_cmd_info *cmd_info, int *io_fd)
-{
-	int		*io_fd;
-
-	io_fd = cmd_info->io_fd;
-	if (cmd_info->here_doc == FALSE)
-	{
-		if (access(argv[1], R_OK) == -1)
-		{
-			perror("Input file is invalid\n");
-			return (FALSE);
-		}
-		io_fd[0] = open(argv[1], O_RDONLY);
-	}
-	io_fd[1] = open(argv[cmd_info->argc - 1], O_CREAT | O_WRONLY, 0444);
-	if (io_fd[0] == -1 || io_fd[1] == -1)
-	{
-		perror(NULL);
-		return (FALSE);
-	}
-	return (TRUE);
-}
-
-void	make_pipe_arr(t_cmd_info *cmd_info)
+void	close_fd(t_cmd_info *cmd_info)
 {
 	size_t		idx;
 	size_t		size;
-	int			*pipe_arr;
 	int			flag;
 
 	idx = 0;
-	size = cmd_info->pipe_num;
-	pipe_arr = cmd_info->pipe_arr;
+	size = 2 * cmd_info->pipe_num;
 	while (idx < size && flag != -1)
 	{
-		flag = pipe(pipe_arr + 2 * idx);
+		flag = close(cmd_info->pipe_arr[idx]);
 		++idx;
 	}
-	if (flag == -1)
-		perror("pipe error");
+	if (flag == -1
+		|| close(cmd_info->io_fd[0]) == -1
+		|| close(cmd_info->io_fd[1]) == -1)
+		perror("FD close error");
+}
+
+void	dealloc_info(t_proc_info *proc_info, t_cmd_info *cmd_info)
+{
+	size_t		idx;
+	size_t		size;
+
+	idx = 0;
+	size = cmd_info->cmd_num;
+	while (idx < size)
+	{
+		dealloc_argv(proc_info[idx].argv);
+		dealloc_argv(proc_info[idx].envp);
+		++idx;
+	}
+	free(proc_info);
+	free(cmd_info->pipe_arr);
+}
+
+void	dealloc_argv(char **argv)
+{
+	char	**temp;
+
+	temp = argv;
+	while (*argv)
+	{
+		free(*argv);
+		++argv;
+	}
+	free(temp);
+}
+
+void	wait_child(t_proc_info *proc_info, t_cmd_info *cmd_info)
+{
+	size_t		idx;
+	size_t		size;
+
+	size = cmd_info->cmd_num;
+	idx = 0;
+	while (idx < size)
+	{
+		if (waitpid(proc_info[idx].pid, NULL, 0)
+			!= proc_info[idx].pid)
+			perror("waitpid() warning");
+		++idx;
+	}
 }

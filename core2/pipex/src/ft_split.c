@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 12:49:29 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/15 13:30:13 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/16 19:09:04 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char		**alloc_words(const char *str, size_t count, char delim);
 static void		dealloc_words(char **str_arr, size_t size);
 static char		*ft_strndup(const char *src, size_t len);
 
-char	**ft_split(char *str, char delim)
+char	**ft_split(const char *str, char delim)
 {
 	size_t	count;
 
@@ -36,7 +36,6 @@ size_t	get_count(const char *str, char delim)
 			++count;
 		++str;
 	}
-
 	return (count);
 }
 

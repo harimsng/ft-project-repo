@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 22:53:53 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/15 20:09:50 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/16 19:06:42 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@
 # include <stdlib.h>
 
 # define TRUE (1)
-# define FALSE (0);
+# define FALSE (0)
 
 typedef int		t_bool;
 
-typedef struct
+typedef struct s_proc_info
 {
 	char	*filename;
 	char	**argv;
@@ -32,9 +32,9 @@ typedef struct
 	int		in_fd;
 	int		out_fd;
 	pid_t	pid;
-}		t_process_info;
+}		t_proc_info;
 
-typedef struct
+typedef struct s_cmd_info
 {
 	int		argc;
 	char	**argv;
@@ -45,10 +45,23 @@ typedef struct
 	t_bool	here_doc;
 }		t_cmd_info;
 
-int		ft_strcmp(const char *a, const char *b);
+// libft utility
+void	*ft_memset(void *addr, int c, size_t size);
+int		ft_strncmp(const char *s1, const char *s2, size_t len);
 int		ft_execvpe(const char *filename, char *const *argv, char *const *envp);
 char	**ft_split(char *str, char delim);
-void	set_proc_info(t_process_info *proc_info,
+size_t	ft_strlen(const char *s);
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
+
+// initialization
+t_bool	check_args(int argc, char **argv, t_cmd_info *cmd_info);
+t_bool	set_io_files(t_cmd_info *cmd_info, int *io_fd);
+void	make_pipe_arr(t_cmd_info *cmd_info);
+
+// generate processes
+void	gen_process(t_proc_info *proc_info, t_cmd_info *cmd_info);
+void	set_proc_info(t_proc_info *proc_info,
 			t_cmd_info *cmd_info, char **cmds);
 
 #endif

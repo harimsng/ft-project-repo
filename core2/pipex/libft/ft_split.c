@@ -1,91 +1,105 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/09 19:12:35 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/17 16:01:16 by hseong           ###   ########.fr       */
+/*   Created: 2022/03/15 12:49:29 by hseong            #+#    #+#             */
+/*   Updated: 2022/03/16 19:09:04 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdlib.h>
 
-static char	**fill_strarr(const char *s, char c, size_t size);
-static void	*fail_free(char **strarr, size_t size);
-static char	*ft_strndup(const char *s, size_t size);
+static size_t	get_count(const char *str, char delim);
+static char		**alloc_words(const char *str, size_t count, char delim);
+static void		dealloc_words(char **str_arr, size_t size);
+static char		*ft_strndup(const char *src, size_t len);
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(const char *str, char delim)
 {
-	size_t		idx;
-	size_t		size;
+	size_t	count;
 
-	idx = 0;
-	size = 0;
-	while (s[idx])
-	{
-		size += (s[idx] != c && (s[idx + 1] == c || s[idx + 1] == 0));
-		++idx;
-	}
-	return (fill_strarr((const char *)s, c, size));
+	count = get_count(str, delim);
+	return (alloc_words(str, count, delim));
 }
 
-// assume s is read only string literal.
-static char	**fill_strarr(const char *s, char c, size_t size)
+size_t	get_count(const char *str, char delim)
 {
-	char		**strarr;
-	size_t		idx;
-	size_t		jdx;
+	size_t	count;
 
-	strarr = (char **)malloc(sizeof(char *) * (size + 1));
-	if (!strarr)
+	count = 0;
+	while (*str)
+	{
+		if (*str != delim && (*(str + 1) == delim || *(str + 1) == 0))
+			++count;
+		++str;
+	}
+	return (count);
+}
+
+char	**alloc_words(const char *str, size_t count, char delim)
+{
+	char	**str_arr;
+	size_t	str_idx;
+	size_t	idx;
+
+	str_arr = malloc(sizeof(char *) * (count + 1));
+	if (str_arr == NULL)
 		return (NULL);
-	strarr[size] = NULL;
+	str_arr[count] = NULL;
+	str_idx = 0;
+	while (str_idx < count)
+	{
+		idx = 0;
+		while (str[idx] == delim)
+			++str;
+		while (str[idx] && str[idx] != delim)
+			++idx;
+		str_arr[str_idx] = ft_strndup(str, idx);
+		if (str_arr[str_idx] == NULL)
+			break ;
+		str += idx;
+		++str_idx;
+	}
+	if (str_idx != count)
+		dealloc_words(str_arr, str_idx);
+	return (str_arr);
+}
+
+void	dealloc_words(char **str_arr, size_t size)
+{
+	size_t		idx;
+
 	idx = 0;
 	while (idx < size)
 	{
-		while (*s == c)
-			++s;
-		jdx = 0;
-		while (s[jdx] && s[jdx] != c)
-			++jdx;
-		strarr[idx] = ft_strndup(s, jdx);
-		if (!strarr[idx])
-			return (fail_free(strarr, idx));
-		s += jdx + 1;
+		free(str_arr[idx]);
 		++idx;
 	}
-	return (strarr);
+	free(str_arr);
 }
 
-static void	*fail_free(char **strarr, size_t size)
+char	*ft_strndup(const char *src, size_t len)
 {
-	size_t		idx;
+	char	*dst;
+	size_t	idx;
 
-	idx = 0;
-	while (idx < size)
-		free(strarr[idx++]);
-	free(strarr);
-	return (NULL);
-}
-
-static char	*ft_strndup(const char *s, size_t size)
-{
-	char		*ret;
-	size_t		idx;
-
-	idx = ft_strlen(s);
-	size = (idx < size) * idx + (idx >= size) * size;
-	ret = (char *)malloc(sizeof(char) * (size + 1));
-	if (!ret)
+	dst = malloc(len + 1);
+	if (dst == NULL)
 		return (NULL);
-	ret[size] = 0;
+	dst[len] = 0;
 	idx = 0;
-	while (idx < size)
+	while (idx < len && src[idx])
 	{
-		ret[idx] = s[idx];
+		dst[idx] = src[idx];
 		++idx;
 	}
-	return (ret);
+	while (idx < len)
+	{
+		dst[idx] = 0;
+		++idx;
+	}
+	return (dst);
 }
