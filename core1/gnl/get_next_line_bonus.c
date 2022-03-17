@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 22:35:55 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/30 22:02:20 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/17 16:17:00 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	gnl_save_buf(t_buf *fd_buf, t_buf *buf)
 	fd_buf[idx].fd = buf->fd;
 	fd_buf[idx].size = buf->size;
 	fd_buf[idx].str = ft_calloc(buf->size, sizeof(char));
-	ft_memcpy(fd_buf[idx].str, buf->str, buf->size);	
+	ft_memcpy(fd_buf[idx].str, buf->str, buf->size);
 	return (0);
 }
 
