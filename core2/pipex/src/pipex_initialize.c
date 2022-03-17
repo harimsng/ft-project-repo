@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 13:16:41 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/16 19:10:24 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/17 14:28:18 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 t_bool	check_args(int argc, char **argv, t_cmd_info *cmd_info)
 {
-	cmd_info->here_doc = ft_strncmp(argv[argc != 1], "here_doc", 8) == 0;
-	if (argc < 5)
+	cmd_info->heredoc = ft_strncmp(argv[argc != 1], "heredoc", 8) == 0;
+	if (argc < 5 + cmd_info->heredoc)
 	{
 		write(2, "Invalid arguments.\n", 19);
 		return (FALSE);
 	}
-	cmd_info->cmd_num = argc - 3 - cmd_info->here_doc;
+	cmd_info->cmd_num = argc - 3 - cmd_info->heredoc;
 	cmd_info->pipe_num = cmd_info->cmd_num - 1;
 	cmd_info->pipe_arr = malloc(sizeof(int) * 2 * cmd_info->pipe_num);
 	make_pipe_arr(cmd_info);
@@ -30,7 +30,7 @@ t_bool	check_args(int argc, char **argv, t_cmd_info *cmd_info)
 t_bool	set_io_files(t_cmd_info *cmd_info, int *io_fd)
 {
 	io_fd = cmd_info->io_fd;
-	if (cmd_info->here_doc == FALSE)
+	if (cmd_info->heredoc == FALSE)
 	{
 		if (access(cmd_info->argv[1], R_OK) == -1)
 		{
@@ -41,8 +41,12 @@ t_bool	set_io_files(t_cmd_info *cmd_info, int *io_fd)
 		if (io_fd[0] == -1)
 			perror("Failed to open input file");
 	}
+	else
+		io_fd[0] = 0;
 	io_fd[1] = open(cmd_info->argv[cmd_info->argc - 1],
-			O_CREAT | O_TRUNC | O_WRONLY, 0666);
+			(O_APPEND * cmd_info->heredoc)
+			| (O_TRUNC * !cmd_info->heredoc)
+			| O_CREAT | O_WRONLY, 0666);
 	if (io_fd[1] == -1)
 	{
 		perror("Failed to open output file");

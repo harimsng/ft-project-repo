@@ -6,11 +6,11 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 14:14:22 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/16 14:14:31 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/17 16:18:45 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <unistd.h>
 
 size_t	ft_strlen(const char *str)
 {
@@ -71,6 +71,16 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	if (!n)
 		return (0);
 	while (--n && *s1 && *s2 && *s1 == *s2)
+	{
+		++s1;
+		++s2;
+	}
+	return ((unsigned char)*s1 - (unsigned char)*s2);
+}
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	while (*s1 && *s2 && *s1 == *s2)
 	{
 		++s1;
 		++s2;

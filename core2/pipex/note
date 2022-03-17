@@ -1,0 +1,6 @@
+EOF is not a character which can be send to write end of the pipe.
+To make a process to stop reading data from read end of the pipe,
+	(To make read function in that process to returns 0)
+	read end FD must be closed on parent process and child processes
+	which inherited the FD from its parent process.
+	

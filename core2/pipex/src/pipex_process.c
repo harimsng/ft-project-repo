@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:01:25 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/16 20:36:38 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/17 14:51:18 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	gen_process(t_proc_info *proc_info, t_cmd_info *cmd_info)
 	if (proc->pid == 0)
 	{
 		close_fd(idx, proc_info, cmd_info);
+		if (idx == 0 && cmd_info->heredoc == TRUE)
+			pipex_heredoc(&proc->in_fd, cmd_info->argv[2]);
 		connect_pipe(proc_info + idx);
 		ft_execvpe(proc->filename, proc->argv, proc->envp);
 		perror("execve failed");

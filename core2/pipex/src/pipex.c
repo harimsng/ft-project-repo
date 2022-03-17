@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 18:51:36 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/16 20:39:27 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/17 16:18:46 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(int argc, char *argv[])
 	if (proc_info == NULL)
 		return (1);
 	ft_memset(proc_info, 0, sizeof(t_proc_info) * cmd_info.cmd_num);
-	set_proc_info(proc_info, &cmd_info, argv + 2 + cmd_info.here_doc);
+	set_proc_info(proc_info, &cmd_info, argv + 2 + cmd_info.heredoc);
 	gen_process(proc_info, &cmd_info);
 	close_fd(&cmd_info);
 	wait_child(proc_info, &cmd_info);

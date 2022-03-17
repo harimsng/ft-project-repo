@@ -1,1 +1,29 @@
-< Experiment$
+1,8c1,3
+< 3
+< 2
+< 1
+< 321
+< 432
+< 123 
+< 123\t
+< 123	
+---
+> liquid
+> tension
+> experiment
+1,3c1,3$
+< abc$
+< def$
+< 123	$
+---$
+> liquid$
+> tension$
+> experiment$
+1,3c1,3$
+< 1$
+< 2$
+< 3$
+---$
+> liquid$
+> tension$
+> experiment$
