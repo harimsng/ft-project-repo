@@ -7,14 +7,19 @@ RM		= rm -f
 
 
 # object & source files
-SRC		= main.c
+SRC		= main.c\
+		  fdf_key.c\
+		  ft_memset.c
+
 SRC_DIR	= src
 SRC		:= $(SRC:%=$(SRC_DIR)/%)
 OBJ		= $(SRC:%.c=%.o)
 
 
 # header files
-INCL	= fdf.h mlx.h
+INCL	=	fdf.h\
+			mlx.h\
+			libft.h
 INCL_DIR= include
 
 
@@ -39,10 +44,10 @@ norm:
 
 $(LIB):
 	$(MAKE) -C $(LIB_DIR)
-	cp $(LIB_DIR)/lib$(LIB).dylib ./lib$(LIB).dylib
+	cp $(LIB_DIR)/lib$(LIB).dylib .
 
 $(NAME): $(LIB) $(OBJ)
-	$(CC) $(CFLAGS) -o $@ $(OBJ) -l$(LIB) -L$(LIB_DIR)\
+	$(CC) $(CFLAGS) -o $@ $(OBJ) -l$(LIB) -L.\
 		-framework OpenGL -framework AppKit -lz
 
 $(OBJ): %.o: %.c
