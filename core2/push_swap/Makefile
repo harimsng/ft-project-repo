@@ -74,7 +74,7 @@ $(LIBNAME):
 
 $(NAME): $(OBJ) $(LIBNAME)
 	@echo "push_swap compiling"
-	@$(CC) $(CFLAGS) -o $@ $^ -I$(INCL_DIR) -l$(LIB) -L$(LIB_DIR)
+	@$(CC) $(CFLAGS) -o $@ $(OBJ) -I$(INCL_DIR) -l$(LIB) -L$(LIB_DIR)
 
 $(OBJ): %.o: %.c
 	@$(CC) $(CFLAGS) -o $@ -c $< -I$(INCL_DIR)
