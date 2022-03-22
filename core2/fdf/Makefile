@@ -9,7 +9,11 @@ RM		= rm -f
 # object & source files
 SRC		= main.c\
 		  fdf_key.c\
-		  ft_memset.c
+		  fdf_loop.c\
+		  fdf_drawline.c\
+		  ft_memset.c\
+		  ft_putnbr_fd.c\
+		  ft_utils.c
 
 SRC_DIR	= src
 SRC		:= $(SRC:%=$(SRC_DIR)/%)
@@ -60,6 +64,8 @@ fclean: clean
 	$(RM) $(NAME) $(LIB)
 	$(MAKE) -C $(LIB_DIR) clean
 
+cre: clean all
+
 re: fclean all
 
-.PHONY: all clean fclean re debug norm
+.PHONY: all clean fclean re cre debug norm

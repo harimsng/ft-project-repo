@@ -1,0 +1,3 @@
+compound literal
+... = (t_...) { .member2 = 0};
+>> .member1 = 0, .member2 = 0;
