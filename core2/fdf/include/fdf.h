@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 19:26:20 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/22 16:10:03 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/22 19:35:21 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,48 +14,21 @@
 # define FDF_H
 
 # include "mlx.h"
-# include <unistd.h>
+# include "fdf_type.h"
+# include "fdf_const.h"
 # include <fcntl.h>
 # include <stdlib.h>
-# include <stdio.h>
 # include <math.h>
 
-# define SCREEN_WIDTH (800)
-# define SCREEN_HEIGHT (600)
-# define PI (3.141592)
+// initialization functions
+int		init_win(t_mlx_info *mlx_info);
+int		init_img(t_mlx_info *mlx_info, t_img_elem *img_elem);
 
-# define TRUE (1)
-# define FALSE (0)
-
-static const int	screen_whalf = SCREEN_WIDTH / 2;
-static const int	screen_hhalf = SCREEN_HEIGHT / 2;
-
-typedef int				t_pixel;
-typedef int				t_bool;
-typedef unsigned char	t_byte;
-
-typedef struct s_img_elem
-{
-	t_pixel	*img_arr;
-	int		depth_bits;
-	int		line_bytes;
-	int		endian;
-	size_t	arr_bytes;
-	size_t	hor_size;
-	size_t	ver_size;
-}						t_img_elem;
-
-typedef struct s_mlx_info
-{
-	void		*mlx_ptr;
-	void		*win_ptr;
-	void		*img_ptr;
-	t_img_elem	*img_elem;
-}						t_mlx_info;
-
+// plotting functions
 int		fdf_loop(t_mlx_info *mlx_info);
 int		fdf_plot(int x, int y);
-void	fdf_drawline(t_img_elem *img_elem, int x0, int y0, int x1, int y1);
+void	fdf_drawline(t_img_elem *img_elem, t_point *p0, t_point *p1);
+t_map	*fdf_parser(int argc, char **argv, t_map *map);
 
 // hook functions
 int		key_hook(int keycode, void *param);
@@ -64,7 +37,7 @@ int		key_hook(int keycode, void *param);
 void	*ft_memset(void *addr, int val, size_t size);
 void	ft_putstr_fd(char *str, int fd);
 void	ft_putnbr_fd(int nbr, int fd);
-void	ft_swap(int *a, int *b);
+void	ft_swap_points(t_point **p0, t_point **p1);
 int		ft_abs(int a);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 13:31:05 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/22 16:09:43 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/22 18:54:28 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	fdf_loop(t_mlx_info *mlx_info)
 {
 	mlx_put_image_to_window(mlx_info->mlx_ptr,
 		mlx_info->win_ptr, mlx_info->img_ptr, 0, 0);
+	ft_memset(mlx_info->img_elem->img_arr, 0, mlx_info->img_elem->arr_bytes);
 	fdf_update(mlx_info->img_elem);
 	return (0);
 }
@@ -50,24 +51,12 @@ void	fdf_update(t_img_elem *img_elem)
 		++y;
 		idx = y * img_elem->hor_size;
 	}
-	fdf_drawline(img_elem, 0, 0, 500, 250);
-	fdf_drawline(img_elem, 10, 10, 500, 250);
-	fdf_drawline(img_elem, 20, 20, 500, 250);
-	fdf_drawline(img_elem, 30, 30, 500, 250);
-	fdf_drawline(img_elem, 40, 40, 500, 250);
-	fdf_drawline(img_elem, 50, 50, 500, 250);
-	fdf_drawline(img_elem, 60, 60, 500, 250);
-	fdf_drawline(img_elem, 70, 70, 500, 250);
-	fdf_drawline(img_elem, 80, 80, 500, 250);
-	fdf_drawline(img_elem, 90, 80, 500, 250);
-	fdf_drawline(img_elem, 100, 80, 500, 250);
-	fdf_drawline(img_elem, 200, 80, 500, 250);
-	fdf_drawline(img_elem, 300, 80, 500, 250);
-	fdf_drawline(img_elem, 400, 80, 500, 250);
-	fdf_drawline(img_elem, 500, 80, 500, 250);
-	fdf_drawline(img_elem, 600, 80, 500, 250);
-	fdf_drawline(img_elem, 700, 80, 500, 250);
-	fdf_drawline(img_elem, 800, 80, 500, 250);
+	t_point	p0 = (t_point){0, 0, 0, 0};
+	t_point	p1 = (t_point){200, 300, 0, 0};
+	t_point	p2 = (t_point){400, 200, 0, 0};
+	fdf_drawline(img_elem, &p0, &p1); 
+	fdf_drawline(img_elem, &p1, &p2);
+	fdf_drawline(img_elem, &p2, &p0);
 	++frame;
 }
 
@@ -89,6 +78,8 @@ int		fdf_plot(int x, int y)
 		color |= 0x000000FF;
 	if (y - screen_hhalf < 0.5 && y - screen_hhalf > -0.5)
 		color |= 0x00FFFFFF;
+	color |= 0x100 * x / SCREEN_WIDTH * 0x10000;
+	color |= 0x100 * y / SCREEN_HEIGHT * 0x100;
 	return (color);
 }
 void	get_frametime(void)

@@ -1,38 +1,40 @@
-NAME	= fdf
+NAME	=	fdf
 
-CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror
-DEBUG	= -g3 -fsanitize=address
-RM		= rm -f
+CC		=	gcc
+CFLAGS	=	-Wall -Wextra -Werror
+DEBUG	=	-g3 -fsanitize=address
+RM		=	rm -f
 
 
 # object & source files
-SRC		= main.c\
-		  fdf_key.c\
-		  fdf_loop.c\
-		  fdf_drawline.c\
-		  ft_memset.c\
-		  ft_putnbr_fd.c\
-		  ft_utils.c
+SRC		=	main.c\
+			fdf_init.c\
+			fdf_keyinput.c\
+			fdf_loop.c\
+			fdf_drawline.c\
+			ft_memset.c\
+			ft_putnbr_fd.c\
+			ft_utils.c
 
-SRC_DIR	= src
-SRC		:= $(SRC:%=$(SRC_DIR)/%)
-OBJ		= $(SRC:%.c=%.o)
+SRC_DIR	=	src
+SRC		:=	$(SRC:%=$(SRC_DIR)/%)
+OBJ		=	$(SRC:%.c=%.o)
 
 
 # header files
 INCL	=	fdf.h\
 			mlx.h\
 			libft.h
-INCL_DIR= include
+INCL_DIR=	include
 
 
 # library
-LIB		= mlx
-LIB_DIR	= library
+LIB_NAME=	libmlx.dylib
+LIB		=	mlx
+LIB_DIR	=	library
 
 ifeq ($(DEBUG_FLAG), 1)
-CFLAGS += $(DEBUG)
+CFLAGS +=	$(DEBUG)
 endif
 
 
@@ -46,11 +48,11 @@ norm:
 	norminette $(INCL_DIR)
 	norminette $(SRC_DIR)
 
-$(LIB):
+$(LIB_NAME):
 	$(MAKE) -C $(LIB_DIR)
-	cp $(LIB_DIR)/lib$(LIB).dylib .
+	cp $(LIB_DIR)/$(LIB_NAME) .
 
-$(NAME): $(LIB) $(OBJ)
+$(NAME): $(LIB_NAME) $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $(OBJ) -l$(LIB) -L.\
 		-framework OpenGL -framework AppKit -lz
 
@@ -64,8 +66,6 @@ fclean: clean
 	$(RM) $(NAME) $(LIB)
 	$(MAKE) -C $(LIB_DIR) clean
 
-cre: clean all
-
 re: fclean all
 
-.PHONY: all clean fclean re cre debug norm
+.PHONY: all clean fclean re debug norm

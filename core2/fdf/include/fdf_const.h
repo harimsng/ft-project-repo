@@ -1,39 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   fdf_const.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/08 17:13:50 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/22 17:28:59 by hseong           ###   ########.fr       */
+/*   Created: 2022/03/22 17:10:04 by hseong            #+#    #+#             */
+/*   Updated: 2022/03/22 20:08:06 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf_type.h"
+#ifndef FDF_CONST_H
+# define FDF_CONST_H
 
-void	ft_putstr_fd(char *s, int fd)
-{
-	size_t	len;
+# define SCREEN_WIDTH (800)
+# define SCREEN_HEIGHT (600)
 
-	len = 0;
-	while (s[len])
-		++len;
-	write(fd, s, len);
-}
+# define MAX_MAP_ROWS (1024)
+# define MAX_MAP_COLS (1024)
 
-void	ft_swap_points(t_point **p0, t_point **p1)
-{
-	t_point	*temp;
+# define PI (3.141592)
 
-	temp = *p0;
-	*p0 = *p1;
-	*p1 = temp;
-}
+# define TRUE (1)
+# define FALSE (0)
 
-int	ft_abs(int a)
-{
-	if (a < 0)
-		return (-a);
-	return (a);
-}
+static const int	screen_whalf = SCREEN_WIDTH / 2;
+static const int	screen_hhalf = SCREEN_HEIGHT / 2;
+
+#endif

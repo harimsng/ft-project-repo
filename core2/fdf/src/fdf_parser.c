@@ -6,65 +6,86 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 15:34:02 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/20 20:30:38 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/22 20:18:14 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static t_bool	get_var(char **var, t_mlxinfo *mlxinfo);
-static t_byte	*readfile(int fd);
+static t_bool	get_variable(char **var, t_map *map);
+static void		get_map_size(t_map *map);
+static t_byte	*read_map(int fd);
+//static t_bool	check_extension(char *filename);
 
-t_byte	*fdf_parser(int argc, char **argv, t_mlxinfo *mlxinfo)
+t_map	*fdf_parser(int argc, char **argv, t_map *map)
 {
 	int		fd;
-	if (argc > 3)
-		return (FALSE);
-	if (argc == 3)
-		get_var(argv + 1, mlxinfo);
+
+	if (argc != 2 && argc != 4)
+	{
+		ft_putstr_fd("./fdf map_name [width unit] [height unit]", 2);
+		exit(16);
+	}
 	fd = open(argv[1], O_RDONLY) == -1;
 	if (fd == -1)
 	{
 		perror("Invalid map file");
-		exit (16);
+		exit(32);
 	}
-	return (readfile(fd));
+	if (argc == 3)
+		get_var(argv + 1, map);
+	return (read_map(fd, map));
 }
 
-static t_bool	get_var(char **var, t_mlxinfo *mlxinfo)
+t_bool	get_variable(char **var, t_map *map)
 {
-	mlxinfo->hor_size = ft_atoi(var[0]);
-	mlxinfo->ver_size = ft_atoi(var[1]);
-	if (mlxinfo->hor_size == 0 || mlxinfo->ver_size == 0)
+	map->dx = ft_atoi(var[0]);
+	map->dz = ft_atoi(var[1]);
+	if (map->dx == 0 || map->dz == 0)
 	{
-		mlxinfo->hor_size = 0;
-		mlxinfo->ver_size = 0;
+		map->dx = 0;
+		map->dz = 0;
 	}
 	return (TRUE);
 }
 
-static t_byte	*readfile(int fd)
+void	read_map(int fd, t_map *map)
 {
-	char	*str;
-	char	**wordarr;
-	char	**temp;
-	int		**map;
-	size_t	wordcount;
-
-	str = get_next_line(fd);
-	while (str)
+	int		map[MAX_MAP_ROWS][MAX_MAP_COLS};
+	char	**words;
+	char	*row;
+	size_t	idx;
+	size_t	jdx;
+	
+	idx = 0;
+	row = get_next_line(fd);
+	while (row != NULL)
 	{
-		wordarr = ft_split(str);
-		temp = wordarr;
-		wordcount = 0;
-		while (temp)
+		jdx = 0;
+		words = ft_split(row);
+		free(row);
+		while (words[jdx] != NULL)
 		{
-			*temp = get_point(temp);
-			++temp;
-			++wordcount;
+			map[idx][jdx] = ft_atoi(words[jdx]);
+			free(words[jdx]);
+			++jdx;
 		}
-		free(str);
-		str = get_next_line(fd);
+		if (map->col != 0 && jdx != map->col)
+			return (NULL);
+		free(words);
+		row = get_next_line(fd);
+		++idx;
 	}
-	return (wordarr);
 }
+
+/*
+t_bool	check_extension(char *filename)
+{
+	size_t	len;
+
+	len = ft_strlen(filename);
+	if (ft_strncmp(".fdf", filename + len - 4, 4) != 0)
+		return (FALSE);
+	return (TRUE);
+}
+*/
