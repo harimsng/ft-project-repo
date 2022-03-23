@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 17:06:22 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/22 19:42:02 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/23 18:58:19 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,27 @@ typedef int				t_pixel;
 typedef int				t_bool;
 typedef unsigned char	t_byte;
 
+typedef struct s_point
+{
+	int		x;
+	int		y;
+	int		z;
+	int		color;
+}						t_point;
+
+typedef struct s_map
+{
+	t_point	**map;
+	int		row;
+	int		col;
+	int		colored;
+	int		dx;
+	int		dz;
+}						t_map;
+
 typedef struct s_img_elem
 {
 	t_pixel	*img_arr;
-	t_map	*map;
 	int		depth_bits;
 	int		line_bytes;
 	int		endian;
@@ -37,24 +54,7 @@ typedef struct s_mlx_info
 	void		*win_ptr;
 	void		*img_ptr;
 	t_img_elem	*img_elem;
+	t_map		*map;
 }						t_mlx_info;
-
-typedef struct s_point
-{
-	int		x;
-	int		y;
-	int		z;
-	int		color;
-}						t_point;
-
-typedef struct s_map
-{
-	int		**map;
-	int		row;
-	int		col;
-	int		colored;
-	int		dx;
-	int		dz;
-}						t_map;
 
 #endif

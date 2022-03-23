@@ -9,12 +9,17 @@ RM		=	rm -f
 # object & source files
 SRC		=	main.c\
 			fdf_init.c\
-			fdf_keyinput.c\
 			fdf_loop.c\
 			fdf_drawline.c\
+			fdf_keyinput.c\
+			fdf_parser.c\
+			fdf_point.c\
 			ft_memset.c\
 			ft_putnbr_fd.c\
-			ft_utils.c
+			ft_utils.c\
+			ft_split.c\
+			ft_atoi.c\
+			get_next_line.c
 
 SRC_DIR	=	src
 SRC		:=	$(SRC:%=$(SRC_DIR)/%)
@@ -24,6 +29,7 @@ OBJ		=	$(SRC:%.c=%.o)
 # header files
 INCL	=	fdf.h\
 			mlx.h\
+			get_next_line.h\
 			libft.h
 INCL_DIR=	include
 
@@ -42,6 +48,7 @@ endif
 all: $(NAME)
 
 debug:
+	$(MAKE) clean
 	$(MAKE) DEBUG_FLAG=1
 
 norm:
@@ -57,7 +64,7 @@ $(NAME): $(LIB_NAME) $(OBJ)
 		-framework OpenGL -framework AppKit -lz
 
 $(OBJ): %.o: %.c
-	$(CC) $(CFLAGS) -c -o $@ $^ -I$(INCL_DIR) 
+	$(CC) $(CFLAGS) -c -o $@ $^ -I$(INCL_DIR) -DBUFFER_SIZE=256
 
 clean:
 	$(RM) $(OBJ)

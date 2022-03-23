@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_const.h                                        :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/22 17:10:04 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/23 14:10:26 by hseong           ###   ########.fr       */
+/*   Created: 2021/11/18 22:35:53 by hseong            #+#    #+#             */
+/*   Updated: 2021/11/30 22:28:31 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_CONST_H
-# define FDF_CONST_H
+#include "get_next_line.h"
 
-# define SCREEN_WIDTH (800)
-# define SCREEN_HEIGHT (600)
+void	*ft_memcpy(void	*dest, const void *src, size_t size)
+{
+	unsigned char		*d;
+	const unsigned char	*s;
 
-# define MAP_MAXROWS (1024)
-# define MAP_MAXCOLS (1024)
-
-# define PI (3.141592)
-
-# define TRUE (1)
-# define FALSE (0)
-
-static const int	screen_whalf = SCREEN_WIDTH / 2;
-static const int	screen_hhalf = SCREEN_HEIGHT / 2;
-
-#endif
+	d = dest;
+	s = src;
+	while (size--)
+		*d++ = *s++;
+	return (dest);
+}

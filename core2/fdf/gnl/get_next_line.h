@@ -1,30 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_const.h                                        :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/22 17:10:04 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/23 14:10:26 by hseong           ###   ########.fr       */
+/*   Created: 2021/11/18 22:35:48 by hseong            #+#    #+#             */
+/*   Updated: 2021/11/30 22:28:20 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_CONST_H
-# define FDF_CONST_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-# define SCREEN_WIDTH (800)
-# define SCREEN_HEIGHT (600)
+# include <unistd.h>
+# include <stdlib.h>
 
-# define MAP_MAXROWS (1024)
-# define MAP_MAXCOLS (1024)
+# define INT_MAX 2147483647
 
-# define PI (3.141592)
+typedef struct s_line
+{
+	int				cap;
+	int				size;
+	unsigned char	*str;
+}					t_line;
 
-# define TRUE (1)
-# define FALSE (0)
+typedef struct s_buf
+{
+	int				fd;
+	int				size;
+	unsigned char	*str;
+}					t_buf;
 
-static const int	screen_whalf = SCREEN_WIDTH / 2;
-static const int	screen_hhalf = SCREEN_HEIGHT / 2;
+char		*get_next_line(int fd);
+void		*ft_memcpy(void *dest, const void *src, size_t size);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 23:25:37 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/15 17:05:21 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/23 19:05:58 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void		*ft_memchr(const void *s, int c, size_t n);
 int			ft_memcmp(const void *s1, const void *s2, size_t n);
 char		*ft_strnstr(const char *s1, const char *s2, size_t n);
 int			ft_atoi(const char *str);
+int			ft_atoi_ptr(char **strptr);
 
 void		*ft_calloc(size_t count, size_t size);
 char		*ft_strdup(const char *s);

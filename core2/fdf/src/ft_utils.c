@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/08 17:13:50 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/22 17:28:59 by hseong           ###   ########.fr       */
+/*   Created: 2022/03/23 18:16:56 by hseong            #+#    #+#             */
+/*   Updated: 2022/03/23 18:23:26 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,27 @@ int	ft_abs(int a)
 	if (a < 0)
 		return (-a);
 	return (a);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	if (c == -1)
+		return (NULL);
+	while (*s && *s != (char)c)
+		++s;
+	if (*s != (char)c)
+		return (NULL);
+	return ((char *)s);
+}
+
+void	*ft_memcpy(void *dst, const void *src, size_t len)
+{
+	unsigned char		*d;
+	const unsigned char	*s;
+
+	d = dst;
+	s = src;
+	while (len--)
+		*d++ = *s++;
+	return (dst);
 }

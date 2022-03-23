@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 21:21:20 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/16 14:08:57 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/23 15:43:48 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	set_word(int c, t_word *num);
 
 // int32 0A0B0C0D	> i [0A], i+1 [0B], i+2 [0C], i+3[0D]
-// big endian 		: msb is at lower address.
+// big endian		: msb is at lower address.
 // int32 0A0B0C0D	> i [0D], i+1 [0C], i+2 [0B], i+3[0A]
 // little endian	: lsb is at lower address.
 void	*ft_memset(void *b, int c, size_t len)

@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   fdf_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/20 15:34:02 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/22 20:18:14 by hseong           ###   ########.fr       */
+/*   Created: 2022/03/23 16:35:01 by hseong            #+#    #+#             */
+/*   Updated: 2022/03/23 19:21:04 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include <stdio.h>
+
+typedef char	**t_word_arr;
 
 static t_bool	get_variable(char **var, t_map *map);
-static void		get_map_size(t_map *map);
-static t_byte	*read_map(int fd);
-//static t_bool	check_extension(char *filename);
+static t_bool	read_map(int fd, t_map *map);
+static t_bool	check_map(t_map *map, t_word_arr *row_words);
+static t_bool	dealloc_map(t_word_arr *row_words, t_bool error);
 
-t_map	*fdf_parser(int argc, char **argv, t_map *map)
+t_bool	fdf_parse_map(int argc, char **argv, t_map *map)
 {
 	int		fd;
 
@@ -26,14 +29,14 @@ t_map	*fdf_parser(int argc, char **argv, t_map *map)
 		ft_putstr_fd("./fdf map_name [width unit] [height unit]", 2);
 		exit(16);
 	}
-	fd = open(argv[1], O_RDONLY) == -1;
+	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 	{
 		perror("Invalid map file");
 		exit(32);
 	}
 	if (argc == 3)
-		get_var(argv + 1, map);
+		get_variable(argv + 1, map);
 	return (read_map(fd, map));
 }
 
@@ -49,43 +52,69 @@ t_bool	get_variable(char **var, t_map *map)
 	return (TRUE);
 }
 
-void	read_map(int fd, t_map *map)
+t_bool	read_map(int fd, t_map *map)
 {
-	int		map[MAX_MAP_ROWS][MAX_MAP_COLS};
-	char	**words;
-	char	*row;
-	size_t	idx;
-	size_t	jdx;
-	
+	char		*raw_row;
+	t_word_arr	row_words[MAP_MAXROWS];
+	size_t		idx;
+
+	raw_row = get_next_line(fd);
 	idx = 0;
-	row = get_next_line(fd);
-	while (row != NULL)
+	while (raw_row != NULL)
 	{
-		jdx = 0;
-		words = ft_split(row);
-		free(row);
-		while (words[jdx] != NULL)
-		{
-			map[idx][jdx] = ft_atoi(words[jdx]);
-			free(words[jdx]);
-			++jdx;
-		}
-		if (map->col != 0 && jdx != map->col)
-			return (NULL);
-		free(words);
-		row = get_next_line(fd);
+		row_words[idx] = ft_split(raw_row, "\n\t ");
+		free(raw_row);
+		raw_row = get_next_line(fd);
 		++idx;
 	}
+	row_words[idx] = NULL;
+	map->row = idx;
+	map->map = malloc(sizeof(t_point *) * map->row);
+	return (check_map(map, row_words));
 }
 
-/*
-t_bool	check_extension(char *filename)
+t_bool	check_map(t_map *map, t_word_arr *row_words)
 {
-	size_t	len;
+	int		idx;
+	int		jdx;
 
-	len = ft_strlen(filename);
-	if (ft_strncmp(".fdf", filename + len - 4, 4) != 0)
+	idx = 0;
+	while (row_words[0][idx] != NULL)
+		++idx;
+	map->col = idx;
+	idx = 0;
+	while (idx < map->row)
+	{
+		map->map[idx] = malloc(sizeof(t_point) * map->col);
+		jdx = 0;
+		while (row_words[idx][jdx] != NULL && jdx < map->col)
+		{
+			map->map[idx][jdx].x = idx;
+			map->map[idx][jdx].y = jdx;
+			map->map[idx][jdx].z = ft_atoi(row_words[idx][jdx]);
+			map->map[idx][jdx].color = get_color(row_words[idx][jdx]);
+			++jdx;
+		}
+		if (jdx != map->col)
+			return (dealloc_map(row_words, TRUE));
+		++idx;
+	}
+	return (dealloc_map(row_words, FALSE));
+}
+
+t_bool	dealloc_map(t_word_arr *row_words, t_bool error)
+{
+	size_t		idx;
+
+	while (*row_words)
+	{
+		idx = 0;
+		while (row_words[0][idx])
+			free(row_words[0][idx++]);
+		free(*row_words);
+		++row_words;
+	}
+	if (error)
 		return (FALSE);
 	return (TRUE);
 }
-*/
