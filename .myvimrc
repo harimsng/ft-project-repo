@@ -1,13 +1,29 @@
 set tabstop=4
 set shiftwidth=4
 
+syntax on
 set number
 set ruler
 set laststatus=2
 set showmode
+set showcmd
+set nofixendofline
 
 set noundofile
 set backupdir-=.
 set backupdir^=~/tmp,/tmp
 
-syntax on
+execute pathogen#infect()
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+set statusline+=\ %f
+set statusline+=%=
+set statusline+=%p,%c-%-5v
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_w = 1
+let g:syntastic_c_checkers = ['gcc', 'checkpatch']
