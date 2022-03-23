@@ -6,11 +6,11 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 17:23:10 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/22 12:08:58 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/23 15:45:15 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h" 
+#include "libft.h"
 
 static int	check_num(int *n, int fd);
 

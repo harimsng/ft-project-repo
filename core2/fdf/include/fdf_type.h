@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 17:06:22 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/23 18:58:19 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/23 20:25:38 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,14 @@
 typedef int				t_pixel;
 typedef int				t_bool;
 typedef unsigned char	t_byte;
+typedef unsigned int	t_uint32;
 
 typedef struct s_point
 {
-	int		x;
-	int		y;
-	int		z;
-	int		color;
+	int			x;
+	int			y;
+	int			z;
+	t_uint32	color;
 }						t_point;
 
 typedef struct s_map

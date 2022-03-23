@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:35:01 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/23 19:21:04 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/23 20:58:45 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ t_bool	check_map(t_map *map, t_word_arr *row_words)
 		jdx = 0;
 		while (row_words[idx][jdx] != NULL && jdx < map->col)
 		{
-			map->map[idx][jdx].x = idx;
-			map->map[idx][jdx].y = jdx;
+			map->map[idx][jdx].y = idx;
+			map->map[idx][jdx].x = jdx;
 			map->map[idx][jdx].z = ft_atoi(row_words[idx][jdx]);
 			map->map[idx][jdx].color = get_color(row_words[idx][jdx]);
 			++jdx;

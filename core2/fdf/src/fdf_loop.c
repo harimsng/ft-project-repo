@@ -6,23 +6,23 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 13:31:05 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/23 18:54:49 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/23 20:53:45 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-# include "time.h"
-# include <stdio.h>
 
 static void	fdf_update(t_img_elem *img_elem);
-static void	get_frametime(void);
 
 int	fdf_loop(t_mlx_info *mlx_info)
 {
 	mlx_put_image_to_window(mlx_info->mlx_ptr,
 		mlx_info->win_ptr, mlx_info->img_ptr, 0, 0);
 	ft_memset(mlx_info->img_elem->img_arr, 0, mlx_info->img_elem->arr_bytes);
-	fdf_update(mlx_info->img_elem);
+	fdf_wireframe(mlx_info->img_elem, mlx_info->map);
+	get_frametime();
+	if (0)
+		fdf_update(mlx_info->img_elem);
 	return (0);
 }
 
@@ -75,20 +75,4 @@ int		fdf_plot(int x, int y)
 //	color |= 0x100 * x / SCREEN_WIDTH * 0x10000;
 	color |= 0x100 * y / SCREEN_HEIGHT;
 	return (color);
-}
-void	get_frametime(void)
-{
-	static int	frame;
-	static clock_t	past;
-	static clock_t	now;
-	float	frametime;
-	float	fps;
-
-	now = clock();
-	frametime = (float)(now - past) / CLOCKS_PER_SEC;
-	fps = (float)CLOCKS_PER_SEC / (now - past);
-	past = now;
-//	if (frame % 10 == 0)
-		printf("fps = %10.2f\t frametime = %10.4f\n", fps, frametime);
-	++frame;
 }

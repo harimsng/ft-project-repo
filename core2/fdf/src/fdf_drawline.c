@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 18:35:23 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/22 18:53:27 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/23 20:52:36 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	fdf_drawline(t_img_elem *img_elem, t_point *p0, t_point *p1)
 	dx = ft_abs(p1->x - p0->x);
 	dy = ft_abs(p1->y - p0->y);
 	if (p0->x > p1->x)
-		ft_swap_points(&p0, &p1);
+		swap_point(&p0, &p1);
 	if (dx > dy)
 		drawline_low(img_elem, *p0, *p1);
 	else

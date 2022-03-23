@@ -6,13 +6,13 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 22:35:55 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/23 18:18:56 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/23 20:28:42 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "get_next_line.h"
 
-void	*ft_memcpy(void *dst, const void *src, size_t size);
 int		gnl_load_buf(t_buf *fd_buf, t_buf *buf, int fd);
 int		gnl_save_buf(t_buf *fd_buf, t_buf *buf);
 int		gnl_append(t_line *line, t_buf *buf);

@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utils.c                                         :+:      :+:    :+:   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/15 12:49:29 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/16 19:09:04 by hseong           ###   ########.fr       */
+/*   Created: 2022/03/23 18:16:11 by hseong            #+#    #+#             */
+/*   Updated: 2022/03/23 18:20:45 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-static size_t	get_count(const char *str, char delim);
-static char		**alloc_words(const char *str, size_t count, char delim);
-static void		dealloc_words(char **str_arr, size_t size);
+char			*ft_strchr(const char *set, int c);
 static char		*ft_strndup(const char *src, size_t len);
+static size_t	get_count(const char *str, char *delim);
+static char		**alloc_words(const char *str, size_t count, char *delim);
+static void		dealloc_words(char **str_arr, size_t size);
 
-char	**ft_split(const char *str, char delim)
+char	**ft_split(const char *str, char *delim)
 {
 	size_t	count;
 
@@ -25,21 +26,22 @@ char	**ft_split(const char *str, char delim)
 	return (alloc_words(str, count, delim));
 }
 
-size_t	get_count(const char *str, char delim)
+size_t	get_count(const char *str, char *delim)
 {
 	size_t	count;
 
 	count = 0;
 	while (*str)
 	{
-		if (*str != delim && (*(str + 1) == delim || *(str + 1) == 0))
+		if (ft_strchr(delim, *str) == NULL
+				&& (ft_strchr(delim, str[1]) != NULL || str[1] == 0))
 			++count;
 		++str;
 	}
 	return (count);
 }
 
-char	**alloc_words(const char *str, size_t count, char delim)
+char	**alloc_words(const char *str, size_t count, char *delim)
 {
 	char	**str_arr;
 	size_t	str_idx;
@@ -53,9 +55,9 @@ char	**alloc_words(const char *str, size_t count, char delim)
 	while (str_idx < count)
 	{
 		idx = 0;
-		while (str[idx] == delim)
+		while (ft_strchr(delim, str[idx]) != NULL)
 			++str;
-		while (str[idx] && str[idx] != delim)
+		while (str[idx] && ft_strchr(delim, str[idx]) == NULL)
 			++idx;
 		str_arr[str_idx] = ft_strndup(str, idx);
 		if (str_arr[str_idx] == NULL)

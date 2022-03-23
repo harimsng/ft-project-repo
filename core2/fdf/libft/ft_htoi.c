@@ -1,53 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_hextoi.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/09 18:37:12 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/23 16:43:23 by hseong           ###   ########.fr       */
+/*   Created: 2022/03/23 19:40:39 by hseong            #+#    #+#             */
+/*   Updated: 2022/03/23 20:08:00 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_isspace(int c);
+static int	g_hex_table[23] = {
+	0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+	0, 0, 0, 0, 0, 0, 0, 10, 11, 12,
+	13, 14, 15
+};
 
-int	ft_atoi(const char *str)
+int	ft_htoi(const char *str)
 {
 	unsigned long long	num;
 	unsigned long long	temp;
-	int					ret;
-	int					neg;
 
 	while (ft_isspace(*str))
 		++str;
-	neg = *str == '-';
-	str += (neg || *str == '+');
+	if (str[0] != '0' || str[1] != 'x')
+		return (0);
+	str += 2;
 	num = 0;
 	temp = 0;
-	while (ft_isdigit(*str) && temp <= num)
+	while (ft_ishex(*str) && temp <= num)
 	{
 		temp = num;
-		num = 10 * num + *str++ - 48;
+		num = 16 * num + g_hex_table[ft_toupper(*str++) - 48];
 	}
 	if (temp > num || num > LONG_MAX)
-		return ((int)(LONG_MAX * !neg + LONG_MIN * neg));
-	ret = (1 - 2 * neg) * ((int)num);
-	return (ret);
-}
-
-int	ft_isspace(int c)
-{
-	if ((c > 8 && c < 14) || c == 32)
-		return (1);
-	return (0);
-}
-
-int	ft_isdigit(int c)
-{
-	if (c > 47 && c < 58)
-		return (1);
-	return (0);
+		return ((int)LONG_MAX);
+	return ((int)num);
 }

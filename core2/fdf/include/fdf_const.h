@@ -6,15 +6,15 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 17:10:04 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/23 14:10:26 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/23 21:01:51 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_CONST_H
 # define FDF_CONST_H
 
-# define SCREEN_WIDTH (800)
-# define SCREEN_HEIGHT (600)
+# define SCREEN_WIDTH (768)
+# define SCREEN_HEIGHT (512)
 
 # define MAP_MAXROWS (1024)
 # define MAP_MAXCOLS (1024)

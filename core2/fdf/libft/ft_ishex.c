@@ -1,37 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_ishex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/18 22:35:48 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/23 20:29:15 by hseong           ###   ########.fr       */
+/*   Created: 2022/03/23 19:56:25 by hseong            #+#    #+#             */
+/*   Updated: 2022/03/23 20:10:37 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-
-# include <unistd.h>
-# include <stdlib.h>
-
-# ifndef INT_MAX
-#  define INT_MAX 2147483647
-# endif
-
-typedef struct s_line
+int	ft_ishex(int c)
 {
-	int				cap;
-	int				size;
-	unsigned char	*str;
-}					t_line;
-
-typedef struct s_buf
-{
-	int				fd;
-	int				size;
-	unsigned char	*str;
-}					t_buf;
-
-#endif
+	if ((c >= '0' && c <= '9')
+		|| (c >= 'a' && c <= 'f')
+		|| (c >= 'A' && c <= 'F'))
+		return (1);
+	return (0);
+}

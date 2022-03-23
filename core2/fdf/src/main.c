@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 19:18:38 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/23 19:23:55 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/23 20:47:37 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	main(int argc, char *argv[])
 		perror("initialization failed");
 		return (128);
 	}
+	fdf_projection(&mlx_info);
 	mlx_key_hook(mlx_info.win_ptr, key_hook, NULL);
 	mlx_loop_hook(mlx_info.mlx_ptr, fdf_loop, &mlx_info);
 	mlx_loop(mlx_info.mlx_ptr);

@@ -1,25 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   fdf_projection.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/18 22:35:53 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/30 22:28:31 by hseong           ###   ########.fr       */
+/*   Created: 2022/03/23 20:48:11 by hseong            #+#    #+#             */
+/*   Updated: 2022/03/23 21:07:55 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "fdf.h"
+#include "fdf_type.h"
+#include "fdf_const.h"
 
-void	*ft_memcpy(void	*dest, const void *src, size_t size)
+void	fdf_projection(t_mlx_info *mlx_info)
 {
-	unsigned char		*d;
-	const unsigned char	*s;
+	t_point	**map_arr;
+	t_map	*map;
+	int		x;
+	int		y;
 
-	d = dest;
-	s = src;
-	while (size--)
-		*d++ = *s++;
-	return (dest);
+	map = mlx_info->map;
+	map_arr = map->map;
+	y = 0;
+	while (y < map->row)
+	{
+		x = 0;
+		while (x < map->col)
+		{
+			map_arr[y][x].x = 40;
+			map_arr[y][x].y = 40;
+			++x;
+		}
+		++y;
+	}
 }
