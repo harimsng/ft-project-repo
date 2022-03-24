@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_const.h                                        :+:      :+:    :+:   */
+/*   fdf_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/22 17:10:04 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/24 21:37:14 by hseong           ###   ########.fr       */
+/*   Created: 2022/03/24 21:42:44 by hseong            #+#    #+#             */
+/*   Updated: 2022/03/24 22:01:28 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_CONST_H
-# define FDF_CONST_H
+#include "fdf.h"
 
-# define SCREEN_WIDTH (600)
-# define SCREEN_HEIGHT (400)
+int	key_hook(int keycode, void *param)
+{
+	(void)param;
+	if (keycode == 53)
+		exit(0);
+	return (0);
+}
 
-# define MAP_MAXROWS (1024)
-# define MAP_MAXCOLS (1024)
+int	expose_hook(void *param)
+{
+	t_mlx_info	*mlx_info = param;
 
-# define MAGIC_ANGLE (0.61)
-
-# define TRUE (1)
-# define FALSE (0)
-
-static const int	screen_whalf = SCREEN_WIDTH / 2;
-static const int	screen_hhalf = SCREEN_HEIGHT / 2;
-
-#endif
+	ft_memset(mlx_info->img_elem->img_arr, 0, mlx_info->img_elem->arr_bytes);
+	return (0);
+}

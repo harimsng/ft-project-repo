@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 17:58:01 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/24 18:22:46 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/24 22:16:26 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_bool	fdf_load_map(int argc, char **argv, t_map *map)
 		perror("Invalid map file");
 		exit(32);
 	}
-	get_variable(argc, argv + 1, map);
+	get_variable(argc, argv + 2, map);
 	return (read_map(fd, map));
 }
 
@@ -78,6 +78,7 @@ t_bool	check_map(t_map *map, t_word_arr *row_words)
 	int		jdx;
 
 	idx = 0;
+	map->colored = FALSE;
 	while (row_words[0][idx] != NULL)
 		++idx;
 	map->col = idx;
@@ -92,6 +93,8 @@ t_bool	check_map(t_map *map, t_word_arr *row_words)
 			map->map[idx][jdx].x = jdx;
 			map->map[idx][jdx].z = ft_atoi(row_words[idx][jdx]);
 			map->map[idx][jdx].color = get_color(row_words[idx][jdx]);
+			if (map->map[idx][jdx].color != 0x00FFFFFF)
+				map->colored = TRUE;
 			++jdx;
 		}
 		if (jdx != map->col)

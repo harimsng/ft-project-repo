@@ -9,13 +9,15 @@ RM		=	rm -f
 # object & source files
 SRC		=	main.c\
 			fdf_init.c\
-			fdf_loop.c\
+			fdf_hook.c\
+			fdf_plot.c\
 			fdf_projection.c\
 			fdf_drawline.c\
 			fdf_wireframe.c\
-			fdf_keyinput.c\
+			fdf_color.c\
 			fdf_load_map.c\
 			fdf_align_map.c\
+			fdf_control_map.c\
 			fdf_utils.c\
 			get_next_line.c
 
@@ -50,6 +52,7 @@ endif
 all: $(NAME)
 
 run:
+	$(MAKE) clean
 	$(MAKE)
 	./$(NAME) testdir/test_maps/42.fdf
 

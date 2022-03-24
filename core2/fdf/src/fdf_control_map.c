@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_keyinput.c                                     :+:      :+:    :+:   */
+/*   fdf_control_map.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/23 18:16:27 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/23 18:16:28 by hseong           ###   ########.fr       */
+/*   Created: 2022/03/24 20:48:04 by hseong            #+#    #+#             */
+/*   Updated: 2022/03/24 20:48:20 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	key_hook(int keycode, void *param)
+void	fdf_control_map(t_map *map)
 {
-	(void)param;
-	if (keycode == 53)
-		exit(0);
-	return (0);
+	(void)map;
 }

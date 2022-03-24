@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 20:48:11 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/24 17:57:01 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/24 20:32:57 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,17 @@ void	fdf_projection(t_mlx_info *mlx_info)
 
 static void	transform_point(t_map *map, t_point *point)
 {
-	int		x;
-	int		y;
-	int		z;
+	double	x;
+	double	y;
+	double	z;
 
-	if (point->z != 0)
-		point->color = 0x00FF0000;
-	x = point->x * map->dx;
-	y = point->y * map->dx;
-	point->x = cos(M_PI_4) * x + sin(M_PI_4) * y;
-	point->y = -sin(M_PI_4) * x + cos(M_PI_4) * y;
-	y = point->y;
-	z = point->z * map->dz;
-	point->z = cos(MAGIC_ANGLE) * z - sin(MAGIC_ANGLE) * y;
-	point->y = sin(MAGIC_ANGLE) * z + cos(MAGIC_ANGLE) * y;
+	x = (double)(point->x * map->dx);
+	y = (double)(point->y * map->dx);
+	z = (double)(point->z * map->dz);
+	point->x = lround(sin(M_PI_4) * y + cos(M_PI_4) * x);
+	y = cos(M_PI_4) * y - sin(M_PI_4) * x;
+	point->z = lround(cos(MAGIC_ANGLE) * z - sin(MAGIC_ANGLE) * y);
+	point->y = lround(sin(MAGIC_ANGLE) * z + cos(MAGIC_ANGLE) * y);
 	point->y = -point->z;
 	point->x += map->x0;
 	point->y += map->y0;

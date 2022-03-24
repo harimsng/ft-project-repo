@@ -6,14 +6,14 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 19:18:38 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/24 17:58:30 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/24 22:31:37 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include <stdio.h>
 
-void	print_map(t_map *map);
+static int	fdf_loop(t_mlx_info *mlx_info);
 
 int	main(int argc, char *argv[])
 {
@@ -27,7 +27,6 @@ int	main(int argc, char *argv[])
 		return (64);
 	}
 	fdf_align_map(&map);
-		print_map(&map);
 	mlx_info.map = &map;
 	if (init_win(&mlx_info) != 0
 		|| init_img(&mlx_info, &img_elem) != 0)
@@ -37,18 +36,20 @@ int	main(int argc, char *argv[])
 	}
 	fdf_projection(&mlx_info);
 	mlx_key_hook(mlx_info.win_ptr, key_hook, NULL);
+//	mlx_expose_hook(mlx_info.win_ptr, expose_hook, &mlx_info);
 	mlx_loop_hook(mlx_info.mlx_ptr, fdf_loop, &mlx_info);
 	mlx_loop(mlx_info.mlx_ptr);
 	return (0);
 }
 
-void	print_map(t_map *map)
+int	fdf_loop(t_mlx_info *mlx_info)
 {
-	for (int i = 0; i < map->row; ++i)
-	{
-		printf("_ ");
-		for (int j = 0; j < map->col; ++j)
-			printf("%d  ", map->map[i][j].z);
-		printf("\n");
-	}
+	get_frametime();
+	mlx_sync(3, mlx_info->win_ptr);
+//	mlx_do_sync(mlx_info->mlx_ptr);
+	ft_memset(mlx_info->img_elem->img_arr, 0, mlx_info->img_elem->arr_bytes);
+	fdf_wireframe(mlx_info->img_elem, mlx_info->map);
+	mlx_put_image_to_window(mlx_info->mlx_ptr,
+		mlx_info->win_ptr, mlx_info->img_ptr, 0, 0);
+	return (0);
 }

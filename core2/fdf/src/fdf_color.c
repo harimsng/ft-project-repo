@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_const.h                                        :+:      :+:    :+:   */
+/*   fdf_color.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/22 17:10:04 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/24 21:37:14 by hseong           ###   ########.fr       */
+/*   Created: 2022/03/24 21:15:46 by hseong            #+#    #+#             */
+/*   Updated: 2022/03/24 21:34:11 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_CONST_H
-# define FDF_CONST_H
+#include "fdf.h"
 
-# define SCREEN_WIDTH (600)
-# define SCREEN_HEIGHT (400)
-
-# define MAP_MAXROWS (1024)
-# define MAP_MAXCOLS (1024)
-
-# define MAGIC_ANGLE (0.61)
-
-# define TRUE (1)
-# define FALSE (0)
-
-static const int	screen_whalf = SCREEN_WIDTH / 2;
-static const int	screen_hhalf = SCREEN_HEIGHT / 2;
-
-#endif
+t_uint32	get_color(char *str)
+{
+	while (*str >= '0' && *str <= '9')
+		++str;
+	if (*str == 0 || *str != ',')
+		return (0x00FFFFFF);
+	return (ft_htoi(str + 1));
+}

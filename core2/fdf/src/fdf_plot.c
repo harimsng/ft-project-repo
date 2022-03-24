@@ -1,34 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_loop.c                                         :+:      :+:    :+:   */
+/*   fdf_plot.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/22 13:31:05 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/24 18:01:50 by hseong           ###   ########.fr       */
+/*   Created: 2022/03/24 21:49:08 by hseong            #+#    #+#             */
+/*   Updated: 2022/03/24 21:50:18 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-static void	fdf_update(t_img_elem *img_elem);
-
-int	fdf_loop(t_mlx_info *mlx_info)
-{
-	mlx_put_image_to_window(mlx_info->mlx_ptr,
-		mlx_info->win_ptr, mlx_info->img_ptr, 0, 0);
-	ft_memset(mlx_info->img_elem->img_arr, 0, mlx_info->img_elem->arr_bytes);
-	fdf_plot(0, 0);
-	fdf_plot(1, 1);
-	fdf_plot(0, 1);
-	fdf_plot(1, 0);
-	fdf_wireframe(mlx_info->img_elem, mlx_info->map);
-	get_frametime();
-	if (0)
-		fdf_update(mlx_info->img_elem);
-	return (0);
-}
 
 void	fdf_update(t_img_elem *img_elem)
 {
@@ -38,11 +20,9 @@ void	fdf_update(t_img_elem *img_elem)
 	int			x;
 	int			y;
 
-	get_frametime();
 	img_arr = img_elem->img_arr;
 	idx = 0;
 	y = 0;
-	write(2, ".", 1);
 	while (y < SCREEN_HEIGHT)
 	{
 		x = 0;

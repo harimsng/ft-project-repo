@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 19:26:20 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/24 17:58:42 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/24 21:50:08 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,16 @@ t_bool		fdf_load_map(int argc, char **argv, t_map *map);
 void		fdf_align_map(t_map *map);
 
 // update & plot functions
-int			fdf_loop(t_mlx_info *mlx_info);
+void		fdf_update(t_img_elem *img_elem);
 int			fdf_plot(int x, int y);
 void		fdf_drawline(t_img_elem *img_elem, t_point *p0, t_point *p1);
 void		fdf_wireframe(t_img_elem *img_elem, t_map *map);
 void		fdf_projection(t_mlx_info *mlx_info);
+void		fdf_control_map(t_map *map);
 
 // hook functions
 int			key_hook(int keycode, void *param);
+int			expose_hook(void *param);
 
 // utility functions
 t_uint32	get_color(char *str);
