@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 17:06:22 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/23 20:25:38 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/24 14:43:59 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ typedef struct s_map
 	int		row;
 	int		col;
 	int		colored;
+	int		x0;
+	int		y0;
 	int		dx;
 	int		dz;
 }						t_map;

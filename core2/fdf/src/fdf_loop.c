@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 13:31:05 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/23 20:53:45 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/24 18:01:50 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ int	fdf_loop(t_mlx_info *mlx_info)
 	mlx_put_image_to_window(mlx_info->mlx_ptr,
 		mlx_info->win_ptr, mlx_info->img_ptr, 0, 0);
 	ft_memset(mlx_info->img_elem->img_arr, 0, mlx_info->img_elem->arr_bytes);
+	fdf_plot(0, 0);
+	fdf_plot(1, 1);
+	fdf_plot(0, 1);
+	fdf_plot(1, 0);
 	fdf_wireframe(mlx_info->img_elem, mlx_info->map);
 	get_frametime();
 	if (0)
@@ -62,8 +66,8 @@ int		fdf_plot(int x, int y)
 	int		color;
 
 	color = 0;
-	val = (double)screen_hhalf * sin(PI * x / 180.0);
-	val2 = (double)screen_hhalf * cos(PI * x / 180.0);
+	val = (double)screen_hhalf * sin(M_PI * x / 180.0);
+	val2 = (double)screen_hhalf * cos(M_PI * x / 180.0);
 	if (y - screen_hhalf < val + 1 && y - screen_hhalf > val - 1)
 		color |= 0x00FF0000;
 	if (y - screen_hhalf < val2 + 1 && y - screen_hhalf > val2 - 1)

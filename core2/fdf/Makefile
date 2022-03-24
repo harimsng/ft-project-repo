@@ -14,7 +14,8 @@ SRC		=	main.c\
 			fdf_drawline.c\
 			fdf_wireframe.c\
 			fdf_keyinput.c\
-			fdf_parser.c\
+			fdf_load_map.c\
+			fdf_align_map.c\
 			fdf_utils.c\
 			get_next_line.c
 

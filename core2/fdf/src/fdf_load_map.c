@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_parser.c                                       :+:      :+:    :+:   */
+/*   fdf_load_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/23 16:35:01 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/23 20:58:45 by hseong           ###   ########.fr       */
+/*   Created: 2022/03/24 17:58:01 by hseong            #+#    #+#             */
+/*   Updated: 2022/03/24 18:22:46 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 typedef char	**t_word_arr;
 
-static t_bool	get_variable(char **var, t_map *map);
+static t_bool	get_variable(int argc, char **var, t_map *map);
 static t_bool	read_map(int fd, t_map *map);
 static t_bool	check_map(t_map *map, t_word_arr *row_words);
 static t_bool	dealloc_map(t_word_arr *row_words, t_bool error);
 
-t_bool	fdf_parse_map(int argc, char **argv, t_map *map)
+t_bool	fdf_load_map(int argc, char **argv, t_map *map)
 {
 	int		fd;
 
@@ -35,19 +35,18 @@ t_bool	fdf_parse_map(int argc, char **argv, t_map *map)
 		perror("Invalid map file");
 		exit(32);
 	}
-	if (argc == 3)
-		get_variable(argv + 1, map);
+	get_variable(argc, argv + 1, map);
 	return (read_map(fd, map));
 }
 
-t_bool	get_variable(char **var, t_map *map)
+t_bool	get_variable(int argc, char **var, t_map *map)
 {
-	map->dx = ft_atoi(var[0]);
-	map->dz = ft_atoi(var[1]);
-	if (map->dx == 0 || map->dz == 0)
+	map->dx = 0;
+	map->dz = 0;
+	if (argc == 4)
 	{
-		map->dx = 0;
-		map->dz = 0;
+		map->dx = ft_atoi(var[0]);
+		map->dz = ft_atoi(var[1]);
 	}
 	return (TRUE);
 }

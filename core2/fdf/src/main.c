@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 19:18:38 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/23 20:47:37 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/24 17:58:30 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,12 @@ int	main(int argc, char *argv[])
 	t_img_elem	img_elem;
 	t_map		map;
 
-	if (fdf_parse_map(argc, argv, &map) == FALSE)
+	if (fdf_load_map(argc, argv, &map) == FALSE)
 	{
 		ft_putstr_fd("invalid map format\n", 2);
 		return (64);
 	}
+	fdf_align_map(&map);
 		print_map(&map);
 	mlx_info.map = &map;
 	if (init_win(&mlx_info) != 0

@@ -6,12 +6,11 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 20:12:02 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/23 20:34:34 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/24 18:23:24 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include "fdf_type.h"
 # include <time.h>
 # include <stdio.h>
 
@@ -23,13 +22,14 @@ void	swap_point(t_point **p0, t_point **p1)
 	*p0 = *p1;
 	*p1 = temp;
 }
+
 t_uint32	get_color(char *str)
 {
 	while (*str >= '0' && *str <= '9')
 		++str;
 	if (*str == 0 || *str != ',')
 		return (0x00FFFFFF);
-	return (ft_htoi(str));
+	return (ft_htoi(str + 1));
 }
 
 void	get_frametime(void)
