@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 17:54:03 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/23 18:28:05 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/26 15:19:51 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	init_win(t_mlx_info *mlx_info)
 {
+	ft_putstr_fd("initializing mlx window and image...\n", 1);
 	mlx_info->mlx_ptr = mlx_init();
 	if (mlx_info->mlx_ptr == NULL)
 		return (1);
@@ -30,6 +31,7 @@ int	init_win(t_mlx_info *mlx_info)
 
 int	init_img(t_mlx_info *mlx_info, t_img_elem *img_elem)
 {
+	ft_putstr_fd("allocating image space...\n", 1);
 	img_elem->img_arr = (t_pixel *)mlx_get_data_addr(mlx_info->img_ptr,
 			&img_elem->depth_bits, &img_elem->line_bytes, &img_elem->endian);
 	if (img_elem->img_arr == NULL)
@@ -53,6 +55,5 @@ int	init_img(t_mlx_info *mlx_info, t_img_elem *img_elem)
 	img_elem->hor_size = img_elem->line_bytes * 8 / img_elem->depth_bits;
 	img_elem->ver_size = SCREEN_HEIGHT;
 	img_elem->arr_bytes = img_elem->line_bytes * img_elem->ver_size;
-	mlx_info->img_elem = img_elem;
 	return (0);
 }

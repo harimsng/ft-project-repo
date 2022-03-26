@@ -6,20 +6,21 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 17:10:04 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/24 21:37:14 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/26 21:28:45 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_CONST_H
 # define FDF_CONST_H
 
-# define SCREEN_WIDTH (600)
-# define SCREEN_HEIGHT (400)
+# define SCREEN_WIDTH (1920)
+# define SCREEN_HEIGHT (1080)
 
 # define MAP_MAXROWS (1024)
 # define MAP_MAXCOLS (1024)
 
-# define MAGIC_ANGLE (0.61)
+//# define MAGIC_ANGLE (0.52)
+# define MAGIC_ANGLE (0.5)
 
 # define TRUE (1)
 # define FALSE (0)

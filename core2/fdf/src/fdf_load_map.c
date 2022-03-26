@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 17:58:01 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/24 22:16:26 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/26 17:21:14 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_bool	fdf_load_map(int argc, char **argv, t_map *map)
 {
 	int		fd;
 
+	ft_putstr_fd("loading map file...\n", 1);
 	if (argc != 2 && argc != 4)
 	{
 		ft_putstr_fd("./fdf map_name [width unit] [height unit]", 2);
@@ -35,17 +36,19 @@ t_bool	fdf_load_map(int argc, char **argv, t_map *map)
 		perror("Invalid map file");
 		exit(32);
 	}
-	get_variable(argc, argv + 2, map);
-	return (read_map(fd, map));
+	return (read_map(fd, map) && get_variable(argc, argv + 2, map));
 }
 
 t_bool	get_variable(int argc, char **var, t_map *map)
 {
-	map->dx = 0;
-	map->dz = 0;
+	int		temp_dx;
+
+	fdf_align_map(map);
 	if (argc == 4)
 	{
-		map->dx = ft_atoi(var[0]);
+		temp_dx = ft_atoi(var[0]);
+		if (temp_dx != 0)
+			map->dx = temp_dx;
 		map->dz = ft_atoi(var[1]);
 	}
 	return (TRUE);
@@ -68,7 +71,7 @@ t_bool	read_map(int fd, t_map *map)
 	}
 	row_words[idx] = NULL;
 	map->row = idx;
-	map->map = malloc(sizeof(t_point *) * map->row);
+	map->map_arr = malloc(sizeof(t_point *) * map->row);
 	return (check_map(map, row_words));
 }
 
@@ -85,15 +88,15 @@ t_bool	check_map(t_map *map, t_word_arr *row_words)
 	idx = 0;
 	while (idx < map->row)
 	{
-		map->map[idx] = malloc(sizeof(t_point) * map->col);
+		map->map_arr[idx] = malloc(sizeof(t_point) * map->col);
 		jdx = 0;
 		while (row_words[idx][jdx] != NULL && jdx < map->col)
 		{
-			map->map[idx][jdx].y = idx;
-			map->map[idx][jdx].x = jdx;
-			map->map[idx][jdx].z = ft_atoi(row_words[idx][jdx]);
-			map->map[idx][jdx].color = get_color(row_words[idx][jdx]);
-			if (map->map[idx][jdx].color != 0x00FFFFFF)
+			map->map_arr[idx][jdx].y = idx;
+			map->map_arr[idx][jdx].x = jdx;
+			map->map_arr[idx][jdx].z = ft_atoi(row_words[idx][jdx]);
+			map->map_arr[idx][jdx].color = get_color(row_words[idx][jdx]);
+			if (map->map_arr[idx][jdx].color != 0x00FFFFFF)
 				map->colored = TRUE;
 			++jdx;
 		}

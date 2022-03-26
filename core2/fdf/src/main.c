@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 19:18:38 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/24 22:31:37 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/26 21:06:52 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include <stdio.h>
 
 static int	fdf_loop(t_mlx_info *mlx_info);
+
+	void	drawAALine(int, int, int, int, t_img_elem *);
 
 int	main(int argc, char *argv[])
 {
@@ -26,7 +28,7 @@ int	main(int argc, char *argv[])
 		ft_putstr_fd("invalid map format\n", 2);
 		return (64);
 	}
-	fdf_align_map(&map);
+	mlx_info.img_elem = &img_elem;
 	mlx_info.map = &map;
 	if (init_win(&mlx_info) != 0
 		|| init_img(&mlx_info, &img_elem) != 0)
@@ -34,9 +36,9 @@ int	main(int argc, char *argv[])
 		perror("initialization failed");
 		return (128);
 	}
+	ft_putstr_fd("rendering...\n", 1);
 	fdf_projection(&mlx_info);
 	mlx_key_hook(mlx_info.win_ptr, key_hook, NULL);
-//	mlx_expose_hook(mlx_info.win_ptr, expose_hook, &mlx_info);
 	mlx_loop_hook(mlx_info.mlx_ptr, fdf_loop, &mlx_info);
 	mlx_loop(mlx_info.mlx_ptr);
 	return (0);
@@ -46,7 +48,6 @@ int	fdf_loop(t_mlx_info *mlx_info)
 {
 	get_frametime();
 	mlx_sync(3, mlx_info->win_ptr);
-//	mlx_do_sync(mlx_info->mlx_ptr);
 	ft_memset(mlx_info->img_elem->img_arr, 0, mlx_info->img_elem->arr_bytes);
 	fdf_wireframe(mlx_info->img_elem, mlx_info->map);
 	mlx_put_image_to_window(mlx_info->mlx_ptr,

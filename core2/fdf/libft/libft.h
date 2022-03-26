@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 23:25:37 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/23 20:18:39 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/26 20:45:18 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int			ft_atoi(const char *str);
 int			ft_atoi_ptr(char **strptr);
 int			ft_htoi(const char *str);
 int			ft_abs(int num);
+void		ft_swap(int *a, int *b);
 
 void		*ft_calloc(size_t count, size_t size);
 char		*ft_strdup(const char *s);

@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 17:54:32 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/24 19:08:00 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/26 17:14:42 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,8 @@ void	fdf_align_map(t_map *map)
 	int		y_diff;
 	int		x_diff;
 
-	if (map->dx == 0 || map->dz == 0)
-	{
-		map->dx = SCREEN_WIDTH / (10 + map->row * 4 / 3);
-		map->dz = SCREEN_HEIGHT / (10 + map->col * 5 / 3);
-	}
+	map->dx = SCREEN_WIDTH / (10 + map->row * 4 / 3);
+	map->dz = SCREEN_HEIGHT / (10 + map->col * 5 / 3);
 	map->x0 = SCREEN_WIDTH / 2;
 	map->y0 = SCREEN_HEIGHT / 2;
 	x_diff = map->dx * (map->row + map->col) / 4;

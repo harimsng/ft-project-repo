@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 19:26:20 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/24 21:50:08 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/26 20:52:08 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <math.h>
+#include <stdio.h>
 
 // mlx & map initialization
 int			init_win(t_mlx_info *mlx_info);
@@ -29,8 +30,9 @@ void		fdf_align_map(t_map *map);
 
 // update & plot functions
 void		fdf_update(t_img_elem *img_elem);
-int			fdf_plot(int x, int y);
+void		fdf_plot(int x, int y, double color, t_img_elem *img_elem);
 void		fdf_drawline(t_img_elem *img_elem, t_point *p0, t_point *p1);
+void		fdf_aa_drawline(t_img_elem *img_elem, t_point *p0, t_point *p1);
 void		fdf_wireframe(t_img_elem *img_elem, t_map *map);
 void		fdf_projection(t_mlx_info *mlx_info);
 void		fdf_control_map(t_map *map);

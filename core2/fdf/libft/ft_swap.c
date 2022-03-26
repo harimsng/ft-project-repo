@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_hook.c                                         :+:      :+:    :+:   */
+/*   ft_swap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/24 21:42:44 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/24 22:34:47 by hseong           ###   ########.fr       */
+/*   Created: 2022/03/26 20:44:02 by hseong            #+#    #+#             */
+/*   Updated: 2022/03/26 20:59:21 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "libft.h"
 
-int	key_hook(int keycode, void *param)
+void	ft_swap(int *a, int *b)
 {
-	(void)param;
-	if (keycode == 53)
-		exit(0);
-	return (0);
-}
-
-int	expose_hook(void *param)
-{
-	(void)param;
-	return (0);
+	*a ^= *b;
+	*b ^= *a;
+	*a ^= *b;
 }

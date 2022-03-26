@@ -12,7 +12,7 @@ SRC		=	main.c\
 			fdf_hook.c\
 			fdf_plot.c\
 			fdf_projection.c\
-			fdf_drawline.c\
+			fdf_aa_drawline.c\
 			fdf_wireframe.c\
 			fdf_color.c\
 			fdf_load_map.c\
