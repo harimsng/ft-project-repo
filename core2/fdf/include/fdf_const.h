@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 17:10:04 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/27 17:39:16 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/27 19:26:21 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 
 # define TRUE (1)
 # define FALSE (0)
+
+# define BYTE ((t_uint32)0xFF)
 
 static const int	screen_whalf = SCREEN_WIDTH / 2;
 static const int	screen_hhalf = SCREEN_HEIGHT / 2;

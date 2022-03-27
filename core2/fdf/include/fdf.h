@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 19:26:20 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/27 18:10:15 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/27 21:15:11 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	fdf_aa_drawline(t_img_elem *img_elem, t_vertex *p0, t_vertex *p1);
 void	fdf_wireframe(t_img_elem *img_elem, t_map *map);
 void	fdf_projection(t_mlx_info *mlx_info);
 void	fdf_control_map(t_map *map);
-t_pixel	grade_color(t_pixel p0, t_pixel p1, double ratio);
+t_pixel	grade_color(t_pixel p0, t_pixel p1, double ratio, double brightness);
 
 // hook functions
 int		key_hook(int keycode, void *param);
@@ -44,6 +44,7 @@ int		expose_hook(void *param);
 
 // utility functions
 t_pixel	get_color(char *str);
+t_pixel	add_color(t_pixel p0, t_pixel p1);
 double	get_z_coord(char *s);
 void	swap_point(t_vertex **p0, t_vertex **p1);
 char	*get_next_line(int fd);
