@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 17:58:01 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/26 17:21:14 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/27 18:19:00 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static t_bool	dealloc_map(t_word_arr *row_words, t_bool error);
 
 t_bool	fdf_load_map(int argc, char **argv, t_map *map)
 {
+	t_bool	result;
 	int		fd;
 
 	ft_putstr_fd("loading map file...\n", 1);
@@ -36,20 +37,24 @@ t_bool	fdf_load_map(int argc, char **argv, t_map *map)
 		perror("Invalid map file");
 		exit(32);
 	}
-	return (read_map(fd, map) && get_variable(argc, argv + 2, map));
+	result = read_map(fd, map);
+	result = result && get_variable(argc, argv + 2, map);
+	map->max_height = get_z_coord(NULL);
+	map->colored = get_color(NULL);
+	return (result);
 }
 
 t_bool	get_variable(int argc, char **var, t_map *map)
 {
-	int		temp_dx;
+	double	temp_hor_scale;
 
 	fdf_align_map(map);
 	if (argc == 4)
 	{
-		temp_dx = ft_atoi(var[0]);
-		if (temp_dx != 0)
-			map->dx = temp_dx;
-		map->dz = ft_atoi(var[1]);
+		temp_hor_scale = (double)ft_atoi(var[0]);
+		if (temp_hor_scale != 0)
+			map->hor_scale = temp_hor_scale;
+		map->ver_scale  = (double)ft_atoi(var[1]);
 	}
 	return (TRUE);
 }
@@ -71,7 +76,7 @@ t_bool	read_map(int fd, t_map *map)
 	}
 	row_words[idx] = NULL;
 	map->row = idx;
-	map->map_arr = malloc(sizeof(t_point *) * map->row);
+	map->map_arr = malloc(sizeof(t_vertex *) * map->row);
 	return (check_map(map, row_words));
 }
 
@@ -88,16 +93,13 @@ t_bool	check_map(t_map *map, t_word_arr *row_words)
 	idx = 0;
 	while (idx < map->row)
 	{
-		map->map_arr[idx] = malloc(sizeof(t_point) * map->col);
+		map->map_arr[idx] = malloc(sizeof(t_vertex) * map->col);
 		jdx = 0;
 		while (row_words[idx][jdx] != NULL && jdx < map->col)
 		{
-			map->map_arr[idx][jdx].y = idx;
-			map->map_arr[idx][jdx].x = jdx;
-			map->map_arr[idx][jdx].z = ft_atoi(row_words[idx][jdx]);
-			map->map_arr[idx][jdx].color = get_color(row_words[idx][jdx]);
-			if (map->map_arr[idx][jdx].color != 0x00FFFFFF)
-				map->colored = TRUE;
+			map->map_arr[idx][jdx] = (t_vertex){.y = idx, .x = jdx,
+				.z = get_z_coord(row_words[idx][jdx]),
+				.color = get_color(row_words[idx][jdx])};
 			++jdx;
 		}
 		if (jdx != map->col)

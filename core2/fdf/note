@@ -1,3 +1,7 @@
 compound literal
 ... = (t_...) { .member2 = 0};
 >> .member1 = 0, .member2 = 0;
+
+floating point number n can be greater or less than integer n?
+ex) (float)1.0 != (int)1
+	(float)1.0 == 0.999... or 1.000...

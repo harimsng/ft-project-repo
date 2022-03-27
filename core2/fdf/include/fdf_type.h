@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 17:06:22 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/26 20:20:26 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/27 18:04:16 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,39 +15,42 @@
 
 # include <unistd.h>
 
-typedef int				t_pixel;
+typedef unsigned int	t_pixel;
 typedef int				t_bool;
 typedef unsigned char	t_byte;
 typedef unsigned int	t_uint32;
 
-typedef struct s_point
+typedef struct s_vertex
 {
 	double		x;
 	double		y;
 	double		z;
 	t_uint32	color;
-}						t_point;
+}						t_vertex;
 
 /*
-typedef struct s_point
+integer coordinates
+
+typedef struct s_vertex
 {
 	int			x;
 	int			y;
 	int			z;
 	t_uint32	color;
-}						t_point;
+}						t_vertex;
 */
 
 typedef struct s_map
 {
-	t_point	**map_arr;
+	t_vertex	**map_arr;
 	int		row;
 	int		col;
 	int		colored;
+	int		max_height;
 	int		x0;
 	int		y0;
-	int		dx;
-	int		dz;
+	double	hor_scale;
+	double	ver_scale;
 }						t_map;
 
 typedef struct s_img_elem

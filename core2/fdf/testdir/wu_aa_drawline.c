@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   wu_aa_algorithm.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/27 12:33:31 by hseong            #+#    #+#             */
+/*   Updated: 2022/03/27 12:37:29 by hseong           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "fdf.h" 
 
 void swap(int* a , int*b)
 {
@@ -50,8 +63,13 @@ void drawPixel( int x , int y , float brightness, t_img_elem *img_elem)
     img_elem->img_arr[x + img_elem->hor_size * y] = c * 0x010101;
 }
   
-void drawAALine(int x0 , int y0 , int x1 , int y1, t_img_elem *img_elem)
+void fdf_aa_drawline(t_img_elem *img_elem, t_point *p0, t_point *p1)
 {
+	int	x0 = p0->x;
+	int	y0 = p0->y;
+	int	x1 = p1->x;
+	int	y1 = p1->y;
+
     int steep = absolute(y1 - y0) > absolute(x1 - x0) ;
   
     // swap the co-ordinates if slope > 1 or we
@@ -87,9 +105,9 @@ void drawAALine(int x0 , int y0 , int x1 , int y1, t_img_elem *img_elem)
             // pixel coverage is determined by fractional
             // part of y co-ordinate
             drawPixel(iPartOfNumber(intersectY), x,
-                        rfPartOfNumber(intersectY), img_elem);
-            drawPixel(iPartOfNumber(intersectY)-1, x,
                         fPartOfNumber(intersectY), img_elem);
+            drawPixel(iPartOfNumber(intersectY)-1, x,
+                        rfPartOfNumber(intersectY), img_elem);
             intersectY += gradient;
         }
     }
@@ -101,9 +119,9 @@ void drawAALine(int x0 , int y0 , int x1 , int y1, t_img_elem *img_elem)
             // pixel coverage is determined by fractional
             // part of y co-ordinate
             drawPixel(x, iPartOfNumber(intersectY),
-                        rfPartOfNumber(intersectY), img_elem);
+                        fPartOfNumber(intersectY), img_elem);
             drawPixel(x, iPartOfNumber(intersectY)-1,
-                          fPartOfNumber(intersectY), img_elem);
+                          rfPartOfNumber(intersectY), img_elem);
             intersectY += gradient;
         }
     }

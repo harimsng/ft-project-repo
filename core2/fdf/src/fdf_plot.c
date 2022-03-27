@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 21:49:08 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/26 21:11:13 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/27 15:10:19 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	fdf_update(t_img_elem *img_elem)
 		x = 0;
 		while (x < SCREEN_WIDTH)
 		{
-			fdf_plot(x, y, 0.99999999, img_elem);
+			fdf_plot(x, y, (double)x / SCREEN_WIDTH, img_elem);
 			++x;
 		}
 		++y;
@@ -34,15 +34,10 @@ void	fdf_update(t_img_elem *img_elem)
 	++frame;
 }
 
-// frame overflow
-void	fdf_plot(int x, int y, double color, t_img_elem *img_elem)
+void	fdf_plot(int x, int y, double brightness, t_img_elem *img_elem)
 {
-	img_elem->img_arr[x + y * img_elem->hor_size] = (int)(0xFE * color) * 0x00010101;
+	img_elem->img_arr[x + y * img_elem->hor_size]
+		= (int)(brightness * 0x80) * 0x10000
+		+ (int)(brightness * 0x40) * 0x100
+		+ (int)(brightness * 0x20) * 0x1;
 }
-
-/*
-void	fdf_plot_img(double x, double y, double color, t_point **map)
-{
-	map[
-}
-*/

@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 20:31:10 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/26 20:20:11 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/27 18:55:35 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	loop_grid(t_img_elem *img_elem, t_map *map);
 
 void	fdf_wireframe(t_img_elem *img_elem, t_map *map)
 {
-	t_point	**map_arr;
+	t_vertex	**map_arr;
 	int		x;
 	int		y;
 
@@ -44,7 +44,7 @@ void	fdf_wireframe(t_img_elem *img_elem, t_map *map)
 
 static void	loop_diagonal(t_img_elem *img_elem, t_map *map)
 {
-	t_point	**map_arr;
+	t_vertex	**map_arr;
 	int		x;
 	int		y;
 
@@ -66,7 +66,7 @@ static void	loop_diagonal(t_img_elem *img_elem, t_map *map)
 
 static void	loop_grid(t_img_elem *img_elem, t_map *map)
 {
-	t_point	**map_arr;
+	t_vertex	**map_arr;
 	int		x;
 	int		y;
 

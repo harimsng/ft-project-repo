@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 19:18:38 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/26 21:06:52 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/27 15:10:25 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include <stdio.h>
 
 static int	fdf_loop(t_mlx_info *mlx_info);
-
-	void	drawAALine(int, int, int, int, t_img_elem *);
 
 int	main(int argc, char *argv[])
 {

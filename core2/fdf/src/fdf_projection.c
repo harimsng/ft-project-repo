@@ -6,17 +6,17 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 20:48:11 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/26 19:41:30 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/27 18:12:04 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	transform_point(t_map *map, t_point *point);
+static void	transform_point(t_map *map, t_vertex *point);
 
 void	fdf_projection(t_mlx_info *mlx_info)
 {
-	t_point	**map_arr;
+	t_vertex	**map_arr;
 	t_map		*map;
 	int			x;
 	int			y;
@@ -36,15 +36,15 @@ void	fdf_projection(t_mlx_info *mlx_info)
 	}
 }
 
-static void	transform_point(t_map *map, t_point *point)
+static void	transform_point(t_map *map, t_vertex *point)
 {
 	double	x;
 	double	y;
 	double	z;
 
-	x = point->x * (double)map->dx;
-	y = point->y * (double)map->dx;
-	z = point->z * (double)map->dz;
+	x = point->x * (double)map->hor_scale;
+	y = point->y * (double)map->hor_scale;
+	z = point->z * (double)map->ver_scale;
 
 	point->x = (sin(M_PI_4) * y + cos(M_PI_4) * x);
 	point->y = (-cos(MAGIC_ANGLE) * z
