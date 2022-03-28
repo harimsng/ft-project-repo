@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 17:10:04 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/28 19:53:55 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/28 20:43:32 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@
 # define MAP_MAXROWS (1024)
 # define MAP_MAXCOLS (1024)
 
-# define MAGIC_ANGLE (0.5236)
+# define HOR_ANGLE (0.7853) // PI / 4
+# define VER_ANGLE (0.5236) // PI / 6
 //# define MAGIC_ANGLE (0.4636)
 
 # define TRUE (1)

@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 18:31:12 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/28 19:37:30 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/28 20:40:34 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 // y coordinate is higher(lower in the display) than mid-value.
 void	fdf_align_map(t_map_info *map_info)
 {
-	map_info->hor_angle = M_PI_4;
-	map_info->ver_angle = MAGIC_ANGLE;
+	map_info->hor_angle = HOR_ANGLE;
+	map_info->ver_angle = VER_ANGLE;
 	map_info->hor_scale = (double)SCREEN_WIDTH
 			/ (map_info->col + map_info->row);
 	map_info->ver_scale = (double)SCREEN_HEIGHT

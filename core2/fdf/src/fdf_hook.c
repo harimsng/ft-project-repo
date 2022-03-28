@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 21:42:44 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/28 17:15:46 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/28 20:38:33 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static const keycode_func	g_keycode_table[128] = {
 /*46*/dummy_func,
 /*47*/dummy_func,
 /*48*/dummy_func,
-/*49*/dummy_func,
+/*49*/set_default,
 /*50*/dummy_func,
 /*51*/dummy_func,
 /*52*/dummy_func,

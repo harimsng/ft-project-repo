@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 16:26:57 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/28 17:14:07 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/28 20:38:08 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ void	rotate_roll(t_mlx_info *mlx_info);
 void	rotate_rroll(t_mlx_info *mlx_info);
 void	scale_up(t_mlx_info *mlx_info);
 void	scale_down(t_mlx_info *mlx_info);
+void	set_default(t_mlx_info *mlx_info);
 
 #endif
