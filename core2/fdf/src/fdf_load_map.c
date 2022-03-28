@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 17:58:01 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/28 16:11:52 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/28 19:36:36 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ t_bool	read_map(int fd, t_map_info *map_info)
 		++idx;
 	}
 	row_words[idx] = NULL;
+	map_info->colored = FALSE;
 	map_info->row = idx;
 	map_info->map_origin = malloc(sizeof(t_vertex *) * map_info->row);
 	return (check_map(map_info, row_words));
@@ -86,27 +87,27 @@ t_bool	check_map(t_map_info *map_info, t_word_arr *row_words)
 	int		jdx;
 
 	idx = 0;
-	map_info->colored = FALSE;
 	while (row_words[0][idx] != NULL)
 		++idx;
 	map_info->col = idx;
 	idx = 0;
-	while (idx < map_info->row)
+	jdx = map_info->col;
+	while (idx < map_info->row && jdx == map_info->col)
 	{
 		map_info->map_origin[idx] = malloc(sizeof(t_vertex) * map_info->col);
 		jdx = 0;
 		while (row_words[idx][jdx] != NULL && jdx < map_info->col)
 		{
-			map_info->map_origin[idx][jdx] = (t_vertex){.y = idx, .x = jdx,
+			map_info->map_origin[idx][jdx] = (t_vertex){
+				.y = idx - map_info->row / 2,
+				.x = jdx - map_info->col / 2,
 				.z = get_z_coord(row_words[idx][jdx]),
 				.color = get_color(row_words[idx][jdx])};
 			++jdx;
 		}
-		if (jdx != map_info->col)
-			return (dealloc_map(row_words, TRUE));
 		++idx;
 	}
-	return (dealloc_map(row_words, FALSE));
+	return (dealloc_map(row_words, jdx != map_info->col));
 }
 
 t_bool	dealloc_map(t_word_arr *row_words, t_bool error)

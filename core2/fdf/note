@@ -5,3 +5,12 @@ compound literal
 floating point number n can be greater or less than integer n?
 ex) (float)1.0 != (int)1
 	(float)1.0 == 0.999... or 1.000...
+
+autorepeat (key hold event)
+libX11
+https://github.com/D-Programming-Deimos/libX11
+mlx_key_hook() respond to key release event.
+in mlx source file, this function is wrapping hook function of X11 or corresponding API.
+change the parameter of hook function from 3(key release) to 2(key press)
+then mlx_key_hook() respond to key press event.
+mlx_do_key_autorepeaton() function literally does the work.

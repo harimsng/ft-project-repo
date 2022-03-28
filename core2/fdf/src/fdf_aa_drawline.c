@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 16:06:03 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/28 16:10:17 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/28 19:49:18 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	fdf_aa_drawline(t_img_elem *img_elem, t_vertex *p0, t_vertex *p1)
 
 	dx = p1->x - p0->x;
 	dy = p1->y - p0->y;
-	if ((t_uint32)p0->x >= SCREEN_WIDTH || (t_uint32)p0->y >= SCREEN_HEIGHT
-		|| (t_uint32)p1->x >= SCREEN_WIDTH || (t_uint32)p1->y >= SCREEN_HEIGHT)
+	if ((t_uint32)p0->x >= SCREEN_WIDTH - 1 || (t_uint32)p0->y >= SCREEN_HEIGHT - 1
+		|| (t_uint32)p1->x >= SCREEN_WIDTH - 1 || (t_uint32)p1->y >= SCREEN_HEIGHT - 1)
 		return ;
 	img_elem->img_arr[(int)p0->x + img_elem->hor_size * (int)p0->y] = p0->color;
 	if (ft_abs(dx) > ft_abs(dy))

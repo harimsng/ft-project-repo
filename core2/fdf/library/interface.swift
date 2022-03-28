@@ -67,7 +67,7 @@ public func mlx_new_window_swift(_ mlxptr:UnsafeRawPointer, Width w:UInt32, Heig
 public func mlx_key_hook_swift(_ winptr:UnsafeRawPointer, _ fctptr:UnsafeMutableRawPointer, _ paramptr:UnsafeMutableRawPointer) -> Int32
 {
 	let win:MlxWin = _mlx_bridge(ptr:winptr)
-	win.addHook(index: 3, fct: fctptr, param: paramptr)
+	win.addHook(index: 2, fct: fctptr, param: paramptr)
 	return (Int32(0));
 }
 

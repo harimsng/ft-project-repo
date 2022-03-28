@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 17:10:04 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/28 17:16:20 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/28 19:53:55 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@
 # define SCREEN_WIDTH (1920)
 # define SCREEN_HEIGHT (1080)
 
-# define X_STEP (10)
-# define Y_STEP (10)
-# define YAW_STEP (0.05)
-# define ROLL_STEP (0.05)
+# define TEXT_HEIGHT (50)
+
+# define X_STEP (6)
+# define Y_STEP (6)
+# define YAW_STEP (0.1)
+# define ROLL_STEP (0.1)
 # define SCALE_STEP (2) 
 
 # define MAP_MAXROWS (1024)

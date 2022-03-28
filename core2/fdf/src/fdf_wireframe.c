@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 20:31:10 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/28 16:16:39 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/28 19:51:30 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	fdf_wireframe(t_img_elem *img_elem, t_map_info *map_info)
 	int			y;
 
 	draw = fdf_drawline;
-	if (map_info->hor_scale > 8)
+	if (map_info->hor_scale > 16)
 		draw = fdf_aa_drawline;
 	map_arr = map_info->map_arr;
 	y = -1;
