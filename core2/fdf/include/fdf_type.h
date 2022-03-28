@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 17:06:22 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/27 18:04:16 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/28 16:47:41 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ typedef unsigned int	t_uint32;
 
 typedef struct s_vertex
 {
-	double		x;
-	double		y;
-	double		z;
-	t_uint32	color;
+	double	x;
+	double	y;
+	double	z;
+	t_pixel	color;
 }						t_vertex;
 
 /*
@@ -40,9 +40,10 @@ typedef struct s_vertex
 }						t_vertex;
 */
 
-typedef struct s_map
+typedef struct s_map_info
 {
 	t_vertex	**map_arr;
+	t_vertex	**map_origin;
 	int		row;
 	int		col;
 	int		colored;
@@ -51,7 +52,9 @@ typedef struct s_map
 	int		y0;
 	double	hor_scale;
 	double	ver_scale;
-}						t_map;
+	double	hor_angle;
+	double	ver_angle;
+}						t_map_info;
 
 typedef struct s_img_elem
 {
@@ -70,7 +73,7 @@ typedef struct s_mlx_info
 	void		*win_ptr;
 	void		*img_ptr;
 	t_img_elem	*img_elem;
-	t_map		*map;
+	t_map_info	*map_info;
 }						t_mlx_info;
 
 #endif

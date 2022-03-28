@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 17:58:01 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/27 18:19:00 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/28 16:11:52 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 typedef char	**t_word_arr;
 
-static t_bool	get_variable(int argc, char **var, t_map *map);
-static t_bool	read_map(int fd, t_map *map);
-static t_bool	check_map(t_map *map, t_word_arr *row_words);
+static t_bool	get_variable(int argc, char **var, t_map_info *map_info);
+static t_bool	read_map(int fd, t_map_info *map_info);
+static t_bool	check_map(t_map_info *map_info, t_word_arr *row_words);
 static t_bool	dealloc_map(t_word_arr *row_words, t_bool error);
 
-t_bool	fdf_load_map(int argc, char **argv, t_map *map)
+t_bool	fdf_load_map(int argc, char **argv, t_map_info *map_info)
 {
 	t_bool	result;
 	int		fd;
@@ -37,29 +37,29 @@ t_bool	fdf_load_map(int argc, char **argv, t_map *map)
 		perror("Invalid map file");
 		exit(32);
 	}
-	result = read_map(fd, map);
-	result = result && get_variable(argc, argv + 2, map);
-	map->max_height = get_z_coord(NULL);
-	map->colored = get_color(NULL);
+	result = read_map(fd, map_info);
+	result = result && get_variable(argc, argv + 2, map_info);
+	map_info->max_height = get_z_coord(NULL);
+	map_info->colored = get_color(NULL);
 	return (result);
 }
 
-t_bool	get_variable(int argc, char **var, t_map *map)
+t_bool	get_variable(int argc, char **var, t_map_info *map_info)
 {
 	double	temp_hor_scale;
 
-	fdf_align_map(map);
+	fdf_align_map(map_info);
 	if (argc == 4)
 	{
 		temp_hor_scale = (double)ft_atoi(var[0]);
 		if (temp_hor_scale != 0)
-			map->hor_scale = temp_hor_scale;
-		map->ver_scale  = (double)ft_atoi(var[1]);
+			map_info->hor_scale = temp_hor_scale;
+		map_info->ver_scale = (double)ft_atoi(var[1]);
 	}
 	return (TRUE);
 }
 
-t_bool	read_map(int fd, t_map *map)
+t_bool	read_map(int fd, t_map_info *map_info)
 {
 	char		*raw_row;
 	t_word_arr	row_words[MAP_MAXROWS];
@@ -75,34 +75,34 @@ t_bool	read_map(int fd, t_map *map)
 		++idx;
 	}
 	row_words[idx] = NULL;
-	map->row = idx;
-	map->map_arr = malloc(sizeof(t_vertex *) * map->row);
-	return (check_map(map, row_words));
+	map_info->row = idx;
+	map_info->map_origin = malloc(sizeof(t_vertex *) * map_info->row);
+	return (check_map(map_info, row_words));
 }
 
-t_bool	check_map(t_map *map, t_word_arr *row_words)
+t_bool	check_map(t_map_info *map_info, t_word_arr *row_words)
 {
 	int		idx;
 	int		jdx;
 
 	idx = 0;
-	map->colored = FALSE;
+	map_info->colored = FALSE;
 	while (row_words[0][idx] != NULL)
 		++idx;
-	map->col = idx;
+	map_info->col = idx;
 	idx = 0;
-	while (idx < map->row)
+	while (idx < map_info->row)
 	{
-		map->map_arr[idx] = malloc(sizeof(t_vertex) * map->col);
+		map_info->map_origin[idx] = malloc(sizeof(t_vertex) * map_info->col);
 		jdx = 0;
-		while (row_words[idx][jdx] != NULL && jdx < map->col)
+		while (row_words[idx][jdx] != NULL && jdx < map_info->col)
 		{
-			map->map_arr[idx][jdx] = (t_vertex){.y = idx, .x = jdx,
+			map_info->map_origin[idx][jdx] = (t_vertex){.y = idx, .x = jdx,
 				.z = get_z_coord(row_words[idx][jdx]),
 				.color = get_color(row_words[idx][jdx])};
 			++jdx;
 		}
-		if (jdx != map->col)
+		if (jdx != map_info->col)
 			return (dealloc_map(row_words, TRUE));
 		++idx;
 	}

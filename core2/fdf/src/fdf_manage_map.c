@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 18:31:12 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/27 18:46:51 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/28 17:18:30 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,33 @@
 
 // align map to the center of the display.
 // y coordinate is higher(lower in the display) than mid-value.
-void	fdf_align_map(t_map *map)
+void	fdf_align_map(t_map_info *map_info)
 {
-	map->hor_scale = (double)SCREEN_WIDTH / (map->col + map->row);
-	map->ver_scale = (double)SCREEN_HEIGHT
-			/ (map->col + map->row + map->max_height / 2);
-	map->x0 = SCREEN_WIDTH / 2;
-	map->y0 = SCREEN_HEIGHT / 2;
-	map->x0 -= map->hor_scale * (map->col + map->row)
+	map_info->hor_angle = M_PI_4;
+	map_info->ver_angle = MAGIC_ANGLE;
+	map_info->hor_scale = (double)SCREEN_WIDTH
+			/ (map_info->col + map_info->row);
+	map_info->ver_scale = (double)SCREEN_HEIGHT
+			/ (double)(map_info->col + map_info->row + map_info->max_height / 2);
+	map_info->x0 = SCREEN_WIDTH / 2;
+	map_info->y0 = SCREEN_HEIGHT / 2;
+	map_info->x0 -= map_info->hor_scale * (map_info->col + map_info->row)
 		* cos(M_PI_4) * cos(MAGIC_ANGLE) / 2;
-	map->y0 += map->hor_scale * (map->col + map->row)
+	map_info->y0 += map_info->hor_scale * (map_info->col + map_info->row)
 		* cos(M_PI_4) * sin(MAGIC_ANGLE) / 4;
 }
 
-void	fdf_control_map(t_map *map)
+void	fdf_alloc_map(t_map_info *map_info)
 {
-	(void)map;
+	t_vertex	**projected;
+	int			idx;
+
+	projected = malloc(sizeof(t_vertex *) * map_info->row);
+	idx = 0;
+	while (idx < map_info->row)
+	{
+		projected[idx] = malloc(sizeof(t_vertex) * map_info->col);
+		++idx;
+	}
+	map_info->map_arr = projected;
 }

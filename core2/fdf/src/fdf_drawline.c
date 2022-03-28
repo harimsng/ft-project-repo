@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 18:35:23 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/27 20:36:29 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/28 15:08:20 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	fdf_drawline(t_img_elem *img_elem, t_vertex *p0, t_vertex *p1)
 		|| (t_uint32)p1->x >= SCREEN_WIDTH || (t_uint32)p1->y >= SCREEN_HEIGHT)
 		return ;
 	img_elem->img_arr[(int)p0->x + img_elem->hor_size * (int)p0->y] = p0->color;
-	img_elem->img_arr[(int)p1->x + img_elem->hor_size * (int)p1->y] = p1->color;
 	if (ft_abs(dx) > ft_abs(dy))
 	{
 		if (dy > 0)
@@ -45,6 +44,7 @@ void	fdf_drawline(t_img_elem *img_elem, t_vertex *p0, t_vertex *p1)
 		else
 			fast_drawline_high_down(img_elem, *p0, *p1);
 	}
+	img_elem->img_arr[(int)p1->x + img_elem->hor_size * (int)p1->y] = p1->color;
 }
 
 static void	fast_drawline_low_down(t_img_elem *img_elem, t_vertex p0, t_vertex p1)
@@ -57,13 +57,13 @@ static void	fast_drawline_low_down(t_img_elem *img_elem, t_vertex p0, t_vertex p
 
 	x0 = p0.x;
 	y0 = p0.y;
-	dx = (int)p1.x - x0;
-	dy = ft_abs((int)p1.y - y0);
+	dx = (int)p1.x - (int)p0.x;
+	dy = (int)p0.y - (int)p1.y;
 	diff = 2 * dy - dx;
 	while (++x0 < (int)p1.x)
 	{
 		img_elem->img_arr[x0 + img_elem->hor_size * y0] =
-			grade_color(p0.color, p1.color, (x0 - (int)p0.x) / (p1.x - p0.x), 0);
+			grade_color(p0.color, p1.color, (x0 - p0.x) / dx);
 		if (diff > 0)
 		{
 			diff -= dx;
@@ -82,13 +82,13 @@ static void	fast_drawline_high_down(t_img_elem *img_elem, t_vertex p0, t_vertex 
 
 	x0 = p0.x;
 	y0 = p0.y;
-	dx = (int)p1.x - x0;
-	dy = ft_abs((int)p1.y - y0);
+	dx = (int)p1.x - p0.x;
+	dy = (int)p0.y - p1.y;
 	diff = 2 * dx - dy;
 	while (--y0 > (int)p1.y)
 	{
 		img_elem->img_arr[x0 + img_elem->hor_size * y0] =
-			grade_color(p0.color, p1.color, (y0 - (int)p0.y) / (p1.y - p0.y), 0);
+			grade_color(p0.color, p1.color, (y0 - p0.y) / dy);
 		if (diff > 0)
 		{
 			diff -= dy;
@@ -108,13 +108,13 @@ static void	fast_drawline_low_up(t_img_elem *img_elem, t_vertex p0, t_vertex p1)
 
 	x0 = p0.x;
 	y0 = p0.y;
-	dx = (int)p1.x - x0;
-	dy = ft_abs((int)p1.y - y0);
+	dx = (int)p1.x - (int)p0.x;
+	dy = (int)p1.y - (int)p0.y;
 	diff = 2 * dy - dx;
 	while (++x0 < (int)p1.x)
 	{
 		img_elem->img_arr[x0 + img_elem->hor_size * y0] =
-			grade_color(p0.color, p1.color, (x0 - (int)p0.x) / (p1.x - p0.x), 0);
+			grade_color(p0.color, p1.color, (x0 - p0.x) / dx);
 		if (diff > 0)
 		{
 			diff -= dx;
@@ -133,13 +133,13 @@ static void	fast_drawline_high_up(t_img_elem *img_elem, t_vertex p0, t_vertex p1
 
 	x0 = p0.x;
 	y0 = p0.y;
-	dx = ((int)p1.x - x0);
-	dy = ft_abs((int)p1.y - y0);
+	dx = (int)p1.x - (int)p0.x;
+	dy = (int)p1.y - (int)p0.y;
 	diff = 2 * dx - dy;
 	while (++y0 < (int)p1.y)
 	{
 		img_elem->img_arr[x0 + img_elem->hor_size * y0] =
-			grade_color(p0.color, p1.color, (y0 - (int)p0.y) / (p1.y - p0.y), 0);
+			grade_color(p0.color, p1.color, (y0 - p0.y) / dy);
 		if (diff > 0)
 		{
 			diff -= dy;

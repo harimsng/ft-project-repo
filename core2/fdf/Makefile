@@ -19,6 +19,7 @@ SRC		=	main.c\
 			fdf_load_map.c\
 			fdf_manage_map.c\
 			fdf_utils.c\
+			fdf_keymap1.c\
 			get_next_line.c
 
 SRC_DIR	=	src
@@ -28,6 +29,9 @@ OBJ		=	$(SRC:%.c=%.o)
 
 # header files
 INCL	=	fdf.h\
+			fdf_const.h\
+			fdf_type.h\
+			fdf_keymap.h\
 			mlx.h\
 			get_next_line.h\
 			libft.h

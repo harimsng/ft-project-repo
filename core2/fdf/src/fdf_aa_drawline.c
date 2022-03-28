@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 16:06:03 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/27 21:26:32 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/28 16:10:17 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ void	aa_drawline_low(t_img_elem *img_elem, t_vertex p0, t_vertex p1)
 	while (ix0 < (int)p1.x)
 	{
 		idx = (int)(p0.y) * img_elem->hor_size + ix0;
-		img_elem->img_arr[idx] = grade_color(p0.color, p1.color,
+		img_elem->img_arr[idx] = grade_color_aa(p0.color, p1.color,
 				(ix0 - p0.x) * dx, 1.0 - fdf_modf(p0.y));
-		img_elem->img_arr[idx + img_elem->hor_size] = grade_color(p0.color,
+		img_elem->img_arr[idx + img_elem->hor_size] = grade_color_aa(p0.color,
 				p1.color, (ix0 - p0.x) * dx, fdf_modf(p0.y));
 		p0.y += dydx;
 		++ix0;
@@ -76,9 +76,9 @@ void	aa_drawline_high(t_img_elem *img_elem, t_vertex p0, t_vertex p1)
 	while (iy0 < (int)p1.y)
 	{
 		idx = (int)(p0.x) + img_elem->hor_size * iy0;
-		img_elem->img_arr[idx] = grade_color(p0.color, p1.color,
+		img_elem->img_arr[idx] = grade_color_aa(p0.color, p1.color,
 				(iy0 - p0.y) * dy, 1.0 - fdf_modf(p0.x));
-		img_elem->img_arr[idx + 1] = grade_color(p0.color, p1.color,
+		img_elem->img_arr[idx + 1] = grade_color_aa(p0.color, p1.color,
 				(iy0 - p0.y) * dy, fdf_modf(p0.x));
 		p0.x += dxdy;
 		++iy0;
