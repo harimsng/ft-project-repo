@@ -6,20 +6,16 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 21:15:46 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/28 16:10:29 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/29 18:11:43 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-/*
-t_pixel	add_color(t_pixel p0, t_pixel p1)
-{
-	return (((((p0 & 0xFF0000) >> 17) + ((p1 & 0xFF0000) >> 17)) << 17)
-	+ ((((p0 & 0xFF00) >> 9) + ((p1 & 0xFF00) >> 9)) << 9)
-	+ (((p0 & 0xFF >> 1) + ((p1 & 0xFF >> 1))) << 1));
-}
-*/
+//	bit masks for bad color
+//	red &= 0xFF;
+//	green &= 0xFF;
+//	blue &= 0xFF;
 t_pixel	grade_color(t_pixel p0, t_pixel p1, double ratio)
 {
 	t_pixel	red;
@@ -31,14 +27,11 @@ t_pixel	grade_color(t_pixel p0, t_pixel p1, double ratio)
 	else if (ratio < 0.01)
 		ratio = 0.01;
 	red = ((ratio * (p1 >> 16 & 0xFF))
-		+ (1.0 - ratio) * (p0 >> 16 & 0xFF));
+			+ (1.0 - ratio) * (p0 >> 16 & 0xFF));
 	green = ((ratio * (p1 >> 8 & 0xFF))
-		+ (1.0 - ratio) * (p0 >> 8 & 0xFF));
+			+ (1.0 - ratio) * (p0 >> 8 & 0xFF));
 	blue = ((ratio * (p1 & 0xFF))
-		+ (1.0 - ratio) * (p0 & 0xFF));
-	red &= 0xFF;
-	green &= 0xFF;
-	blue &= 0xFF;
+			+ (1.0 - ratio) * (p0 & 0xFF));
 	red <<= 16;
 	green <<= 8;
 	return (red + green + blue);
@@ -55,11 +48,11 @@ t_pixel	grade_color_aa(t_pixel p0, t_pixel p1, double ratio, double bright)
 	else if (ratio < 0.01)
 		ratio = 0.01;
 	red = ((ratio * (p1 >> 16 & 0xFF))
-		+ (1.0 - ratio) * (p0 >> 16 & 0xFF)) * bright;
+			+ (1.0 - ratio) * (p0 >> 16 & 0xFF)) * bright;
 	green = ((ratio * (p1 >> 8 & 0xFF))
-		+ (1.0 - ratio) * (p0 >> 8 & 0xFF)) * bright;
+			+ (1.0 - ratio) * (p0 >> 8 & 0xFF)) * bright;
 	blue = ((ratio * (p1 & 0xFF))
-		+ (1.0 - ratio) * (p0 & 0xFF)) * bright;
+			+ (1.0 - ratio) * (p0 & 0xFF)) * bright;
 	red &= 0xFF;
 	green &= 0xFF;
 	blue &= 0xFF;

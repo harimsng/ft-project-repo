@@ -6,19 +6,19 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 21:42:44 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/28 20:38:33 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/29 18:18:08 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "fdf_keymap.h"
 
-typedef void	(*keycode_func)(t_mlx_info *mlx_info);
+typedef void			(*t_key_func)(t_mlx_info *mlx_info);
 
 static void	dummy_func(t_mlx_info *mlx_info);
 static void	exit_program(t_mlx_info *mlx_info);
 
-static const keycode_func	g_keycode_table[128] = {
+static const t_key_func	g_keycode_table[128] = {
 /*0*/move_obj_left,
 /*1*/move_obj_down,
 /*2*/move_obj_right,
@@ -79,10 +79,32 @@ static const keycode_func	g_keycode_table[128] = {
 /*57*/dummy_func,
 /*58*/dummy_func,
 /*59*/dummy_func,
+/*60*/dummy_func,
+/*61*/dummy_func,
+/*62*/dummy_func,
+/*63*/dummy_func,
+/*64*/dummy_func,
+/*65*/dummy_func,
+/*66*/dummy_func,
+/*67*/dummy_func,
+/*68*/dummy_func,
+/*69*/dummy_func,
+/*70*/dummy_func,
+/*71*/dummy_func,
+/*72*/dummy_func,
+/*73*/dummy_func,
+/*74*/dummy_func,
+/*75*/dummy_func,
+/*76*/dummy_func,
+/*77*/dummy_func,
+/*78*/dummy_func,
+/*79*/dummy_func,
 };
 
 int	key_hook(int keycode, void *param)
 {
+	if (keycode > 53)
+		return (0);
 	g_keycode_table[keycode](param);
 	return (0);
 }

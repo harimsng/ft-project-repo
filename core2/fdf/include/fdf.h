@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 19:26:20 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/28 17:31:54 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/29 18:06:48 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ double	get_z_coord(char *s);
 void	swap_point(t_vertex **p0, t_vertex **p1);
 char	*get_next_line(int fd);
 void	get_frametime(t_mlx_info *mlx_info);
+double	fdf_modf(double num);
 
 #endif

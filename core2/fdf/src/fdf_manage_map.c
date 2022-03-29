@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 18:31:12 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/28 20:40:34 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/29 18:30:40 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	fdf_align_map(t_map_info *map_info)
 	map_info->hor_angle = HOR_ANGLE;
 	map_info->ver_angle = VER_ANGLE;
 	map_info->hor_scale = (double)SCREEN_WIDTH
-			/ (map_info->col + map_info->row);
+		/ (map_info->col + map_info->row);
 	map_info->ver_scale = (double)SCREEN_HEIGHT
-			/ (double)(map_info->col + map_info->row + map_info->max_height / 2);
+		/ (map_info->col + map_info->row + map_info->max_height / 2.0);
 	map_info->x0 = SCREEN_WIDTH / 2;
 	map_info->y0 = SCREEN_HEIGHT * 10 / 19;
 }

@@ -1,18 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isspace.c                                       :+:      :+:    :+:   */
+/*   fdf_keymap_rotate_mac.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/23 19:55:48 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/29 18:53:29 by hseong           ###   ########.fr       */
+/*   Created: 2022/03/29 18:18:52 by hseong            #+#    #+#             */
+/*   Updated: 2022/03/29 18:23:03 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isspace(int c)
+#include "fdf_keymap.h"
+
+// require MacOS Keycode
+void	rotate_ccw(t_mlx_info *mlx_info)
 {
-	if ((c > 8 && c < 14) || c == 32)
-		return (1);
-	return (0);
+	mlx_info->map_info->hor_angle += YAW_STEP;
+}
+
+void	rotate_cw(t_mlx_info *mlx_info)
+{
+	mlx_info->map_info->hor_angle -= YAW_STEP;
+}
+
+void	rotate_roll(t_mlx_info *mlx_info)
+{
+	mlx_info->map_info->ver_angle -= ROLL_STEP;
+}
+
+void	rotate_rroll(t_mlx_info *mlx_info)
+{
+	mlx_info->map_info->ver_angle += ROLL_STEP;
 }

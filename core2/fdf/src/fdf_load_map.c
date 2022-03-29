@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 17:58:01 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/28 19:36:36 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/29 18:26:02 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static t_bool	dealloc_map(t_word_arr *row_words, t_bool error);
 
 t_bool	fdf_load_map(int argc, char **argv, t_map_info *map_info)
 {
-	t_bool	result;
+	t_bool	flag1;
+	t_bool	flag2;
 	int		fd;
 
 	ft_putstr_fd("loading map file...\n", 1);
@@ -37,11 +38,11 @@ t_bool	fdf_load_map(int argc, char **argv, t_map_info *map_info)
 		perror("Invalid map file");
 		exit(32);
 	}
-	result = read_map(fd, map_info);
-	result = result && get_variable(argc, argv + 2, map_info);
+	flag1 = read_map(fd, map_info);
+	flag2 = get_variable(argc, argv + 2, map_info);
 	map_info->max_height = get_z_coord(NULL);
 	map_info->colored = get_color(NULL);
-	return (result);
+	return (flag1 && flag2);
 }
 
 t_bool	get_variable(int argc, char **var, t_map_info *map_info)

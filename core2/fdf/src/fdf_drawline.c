@@ -6,48 +6,46 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 18:35:23 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/28 20:35:26 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/29 19:20:38 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	fast_drawline_low_up(t_img_elem *img_elem, t_vertex p0, t_vertex p1);
-static void	fast_drawline_low_down(t_img_elem *img_elem, t_vertex p0, t_vertex p1);
-static void	fast_drawline_high_up(t_img_elem *img_elem, t_vertex p0, t_vertex p1);
-static void	fast_drawline_high_down(t_img_elem *img_elem, t_vertex p0, t_vertex p1);
+static void	drawline_low_up(t_img_elem *img_elem, t_vertex p0, t_vertex p1);
+static void	drawline_low_down(t_img_elem *img_elem, t_vertex p0, t_vertex p1);
+static void	drawline_high_up(t_img_elem *img_elem, t_vertex p0, t_vertex p1);
+static void	drawline_high_down(t_img_elem *img_elem, t_vertex p0, t_vertex p1);
 
 void	fdf_drawline(t_img_elem *img_elem, t_vertex *p0, t_vertex *p1)
 {
-	int		dx;
 	int		dy;
 
-	dx = p1->x - p0->x;
-	dy = p1->y - p0->y;
-	if (dx < 0)
+	if (p1->x - p1->x < 0)
 		swap_point(&p0, &p1);
+	dy = p1->y - p0->y;
 	if ((t_uint32)p0->x >= SCREEN_WIDTH || (t_uint32)p0->y >= SCREEN_HEIGHT
 		|| (t_uint32)p1->x >= SCREEN_WIDTH || (t_uint32)p1->y >= SCREEN_HEIGHT)
 		return ;
 	img_elem->img_arr[(int)p0->x + img_elem->hor_size * (int)p0->y] = p0->color;
-	if (ft_abs(dx) > ft_abs(dy))
+	if (p1->x - p0->x > ft_abs(dy))
 	{
 		if (dy > 0)
-			fast_drawline_low_up(img_elem, *p0, *p1);
+			drawline_low_up(img_elem, *p0, *p1);
 		else
-			fast_drawline_low_down(img_elem, *p0, *p1);
+			drawline_low_down(img_elem, *p0, *p1);
 	}
 	else
 	{
 		if (dy > 0)
-			fast_drawline_high_up(img_elem, *p0, *p1);
+			drawline_high_up(img_elem, *p0, *p1);
 		else
-			fast_drawline_high_down(img_elem, *p0, *p1);
+			drawline_high_down(img_elem, *p0, *p1);
 	}
 	img_elem->img_arr[(int)p1->x + img_elem->hor_size * (int)p1->y] = p1->color;
 }
 
-static void	fast_drawline_low_down(t_img_elem *img_elem, t_vertex p0, t_vertex p1)
+static void	drawline_low_down(t_img_elem *img_elem, t_vertex p0, t_vertex p1)
 {
 	int		dx;
 	int		dy;
@@ -62,8 +60,8 @@ static void	fast_drawline_low_down(t_img_elem *img_elem, t_vertex p0, t_vertex p
 	diff = 2 * dy - dx;
 	while (++x0 < (int)p1.x)
 	{
-		img_elem->img_arr[x0 + img_elem->hor_size * y0] =
-			grade_color(p0.color, p1.color, (x0 - p0.x) / dx);
+		img_elem->img_arr[x0 + img_elem->hor_size * y0]
+			= grade_color(p0.color, p1.color, (x0 - p0.x) / dx);
 		if (diff > 0)
 		{
 			diff -= dx;
@@ -72,7 +70,8 @@ static void	fast_drawline_low_down(t_img_elem *img_elem, t_vertex p0, t_vertex p
 		diff += dy;
 	}
 }
-static void	fast_drawline_high_down(t_img_elem *img_elem, t_vertex p0, t_vertex p1)
+
+static void	drawline_high_down(t_img_elem *img_elem, t_vertex p0, t_vertex p1)
 {
 	int		dx;
 	int		dy;
@@ -82,13 +81,13 @@ static void	fast_drawline_high_down(t_img_elem *img_elem, t_vertex p0, t_vertex 
 
 	x0 = p0.x;
 	y0 = p0.y;
-	dx = (int)p1.x - p0.x;
-	dy = (int)p0.y - p1.y;
+	dx = (int)p1.x - (int)p0.x;
+	dy = (int)p0.y - (int)p1.y;
 	diff = 2 * dx - dy;
 	while (--y0 > (int)p1.y)
 	{
-		img_elem->img_arr[x0 + img_elem->hor_size * y0] =
-			grade_color(p0.color, p1.color, (y0 - p0.y) / dy);
+		img_elem->img_arr[x0 + img_elem->hor_size * y0]
+			= grade_color(p0.color, p1.color, (p0.y - y0) / dy);
 		if (diff > 0)
 		{
 			diff -= dy;
@@ -98,7 +97,7 @@ static void	fast_drawline_high_down(t_img_elem *img_elem, t_vertex p0, t_vertex 
 	}
 }
 
-static void	fast_drawline_low_up(t_img_elem *img_elem, t_vertex p0, t_vertex p1)
+static void	drawline_low_up(t_img_elem *img_elem, t_vertex p0, t_vertex p1)
 {
 	int		dx;
 	int		dy;
@@ -113,8 +112,8 @@ static void	fast_drawline_low_up(t_img_elem *img_elem, t_vertex p0, t_vertex p1)
 	diff = 2 * dy - dx;
 	while (++x0 < (int)p1.x)
 	{
-		img_elem->img_arr[x0 + img_elem->hor_size * y0] =
-			grade_color(p0.color, p1.color, (x0 - p0.x) / dx);
+		img_elem->img_arr[x0 + img_elem->hor_size * y0]
+			= grade_color(p0.color, p1.color, (x0 - p0.x) / dx);
 		if (diff > 0)
 		{
 			diff -= dx;
@@ -123,7 +122,8 @@ static void	fast_drawline_low_up(t_img_elem *img_elem, t_vertex p0, t_vertex p1)
 		diff += dy;
 	}
 }
-static void	fast_drawline_high_up(t_img_elem *img_elem, t_vertex p0, t_vertex p1)
+
+static void	drawline_high_up(t_img_elem *img_elem, t_vertex p0, t_vertex p1)
 {
 	int		dx;
 	int		dy;
@@ -138,8 +138,8 @@ static void	fast_drawline_high_up(t_img_elem *img_elem, t_vertex p0, t_vertex p1
 	diff = 2 * dx - dy;
 	while (++y0 < (int)p1.y)
 	{
-		img_elem->img_arr[x0 + img_elem->hor_size * y0] =
-			grade_color(p0.color, p1.color, (y0 - p0.y) / dy);
+		img_elem->img_arr[x0 + img_elem->hor_size * y0]
+			= grade_color(p0.color, p1.color, (y0 - p0.y) / dy);
 		if (diff > 0)
 		{
 			diff -= dy;
@@ -152,7 +152,7 @@ static void	fast_drawline_high_up(t_img_elem *img_elem, t_vertex p0, t_vertex p1
 /*
 integer point drawline
 
-void	fast_drawline_low(t_img_elem *img_elem, t_vertex p0, t_vertex p1)
+void	drawline_low(t_img_elem *img_elem, t_vertex p0, t_vertex p1)
 {
 	int		dx;
 	int		dy;
@@ -182,7 +182,7 @@ void	fast_drawline_low(t_img_elem *img_elem, t_vertex p0, t_vertex p1)
 	}
 }
 
-void	fast_drawline_high(t_img_elem *img_elem, t_vertex p0, t_vertex p1)
+void	drawline_high(t_img_elem *img_elem, t_vertex p0, t_vertex p1)
 {
 	int		dx;
 	int		dy;

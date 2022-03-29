@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 17:06:22 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/28 16:47:41 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/29 18:55:27 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,16 @@ typedef struct s_map_info
 {
 	t_vertex	**map_arr;
 	t_vertex	**map_origin;
-	int		row;
-	int		col;
-	int		colored;
-	int		max_height;
-	int		x0;
-	int		y0;
-	double	hor_scale;
-	double	ver_scale;
-	double	hor_angle;
-	double	ver_angle;
+	int			row;
+	int			col;
+	int			colored;
+	int			max_height;
+	int			x0;
+	int			y0;
+	double		hor_scale;
+	double		ver_scale;
+	double		hor_angle;
+	double		ver_angle;
 }						t_map_info;
 
 typedef struct s_img_elem

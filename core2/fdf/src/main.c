@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 19:18:38 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/28 19:10:37 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/29 17:54:19 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ void	fdf_init(int argc, char **argv, t_mlx_info *mlx_info)
 
 int	fdf_loop(t_mlx_info *mlx_info)
 {
-	get_frametime(mlx_info);
 	mlx_sync(3, mlx_info->win_ptr);
 	ft_memset(mlx_info->img_elem->img_arr, 0, mlx_info->img_elem->arr_bytes);
 	fdf_projection(mlx_info);
 	fdf_wireframe(mlx_info->img_elem, mlx_info->map_info);
 	mlx_put_image_to_window(mlx_info->mlx_ptr,
 		mlx_info->win_ptr, mlx_info->img_ptr, 0, 0);
+	get_frametime(mlx_info);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 20:48:11 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/28 19:48:47 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/29 18:52:03 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,23 +48,10 @@ static void	transform_point(t_map_info *map_info, t_vertex *to, t_vertex *from)
 	x = from->x * (double)map_info->hor_scale;
 	y = from->y * (double)map_info->hor_scale;
 	z = from->z * (double)map_info->ver_scale;
-
 	to->x = (sin(map_info->hor_angle) * y + cos(map_info->hor_angle) * x);
 	to->y = (-cos(map_info->ver_angle) * z
 			+ (sin(map_info->ver_angle) * cos(map_info->hor_angle)) * y
 			- (sin(map_info->ver_angle) * sin(map_info->hor_angle)) * x);
-	/*
-	point->x = (sin(map_info->hor_angle) * y + cos(map_info->hor_angle) * x);
-	point->y = (-cos(map_info->ver_angle) * z
-			+ ((0.339005) * y - (0.339005) * x));
-	*/
-	/*
-	point->x = (sin(map_info->hor_angle) * y + cos(map_info->hor_angle) * x);
-	point->y = cos(map_info->hor_angle) * y - sin(map_info->hor_angle) * x;
-	point->z = (cos(map_info->ver_angle) * z - sin(map_info->ver_angle) * y);
-	point->y = (sin(map_info->ver_angle) * z + cos(map_info->ver_angle) * y);
-	point->y = -point->z;
-	*/
 	to->x += (double)map_info->x0;
 	to->y += (double)map_info->y0;
 }

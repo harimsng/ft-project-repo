@@ -6,80 +6,47 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 20:31:10 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/28 20:35:02 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/29 18:53:03 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include "fdf_render_order.h"
 
-typedef void	(*t_draw)(t_img_elem *, t_vertex *, t_vertex *);
+static const t_render	g_render_d[4] = {
+	render_d0,
+	render_d1,
+	render_d2,
+	render_d3
+};
 
-static void	loop_diagonal(t_img_elem *img_elem,
-			t_map_info *map_info, t_draw draw);
-static void	loop_grid(t_img_elem *img_elem, t_map_info *map_info, t_draw draw);
+static const t_render	g_render_n[4] = {
+	render_n0,
+	render_n1,
+	render_n2,
+	render_n3
+};
+
+static int	get_quadrant(t_map_info *map_info);
 
 void	fdf_wireframe(t_img_elem *img_elem, t_map_info *map_info)
 {
-	t_vertex	**map_arr;
 	t_draw		draw;
+	int			quadrant;
 
 	draw = fdf_drawline;
+	quadrant = get_quadrant(map_info);
 	if (map_info->hor_scale > 24)
 		draw = fdf_aa_drawline;
-	map_arr = map_info->map_arr;
 	if (map_info->colored == TRUE)
-		loop_diagonal(img_elem, map_info, draw);
+		g_render_d[quadrant](img_elem, map_info, draw);
 	else
-		loop_grid(img_elem, map_info, draw);
+		g_render_n[quadrant](img_elem, map_info, draw);
 }
 
-void	loop_diagonal(t_img_elem *img_elem, t_map_info *map_info, t_draw draw)
+int	get_quadrant(t_map_info *map_info)
 {
-	t_vertex	**map_arr;
-	int			x;
-	int			y;
-
-	map_arr = map_info->map_arr;
-	y = -1;
-	x = map_info->col - 2;
-	while (++y < map_info->row - 1)
-		draw(img_elem, map_arr[y] + x + 1, map_arr[y + 1] + x + 1);
-	while (x >= 0)
-	{
-		y = 0;
-		while (y < map_info->row - 1)
-		{
-			draw(img_elem, map_arr[y + 1] + x, map_arr[y] + x + 1);
-			draw(img_elem, map_arr[y] + x, map_arr[y] + x + 1);
-			draw(img_elem, map_arr[y] + x, map_arr[y + 1] + x);
-			++y;
-		}
-		draw(img_elem, map_arr[y] + x, map_arr[y] + x + 1);
-		--x;
-	}
-}
-
-void	loop_grid(t_img_elem *img_elem, t_map_info *map_info, t_draw draw)
-{
-	t_vertex	**map_arr;
-	int			x;
-	int			y;
-
-	map_arr = map_info->map_arr;
-	y = -1;
-	x = map_info->col - 2;
-	while (++y < map_info->row - 1)
-		draw(img_elem, map_arr[y] + x + 1, map_arr[y + 1] + x + 1);
-	while (x >= 0)
-	{
-		y = 0;
-		while (y < map_info->row - 1)
-		{
-			draw(img_elem, map_arr[y] + x, map_arr[y] + x + 1);
-			draw(img_elem, map_arr[y] + x, map_arr[y + 1] + x);
-			++y;
-		}
-		draw(img_elem, map_arr[y] + x, map_arr[y] + x + 1);
-		--x;
-	}
+	return (3 * (cos(map_info->ver_angle) < 0)
+		^ ((sin(map_info->hor_angle) < 0)
+			+ 2 * (cos(map_info->hor_angle) < 0)));
 }
