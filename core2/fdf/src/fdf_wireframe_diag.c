@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 14:24:11 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/29 16:39:51 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/29 19:41:20 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ void	render_d1(t_img_elem *img_elem, t_map_info *map_info, t_draw draw)
 		{
 			draw(img_elem, map_arr[y + 1] + x, map_arr[y] + x + 1);
 			draw(img_elem, map_arr[y] + x, map_arr[y] + x + 1);
-			draw(img_elem, map_arr[y] + x, map_arr[y + 1] + x);
+			draw(img_elem, map_arr[y + 1] + x, map_arr[y] + x);
 			++x;
 		}
-		draw(img_elem, map_arr[y] + x, map_arr[y + 1] + x);
+		draw(img_elem, map_arr[y + 1] + x, map_arr[y] + x);
 		++y;
 	}
 	x = 0;

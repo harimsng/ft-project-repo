@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 18:35:23 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/29 19:20:38 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/29 20:00:48 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ void	fdf_drawline(t_img_elem *img_elem, t_vertex *p0, t_vertex *p1)
 {
 	int		dy;
 
-	if (p1->x - p1->x < 0)
+	if ((int)(p1->x - p0->x) < 0)
 		swap_point(&p0, &p1);
 	dy = p1->y - p0->y;
 	if ((t_uint32)p0->x >= SCREEN_WIDTH || (t_uint32)p0->y >= SCREEN_HEIGHT
 		|| (t_uint32)p1->x >= SCREEN_WIDTH || (t_uint32)p1->y >= SCREEN_HEIGHT)
 		return ;
 	img_elem->img_arr[(int)p0->x + img_elem->hor_size * (int)p0->y] = p0->color;
-	if (p1->x - p0->x > ft_abs(dy))
+	if ((int)(p1->x - p0->x) > ft_abs(dy))
 	{
 		if (dy > 0)
 			drawline_low_up(img_elem, *p0, *p1);
