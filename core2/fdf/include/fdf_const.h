@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 17:10:04 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/30 15:00:11 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/30 21:16:26 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define YAW_STEP (0.08)
 # define ROLL_STEP (0.08)
 # define PITCH_STEP (0.08)
-# define SCALE_STEP (1.3) 
+# define SCALE_STEP (0.8) 
 
 // maximum map size
 # define MAP_MAXROWS (1024)

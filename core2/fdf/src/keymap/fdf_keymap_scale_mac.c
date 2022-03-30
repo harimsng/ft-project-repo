@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 18:21:17 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/30 19:25:17 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/30 21:18:11 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,11 @@ void	scale_down(t_mlx_info *mlx_info)
 
 void	set_default(t_mlx_info *mlx_info)
 {
+	int		temp;
+
+	temp = mlx_info->map_info->projection;
 	fdf_setup_map(mlx_info->map_info);
+	mlx_info->map_info->projection = temp;
 }
 
 void	automove_map(t_mlx_info *mlx_info)
