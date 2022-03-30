@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 16:26:57 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/28 20:38:08 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/30 12:32:26 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	move_obj_up(t_mlx_info *mlx_info);
 void	move_obj_down(t_mlx_info *mlx_info);
 void	rotate_ccw(t_mlx_info *mlx_info);
 void	rotate_cw(t_mlx_info *mlx_info);
+void	rotate_pitch(t_mlx_info *mlx_info);
+void	rotate_rpitch(t_mlx_info *mlx_info);
 void	rotate_roll(t_mlx_info *mlx_info);
 void	rotate_rroll(t_mlx_info *mlx_info);
 void	scale_up(t_mlx_info *mlx_info);

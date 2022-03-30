@@ -23,6 +23,7 @@ SRC		=	main.c\
 			fdf_utils.c\
 			fdf_keymap_transl_mac.c\
 			fdf_keymap_rotate_mac.c\
+			fdf_keymap_rotate2_mac.c\
 			fdf_keymap_scale_mac.c\
 			get_next_line.c
 

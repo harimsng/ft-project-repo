@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 18:21:17 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/29 18:24:26 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/30 12:43:34 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	set_default(t_mlx_info *mlx_info)
 		/ (map_info->col + map_info->row + map_info->max_height / 2.0);
 	map_info->hor_angle = HOR_ANGLE;
 	map_info->ver_angle = VER_ANGLE;
+	map_info->gamma = 0.0;
 	map_info->x0 = SCREEN_WIDTH / 2;
 	map_info->y0 = SCREEN_HEIGHT * 10 / 19;
 }

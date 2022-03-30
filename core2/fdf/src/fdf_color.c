@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 21:15:46 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/29 18:11:43 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/30 12:24:35 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,9 @@ t_pixel	get_color(char *str)
 	while (*str >= '0' && *str <= '9')
 		++str;
 	if (*str == 0 || *str != ',')
-	{
-		colored = TRUE;
 		return (0x00FFFFFF);
-	}
 	temp = ft_htoi(str + 1);
-	if (temp == 0xFFFFFF)
+	if (temp != 0xFFFFFF)
 		colored = TRUE;
 	return (temp);
 }

@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_keymap_rotate_mac.c                            :+:      :+:    :+:   */
+/*   fdf_keymap_rotate2_mac.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/29 18:18:52 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/30 12:32:49 by hseong           ###   ########.fr       */
+/*   Created: 2022/03/30 12:33:17 by hseong            #+#    #+#             */
+/*   Updated: 2022/03/30 12:42:33 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf_keymap.h"
 
-// require MacOS Keycode
-void	rotate_ccw(t_mlx_info *mlx_info)
+void	rotate_roll(t_mlx_info *mlx_info)
 {
-	mlx_info->map_info->hor_angle += YAW_STEP;
+	mlx_info->map_info->gamma += PITCH_STEP;
 }
 
-void	rotate_cw(t_mlx_info *mlx_info)
+void	rotate_rroll(t_mlx_info *mlx_info)
 {
-	mlx_info->map_info->hor_angle -= YAW_STEP;
-}
-
-void	rotate_rpitch(t_mlx_info *mlx_info)
-{
-	mlx_info->map_info->ver_angle -= ROLL_STEP;
-}
-
-void	rotate_pitch(t_mlx_info *mlx_info)
-{
-	mlx_info->map_info->ver_angle += ROLL_STEP;
+	mlx_info->map_info->gamma -= PITCH_STEP;
 }

@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 17:54:03 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/29 17:54:37 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/30 12:25:12 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int	init_win(t_mlx_info *mlx_info)
 int	init_img(t_mlx_info *mlx_info, t_img_elem *img_elem)
 {
 	ft_putstr_fd("allocating image space...\n", 1);
-	img_elem->img_arr = (t_pixel *)mlx_get_data_addr(mlx_info->img_ptr,
+	img_elem->img_buf = (t_pixel *)mlx_get_data_addr(mlx_info->img_ptr,
 			&img_elem->depth_bits, &img_elem->line_bytes, &img_elem->endian);
-	if (img_elem->img_arr == NULL)
+	if (img_elem->img_buf == NULL)
 		return (8);
 	if (img_elem->line_bytes != img_elem->depth_bits / 8 * SCREEN_WIDTH)
 	{
