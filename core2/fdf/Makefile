@@ -15,16 +15,19 @@ SRC		=	main.c\
 			fdf_drawline.c\
 			fdf_aa_drawline.c\
 			fdf_wireframe.c\
-			fdf_wireframe_diag.c\
-			fdf_wireframe_normal.c\
+			wireframe/fdf_wireframe_diag.c\
+			wireframe/fdf_wireframe_diag2.c\
+			wireframe/fdf_wireframe_normal.c\
+			wireframe/fdf_wireframe_normal2.c\
 			fdf_color.c\
 			fdf_load_map.c\
 			fdf_manage_map.c\
 			fdf_utils.c\
-			fdf_keymap_transl_mac.c\
-			fdf_keymap_rotate_mac.c\
-			fdf_keymap_rotate2_mac.c\
-			fdf_keymap_scale_mac.c\
+			keymap/fdf_keymap_transl_mac.c\
+			keymap/fdf_keymap_rotate_mac.c\
+			keymap/fdf_keymap_rotate2_mac.c\
+			keymap/fdf_keymap_scale_mac.c\
+			keymap/fdf_keymap_projection_mac.c\
 			get_next_line.c
 
 SRC_DIR	=	src

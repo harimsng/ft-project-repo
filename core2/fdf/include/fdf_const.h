@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 17:10:04 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/30 12:36:37 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/30 15:00:11 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define SCREEN_WIDTH (1920)
 # define SCREEN_HEIGHT (1080)
 # define TEXT_HEIGHT (50)
+# define VP_DIST (1000) // viewport distance
 
 // map control coefficient
 # define X_STEP (8)
@@ -33,6 +34,7 @@
 // default angles
 # define HOR_ANGLE (0.7853) // PI / 4 ~= 0.7853
 # define VER_ANGLE (0.5236) // PI / 6 ~= 0.5236
+# define GAMMA (0.0)
 
 # define TRUE (1)
 # define FALSE (0)

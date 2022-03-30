@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 16:26:57 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/30 12:32:26 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/30 13:17:13 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # include "fdf_type.h"
 # include "fdf_const.h"
+
+void	project_isometric(t_mlx_info *mlx_info);
+void	project_perspective(t_mlx_info *mlx_info);
 
 void	move_obj_left(t_mlx_info *mlx_info);
 void	move_obj_right(t_mlx_info *mlx_info);

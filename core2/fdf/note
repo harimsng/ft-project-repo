@@ -14,3 +14,6 @@ in mlx source file, this function is wrapping hook function of X11 or correspond
 change the parameter of hook function from 3(key release) to 2(key press)
 then mlx_key_hook() respond to key press event.
 mlx_do_key_autorepeaton() function literally does the work.
+
+reversed altitude
+before starting transformation, multiply -1 to altitude coordinate to match reversed orientation from 3d space to 2d space(canvas). 

@@ -6,56 +6,88 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 20:48:11 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/30 12:41:56 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/30 16:52:56 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	transform_point(t_map_info *map_info, t_vertex *to, t_vertex *from);
+typedef void	(*t_transform)(t_map_info *, t_vertex *, t_vertex *);
+
+static void	isometric_transform(t_map_info *map_info,
+		t_vertex *to, t_vertex *from);
+static void	perspective_transform(t_map_info *map_info,
+		t_vertex *to, t_vertex *from);
+
+static const t_transform	g_transform[2]
+= {
+	isometric_transform,
+	perspective_transform
+};
 
 void	fdf_projection(t_mlx_info *mlx_info)
 {
-	t_vertex	**map_proj;
-	t_vertex	**map_origin;
+	t_transform	transform;
 	t_map_info	*map_info;
 	int			x;
 	int			y;
 
 	map_info = mlx_info->map_info;
-	map_proj = map_info->map_proj;
-	map_origin = map_info->map_origin;
+	transform = g_transform[map_info->projection];
 	y = 0;
 	while (y < map_info->row)
 	{
 		x = 0;
 		while (x < map_info->col)
 		{
-			transform_point(map_info, map_proj[y] + x, map_origin[y] + x);
-			map_proj[y][x].color = map_origin[y][x].color;
+			transform(map_info, map_info->map_proj[y] + x,
+					map_info->map_origin[y] + x);
+			map_info->map_proj[y][x].color = map_info->map_origin[y][x].color;
 			++x;
 		}
 		++y;
 	}
 }
 
-static void	transform_point(t_map_info *map_info, t_vertex *to, t_vertex *from)
+void	isometric_transform(t_map_info *map_info, t_vertex *to, t_vertex *from)
 {
 	double	x;
 	double	y;
 	double	z;
 
 	x = from->x * (double)map_info->hor_scale;
-	y = from->y * (double)map_info->hor_scale;
-	z = from->z * (double)map_info->ver_scale;
-	to->x = (sin(map_info->hor_angle) * y + cos(map_info->hor_angle) * x);
-	to->y = (-cos(map_info->ver_angle) * z
-			+ (sin(map_info->ver_angle) * cos(map_info->hor_angle)) * y
-			- (sin(map_info->ver_angle) * sin(map_info->hor_angle)) * x);
+	y = -from->z * (double)map_info->ver_scale;
+	z = from->y * (double)map_info->hor_scale;
+	to->x = sin(map_info->hor_angle) * z + cos(map_info->hor_angle) * x;
+	to->y = cos(map_info->ver_angle) * y
+			+ sin(map_info->ver_angle) * cos(map_info->hor_angle) * z
+			- sin(map_info->ver_angle) * sin(map_info->hor_angle) * x;
 	y = to->y;
 	x = to->x;
 	to->y = cos(map_info->gamma) * y - sin(map_info->gamma) * x;
 	to->x = sin(map_info->gamma) * y + cos(map_info->gamma) * x;
+	to->x += (double)map_info->x0;
+	to->y += (double)map_info->y0;
+}
+
+void	perspective_transform(t_map_info *map_info, t_vertex *to,
+		t_vertex *from)
+{
+	double	x;
+	double	y;
+	double	z;
+
+	x = from->x * (double)map_info->hor_scale;
+	y = -from->z * (double)map_info->ver_scale;
+	z = from->y * (double)map_info->hor_scale;
+	to->x = sin(map_info->hor_angle) * z + cos(map_info->hor_angle) * x;
+	z = cos(map_info->hor_angle) * z - sin(map_info->hor_angle) * x;
+	to->y = sin(map_info->ver_angle) * z + cos(map_info->ver_angle) * y;
+	to->z = cos(map_info->ver_angle) * z - sin(map_info->ver_angle) * y;
+	to->z *= -1;
+	to->z += map_info->row + VP_DIST;
+	to->x *= VP_DIST / to->z;
+	to->y *= VP_DIST / to->z;
 	to->x += (double)map_info->x0;
 	to->y += (double)map_info->y0;
 }
