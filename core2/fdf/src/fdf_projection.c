@@ -6,33 +6,27 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 20:48:11 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/30 16:52:56 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/30 19:55:18 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include "fdf_transform.h"
 
 typedef void	(*t_transform)(t_map_info *, t_vertex *, t_vertex *);
 
-static void	isometric_transform(t_map_info *map_info,
-		t_vertex *to, t_vertex *from);
-static void	perspective_transform(t_map_info *map_info,
-		t_vertex *to, t_vertex *from);
-
 static const t_transform	g_transform[2]
 = {
-	isometric_transform,
-	perspective_transform
+	isometric_proj,
+	perspective_proj
 };
 
-void	fdf_projection(t_mlx_info *mlx_info)
+void	fdf_projection(t_map_info *map_info)
 {
 	t_transform	transform;
-	t_map_info	*map_info;
 	int			x;
 	int			y;
 
-	map_info = mlx_info->map_info;
 	transform = g_transform[map_info->projection];
 	y = 0;
 	while (y < map_info->row)
@@ -49,7 +43,7 @@ void	fdf_projection(t_mlx_info *mlx_info)
 	}
 }
 
-void	isometric_transform(t_map_info *map_info, t_vertex *to, t_vertex *from)
+void	isometric_proj(t_map_info *map_info, t_vertex *to, t_vertex *from)
 {
 	double	x;
 	double	y;
@@ -70,8 +64,7 @@ void	isometric_transform(t_map_info *map_info, t_vertex *to, t_vertex *from)
 	to->y += (double)map_info->y0;
 }
 
-void	perspective_transform(t_map_info *map_info, t_vertex *to,
-		t_vertex *from)
+void	perspective_proj(t_map_info *map_info, t_vertex *to, t_vertex *from)
 {
 	double	x;
 	double	y;

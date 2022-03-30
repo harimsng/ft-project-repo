@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 20:31:10 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/30 17:49:26 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/30 19:13:30 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,3 +59,12 @@ int	get_octant(t_map_info *map_info)
 		^ ((sin(map_info->hor_angle) < 0)
 			+ 2 * (cos(map_info->hor_angle) < 0))));
 }
+
+/*
+ * y0x0 = map_proj[0][0]
+ * y1x0 = map_proj[map->row - 1][0]
+ * y0x1 = map_proj[0][map->col - 1]
+ * y1x1 = map_proj[map->row - 1][map->col - 1]
+ *
+ * if (y0x0
+ * */

@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 22:35:48 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/23 20:29:15 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/30 20:12:00 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+
+#define BUFFER_SIZE (256)
 
 # ifndef INT_MAX
 #  define INT_MAX 2147483647

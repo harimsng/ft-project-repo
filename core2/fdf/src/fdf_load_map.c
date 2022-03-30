@@ -6,11 +6,12 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 17:58:01 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/30 12:28:44 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/30 19:29:16 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include "libft.h"
 #include <stdio.h>
 
 typedef char	**t_word_arr;
@@ -49,7 +50,7 @@ t_bool	get_variable(int argc, char **var, t_map_info *map_info)
 {
 	double	temp_hor_scale;
 
-	fdf_align_map(map_info);
+	fdf_setup_map(map_info);
 	if (argc == 4)
 	{
 		temp_hor_scale = (double)ft_atoi(var[0]);

@@ -6,12 +6,14 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 18:21:17 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/30 13:18:03 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/30 19:25:17 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf_keymap.h"
 #include "fdf_const.h"
+
+void	fdf_setup_map(t_map_info *map_info);
 
 // require MacOS Keycode
 void	scale_up(t_mlx_info *mlx_info)
@@ -44,17 +46,15 @@ void	scale_down(t_mlx_info *mlx_info)
 
 void	set_default(t_mlx_info *mlx_info)
 {
-	t_map_info	*map_info;
+	fdf_setup_map(mlx_info->map_info);
+}
 
-	map_info = mlx_info->map_info;
-	map_info->hor_scale = (double)SCREEN_WIDTH
-		/ (map_info->col + map_info->row);
-	map_info->ver_scale = (double)SCREEN_HEIGHT
-		/ (map_info->col + map_info->row + map_info->max_height / 2.0);
-	map_info->hor_angle = HOR_ANGLE;
-	map_info->ver_angle = VER_ANGLE;
-	map_info->gamma = GAMMA;
-	map_info->projection = 0;
-	map_info->x0 = SCREEN_WIDTH / 2;
-	map_info->y0 = SCREEN_HEIGHT * 10 / 19;
+void	automove_map(t_mlx_info *mlx_info)
+{
+	mlx_info->map_info->automove_flag ^= TRUE;
+}
+
+void	turn_interface(t_mlx_info *mlx_info)
+{
+	mlx_info->map_info->interface_flag ^= TRUE;
 }

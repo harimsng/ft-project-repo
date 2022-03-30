@@ -1,15 +1,16 @@
 1.
-center of the map
-	done
+incorrect display on perspective projection
+(draw order for rotation)
 2.
-incorrect display
-3.
 sub-window
+3.
+key-event
+altitude coefficient
 4.
-adjust key-event variable
-5.
-draw order for rotation
-6.
 delta color
-7.
+5.
 memory management
+6.
+unit vector representation
+7.
+destroy window

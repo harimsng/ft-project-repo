@@ -6,11 +6,12 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 21:15:46 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/30 12:24:35 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/30 20:19:15 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include "libft.h"
 
 //	bit masks for bad color
 //	red &= 0xFF;

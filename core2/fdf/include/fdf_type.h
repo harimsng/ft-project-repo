@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_structures.h                                   :+:      :+:    :+:   */
+/*   fdf_type.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/22 17:06:22 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/30 13:11:34 by hseong           ###   ########.fr       */
+/*   Created: 2022/03/30 20:03:29 by hseong            #+#    #+#             */
+/*   Updated: 2022/03/30 20:03:30 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,6 @@ typedef struct s_vertex
 	t_pixel	color;
 }						t_vertex;
 
-/*
-integer coordinates
-
-typedef struct s_vertex
-{
-	int			x;
-	int			y;
-	int			z;
-	t_uint32	color;
-}						t_vertex;
-*/
-
 typedef struct s_map_info
 {
 	t_vertex	**map_proj;
@@ -56,6 +44,8 @@ typedef struct s_map_info
 	int			projection;
 	int			colored;
 	int			max_height;
+	t_bool		interface_flag;
+	t_bool		automove_flag;
 }						t_map_info;
 
 typedef struct s_img_elem

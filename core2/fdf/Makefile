@@ -3,6 +3,7 @@ NAME	=	fdf
 CC		=	gcc
 CFLAGS	=	-Wall -Wextra -Werror
 DEBUG	=	-g3 -fsanitize=address
+OPTI	=	-O3
 RM		=	rm -f
 
 
@@ -19,15 +20,16 @@ SRC		=	main.c\
 			wireframe/fdf_wireframe_diag2.c\
 			wireframe/fdf_wireframe_normal.c\
 			wireframe/fdf_wireframe_normal2.c\
-			fdf_color.c\
-			fdf_load_map.c\
-			fdf_manage_map.c\
-			fdf_utils.c\
 			keymap/fdf_keymap_transl_mac.c\
 			keymap/fdf_keymap_rotate_mac.c\
 			keymap/fdf_keymap_rotate2_mac.c\
 			keymap/fdf_keymap_scale_mac.c\
 			keymap/fdf_keymap_projection_mac.c\
+			fdf_color.c\
+			fdf_load_map.c\
+			fdf_manage_map.c\
+			fdf_interface.c\
+			fdf_utils.c\
 			get_next_line.c
 
 SRC_DIR	=	src
@@ -59,14 +61,15 @@ ifeq ($(DEBUG_FLAG), 1)
 CFLAGS +=	$(DEBUG)
 endif
 
+ifeq ($(OPTI_FLAG), 1)
+CFLAGS +=	$(OPTI)
+endif
 
 
 all: $(NAME)
 
-run:
-	$(MAKE) clean
-	$(MAKE)
-	./$(NAME) testdir/test_maps/42.fdf
+opti:
+	$(MAKE) OPTI_FLAG=1
 
 debug:
 	$(MAKE) clean
@@ -92,8 +95,7 @@ $(NAME): $(LFT_NAME) $(LIB_NAME) $(OBJ)
 		-l$(LFT)
 
 $(OBJ): %.o: %.c
-	$(CC) $(CFLAGS) -c -o $@ $^ -I$(INCL_DIR) -DBUFFER_SIZE=256\
-
+	$(CC) $(CFLAGS) -c -o $@ $^ -I$(INCL_DIR)
 
 clean:
 	$(RM) $(OBJ)

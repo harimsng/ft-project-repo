@@ -6,11 +6,12 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 16:06:03 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/30 12:26:26 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/30 19:15:23 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include "libft.h"
 
 static void	aa_drawline_low(t_img_elem *img_elem, t_vertex p0, t_vertex p1);
 static void	aa_drawline_high(t_img_elem *img_elem, t_vertex p0, t_vertex p1);

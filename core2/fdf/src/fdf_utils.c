@@ -6,10 +6,12 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 20:12:02 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/30 12:43:20 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/30 19:16:29 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+#include "mlx.h"
 #include "fdf.h"
 # include <time.h>
 # include <stdio.h>
