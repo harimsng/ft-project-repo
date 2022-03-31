@@ -6,14 +6,12 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 20:31:10 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/31 21:33:26 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/31 22:37:52 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "fdf_render_order.h"
-# include <stdio.h>
-# include "mlx.h"
 
 static const t_render	g_render_d[8] = {
 	render_d0,
@@ -58,8 +56,8 @@ int	get_octant(t_map_info *map_info)
 {
 	return (4 * (sin(map_info->hor_angle * 4) > 0)
 		+ (3 * (cos(map_info->ver_angle) < 0)
-		^ ((sin(map_info->hor_angle) < 0)
-			+ 2 * (cos(map_info->hor_angle) < 0))));
+			^ ((sin(map_info->hor_angle) < 0)
+				+ 2 * (cos(map_info->hor_angle) < 0))));
 }
 
 //function to find octant more accurately. not working now.

@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 20:03:29 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/31 20:23:52 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/31 22:31:24 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ typedef struct s_img_elem
 	int		line_bytes;
 	int		endian;
 	size_t	arr_bytes;
-	size_t	hor_pixel;
-	size_t	ver_pixel;
+	size_t	hor_px;
+	size_t	ver_px;
 }						t_img_elem;
 
 typedef struct s_mlx_info

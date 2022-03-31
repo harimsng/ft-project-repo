@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 19:13:45 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/31 21:59:16 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/31 22:33:58 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 #include "fdf_transform.h"
 
 #define VEC_SIZE (40.0)
-#define VEC_X (SCREEN_WIDTH / 2)
-#define VEC_Y (SUBIMG_HEIGHT / 2)
+#define VEC_X (SCREEN_WIDTH)
+#define VEC_Y (SUBIMG_HEIGHT)
 
 static void	draw_unitvector(t_map_info *map_info, t_img_elem *img_elem);
 
@@ -39,7 +39,7 @@ void	draw_unitvector(t_map_info *map_info, t_img_elem *sub_elem)
 	submap_info = (t_map_info){
 		.hor_scale = VEC_SIZE, .ver_scale = VEC_SIZE,
 		.hor_angle = map_info->hor_angle, .ver_angle = map_info->ver_angle,
-		.gamma = map_info->gamma, .x0 = VEC_X, .y0 = VEC_Y
+		.gamma = map_info->gamma, .x0 = VEC_X / 2, .y0 = VEC_Y / 2
 	};
 	idx = -1;
 	while (++idx < 6)

@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 19:18:38 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/31 21:48:43 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/31 22:38:22 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	fdf_loop(t_mlx_info *mlx_info)
 
 void	fdf_subtask(t_mlx_info *mlx_info)
 {
-	t_map_info *map_info;
+	t_map_info	*map_info;
 
 	map_info = mlx_info->map_info;
 	mlx_put_image_to_window(mlx_info->mlx_ptr,

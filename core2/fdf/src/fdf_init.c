@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 17:54:03 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/31 20:58:31 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/31 22:32:00 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ int	init_img(t_mlx_info *mlx_info, t_img_elem *img_elem)
 	}
 	if (img_elem->depth_bits != 32)
 		ft_putstr_fd("warning: depth != 32 bits. memory error may occurs\n", 2);
-	img_elem->hor_pixel = img_elem->line_bytes * 8 / img_elem->depth_bits;
-	img_elem->ver_pixel = SCREEN_HEIGHT;
-	img_elem->arr_bytes = img_elem->line_bytes * img_elem->ver_pixel;
+	img_elem->hor_px = img_elem->line_bytes * 8 / img_elem->depth_bits;
+	img_elem->ver_px = SCREEN_HEIGHT;
+	img_elem->arr_bytes = img_elem->line_bytes * img_elem->ver_px;
 	return (0);
 }
 
@@ -69,8 +69,8 @@ int	init_sub(t_mlx_info *mlx_info)
 			&sub_elem->depth_bits, &sub_elem->line_bytes, &sub_elem->endian);
 	if (sub_elem->img_buf == NULL)
 		return (0x400);
-	sub_elem->hor_pixel = sub_elem->line_bytes * 8 / sub_elem->depth_bits;
-	sub_elem->ver_pixel = SUBIMG_HEIGHT;
-	sub_elem->arr_bytes = sub_elem->line_bytes * sub_elem->ver_pixel;
+	sub_elem->hor_px = sub_elem->line_bytes * 8 / sub_elem->depth_bits;
+	sub_elem->ver_px = SUBIMG_HEIGHT;
+	sub_elem->arr_bytes = sub_elem->line_bytes * sub_elem->ver_px;
 	return (0);
 }

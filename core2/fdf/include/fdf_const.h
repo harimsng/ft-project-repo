@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 17:10:04 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/31 22:13:07 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/31 22:29:02 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // screen constants
 # define SCREEN_WIDTH (1920)
 # define SCREEN_HEIGHT (1080)
-# define VP_DIST (SCREEN_HEIGHT / 2) // viewport distance
+# define VP_DIST (500) // viewport distance
 # define SUBIMG_WIDTH (SCREEN_WIDTH)
 # define SUBIMG_HEIGHT (80)
 # define TEXT_HEIGHT (16)

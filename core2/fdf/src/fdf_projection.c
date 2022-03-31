@@ -6,24 +6,24 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 20:48:11 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/31 21:31:21 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/31 22:36:31 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "fdf_transform.h"
 
-typedef void	(*t_transform)(t_map_info *, t_vertex *, t_vertex *);
+typedef void			(*t_transf)(t_map_info *, t_vertex *, t_vertex *);
 
-static const t_transform	g_transform[2]
-= {
+static const t_transf	g_transform[2]
+	= {
 	isometric_proj,
 	perspective_proj
 };
 
 void	fdf_projection(t_map_info *map_info)
 {
-	t_transform	transform;
+	t_transf	transform;
 	int			x;
 	int			y;
 
@@ -35,7 +35,7 @@ void	fdf_projection(t_map_info *map_info)
 		while (x < map_info->col)
 		{
 			transform(map_info, map_info->map_proj[y] + x,
-					map_info->map_origin[y] + x);
+				map_info->map_origin[y] + x);
 			map_info->map_proj[y][x].color = map_info->map_origin[y][x].color;
 			++x;
 		}
@@ -54,8 +54,8 @@ void	isometric_proj(t_map_info *map_info, t_vertex *to, t_vertex *from)
 	z = from->y * (double)map_info->hor_scale;
 	to->x = sin(map_info->hor_angle) * z + cos(map_info->hor_angle) * x;
 	to->y = cos(map_info->ver_angle) * y
-			+ sin(map_info->ver_angle) * cos(map_info->hor_angle) * z
-			- sin(map_info->ver_angle) * sin(map_info->hor_angle) * x;
+		+ sin(map_info->ver_angle) * cos(map_info->hor_angle) * z
+		- sin(map_info->ver_angle) * sin(map_info->hor_angle) * x;
 	y = to->y;
 	x = to->x;
 	to->y = cos(map_info->gamma) * y - sin(map_info->gamma) * x;
@@ -76,6 +76,8 @@ void	perspective_proj(t_map_info *map_info, t_vertex *to, t_vertex *from)
 	x = from->x * (double)map_info->hor_scale;
 	y = -from->z * (double)map_info->ver_scale;
 	z = from->y * (double)map_info->hor_scale;
+	to->x += (double)map_info->x0;
+	to->y += (double)map_info->y0;
 	to->x = sin(map_info->hor_angle) * z + cos(map_info->hor_angle) * x;
 	z = cos(map_info->hor_angle) * z - sin(map_info->hor_angle) * x;
 	to->y = sin(map_info->ver_angle) * z + cos(map_info->ver_angle) * y;
@@ -86,6 +88,4 @@ void	perspective_proj(t_map_info *map_info, t_vertex *to, t_vertex *from)
 		to->z = -1;
 	to->x *= VP_DIST / to->z;
 	to->y *= VP_DIST / to->z;
-	to->x += (double)map_info->x0;
-	to->y += (double)map_info->y0;
 }
