@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 17:58:01 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/30 19:29:16 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/31 21:16:25 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,17 @@ t_bool	fdf_load_map(int argc, char **argv, t_map_info *map_info)
 	t_bool	flag1;
 	int		fd;
 
-	ft_putstr_fd("loading map file...\n", 1);
+	ft_putstr_fd("loading map file\n", 1);
 	if (argc != 2 && argc != 4)
 	{
 		ft_putstr_fd("./fdf map_name [width unit] [height unit]", 2);
-		exit(16);
+		exit(0x4);
 	}
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 	{
 		perror("Invalid map file");
-		exit(32);
+		exit(0x8);
 	}
 	flag1 = read_map(fd, map_info);
 	if (flag1)
@@ -80,6 +80,7 @@ t_bool	read_map(int fd, t_map_info *map_info)
 	map_info->colored = FALSE;
 	map_info->row = idx;
 	map_info->map_origin = malloc(sizeof(t_vertex *) * map_info->row);
+	map_info->carry = NULL;
 	return (check_map(map_info, row_words));
 }
 

@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 17:21:17 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/30 17:32:26 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/31 22:11:57 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	render_d4(t_img_elem *img_elem, t_map_info *map_info, t_draw draw)
 		draw(img_elem, map_proj[y], map_proj[y + 1]);
 		++y;
 	}
+	x = map_info->col - 1;
 	while (x > 0)
 	{
 		draw(img_elem, map_proj[y] + x, map_proj[y] + x - 1);

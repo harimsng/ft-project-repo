@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 17:10:04 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/30 21:16:26 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/31 22:13:07 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 // screen constants
 # define SCREEN_WIDTH (1920)
 # define SCREEN_HEIGHT (1080)
-# define TEXT_HEIGHT (50)
-# define VP_DIST (1000) // viewport distance
+# define VP_DIST (SCREEN_HEIGHT / 2) // viewport distance
+# define SUBIMG_WIDTH (SCREEN_WIDTH)
+# define SUBIMG_HEIGHT (80)
+# define TEXT_HEIGHT (16)
 
 // map control coefficient
 # define X_STEP (8)
@@ -25,11 +27,11 @@
 # define YAW_STEP (0.08)
 # define ROLL_STEP (0.08)
 # define PITCH_STEP (0.08)
-# define SCALE_STEP (0.8) 
+# define SCALE_STEP (1.2) 
 
 // maximum map size
-# define MAP_MAXROWS (1024)
-# define MAP_MAXCOLS (1024)
+# define MAP_MAXROWS (2048)
+# define MAP_MAXCOLS (2048)
 
 // default angles
 # define HOR_ANGLE (0.7853) // PI / 4 ~= 0.7853

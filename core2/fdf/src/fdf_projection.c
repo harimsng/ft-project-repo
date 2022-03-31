@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 20:48:11 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/30 21:46:14 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/31 21:31:21 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,9 @@ void	isometric_proj(t_map_info *map_info, t_vertex *to, t_vertex *from)
 	to->y += (double)map_info->y0;
 }
 
+//to->z += map_info->row + map_info->col :
+//	relative position between camera.
+//	it causes problem when they are close.
 void	perspective_proj(t_map_info *map_info, t_vertex *to, t_vertex *from)
 {
 	double	x;
@@ -78,7 +81,9 @@ void	perspective_proj(t_map_info *map_info, t_vertex *to, t_vertex *from)
 	to->y = sin(map_info->ver_angle) * z + cos(map_info->ver_angle) * y;
 	to->z = cos(map_info->ver_angle) * z - sin(map_info->ver_angle) * y;
 	to->z *= -1;
-	to->z += map_info->row + VP_DIST;
+	to->z += VP_DIST;
+	if (to->z < 0)
+		to->z = -1;
 	to->x *= VP_DIST / to->z;
 	to->y *= VP_DIST / to->z;
 	to->x += (double)map_info->x0;

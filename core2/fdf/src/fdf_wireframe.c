@@ -6,24 +6,16 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 20:31:10 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/30 22:33:15 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/31 21:33:26 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "fdf_render_order.h"
+# include <stdio.h>
+# include "mlx.h"
 
 static const t_render	g_render_d[8] = {
-	render_d0,
-	render_d2,
-	render_d3,
-	render_d1,
-	render_d4,
-	render_d6,
-	render_d7,
-	render_d5
-};
-		/*
 	render_d0,
 	render_d1,
 	render_d2,
@@ -33,7 +25,6 @@ static const t_render	g_render_d[8] = {
 	render_d6,
 	render_d7
 };
-*/
 
 static const t_render	g_render_n[8] = {
 	render_n0,
@@ -65,34 +56,58 @@ void	fdf_wireframe(t_img_elem *img_elem, t_map_info *map_info)
 
 int	get_octant(t_map_info *map_info)
 {
-	/*
-*/
-	int			idx;
-	t_vertex	*edges[4];
-	t_vertex	**map_proj;
-
-	map_proj = map_info->map_proj;
-	edges[0] = map_proj[0];
-	edges[1] = map_proj[0] + map_info->col - 1;
-	edges[2] = map_proj[map_info->row - 1] + map_info->col - 1;
-	edges[3] = map_proj[map_info->row - 1];
-	idx = 0;
-	while (idx < 5)
-	{
-		if (edges[(idx + 1) % 4]->y <= edges[idx % 4]->y
-			&& edges[(idx + 1) % 4]->y <= edges[(idx + 2) % 4]->y
-			&& edges[(idx + 1) % 4]->y <= edges[(idx + 3) % 4]->y)
-			break ;
-		++idx;
-	}
-	if (edges[idx % 4]->y < edges[(idx + 2) % 4]->y)
-		return (idx + 4);
-	return (idx);
-}
-/*
 	return (4 * (sin(map_info->hor_angle * 4) > 0)
 		+ (3 * (cos(map_info->ver_angle) < 0)
 		^ ((sin(map_info->hor_angle) < 0)
 			+ 2 * (cos(map_info->hor_angle) < 0))));
+}
+
+//function to find octant more accurately. not working now.
+/*
+static const int		g_index_table[8] = {
+	0, 2, 3, 1,
+	3, 1, 0, 2
+};
+
+int	get_octant(t_map_info *map_info)
+{
+	static char	buf[100];
+	int			idx;
+	int			minidx;
+	double		minval;
+	double		edges[4];
+
+	edges[0] = map_info->map_proj[0][0].y;
+	edges[1] = map_info->map_proj[0][map_info->col - 1].y;
+	edges[2] = map_info->map_proj[map_info->row - 1][map_info->col - 1].y;
+	edges[3] = map_info->map_proj[map_info->row - 1][0].y;
+	minval = 2147483647;
+	if (edges[1] < minval)
+	{
+		minidx = 1;
+		minval = edges[1];
+	}
+	if (edges[2] < minval)
+	{
+		minidx = 2;
+		minval = edges[2];
+	}
+	if (edges[3] < minval)
+	{
+		minidx = 3;
+		minval = edges[3];
+	}
+	if (edges[0] < minval)
+	{
+		minidx = 4;
+		minval = edges[0];
+	}
+	idx = g_index_table[minidx - 1 + 4 * (tan(map_info->ver_angle) < 0)];
+	if (edges[minidx - 1] < edges[(minidx + 1) % 4])
+		idx += 4;
+			snprintf(buf, 99, "oct: %d  y0x0:%6.2lf  y0x1:%6.2lf  y1x1:%6.2lf  y1x0:%6.2lf",
+			idx, edges[0], edges[1], edges[2], edges[3]);
+	map_info->carry = buf;
+	return (idx);
 }
 */

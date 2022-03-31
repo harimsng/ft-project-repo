@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 20:03:29 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/30 20:03:30 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/31 20:23:52 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_map_info
 	int			max_height;
 	t_bool		interface_flag;
 	t_bool		automove_flag;
+	void		*carry;
 }						t_map_info;
 
 typedef struct s_img_elem
@@ -55,8 +56,8 @@ typedef struct s_img_elem
 	int		line_bytes;
 	int		endian;
 	size_t	arr_bytes;
-	size_t	hor_size;
-	size_t	ver_size;
+	size_t	hor_pixel;
+	size_t	ver_pixel;
 }						t_img_elem;
 
 typedef struct s_mlx_info
@@ -64,7 +65,9 @@ typedef struct s_mlx_info
 	void		*mlx_ptr;
 	void		*win_ptr;
 	void		*img_ptr;
+	void		*sub_ptr;
 	t_img_elem	*img_elem;
+	t_img_elem	*sub_elem;
 	t_map_info	*map_info;
 }						t_mlx_info;
 

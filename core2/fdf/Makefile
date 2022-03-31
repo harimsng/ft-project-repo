@@ -69,6 +69,7 @@ endif
 all: $(NAME)
 
 opti:
+	$(MAKE) clean
 	$(MAKE) OPTI_FLAG=1
 
 debug:

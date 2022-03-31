@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 19:26:20 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/30 20:07:49 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/31 21:03:53 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,13 @@
 // mlx & map initialization
 int		init_win(t_mlx_info *mlx_info);
 int		init_img(t_mlx_info *mlx_info, t_img_elem *img_elem);
+int		init_sub(t_mlx_info *mlx_info);
 t_bool	fdf_load_map(int argc, char **argv, t_map_info *map_info);
 void	fdf_setup_map(t_map_info *map_info);
 void	fdf_alloc_map(t_map_info *map_info);
 
 // update & plot functions
-void	fdf_update(t_img_elem *img_elem);
+void	fdf_plot_loop(t_img_elem *img_elem);
 void	fdf_plot(int x, int y, double brightness, t_img_elem *img_elem);
 void	fdf_drawline(t_img_elem *img_elem, t_vertex *p0, t_vertex *p1);
 void	fdf_aa_drawline(t_img_elem *img_elem, t_vertex *p0, t_vertex *p1);
@@ -49,5 +50,6 @@ void	swap_point(t_vertex **p0, t_vertex **p1);
 char	*get_next_line(int fd);
 void	get_frametime(t_mlx_info *mlx_info);
 double	fdf_modf(double num);
+void	fdf_debug(t_mlx_info *mlx_info);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 18:21:17 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/30 21:18:11 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/31 21:45:31 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	fdf_setup_map(t_map_info *map_info);
 // require MacOS Keycode
 void	scale_up(t_mlx_info *mlx_info)
 {
-	if (mlx_info->map_info->hor_scale > 300.0)
+	if (mlx_info->map_info->hor_scale
+		+ (mlx_info->map_info->row + mlx_info->map_info->col) > VP_DIST << 4)
 		return ;
 	mlx_info->map_info->x0
 		= (mlx_info->map_info->x0 - SCREEN_WIDTH / 2.0)
