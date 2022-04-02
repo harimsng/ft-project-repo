@@ -6,12 +6,15 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 19:13:45 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/31 22:33:58 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/01 21:26:16 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "fdf_transform.h"
+#include "mlx.h"
+# include <time.h>
+# include <stdio.h>
 
 #define VEC_SIZE (40.0)
 #define VEC_X (SCREEN_WIDTH)
@@ -50,4 +53,43 @@ void	draw_unitvector(t_map_info *map_info, t_img_elem *sub_elem)
 		fdf_drawline(sub_elem, vec + idx * 2, vec + (idx * 2 + 1) % 6);
 		fdf_drawline(sub_elem, vec + idx * 2, vec + (idx * 2 + 2) % 6);
 	}
+}
+
+void	get_frametime(t_mlx_info *mlx_info)
+{
+	static int		frame;
+	static clock_t	past;
+	static clock_t	now;
+	float			frametime;
+	char			buf[100];
+	t_map_info		*map_info;
+
+	map_info = mlx_info->map_info;
+	now = clock();
+	frametime = (float)(now - past) / CLOCKS_PER_SEC;
+	past = now;
+	snprintf(buf, 100, "fps = %6.2f  frametime = %6.4f \
+alpha = %6.2fdeg beta = %6.2lfdeg gamma = %6.2lfdeg",
+		1 / frametime, frametime,
+		map_info->hor_angle * 180.0 / M_PI,
+		map_info->ver_angle * 180.0 / M_PI,
+		map_info->gamma * 180.0 / M_PI);
+	mlx_string_put(mlx_info->mlx_ptr, mlx_info->win_ptr,
+			0, TEXT_HEIGHT, 0xFFFFFF, buf);
+	++frame;
+}
+
+void	fdf_debug(t_mlx_info *mlx_info)
+{
+	char	buf[100];
+	t_map_info	*map_info;
+
+	map_info = mlx_info->map_info;
+	snprintf(buf, 100,
+		"x = %5d y = %5d dx = %4.2lf dy = %4.2lf",
+		map_info->x0 - g_screen_hwidth,
+		map_info->y0 - g_screen_hheight,
+		map_info->hor_scale, map_info->ver_scale);
+	mlx_string_put(mlx_info->mlx_ptr, mlx_info->win_ptr,
+			0, 2 * TEXT_HEIGHT + 4, 0xFFFFFF, buf);
 }

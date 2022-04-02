@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 19:18:38 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/31 22:38:22 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/01 21:25:30 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	fdf_loop(t_mlx_info *mlx_info)
 		mlx_info->win_ptr, mlx_info->img_ptr, 0, SUBIMG_HEIGHT);
 	return (0);
 }
-//	system("leaks fdf | grep malloced");
+// system("leaks fdf | grep malloced");
 
 void	fdf_subtask(t_mlx_info *mlx_info)
 {
@@ -88,7 +88,6 @@ void	fdf_subtask(t_mlx_info *mlx_info)
 		map_info->ver_angle += 0.04;
 	}
 }
-		//map_info->gamma += 0.04;
 
 void	fdf_update(t_mlx_info *mlx_info)
 {

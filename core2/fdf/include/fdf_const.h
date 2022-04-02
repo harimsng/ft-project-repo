@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 17:10:04 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/31 22:29:02 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/01 21:32:10 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,12 @@
 // map control coefficient
 # define X_STEP (8)
 # define Y_STEP (8)
-# define YAW_STEP (0.08)
-# define ROLL_STEP (0.08)
-# define PITCH_STEP (0.08)
+# define HEIGHT_STEP (20.0)
+# define YAW_STEP (0.05)
+# define ROLL_STEP (0.05)
+# define PITCH_STEP (0.05)
 # define SCALE_STEP (1.2) 
+# define TRANSL_DIV (100.0)
 
 // maximum map size
 # define MAP_MAXROWS (2048)

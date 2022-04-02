@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 18:31:12 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/30 19:24:21 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/01 20:52:16 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 // y coordinate is higher(lower in the display) than mid-value.
 void	fdf_setup_map(t_map_info *map_info)
 {
+	map_info->x0 = SCREEN_WIDTH / 2;
+	map_info->y0 = SCREEN_HEIGHT * 10 / 19;
 	map_info->hor_angle = HOR_ANGLE;
 	map_info->ver_angle = VER_ANGLE;
 	map_info->hor_scale = (double)SCREEN_WIDTH
@@ -24,10 +26,11 @@ void	fdf_setup_map(t_map_info *map_info)
 		/ (map_info->col + map_info->row + map_info->max_height / 2.0);
 	map_info->gamma = GAMMA;
 	map_info->projection = 0;
+	map_info->var_x = 0;
+	map_info->var_y = 0;
+	map_info->var_height = 0;
 	map_info->automove_flag = FALSE;
-	map_info->interface_flag = TRUE;
-	map_info->x0 = SCREEN_WIDTH / 2;
-	map_info->y0 = SCREEN_HEIGHT * 10 / 19;
+	map_info->interface_flag = FALSE;
 }
 
 void	fdf_alloc_map(t_map_info *map_info)

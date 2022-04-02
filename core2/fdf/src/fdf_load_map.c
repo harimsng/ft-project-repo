@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 17:58:01 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/31 21:16:25 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/01 18:37:35 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ t_bool	fdf_load_map(int argc, char **argv, t_map_info *map_info)
 	flag1 = read_map(fd, map_info);
 	if (flag1)
 		get_variable(argc, argv + 2, map_info);
+	map_info->var_height = 0;
 	map_info->max_height = get_z_coord(NULL);
 	map_info->colored = get_color(NULL);
 	return (flag1);
@@ -80,7 +81,6 @@ t_bool	read_map(int fd, t_map_info *map_info)
 	map_info->colored = FALSE;
 	map_info->row = idx;
 	map_info->map_origin = malloc(sizeof(t_vertex *) * map_info->row);
-	map_info->carry = NULL;
 	return (check_map(map_info, row_words));
 }
 

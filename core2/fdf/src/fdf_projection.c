@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 20:48:11 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/31 22:36:31 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/01 20:10:29 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,21 +52,19 @@ void	isometric_proj(t_map_info *map_info, t_vertex *to, t_vertex *from)
 	x = from->x * (double)map_info->hor_scale;
 	y = -from->z * (double)map_info->ver_scale;
 	z = from->y * (double)map_info->hor_scale;
+	y += map_info->var_height;
 	to->x = sin(map_info->hor_angle) * z + cos(map_info->hor_angle) * x;
 	to->y = cos(map_info->ver_angle) * y
 		+ sin(map_info->ver_angle) * cos(map_info->hor_angle) * z
 		- sin(map_info->ver_angle) * sin(map_info->hor_angle) * x;
-	y = to->y;
-	x = to->x;
+	y = to->y + map_info->var_y;
+	x = to->x + map_info->var_x;
 	to->y = cos(map_info->gamma) * y - sin(map_info->gamma) * x;
 	to->x = sin(map_info->gamma) * y + cos(map_info->gamma) * x;
 	to->x += (double)map_info->x0;
 	to->y += (double)map_info->y0;
 }
 
-//to->z += map_info->row + map_info->col :
-//	relative position between camera.
-//	it causes problem when they are close.
 void	perspective_proj(t_map_info *map_info, t_vertex *to, t_vertex *from)
 {
 	double	x;
@@ -76,10 +74,11 @@ void	perspective_proj(t_map_info *map_info, t_vertex *to, t_vertex *from)
 	x = from->x * (double)map_info->hor_scale;
 	y = -from->z * (double)map_info->ver_scale;
 	z = from->y * (double)map_info->hor_scale;
-	to->x += (double)map_info->x0;
-	to->y += (double)map_info->y0;
-	to->x = sin(map_info->hor_angle) * z + cos(map_info->hor_angle) * x;
-	z = cos(map_info->hor_angle) * z - sin(map_info->hor_angle) * x;
+	y += map_info->var_height;
+	to->x = sin(map_info->hor_angle) * z + cos(map_info->hor_angle) * x
+		+ map_info->var_x;
+	z = cos(map_info->hor_angle) * z - sin(map_info->hor_angle) * x
+		+ map_info->var_y;
 	to->y = sin(map_info->ver_angle) * z + cos(map_info->ver_angle) * y;
 	to->z = cos(map_info->ver_angle) * z - sin(map_info->ver_angle) * y;
 	to->z *= -1;
@@ -88,4 +87,6 @@ void	perspective_proj(t_map_info *map_info, t_vertex *to, t_vertex *from)
 		to->z = -1;
 	to->x *= VP_DIST / to->z;
 	to->y *= VP_DIST / to->z;
+	to->x += (double)map_info->x0;
+	to->y += (double)map_info->y0;
 }

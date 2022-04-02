@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 21:42:44 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/30 19:29:37 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/01 20:08:55 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	exit_program(t_mlx_info *mlx_info);
 
 static const t_key_func	g_keycode_table[128] = {
 /*0*/move_obj_left,
-/*1*/move_obj_down,
+/*1*/move_obj_back,
 /*2*/move_obj_right,
 /*3*/dummy_func,
 /*4*/dummy_func,
@@ -32,7 +32,7 @@ static const t_key_func	g_keycode_table[128] = {
 /*10*/dummy_func,
 /*11*/dummy_func,
 /*12*/scale_up,
-/*13*/move_obj_up,
+/*13*/move_obj_forward,
 /*14*/scale_down,
 /*15*/dummy_func,
 /*16*/dummy_func,
@@ -50,8 +50,8 @@ static const t_key_func	g_keycode_table[128] = {
 /*28*/dummy_func,
 /*29*/dummy_func,
 /*30*/dummy_func,
-/*31*/rotate_rroll,
-/*32*/rotate_roll,
+/*31*/move_obj_up,
+/*32*/move_obj_down,
 /*33*/dummy_func,
 /*34*/rotate_rpitch,
 /*35*/dummy_func,
@@ -62,11 +62,11 @@ static const t_key_func	g_keycode_table[128] = {
 /*40*/rotate_pitch,
 /*41*/dummy_func,
 /*42*/dummy_func,
-/*43*/dummy_func,
+/*43 ,*/height_down,
 /*44*/dummy_func,
 /*45*/dummy_func,
 /*46*/dummy_func,
-/*47*/dummy_func,
+/*47 .*/height_up,
 /*48*/dummy_func,
 /*49*/set_default,
 /*50*/dummy_func,

@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 20:03:29 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/31 22:31:24 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/01 18:59:38 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,12 @@ typedef struct s_map_info
 	double		gamma;
 	int			projection;
 	int			colored;
+	double		var_x;
+	double		var_y;
+	int			var_height;
 	int			max_height;
 	t_bool		interface_flag;
 	t_bool		automove_flag;
-	void		*carry;
 }						t_map_info;
 
 typedef struct s_img_elem

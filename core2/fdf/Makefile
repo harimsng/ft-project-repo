@@ -21,10 +21,12 @@ SRC		=	main.c\
 			wireframe/fdf_wireframe_normal.c\
 			wireframe/fdf_wireframe_normal2.c\
 			keymap/fdf_keymap_transl_mac.c\
+			keymap/fdf_keymap_transl2_mac.c\
 			keymap/fdf_keymap_rotate_mac.c\
 			keymap/fdf_keymap_rotate2_mac.c\
 			keymap/fdf_keymap_scale_mac.c\
 			keymap/fdf_keymap_projection_mac.c\
+			keymap/fdf_keymap_height_mac.c\
 			fdf_color.c\
 			fdf_load_map.c\
 			fdf_manage_map.c\

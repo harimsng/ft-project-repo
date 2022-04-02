@@ -17,3 +17,5 @@ mlx_do_key_autorepeaton() function literally does the work.
 
 reversed altitude
 before starting transformation, multiply -1 to altitude coordinate to match reversed orientation from 3d space to 2d space(canvas). 
+
+when to translate the map. before scaling? after? or before y-rotation? or x-rotation? ...
