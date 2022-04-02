@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 21:42:44 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/01 20:08:55 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/02 19:46:38 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ static const t_key_func	g_keycode_table[128] = {
 /*9*/dummy_func,
 /*10*/dummy_func,
 /*11*/dummy_func,
-/*12*/scale_up,
+/*12*/move_obj_down,
 /*13*/move_obj_forward,
-/*14*/scale_down,
+/*14*/move_obj_up,
 /*15*/dummy_func,
 /*16*/dummy_func,
 /*17*/dummy_func,
@@ -50,8 +50,8 @@ static const t_key_func	g_keycode_table[128] = {
 /*28*/dummy_func,
 /*29*/dummy_func,
 /*30*/dummy_func,
-/*31*/move_obj_up,
-/*32*/move_obj_down,
+/*31*/scale_down,
+/*32*/scale_up,
 /*33*/dummy_func,
 /*34*/rotate_rpitch,
 /*35*/dummy_func,
@@ -99,11 +99,59 @@ static const t_key_func	g_keycode_table[128] = {
 /*77*/dummy_func,
 /*78*/dummy_func,
 /*79*/dummy_func,
+/*80*/dummy_func,
+/*81*/dummy_func,
+/*82*/dummy_func,
+/*83*/dummy_func,
+/*84*/dummy_func,
+/*85*/dummy_func,
+/*86*/dummy_func,
+/*87*/dummy_func,
+/*88*/dummy_func,
+/*89*/dummy_func,
+/*90*/dummy_func,
+/*91*/dummy_func,
+/*92*/dummy_func,
+/*93*/dummy_func,
+/*94*/dummy_func,
+/*95*/dummy_func,
+/*96*/dummy_func,
+/*97*/dummy_func,
+/*98*/dummy_func,
+/*99*/dummy_func,
+/*100*/dummy_func,
+/*101*/dummy_func,
+/*102*/dummy_func,
+/*103*/dummy_func,
+/*104*/dummy_func,
+/*105*/dummy_func,
+/*106*/dummy_func,
+/*107*/dummy_func,
+/*108*/dummy_func,
+/*109*/dummy_func,
+/*110*/dummy_func,
+/*111*/dummy_func,
+/*112*/dummy_func,
+/*113*/dummy_func,
+/*114*/dummy_func,
+/*115*/dummy_func,
+/*116*/dummy_func,
+/*117*/dummy_func,
+/*118*/dummy_func,
+/*119*/dummy_func,
+/*120*/dummy_func,
+/*121*/dummy_func,
+/*122*/dummy_func,
+/*123*/dummy_func,
+/*124*/dummy_func,
+/*125*/dummy_func,
+/*126*/dummy_func,
+/*127*/dummy_func,
 };
 
 int	key_hook(int keycode, void *param)
 {
-	if (keycode > 53)
+	if (keycode > 127)
 		return (0);
 	g_keycode_table[keycode](param);
 	return (0);
@@ -114,8 +162,8 @@ void	dummy_func(t_mlx_info *mlx_info)
 	(void)mlx_info;
 }
 
-static void	exit_program(t_mlx_info *mlx_info)
+void	exit_program(t_mlx_info *mlx_info)
 {
-	(void)mlx_info;
+	terminate_fdf(mlx_info);
 	exit(0);
 }

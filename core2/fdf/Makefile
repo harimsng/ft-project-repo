@@ -1,9 +1,8 @@
 NAME	=	fdf
 
 CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror -O3
 DEBUG	=	-g3 -fsanitize=address
-OPTI	=	-O3
 RM		=	rm -f
 
 
@@ -30,13 +29,21 @@ SRC		=	main.c\
 			fdf_color.c\
 			fdf_load_map.c\
 			fdf_manage_map.c\
-			fdf_interface.c\
 			fdf_utils.c\
+			fdf_terminate.c\
 			get_next_line.c
 
 SRC_DIR	=	src
 SRC		:=	$(SRC:%=$(SRC_DIR)/%)
 OBJ		=	$(SRC:%.c=%.o)
+
+BNS_SRC	=	fdf_interface.c
+BNS_SRC :=	$(BNS_SRC:%=$(SRC_DIR)/%)
+BNS_OBJ =	$(BNS_SRC:%.c=%.o)
+ifeq ($(BONUS_FLAG), 1)
+OBJ		+=	$(BNS_OBJ)
+CFLAGS	+=	-DBNS_FLAG
+endif
 
 
 # header files
@@ -63,16 +70,10 @@ ifeq ($(DEBUG_FLAG), 1)
 CFLAGS +=	$(DEBUG)
 endif
 
-ifeq ($(OPTI_FLAG), 1)
-CFLAGS +=	$(OPTI)
-endif
-
-
 all: $(NAME)
 
-opti:
-	$(MAKE) clean
-	$(MAKE) OPTI_FLAG=1
+bonus:
+	@$(MAKE) BONUS_FLAG=1
 
 debug:
 	$(MAKE) clean
@@ -93,15 +94,14 @@ $(LFT_NAME):
 
 
 $(NAME): $(LFT_NAME) $(LIB_NAME) $(OBJ)
-	$(CC) $(CFLAGS) -o $@ $(OBJ) -l$(LIB) -L.\
-		-framework OpenGL -framework AppKit -lz\
-		-l$(LFT)
+	$(CC) $(CFLAGS) -o $@ $(OBJ) -l$(LIB) -L. -l$(LFT) \
+		-framework AppKit -framework OpenGL -lz
 
 $(OBJ): %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $^ -I$(INCL_DIR)
 
 clean:
-	$(RM) $(OBJ)
+	$(RM) $(OBJ) $(BNS_OBJ)
 
 fclean: clean
 	$(RM) $(NAME) $(LIB_NAME) $(LFT_NAME)

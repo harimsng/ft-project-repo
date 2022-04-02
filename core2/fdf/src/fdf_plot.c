@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 21:49:08 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/31 22:32:14 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/02 20:51:42 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ void	fdf_plot_loop(t_img_elem *img_elem)
 		x = 0;
 		while (x < SCREEN_WIDTH)
 		{
-			fdf_plot(x, y, (double)x / SCREEN_WIDTH, img_elem);
+			fdf_plot(x, y,
+				(pow(x - SCREEN_WIDTH / 2, 2) + pow(y - SCREEN_HEIGHT / 2, 2))
+				/ ((pow(g_screen_hwidth, 2) + pow(g_screen_hheight, 2))),
+				img_elem);
 			++x;
 		}
 		++y;
@@ -37,7 +40,5 @@ void	fdf_plot_loop(t_img_elem *img_elem)
 void	fdf_plot(int x, int y, double brightness, t_img_elem *img_elem)
 {
 	img_elem->img_buf[x + y * img_elem->hor_px]
-		= (int)brightness * 0x80 * 0x10000
-		+ (int)brightness * 0x40 * 0x100
-		+ (int)brightness * 0x20 * 0x1;
+		= 0x081020 + ((int)(0x22 * brightness));
 }

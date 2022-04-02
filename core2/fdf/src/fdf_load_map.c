@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 17:58:01 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/01 18:37:35 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/02 19:43:00 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ typedef char	**t_word_arr;
 static t_bool	get_variable(int argc, char **var, t_map_info *map_info);
 static t_bool	read_map(int fd, t_map_info *map_info);
 static t_bool	check_map(t_map_info *map_info, t_word_arr *row_words);
-static t_bool	dealloc_map(t_word_arr *row_words, t_bool error);
+static void		dealloc_words(t_word_arr *row_words);
 
 t_bool	fdf_load_map(int argc, char **argv, t_map_info *map_info)
 {
@@ -89,12 +89,11 @@ t_bool	check_map(t_map_info *map_info, t_word_arr *row_words)
 	int		idx;
 	int		jdx;
 
+	jdx = 0;
+	while (row_words[0][jdx] != NULL)
+		++jdx;
 	idx = 0;
-	while (row_words[0][idx] != NULL)
-		++idx;
-	map_info->col = idx;
-	idx = 0;
-	jdx = map_info->col;
+	map_info->col = jdx;
 	while (idx < map_info->row && jdx == map_info->col)
 	{
 		map_info->map_origin[idx] = malloc(sizeof(t_vertex) * map_info->col);
@@ -110,10 +109,11 @@ t_bool	check_map(t_map_info *map_info, t_word_arr *row_words)
 		}
 		++idx;
 	}
-	return (dealloc_map(row_words, jdx != map_info->col));
+	dealloc_words(row_words);
+	return (jdx == map_info->col);
 }
 
-t_bool	dealloc_map(t_word_arr *row_words, t_bool error)
+void	dealloc_words(t_word_arr *row_words)
 {
 	size_t		idx;
 
@@ -125,7 +125,4 @@ t_bool	dealloc_map(t_word_arr *row_words, t_bool error)
 		free(*row_words);
 		++row_words;
 	}
-	if (error)
-		return (FALSE);
-	return (TRUE);
 }
