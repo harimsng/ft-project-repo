@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 19:13:45 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/02 20:34:20 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/02 21:01:31 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ void	get_frametime(t_mlx_info *mlx_info, t_map_info *map_info)
 	snprintf(buf, 100, "fps = %6.2f  frametime = %6.4f \
 alpha = %6.2fdeg beta = %6.2lfdeg gamma = %6.2lfdeg",
 		1 / frametime, frametime,
-		map_info->hor_angle * 180.0 / M_PI,
-		map_info->ver_angle * 180.0 / M_PI,
-		map_info->gamma * 180.0 / M_PI);
+		fmod(map_info->hor_angle * 180.0 / M_PI, 360.0),
+		fmod(map_info->ver_angle * 180.0 / M_PI, 360.0),
+		fmod(map_info->gamma * 180.0 / M_PI, 360.0));
 	mlx_string_put(mlx_info->mlx_ptr, mlx_info->win_ptr,
 		0, TEXT_HEIGHT, 0xFFFFFF, buf);
 	++frame;
