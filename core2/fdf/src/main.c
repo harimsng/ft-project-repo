@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 19:18:38 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/02 21:01:29 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/04 11:00:48 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,7 @@ void	fdf_subtask(t_mlx_info *mlx_info)
 		map_info->ver_angle += 0.04;
 	}
 }
-//	if (map_info->interface_flag == TRUE)
-//		fdf_interface(mlx_info);
+//	fdf_interface(mlx_info);
 
 void	fdf_update(t_mlx_info *mlx_info)
 {
