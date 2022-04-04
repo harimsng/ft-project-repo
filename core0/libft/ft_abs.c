@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   ft_abs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/08 17:14:26 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/22 12:11:48 by hseong           ###   ########.fr       */
+/*   Created: 2022/03/23 20:10:42 by hseong            #+#    #+#             */
+/*   Updated: 2022/03/23 20:11:01 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	ft_putendl_fd(char *s, int fd)
+int	ft_abs(int num)
 {
-	size_t	len;
-
-	len = 0;
-	while (s[len])
-		++len;
-	write(fd, s, len);
-	write(fd, "\n", 1);
+	if (num < 0)
+		return (-num);
+	return (num);
 }

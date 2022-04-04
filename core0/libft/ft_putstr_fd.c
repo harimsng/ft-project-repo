@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 17:13:50 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/08 17:15:13 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/22 11:59:11 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	while (*s)
-		write(fd, s++, 1);
+	size_t	len;
+
+	len = 0;
+	while (s[len])
+		++len;
+	write(fd, s, len);
 }

@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/08 17:14:26 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/22 12:11:48 by hseong           ###   ########.fr       */
+/*   Created: 2022/03/23 19:55:48 by hseong            #+#    #+#             */
+/*   Updated: 2022/03/29 18:53:29 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	ft_putendl_fd(char *s, int fd)
+int	ft_isspace(int c)
 {
-	size_t	len;
-
-	len = 0;
-	while (s[len])
-		++len;
-	write(fd, s, len);
-	write(fd, "\n", 1);
+	if ((c > 8 && c < 14) || c == 32)
+		return (1);
+	return (0);
 }
