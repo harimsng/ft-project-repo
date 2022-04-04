@@ -6,12 +6,13 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 20:31:10 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/01 14:19:41 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/04 15:20:41 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "fdf_render_order.h"
+#include <math.h>
 
 static const t_render	g_render_d[8] = {
 	render_d0,

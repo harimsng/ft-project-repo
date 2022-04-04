@@ -6,11 +6,14 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 18:31:12 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/01 20:52:16 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/04 15:18:52 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include <stdlib.h>
+
+static t_bool	dealloc(t_vertex **arr, int len);
 
 // align map to the center of the display.
 // y coordinate is higher(lower in the display) than mid-value.
@@ -33,17 +36,36 @@ void	fdf_setup_map(t_map_info *map_info)
 	map_info->interface_flag = FALSE;
 }
 
-void	fdf_alloc_map(t_map_info *map_info)
+t_bool	fdf_alloc_map(t_map_info *map_info)
 {
 	t_vertex	**projected;
 	int			idx;
 
 	projected = malloc(sizeof(t_vertex *) * map_info->row);
+	if (projected == NULL)
+		return (FALSE);
 	idx = 0;
 	while (idx < map_info->row)
 	{
 		projected[idx] = malloc(sizeof(t_vertex) * map_info->col);
+		if (projected[idx] == NULL)
+			return (dealloc(projected, idx));
 		++idx;
 	}
 	map_info->map_proj = projected;
+	return (TRUE);
+}
+
+static t_bool	dealloc(t_vertex **arr, int len)
+{
+	int		idx;
+
+	idx = 0;
+	while (idx < len)
+	{
+		free(arr[idx]);
+		++idx;
+	}
+	free(arr);
+	return (FALSE);
 }

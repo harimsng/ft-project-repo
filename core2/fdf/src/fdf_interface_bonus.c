@@ -6,13 +6,14 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 19:13:45 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/04 11:00:15 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/04 15:42:39 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "fdf_transform.h"
 #include "mlx.h"
+#include <math.h>
 #include <time.h>
 #include <stdio.h>
 

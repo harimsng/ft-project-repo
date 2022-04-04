@@ -6,11 +6,12 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 21:49:08 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/02 20:51:42 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/04 15:19:45 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include <math.h>
 
 void	fdf_plot_loop(t_img_elem *img_elem)
 {

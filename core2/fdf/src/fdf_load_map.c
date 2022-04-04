@@ -6,20 +6,21 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 17:58:01 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/02 19:43:00 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/04 15:31:29 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "libft.h"
 #include <stdio.h>
+#include <fcntl.h>
 
 typedef char	**t_word_arr;
 
 static t_bool	get_variable(int argc, char **var, t_map_info *map_info);
 static t_bool	read_map(int fd, t_map_info *map_info);
-static t_bool	check_map(t_map_info *map_info, t_word_arr *row_words);
-static void		dealloc_words(t_word_arr *row_words);
+static t_bool	check_map(t_map_info *map_info, t_word_arr *words);
+static void		dealloc_words(t_word_arr *words);
 
 t_bool	fdf_load_map(int argc, char **argv, t_map_info *map_info)
 {
@@ -64,33 +65,35 @@ t_bool	get_variable(int argc, char **var, t_map_info *map_info)
 
 t_bool	read_map(int fd, t_map_info *map_info)
 {
-	char		*raw_row;
-	t_word_arr	row_words[MAP_MAXROWS];
+	char		*line;
+	t_word_arr	words[MAP_MAXROWS + 1];
 	size_t		idx;
 
-	raw_row = get_next_line(fd);
+	line = get_next_line(fd);
 	idx = 0;
-	while (raw_row != NULL)
+	while (line != NULL)
 	{
-		row_words[idx] = ft_split(raw_row, "\n\t ");
-		free(raw_row);
-		raw_row = get_next_line(fd);
+		words[idx] = ft_split(line, "\n\t ");
+		free(line);
+		line = get_next_line(fd);
 		++idx;
 	}
-	row_words[idx] = NULL;
+	words[idx] = NULL;
 	map_info->colored = FALSE;
 	map_info->row = idx;
 	map_info->map_origin = malloc(sizeof(t_vertex *) * map_info->row);
-	return (check_map(map_info, row_words));
+	if (map_info->map_origin == NULL)
+		return (FALSE);
+	return (check_map(map_info, words));
 }
 
-t_bool	check_map(t_map_info *map_info, t_word_arr *row_words)
+t_bool	check_map(t_map_info *map_info, t_word_arr *words)
 {
 	int		idx;
 	int		jdx;
 
 	jdx = 0;
-	while (row_words[0][jdx] != NULL)
+	while (words[0][jdx] != NULL)
 		++jdx;
 	idx = 0;
 	map_info->col = jdx;
@@ -98,31 +101,31 @@ t_bool	check_map(t_map_info *map_info, t_word_arr *row_words)
 	{
 		map_info->map_origin[idx] = malloc(sizeof(t_vertex) * map_info->col);
 		jdx = 0;
-		while (row_words[idx][jdx] != NULL && jdx < map_info->col)
+		while (words[idx][jdx] != NULL && jdx < map_info->col)
 		{
 			map_info->map_origin[idx][jdx] = (t_vertex){
-				.y = idx - map_info->row / 2,
-				.x = jdx - map_info->col / 2,
-				.z = get_z_coord(row_words[idx][jdx]),
-				.color = get_color(row_words[idx][jdx])};
+				.y = idx - map_info->row / 2, .x = jdx - map_info->col / 2,
+				.z = get_z_coord(words[idx][jdx]),
+				.color = get_color(words[idx][jdx])};
 			++jdx;
 		}
 		++idx;
 	}
-	dealloc_words(row_words);
+	map_info->row = idx;
+	dealloc_words(words);
 	return (jdx == map_info->col);
 }
 
-void	dealloc_words(t_word_arr *row_words)
+void	dealloc_words(t_word_arr *words)
 {
 	size_t		idx;
 
-	while (*row_words)
+	while (*words)
 	{
 		idx = 0;
-		while (row_words[0][idx])
-			free(row_words[0][idx++]);
-		free(*row_words);
-		++row_words;
+		while (words[0][idx])
+			free(words[0][idx++]);
+		free(*words);
+		++words;
 	}
 }

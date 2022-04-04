@@ -6,13 +6,14 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 20:12:02 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/01 18:36:32 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/04 15:20:55 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mlx.h"
 #include "fdf.h"
+#include <math.h>
 
 double	fdf_modf(double num)
 {

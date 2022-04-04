@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 17:54:03 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/31 22:32:00 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/04 14:50:07 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ int	init_win(t_mlx_info *mlx_info)
 	mlx_info->img_ptr = mlx_new_image(mlx_info->mlx_ptr,
 			SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (mlx_info->img_ptr == NULL)
+	{
+		mlx_destroy_window(mlx_info->mlx_ptr, mlx_info->win_ptr);
 		return (0x40);
+	}
 	return (0);
 }
 

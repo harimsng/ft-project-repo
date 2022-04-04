@@ -37,7 +37,7 @@ SRC_DIR	=	src
 SRC		:=	$(SRC:%=$(SRC_DIR)/%)
 OBJ		=	$(SRC:%.c=%.o)
 
-BNS_SRC	=	fdf_interface.c
+BNS_SRC	=	fdf_interface_bonus.c
 BNS_SRC :=	$(BNS_SRC:%=$(SRC_DIR)/%)
 BNS_OBJ =	$(BNS_SRC:%.c=%.o)
 ifeq ($(BONUS_FLAG), 1)
@@ -55,6 +55,7 @@ INCL	=	fdf.h\
 			get_next_line.h\
 			libft.h
 INCL_DIR=	include
+INCL	:=	$(INCL:%=$(INCL_DIR)/%)
 
 
 # library
@@ -93,7 +94,7 @@ $(LFT_NAME):
 	cp $(LFT_DIR)/$(LFT_NAME) .
 
 
-$(NAME): $(LFT_NAME) $(LIB_NAME) $(OBJ)
+$(NAME): $(LFT_NAME) $(LIB_NAME) $(OBJ) $(INCL)
 	$(CC) $(CFLAGS) -o $@ $(OBJ) -l$(LIB) -L. -l$(LFT) \
 		-framework AppKit -framework OpenGL -lz
 

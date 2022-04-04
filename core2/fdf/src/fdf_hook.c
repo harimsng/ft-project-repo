@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 21:42:44 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/04 10:54:07 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/04 15:40:47 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static void	dummy_func(t_mlx_info *mlx_info);
 static void	exit_program(t_mlx_info *mlx_info);
 
 static const t_key_func	g_keycode_table[128] = {
-	/*0*/move_obj_left,
-	/*1*/move_obj_back,
-	/*2*/move_obj_right,
+	/*0*/move_obj_right,
+	/*1*/move_obj_forward,
+	/*2*/move_obj_left,
 	/*3*/dummy_func,
 	/*4*/dummy_func,
 	/*5*/dummy_func,
@@ -32,7 +32,7 @@ static const t_key_func	g_keycode_table[128] = {
 	/*10*/dummy_func,
 	/*11*/dummy_func,
 	/*12*/move_obj_down,
-	/*13*/move_obj_forward,
+	/*13*/move_obj_back,
 	/*14*/move_obj_up,
 	/*15*/dummy_func,
 	/*16*/dummy_func,
@@ -151,7 +151,7 @@ static const t_key_func	g_keycode_table[128] = {
 
 int	key_hook(int keycode, void *param)
 {
-	if (keycode > 127)
+	if (keycode > 127 || keycode < 0)
 		return (0);
 	g_keycode_table[keycode](param);
 	return (0);
@@ -164,6 +164,5 @@ void	dummy_func(t_mlx_info *mlx_info)
 
 void	exit_program(t_mlx_info *mlx_info)
 {
-	terminate_fdf(mlx_info);
-	exit(0);
+	fdf_exit(0, mlx_info);
 }
