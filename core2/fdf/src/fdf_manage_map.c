@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 18:31:12 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/04 15:18:52 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/04 16:07:52 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,16 @@ static t_bool	dealloc(t_vertex **arr, int len);
 void	fdf_setup_map(t_map_info *map_info)
 {
 	map_info->x0 = SCREEN_WIDTH / 2;
-	map_info->y0 = SCREEN_HEIGHT * 10 / 19;
+	map_info->y0 = SCREEN_HEIGHT / 2;
 	map_info->hor_angle = HOR_ANGLE;
 	map_info->ver_angle = VER_ANGLE;
-	map_info->hor_scale = (double)SCREEN_WIDTH
-		/ (map_info->col + map_info->row);
-	map_info->ver_scale = (double)SCREEN_HEIGHT
-		/ (map_info->col + map_info->row + map_info->max_height / 2.0);
+	if (map_info->arg_flag == FALSE)
+	{
+		map_info->hor_scale = (double)SCREEN_WIDTH
+			/ (map_info->col + map_info->row);
+		map_info->ver_scale = (double)SCREEN_HEIGHT
+			/ (map_info->col + map_info->row + map_info->max_height / 2.0);
+	}
 	map_info->gamma = GAMMA;
 	map_info->projection = 0;
 	map_info->var_x = 0;
@@ -34,6 +37,7 @@ void	fdf_setup_map(t_map_info *map_info)
 	map_info->var_height = 0;
 	map_info->automove_flag = FALSE;
 	map_info->interface_flag = FALSE;
+	map_info->arg_flag = FALSE;
 }
 
 t_bool	fdf_alloc_map(t_map_info *map_info)

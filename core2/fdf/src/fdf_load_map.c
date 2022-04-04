@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 17:58:01 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/04 15:31:29 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/04 16:07:11 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,8 @@ t_bool	fdf_load_map(int argc, char **argv, t_map_info *map_info)
 	flag1 = read_map(fd, map_info);
 	if (flag1)
 		get_variable(argc, argv + 2, map_info);
-	map_info->var_height = 0;
 	map_info->max_height = get_z_coord(NULL);
-	map_info->colored = get_color(NULL);
+	map_info->colored_flag = get_color(NULL);
 	return (flag1);
 }
 
@@ -52,13 +51,13 @@ t_bool	get_variable(int argc, char **var, t_map_info *map_info)
 {
 	double	temp_hor_scale;
 
-	fdf_setup_map(map_info);
 	if (argc == 4)
 	{
 		temp_hor_scale = (double)ft_atoi(var[0]);
 		if (temp_hor_scale != 0)
 			map_info->hor_scale = temp_hor_scale;
 		map_info->ver_scale = (double)ft_atoi(var[1]);
+		map_info->arg_flag = TRUE;
 	}
 	return (TRUE);
 }
@@ -79,7 +78,6 @@ t_bool	read_map(int fd, t_map_info *map_info)
 		++idx;
 	}
 	words[idx] = NULL;
-	map_info->colored = FALSE;
 	map_info->row = idx;
 	map_info->map_origin = malloc(sizeof(t_vertex *) * map_info->row);
 	if (map_info->map_origin == NULL)

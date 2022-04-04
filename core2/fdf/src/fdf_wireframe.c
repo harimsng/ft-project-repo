@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 20:31:10 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/04 15:20:41 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/04 16:08:42 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	fdf_wireframe(t_img_elem *img_elem, t_map_info *map_info)
 	octant = get_octant(map_info);
 	if (map_info->hor_scale > 24)
 		draw = fdf_aa_drawline;
-	if (map_info->colored == TRUE)
+	if (map_info->colored_flag == TRUE)
 		g_render_d[octant](img_elem, map_info, draw);
 	else
 		g_render_n[octant](img_elem, map_info, draw);

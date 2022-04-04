@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 20:03:29 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/04 15:02:35 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/04 16:05:14 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ typedef struct s_map_info
 	int			var_height;
 	int			max_height;
 	int			projection;
-	int			colored;
+	t_bool		colored_flag;
+	t_bool		arg_flag;
 	t_bool		interface_flag;
 	t_bool		automove_flag;
 }						t_map_info;
