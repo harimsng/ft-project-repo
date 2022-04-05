@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 20:12:02 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/04 15:20:55 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/05 12:11:26 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "mlx.h"
 #include "fdf.h"
 #include <math.h>
+#include <stdlib.h>
 
 double	fdf_modf(double num)
 {
@@ -36,7 +37,7 @@ double	get_z_coord(char *s)
 
 	if (s == NULL)
 		return (max_z);
-	z = (double)ft_atoi(s);
+	z = (double)strtold(s, NULL);
 	if (z > max_z)
 		max_z = z;
 	return (z);

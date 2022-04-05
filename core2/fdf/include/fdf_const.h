@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 17:10:04 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/04 16:24:43 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/05 14:18:00 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@
 # define X_STEP (12)
 # define Y_STEP (12)
 # define HEIGHT_STEP (50.0)
-# define YAW_STEP (0.1)
-# define ROLL_STEP (0.1)
-# define PITCH_STEP (0.1)
+# define YAW_STEP (0.05)
+# define ROLL_STEP (0.05)
+# define PITCH_STEP (0.05)
 # define SCALE_STEP (1.25) 
 # define TRANSL_DIV (100.0)
 

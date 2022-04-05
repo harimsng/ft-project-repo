@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 21:49:08 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/04 15:19:45 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/05 13:19:42 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,5 @@ void	fdf_plot_loop(t_img_elem *img_elem)
 void	fdf_plot(int x, int y, double brightness, t_img_elem *img_elem)
 {
 	img_elem->img_buf[x + y * img_elem->hor_px]
-		= 0x081020 + ((int)(0x22 * brightness));
+		= 0x081010 + ((int)(0x44 * brightness));
 }

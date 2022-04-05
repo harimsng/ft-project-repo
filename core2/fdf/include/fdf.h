@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 19:26:20 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/04 16:02:23 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/05 12:31:38 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		key_hook(int keycode, void *param);
 int		expose_hook(void *param);
 
 // utility functions
-t_pixel	get_color(char *str);
+t_pixel	get_color(const char *str);
 t_pixel	add_color(t_pixel p0, t_pixel p1);
 double	get_z_coord(char *s);
 void	swap_point(t_vertex **p0, t_vertex **p1);

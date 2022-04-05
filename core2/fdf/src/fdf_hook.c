@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 21:42:44 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/04 15:40:47 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/05 13:14:50 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ static const t_key_func	g_keycode_table[128] = {
 	/*5*/dummy_func,
 	/*6*/automove_map,
 	/*7*/turn_interface,
-	/*8*/dummy_func,
-	/*9*/dummy_func,
+	/*8*/turn_background,
+	/*9*/turn_diag,
 	/*10*/dummy_func,
 	/*11*/dummy_func,
 	/*12*/move_obj_down,

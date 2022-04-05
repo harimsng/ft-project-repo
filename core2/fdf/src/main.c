@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 19:18:38 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/05 10:51:10 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/05 12:57:31 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,26 +68,26 @@ int	fdf_loop(t_mlx_info *mlx_info)
 	fdf_projection(mlx_info->map_info);
 	fdf_update(mlx_info);
 	fdf_subtask(mlx_info);
-	fdf_plot_loop(mlx_info->img_elem);
 	fdf_wireframe(mlx_info->img_elem, mlx_info->map_info);
 	mlx_put_image_to_window(mlx_info->mlx_ptr,
 		mlx_info->win_ptr, mlx_info->img_ptr, 0, SUBIMG_HEIGHT);
 	return (0);
 }
-//	system("leaks fdf");
 
 void	fdf_subtask(t_mlx_info *mlx_info)
 {
 	t_map_info	*map_info;
 
 	map_info = mlx_info->map_info;
+	if (map_info->background_flag)
+		fdf_plot_loop(mlx_info->img_elem);
 	if (map_info->automove_flag == TRUE)
 	{
 		map_info->hor_angle += 0.03;
-		map_info->ver_angle += 0.03;
+//		map_info->ver_angle += 0.03;
 	}
+	fdf_interface(mlx_info);
 }
-//	fdf_interface(mlx_info);
 
 void	fdf_update(t_mlx_info *mlx_info)
 {
