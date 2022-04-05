@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 17:58:01 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/04 16:07:11 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/05 10:55:48 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ t_bool	read_map(int fd, t_map_info *map_info)
 	size_t		idx;
 
 	line = get_next_line(fd);
+	if (line == NULL)
+		return (FALSE);
 	idx = 0;
 	while (line != NULL)
 	{
