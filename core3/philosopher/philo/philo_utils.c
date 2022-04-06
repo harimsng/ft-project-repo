@@ -1,22 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/05 15:23:12 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/06 22:27:01 by hseong           ###   ########.fr       */
+/*   Created: 2022/04/06 20:32:55 by hseong            #+#    #+#             */
+/*   Updated: 2022/04/06 22:14:18 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#include "philo.h"
+#include "philo_type.h"
+#include <pthread.h>
+#include <stdlib.h>
 
-# include "philo_type.h"
+void	philo_dealloc(t_pack *pack)
+{
+	size_t		idx;
 
-t_bool	philo_get_arg(int argc, char **argv, t_arg *arg);
-void	philo_dinner(t_arg *arg);
-void	philo_dealloc(t_pack *pack);
-
-#endif
+	idx = 0;
+	while (idx < pack->num)
+	{
+		if (pack->philo_arr != NULL)
+			free(pack->philo_arr + idx);
+		if (pack->fork_arr != NULL)
+			free(pack->fork_arr + idx);
+		if (pack->pos_arr != NULL)
+			free(pack->pos_arr + idx);
+		++idx;
+	}
+}

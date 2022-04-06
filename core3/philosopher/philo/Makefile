@@ -7,11 +7,18 @@ RM		=	rm -f
 DEBUG	=	-g3 -fsanitize=address
 
 
-SRC		=	philo.c
+SRC		=	philo.c\
+			philo_arg.c\
+			philo_dinner.c\
+			philo_utils.c\
+			ft_atoi.c
 
 OBJ		=	$(SRC:%.c=%.o)
 
-INCL	=	philo.h
+INCL	=	philo.h\
+			philo_type.h\
+			philo_const.h\
+			philo_utils.h
 
 ifeq ($(DEBUG_FLAG), 1)
 CFLAGS	+=	$(DEBUG)
