@@ -1,0 +1,85 @@
+CHAPTER 4 Threads & Concurrency
+
+		4.1	Overview
+
+4.1.1 Motivation
+
+4.1.2 Benefits
+Multi-threaded program can distribute its work to threads.
+When a thread is doing time-consuming job,
+single-threaded program stops working and wait until job's done.
+
+
+When the server makes a connection with a client, there's two options.
+One is to create a process and the other is to create a thread.
+In general, creating process consumes time and memory more.
+Processes must use message passing and shared memory to share its resources.
+However, threads living in a process shares resources of the process.
+Latter doesn't need to allocate additional memory and make resource sharing logic by programmer.
+
+
+Contemporary computers have multiple cores.
+Single-threaded program which can utilize only one core has limited performance.
+
+		4.2 Multicore Programming
+
+4.2.1 Programming Challenges
+1. Identifying Tasks
+	what tasks are seperable?
+2. Balance
+	equal work per equal value
+
+3. Data splitting
+
+4. Data dependency
+
+5. Testing and Debugging
+	parallel execution makes debugging hard.
+
+4.2.2 Types of Parallelism
+1. Data parallelism
+
+2. Task parallelism
+
+		4.3 Multithreading Models
+
+User threads and Kernel threads
+4.3.1 Many-to-One Model
+	many user threads to one kernel thread
+	waits blocking system call
+	bad for multiprocessing computers
+	green-thread library was adopted in early versions of Java.
+
+4.3.2 One-to-One Model
+	one user thread to one kernel threads
+	don't wait blocking system call
+	many user thread leads to many kernel threads that costs a lot.
+	number of user threads may be limited.
+	Linux, Windows family
+
+4.3.3 Many-to-Many Model
+	user threads >= kernel threads
+	multiplexed threads
+	it allows to create many user threads regardless of kernel threads.
+	limiting kernel threads are less efficient when many cores are given.
+	contemporay concurrency library
+
+		4.4 Thread Libraried
+
+There are two types of the library.
+User space and Kernel space library.
+invoking function in former doesn't invoke system call.
+
+Windows, Java, Pthreads(Posix thread)
+Pthread: user-level or kernel-level library
+Windows: kernel-level library
+Java: Java program -> JVM -> host system, global data has to be explicitly arranged by threads.
+
+asynchronous threading
+	parent thread and child thread execute independantly. used in responsive UI, multithreaded server.
+	little data sharing
+synchronous threading
+	parent thread waits child threads to finish the work. it may combine the results from child threads.
+	significant amount of data sharing
+
+4.4.1 Pthreads

@@ -6,13 +6,11 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 18:37:12 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/15 02:30:34 by hseong           ###   ########.fr       */
+/*   Updated: 2022/03/23 20:22:59 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static int	ft_isspace(int c);
 
 int	ft_atoi(const char *str)
 {
@@ -36,11 +34,4 @@ int	ft_atoi(const char *str)
 		return ((int)(LONG_MAX * !neg + LONG_MIN * neg));
 	ret = (1 - 2 * neg) * ((int)num);
 	return (ret);
-}
-
-static int	ft_isspace(int c)
-{
-	if ((c > 8 && c < 14) || c == 32)
-		return (1);
-	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 21:15:31 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/04 16:42:41 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/04 11:37:20 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static const t_inst_func	g_prep_table[4] = {no_inst, sa, sb, ss};
 
-static void		split_half(t_deque *a, t_deque *b);
 static void		prep_deques(t_deque *a, t_deque *b);
 static t_bool	a_item_comp(t_node *first, t_node *second, t_node *third);
 static t_bool	b_item_comp(t_node *first, t_node *second, t_node *third);
@@ -24,24 +23,10 @@ void	push_swap_mergesort(t_deque *a, t_deque *b)
 	if (a->size <= 1 || sort_check(a))
 		return ;
 	if (a->size >= 4)
-		split_half(a, b);
+		push_swap_divide(a, b);
 	prep_deques(a, b);
 	while (sort_cycle(a, b))
 		continue ;
-}
-
-void	split_half(t_deque *a, t_deque *b)
-{
-	size_t	idx;
-	size_t	half;
-
-	idx = 0;
-	half = (a->size + (a->size > 10)) / 2;
-	while (idx < half)
-	{
-		pb(a, b);
-		++idx;
-	}
 }
 
 void	prep_deques(t_deque *a, t_deque *b)

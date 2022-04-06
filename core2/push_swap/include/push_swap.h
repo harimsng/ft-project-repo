@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 19:57:01 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/04 16:42:18 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/04 11:37:17 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef int		t_bool;
 typedef void	(*t_inst_func)(t_deque *, t_deque *);
 
 void	push_swap_mergesort(t_deque *a_deque, t_deque *b_deque);
+void	push_swap_divide(t_deque *a_deque, t_deque *b_deque);
 void	join_to_a(t_deque *a, t_deque *b, t_bool pos);
 void	join_to_b(t_deque *a, t_deque *b, t_bool pos);
 

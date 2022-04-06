@@ -3,9 +3,11 @@ CFLAGS = -Wall -Wextra -Werror
 
 NAME = libft.a
 
-SRCS = ft_isalpha.c ft_isdigit.c\
+SRC = ft_isalpha.c ft_isdigit.c\
 	ft_isalnum.c ft_isascii.c\
 	ft_isprint.c ft_strlen.c\
+	ft_isspace.c ft_ishex.c\
+	ft_abs.c ft_swap.c\
 	ft_memset.c ft_bzero.c\
 	ft_memcpy.c ft_memmove.c\
 	ft_strlcpy.c ft_strlcat.c\
@@ -13,7 +15,8 @@ SRCS = ft_isalpha.c ft_isdigit.c\
 	ft_strchr.c ft_strrchr.c\
 	ft_strncmp.c ft_memchr.c\
 	ft_memcmp.c ft_strnstr.c\
-	ft_atoi.c ft_calloc.c\
+	ft_atoi.c ft_atoi_ptr.c\
+	ft_htoi.c ft_calloc.c\
 	ft_strdup.c ft_substr.c\
 	ft_strjoin.c ft_strtrim.c\
 	ft_split.c ft_itoa.c\
@@ -30,7 +33,7 @@ BNS = ft_lstnew.c ft_lstadd_front.c\
 ADD = ft_execvpe.c
 SRC += $(ADD)
 
-OBJS = $(SRCS:%.c=%.o)
+OBJS = $(SRC:%.c=%.o)
 BNS_OBJS = $(BNS:%.c=%.o)
 
 BNS_FLAG =

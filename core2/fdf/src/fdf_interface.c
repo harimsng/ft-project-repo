@@ -6,13 +6,14 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 19:13:45 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/02 21:01:31 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/04 15:42:39 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "fdf_transform.h"
 #include "mlx.h"
+#include <math.h>
 #include <time.h>
 #include <stdio.h>
 
@@ -24,12 +25,18 @@ static void	draw_unitvector(t_map_info *map_info, t_img_elem *img_elem);
 
 void	fdf_interface(t_mlx_info *mlx_info)
 {
-	draw_unitvector(mlx_info->map_info, mlx_info->sub_elem);
+	t_bool	flag;
+
+	flag = mlx_info->map_info->interface_flag;
+	if (flag)
+		draw_unitvector(mlx_info->map_info, mlx_info->sub_elem);
 	mlx_put_image_to_window(mlx_info->mlx_ptr,
 		mlx_info->win_ptr, mlx_info->sub_ptr, 0, 0);
-	draw_unitvector(mlx_info->map_info, mlx_info->sub_elem);
-	fdf_debug(mlx_info);
-	get_frametime(mlx_info, mlx_info->map_info);
+	if (flag)
+	{
+		fdf_debug(mlx_info);
+		get_frametime(mlx_info, mlx_info->map_info);
+	}
 }
 
 void	draw_unitvector(t_map_info *map_info, t_img_elem *sub_elem)

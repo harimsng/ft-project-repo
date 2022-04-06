@@ -8,6 +8,7 @@ DEBUG	=	-g -fsanitize=address #option for lldb
 SRC		=	main.c\
 			push_swap_mergesort_1.c\
 			push_swap_mergesort_2.c\
+			push_swap_divide.c\
 			push_swap_inst_1.c\
 			push_swap_inst_2.c\
 			push_swap_inst_3.c\
