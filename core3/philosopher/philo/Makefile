@@ -24,6 +24,10 @@ ifeq ($(DEBUG_FLAG), 1)
 CFLAGS	+=	$(DEBUG)
 endif
 
+ifeq ($(shell uname), Linux)
+CFLAGS	+=	-pthread
+endif
+
 all: $(NAME)
 
 debug:

@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:14:09 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/06 22:37:12 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/07 00:40:16 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "philo_const.h"
 #include "philo_utils.h"
 #include <pthread.h>
+#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -40,9 +41,7 @@ void	philo_dinner(t_arg *arg)
 t_bool	philo_setup(t_pack *pack)
 {
 	size_t		idx;
-	t_pos		*pos_arr;
 
-	pos_arr = malloc(sizeof(t_pos) * pack->num);
 	if (pack->philo_arr == NULL || pack->fork_arr == NULL
 			|| pack->pos_arr == NULL)
 	{
@@ -76,6 +75,7 @@ void		philo_start(t_arg *arg, t_pack *pack)
 			philo_eat, pack->pos_arr + idx);
 		++idx;
 	}
+	usleep(arg->num_philo * 100);
 }
 
 void		*philo_eat(void *arg)
@@ -83,6 +83,7 @@ void		*philo_eat(void *arg)
 	t_pos	*pos;
 
 	pos = arg;
+	usleep(pos->id * 100);
 	printf("philosopher #%zu reports\n", pos->id);
 	printf("	my left fork is %p\n", pos->l_fork);
 	printf("	my right fork is %p\n", pos->r_fork);
