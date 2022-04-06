@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 21:42:44 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/01 20:08:55 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/03 19:52:34 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 
 int	key_hook(int keycode, void *param)
 {
-	printf("keycode: %d\n", keycode);
 #ifndef SYS_MAC
 	if (keycode >= 0xFF && keycode < 0xFF00)
 		return (0);
@@ -26,6 +25,7 @@ int	key_hook(int keycode, void *param)
 	g_keycode_table[keycode](param);
 	return (0);
 }
+//	printf("keycode: %d\n", keycode);
 
 void	dummy_func(t_mlx_info *mlx_info)
 {

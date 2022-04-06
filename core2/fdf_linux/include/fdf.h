@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 19:26:20 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/31 21:03:53 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/02 20:38:47 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int		init_sub(t_mlx_info *mlx_info);
 t_bool	fdf_load_map(int argc, char **argv, t_map_info *map_info);
 void	fdf_setup_map(t_map_info *map_info);
 void	fdf_alloc_map(t_map_info *map_info);
+void	terminate_fdf(t_mlx_info *mlx_info);
 
 // update & plot functions
 void	fdf_plot_loop(t_img_elem *img_elem);
@@ -48,7 +49,7 @@ t_pixel	add_color(t_pixel p0, t_pixel p1);
 double	get_z_coord(char *s);
 void	swap_point(t_vertex **p0, t_vertex **p1);
 char	*get_next_line(int fd);
-void	get_frametime(t_mlx_info *mlx_info);
+void	get_frametime(t_mlx_info *mlx_info, t_map_info *map_info);
 double	fdf_modf(double num);
 void	fdf_debug(t_mlx_info *mlx_info);
 

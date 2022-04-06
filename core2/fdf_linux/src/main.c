@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 19:18:38 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/01 21:25:30 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/03 19:42:21 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,37 +61,30 @@ int	fdf_loop(t_mlx_info *mlx_info)
 {
 	fdf_projection(mlx_info->map_info);
 	fdf_update(mlx_info);
-	fdf_subtask(mlx_info);
+	fdf_plot_loop(mlx_info->img_elem);
 	fdf_wireframe(mlx_info->img_elem, mlx_info->map_info);
 	mlx_put_image_to_window(mlx_info->mlx_ptr,
 		mlx_info->win_ptr, mlx_info->img_ptr, 0, SUBIMG_HEIGHT);
+	fdf_subtask(mlx_info);
 	return (0);
 }
-// system("leaks fdf | grep malloced");
+//	system("leaks fdf");
 
 void	fdf_subtask(t_mlx_info *mlx_info)
 {
 	t_map_info	*map_info;
 
 	map_info = mlx_info->map_info;
-	mlx_put_image_to_window(mlx_info->mlx_ptr,
-		mlx_info->win_ptr, mlx_info->sub_ptr, 0, 0);
-	if (map_info->interface_flag == TRUE)
-	{
-		fdf_interface(mlx_info);
-		fdf_debug(mlx_info);
-		get_frametime(mlx_info);
-	}
 	if (map_info->automove_flag == TRUE)
 	{
 		map_info->hor_angle += 0.04;
 		map_info->ver_angle += 0.04;
 	}
+	fdf_interface(mlx_info);
 }
 
 void	fdf_update(t_mlx_info *mlx_info)
 {
-//	mlx_sync(3, mlx_info->win_ptr);
 	mlx_do_sync(mlx_info->mlx_ptr);
 	ft_memset(mlx_info->img_elem->img_buf, 0, mlx_info->img_elem->arr_bytes);
 	ft_memset(mlx_info->sub_elem->img_buf, 0, mlx_info->sub_elem->arr_bytes);
