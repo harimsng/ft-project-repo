@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 21:15:46 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/01 13:13:34 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/05 12:40:35 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,17 +62,17 @@ t_pixel	grade_color_aa(t_pixel p0, t_pixel p1, double ratio, double bright)
 	return (red + green + blue);
 }
 
-t_pixel	get_color(char *str)
+t_pixel	get_color(const char *str)
 {
 	static t_bool	colored;
 	t_uint32		temp;
 
 	if (str == NULL)
 		return (colored);
-	while (*str >= '0' && *str <= '9')
+	while (*str && *str != ' ' && *str != '\n' && *str != ',')
 		++str;
-	if (*str == 0 || *str != ',')
-		return (0x00FFFFFF);
+	if (*str != ',')
+		return (0xFFFFFF);
 	temp = ft_htoi(str + 1);
 	if (temp != 0xFFFFFF)
 		colored = TRUE;

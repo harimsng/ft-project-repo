@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 19:26:20 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/02 20:38:47 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/05 12:31:38 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 
 # include "fdf_type.h"
 # include "fdf_const.h"
-# include <fcntl.h>
-# include <stdlib.h>
-# include <math.h>
 
 // mlx & map initialization
 int		init_win(t_mlx_info *mlx_info);
@@ -25,8 +22,8 @@ int		init_img(t_mlx_info *mlx_info, t_img_elem *img_elem);
 int		init_sub(t_mlx_info *mlx_info);
 t_bool	fdf_load_map(int argc, char **argv, t_map_info *map_info);
 void	fdf_setup_map(t_map_info *map_info);
-void	fdf_alloc_map(t_map_info *map_info);
-void	terminate_fdf(t_mlx_info *mlx_info);
+void	fdf_exit(int status, t_mlx_info *mlx_info);
+t_bool	fdf_alloc_map(t_map_info *map_info);
 
 // update & plot functions
 void	fdf_plot_loop(t_img_elem *img_elem);
@@ -44,7 +41,7 @@ int		key_hook(int keycode, void *param);
 int		expose_hook(void *param);
 
 // utility functions
-t_pixel	get_color(char *str);
+t_pixel	get_color(const char *str);
 t_pixel	add_color(t_pixel p0, t_pixel p1);
 double	get_z_coord(char *s);
 void	swap_point(t_vertex **p0, t_vertex **p1);

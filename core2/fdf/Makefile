@@ -92,7 +92,7 @@ $(OBJ): %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $^ -I$(INCL_DIR)
 
 clean:
-	$(RM) $(OBJ) $(BNS_OBJ)
+	$(RM) $(OBJ)
 
 fclean: clean
 	$(RM) $(NAME) $(LIB_NAME) $(LFT_NAME)

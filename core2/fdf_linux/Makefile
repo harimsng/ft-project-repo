@@ -26,10 +26,12 @@ SRC		=	main.c\
 			keymap/fdf_keymap_scale_mac.c\
 			keymap/fdf_keymap_projection_mac.c\
 			keymap/fdf_keymap_height_mac.c\
+			keymap/fdf_keymap_flag_mac.c\
 			fdf_color.c\
 			fdf_load_map.c\
 			fdf_manage_map.c\
 			fdf_interface.c\
+			fdf_terminate.c\
 			fdf_utils.c\
 			get_next_line.c
 
@@ -47,6 +49,7 @@ INCL	=	fdf.h\
 			get_next_line.h\
 			libft.h
 INCL_DIR=	include
+INCL	:=	$(INCL:%=$(INCL_DIR)/%)
 
 
 # library
@@ -93,7 +96,7 @@ $(LFT_NAME):
 	cp $(LFT_DIR)/$(LFT_NAME) .
 
 
-$(NAME): $(LFT_NAME) $(LIB_NAME) $(OBJ)
+$(NAME): $(LFT_NAME) $(LIB_NAME) $(OBJ) $(INCL)
 	$(CC) $(CFLAGS) -o $@ $(OBJ) -l$(LIB) -L. -l$(LFT) \
 	$(SYSDEPS)
 

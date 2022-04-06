@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 21:49:08 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/07 00:26:36 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/07 00:26:00 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@
 void	fdf_plot_loop(t_img_elem *img_elem)
 {
 	static int	frame;
+	t_pixel		*img_buf;
 	int			x;
 	int			y;
 
+	img_buf = img_elem->img_buf;
 	y = 0;
 	while (y < SCREEN_HEIGHT)
 	{

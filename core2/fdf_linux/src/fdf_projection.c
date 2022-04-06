@@ -6,12 +6,13 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 20:48:11 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/01 20:10:29 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/04 15:19:58 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "fdf_transform.h"
+#include <math.h>
 
 typedef void			(*t_transf)(t_map_info *, t_vertex *, t_vertex *);
 
