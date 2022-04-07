@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_utils.c                                      :+:      :+:    :+:   */
+/*   philo_report.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/06 20:32:55 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/06 22:14:18 by hseong           ###   ########.fr       */
+/*   Created: 2022/04/07 21:48:55 by hseong            #+#    #+#             */
+/*   Updated: 2022/04/07 22:00:07 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include "philo_type.h"
-#include <pthread.h>
-#include <stdlib.h>
+#include <stdio.h>
 
-void	philo_dealloc(t_pack *pack)
+int	philo_report(int idx, size_t num, t_ms t0)
 {
-	size_t		idx;
+	static t_fork	speak;
+	static t_bool	init;
 
-	idx = 0;
-	while (idx < pack->num)
+	if (init == FALSE)
 	{
-		if (pack->philo_arr != NULL)
-			free(pack->philo_arr + idx);
-		if (pack->fork_arr != NULL)
-			free(pack->fork_arr + idx);
-		if (pack->pos_arr != NULL)
-			free(pack->pos_arr + idx);
-		++idx;
+		pthread_mutex_init(&speak, NULL);
+		init = TRUE;
 	}
+	pthread_mutex_lock(&speak);
+	printf("%9lld	%zu %s\n", philo_get_time() - t0, num, g_report[idx]);
+	pthread_mutex_unlock(&speak);
+	return (0);
 }

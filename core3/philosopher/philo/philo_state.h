@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   philo_state.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/05 15:23:42 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/07 17:55:47 by hseong           ###   ########.fr       */
+/*   Created: 2022/04/07 18:15:40 by hseong            #+#    #+#             */
+/*   Updated: 2022/04/07 18:33:30 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
-#include "philo_utils.h"
+#ifndef PHILO_STATE_H
+# define PHILO_STATE_H
 
-int	main(int argc, char *argv[])
-{
-	t_arg	arg;
+# include "philo.h"
+# include <sys/time.h>
 
-	if (philo_get_arg(argc, argv, &arg) == FALSE)
-		return (1);
-	philo_dinner(&arg);
-	return (0);
-}
+void	philo_eating(suseconds_t duration);
+void	philo_sleeping(suseconds_t duration);
+void	philo_thinking(suseconds_t duration);
+t_bool	philo_isdie(suseconds_t diff, suseconds_t num_die);
+
+#endif

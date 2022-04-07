@@ -6,13 +6,11 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 19:55:38 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/06 22:34:45 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/07 17:55:51 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include "philo_type.h"
-#include "philo_const.h"
 #include "philo_utils.h"
 #include <stdio.h>
 

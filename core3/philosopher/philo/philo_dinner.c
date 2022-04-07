@@ -6,100 +6,79 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:14:09 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/07 10:21:28 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/07 22:03:07 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include "philo_const.h"
-#include "philo_utils.h"
+#include "philo_state.h"
 #include <pthread.h>
 #include <unistd.h>
+#include <sys/time.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 static void		*philo_eat(void *arg);
-static void		philo_start(t_arg *arg, t_pack *pack);
-static t_bool	philo_setup(t_pack *pack);
+static void		philo_start(t_arg *arg, t_info *info);
 
 void	philo_dinner(t_arg *arg)
 {
-	t_pack	pack;
-	t_philo	*philo_arr;
-	t_fork	*fork_arr;
-	t_pos	*pos_arr;
+	size_t	num;
+	t_info	info;
 
-	philo_arr = malloc(arg->num_philo * sizeof(t_philo)),
-	fork_arr = malloc(arg->num_philo * sizeof(t_fork));
-	pos_arr = malloc(arg->num_philo * sizeof(t_pos));
-	pack = (t_pack){arg->num_philo, philo_arr, fork_arr, pos_arr};
-	if (philo_setup(&pack) == FALSE)
+	num = arg->num_philo;
+	info.num = num;
+	if (philo_alloc(num, &info) == FALSE)
 		return ;
-	philo_start(arg, &pack);
+	if (philo_setup(arg, &info) == FALSE)
+		return ;
+	philo_start(arg, &info);
 }
 
-t_bool	philo_setup(t_pack *pack)
+void		philo_start(t_arg *arg, t_info *info)
 {
-	size_t		idx;
+	size_t	idx;
+	t_ms	init_time;
 
-	if (pack->philo_arr == NULL || pack->fork_arr == NULL
-			|| pack->pos_arr == NULL)
-	{
-		printf("memory allocation failed.\n");
-		philo_dealloc(pack);
-		return (FALSE);
-	}
-	idx = 0;
-	pthread_mutex_init(pack->fork_arr + idx, NULL);
-	++idx;
-	while (idx < pack->num)
-	{
-		pthread_mutex_init(pack->fork_arr + idx, NULL);
-		pack->pos_arr[idx - 1] = (t_pos){idx - 1, pack->fork_arr + idx - 1,
-			pack->fork_arr + idx};
-		++idx;
-	}
-	pack->pos_arr[idx - 1] = (t_pos){idx - 1, pack->fork_arr + idx - 1,
-		pack->fork_arr};
-	return (TRUE);
-}
-
-void		philo_start(t_arg *arg, t_pack *pack)
-{
-	size_t		idx;
-
+	init_time = philo_get_time();
 	idx = 0;
 	while (idx < arg->num_philo)
 	{
-		pos_arr[idx].arg = arg;
-		pthread_create(pack->philo_arr + idx, NULL,
-			philo_eat, pack->pos_arr + idx);
+		info->item_arr[idx].init_time = init_time;
+		if (pthread_create(info->philo_arr + idx, NULL,
+			philo_eat, info->item_arr + idx) != 0)
+		{
+			printf("threads creation failed.\n");
+			philo_destroy(idx, info);
+			break ;
+		}
 		++idx;
 	}
-	while (idx < arg->num_philo)
+	while (idx > 0)
 	{
-		pthread_join(pack->philo_arr[idx], NULL);
-		++idx;
+		pthread_join(info->philo_arr[idx - 1], NULL);
+		--idx;
 	}
 }
 
 void		*philo_eat(void *arg)
 {
-	int		start;
-	t_pos	*pos;
+	t_philo_item	item;
+	size_t			len = 3;
 
-	start = gettimeofday();
-	pos = arg;
-	usleep(1000 * arg->arg->time_to_eat);
-	if (pos->id % 2 == 0)
-		pthread_mutex_lock(pos->l_fork);
-		pthread_mutex_lock(pos->r_fork);
-
-	printf("philosopher #%zu reports\n", pos->id);
-	printf("	my left fork is %p\n", pos->l_fork);
-	printf("	my right fork is %p\n", pos->r_fork);
-	printf("	i'm eating dinner\n");
-	pthread_mutex_unlock(pos->l_fork);
-	pthread_mutex_unlock(pos->r_fork);
+	item = *(t_philo_item *)arg;
+	while (len-- > 0)
+	{
+		philo_report(THINK, item.id, item.init_time);
+		pthread_mutex_lock(item.l_fork);
+		pthread_mutex_lock(item.r_fork);
+		philo_report(TAKE, item.id, item.init_time);
+		philo_report(EAT, item.id, item.init_time);
+		philo_eating(item.arg->num_eat);
+		pthread_mutex_unlock(item.l_fork);
+		pthread_mutex_unlock(item.r_fork);
+		philo_report(SLEEP, item.id, item.init_time);
+		philo_sleeping(item.arg->num_slp);
+	}
 	return (NULL);
 }

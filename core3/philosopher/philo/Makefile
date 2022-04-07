@@ -10,7 +10,10 @@ DEBUG	=	-g3 -fsanitize=address
 SRC		=	philo.c\
 			philo_arg.c\
 			philo_dinner.c\
-			philo_utils.c\
+			philo_alloc.c\
+			philo_report.c\
+			philo_state.c\
+			philo_time.c\
 			ft_atoi.c
 
 OBJ		=	$(SRC:%.c=%.o)

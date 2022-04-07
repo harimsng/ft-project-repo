@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   philo_time.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/05 15:23:42 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/07 17:55:47 by hseong           ###   ########.fr       */
+/*   Created: 2022/04/07 20:52:35 by hseong            #+#    #+#             */
+/*   Updated: 2022/04/07 22:02:51 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include "philo_utils.h"
 
-int	main(int argc, char *argv[])
+t_ms	philo_get_time(void)
 {
-	t_arg	arg;
+	t_time	time;
 
-	if (philo_get_arg(argc, argv, &arg) == FALSE)
-		return (1);
-	philo_dinner(&arg);
-	return (0);
+	gettimeofday(&time, NULL);
+	return (time.tv_sec * 10000 + time.tv_usec / 100);
 }
