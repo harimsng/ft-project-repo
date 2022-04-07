@@ -94,4 +94,54 @@ int		pthread_join(pthread_t thread, void **value_ptr)
 
 		4.5 Implicit Threading
 
+4.5.1 Thread Pools
+4.5.2 Fork join
+4.5.3 OpenMP
+	brew install libomp
+	-Xclang -fopenmp -lomp -L/User/hseong/.brew/lib
+4.5.4 GCD (Grand Central Dispatch)
+	man dispatch
+	#include <dispatch/dispatch.h>
+4.5.5 TBB (Thread Building Block)
+
+		4.6 Threading Issues
+
+4.6.1 The fork() and exec() system calls
+if the intend of fork() call is to create another process with exec(),
+threads on the parent process don't need to be copied.
+if it is to duplicate current process, copy of the threads on the parent process is necessary.
+
+4.6.2 Signal handling
+synchronous signal
+asynchronous signal
+
+4.6.3 Thread cancellation
+asynchronous cancellation
+deferred cancellation
+
+4.6.4 Thread-local storage (TLS)
+pthread_key_create
+pthread_spespecific
+
+4.6.5 Scheduler Activation
+Light Weight Process(LWP) is used in Many-to-many model and two level model.
+it appears as virtual processor where the application can be schedule a user thread to run.
+each of them attach to a kernel thread.
+
+a thread meets blocking call
+-> kernel send upcall to upcall handler of thread library.
+-> upcall handler pause the blocked thread and take virtual processor
+-> the upcall handler assign new virtual processor to user thread eligible to run.
+-> when event which break blocking happens, kernel send upcall and blocked thread is now eligible to run.
+-> after marking the unblocked thread eligible to run, the application schedules an eligible thread
+	to run on an available virtual processor.
+
+		4.7 Operating-System Examples
+
+4.7.1 Windows Threads
+ETHREAD	- executive thread block
+KTHREAD - kernel thread block
+TEB - thread environment block
+
+4.7.2 Linux Threads
 
