@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:14:09 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/07 00:40:16 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/07 10:21:28 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,21 +71,35 @@ void		philo_start(t_arg *arg, t_pack *pack)
 	idx = 0;
 	while (idx < arg->num_philo)
 	{
+		pos_arr[idx].arg = arg;
 		pthread_create(pack->philo_arr + idx, NULL,
 			philo_eat, pack->pos_arr + idx);
 		++idx;
 	}
-	usleep(arg->num_philo * 100);
+	while (idx < arg->num_philo)
+	{
+		pthread_join(pack->philo_arr[idx], NULL);
+		++idx;
+	}
 }
 
 void		*philo_eat(void *arg)
 {
+	int		start;
 	t_pos	*pos;
 
+	start = gettimeofday();
 	pos = arg;
-	usleep(pos->id * 100);
+	usleep(1000 * arg->arg->time_to_eat);
+	if (pos->id % 2 == 0)
+		pthread_mutex_lock(pos->l_fork);
+		pthread_mutex_lock(pos->r_fork);
+
 	printf("philosopher #%zu reports\n", pos->id);
 	printf("	my left fork is %p\n", pos->l_fork);
 	printf("	my right fork is %p\n", pos->r_fork);
+	printf("	i'm eating dinner\n");
+	pthread_mutex_unlock(pos->l_fork);
+	pthread_mutex_unlock(pos->r_fork);
 	return (NULL);
 }

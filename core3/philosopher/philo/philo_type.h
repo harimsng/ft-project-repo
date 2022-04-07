@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 19:53:32 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/06 22:27:31 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/07 10:19:48 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_arg
 typedef struct s_pos
 {
 	size_t	id;
+	t_arg	*arg;
 	t_fork	*l_fork;
 	t_fork	*r_fork;
 }			t_pos;
