@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 20:23:55 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/08 10:47:58 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/08 17:17:58 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_bool	philo_setup(t_arg *arg, t_info *info)
 	idx = 0;
 	while (idx < info->num)
 	{
-		info->item_arr[idx] = (t_philo_item){idx + 1, 0, *arg,
+		info->item_arr[idx] = (t_philo_item){idx + 1, 0, 0, *arg,
 		info->fork_arr + idx, info->fork_arr + ((idx + 1) % info->num)};
 		++idx;
 	}

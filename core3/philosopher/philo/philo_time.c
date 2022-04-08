@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 20:52:35 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/08 10:51:27 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/08 17:15:16 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	philo_ready(const t_philo_item * const item)
 {
 	t_ms	time;
 	t_ms	start_time;
-	
-	start_time = item->init_time + (item->arg.num_philo + 10) / 5;
+
+	start_time = item->init_time;
 	time = philo_get_time();
 	while (time < start_time)
 		time = philo_get_time();

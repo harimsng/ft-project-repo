@@ -14,6 +14,7 @@ SRC		=	philo.c\
 			philo_report.c\
 			philo_state.c\
 			philo_time.c\
+			philo_watch.c\
 			ft_atoi.c
 
 OBJ		=	$(SRC:%.c=%.o)

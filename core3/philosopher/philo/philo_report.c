@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 21:48:55 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/08 10:09:20 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/08 17:40:16 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static const char	*g_report[]
 	"died",
 };
 
-int	philo_report(int idx, size_t num, t_ms t0)
+void	philo_report(int idx, const t_philo_item *const item)
 {
 	static t_fork	speak;
 	static t_bool	init;
@@ -33,7 +33,7 @@ int	philo_report(int idx, size_t num, t_ms t0)
 		init = TRUE;
 	}
 	pthread_mutex_lock(&speak);
-	printf("%9lld	%zu %s\n", philo_get_time() - t0, num, g_report[idx]);
+	printf("%9lld	%zu %s\n", philo_get_time() - item->init_time,
+			item->id, g_report[idx]);
 	pthread_mutex_unlock(&speak);
-	return (0);
 }

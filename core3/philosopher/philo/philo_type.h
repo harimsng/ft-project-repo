@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 19:53:32 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/08 10:50:59 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/08 17:36:40 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_philo_item
 {
 	size_t		id;
 	t_ms		init_time;
+	t_ms		recent;
 	t_arg		arg;
 	t_fork		*l_fork;
 	t_fork		*r_fork;

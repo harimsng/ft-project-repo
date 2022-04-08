@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:14:09 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/08 10:52:13 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/08 17:38:39 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,15 @@ void	philo_dinner(t_arg *arg)
 		|| philo_setup(arg, &info) == FALSE)
 		return ;
 	philo_start(&info);
+	philo_watch(&info);
 }
 
-void		philo_start(t_info *info)
+void	philo_start(t_info *info)
 {
 	size_t	idx;
 	t_ms	init_time;
 
-	init_time = philo_get_time();
+	init_time = philo_get_time() + info->item_arr->arg.num_philo;
 	idx = 0;
 	while (idx < info->num)
 	{
@@ -53,33 +54,28 @@ void		philo_start(t_info *info)
 		}
 		++idx;
 	}
-	while (idx > 0)
-	{
-		pthread_join(info->philo_arr[idx - 1], NULL);
-		--idx;
-	}
 }
 
-void		*philo_eat(void *arg)
+void	*philo_eat(void *arg)
 {
-	const t_philo_item	item = *(t_philo_item *)arg;
-	size_t		len = 3;
+	t_philo_item	*item = (t_philo_item *)arg;
+	size_t			len = 3;
 
-	philo_ready(&item);
-	if (item.id % 2 == 0)
-		usleep(item.arg.num_eat * 500);
-	while (len-- > 0)
+	philo_ready(item);
+	if (item->id % 2 == 0)
+		usleep(item->arg.num_eat * 500);
+	while (--len)
 	{
-		philo_report(THINK, item.id, item.init_time);
-		pthread_mutex_lock(item.l_fork);
-		pthread_mutex_lock(item.r_fork);
-		philo_report(TAKE, item.id, item.init_time);
-		philo_report(EAT, item.id, item.init_time);
-		philo_eating(item.arg.num_eat);
-		philo_report(SLEEP, item.id, item.init_time);
-		pthread_mutex_unlock(item.l_fork);
-		pthread_mutex_unlock(item.r_fork);
-		philo_sleeping(item.arg.num_slp);
+		philo_report(THINK, item);
+		item->recent = pthread_mutex_lock(item->l_fork);
+		pthread_mutex_lock(item->r_fork);
+		philo_report(TAKE, item);
+		philo_report(EAT, item);
+		philo_eating(item);
+		pthread_mutex_unlock(item->l_fork);
+		pthread_mutex_unlock(item->r_fork);
+		philo_report(SLEEP, item);
+		philo_sleeping(item);
 	}
 	return (NULL);
 }
