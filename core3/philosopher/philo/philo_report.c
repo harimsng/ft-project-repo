@@ -6,12 +6,21 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 21:48:55 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/07 22:00:07 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/08 10:09:20 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdio.h>
+
+static const char	*g_report[]
+= {
+	"taken a fork",
+	"is eating",
+	"is sleeping",
+	"is thinking",
+	"died",
+};
 
 int	philo_report(int idx, size_t num, t_ms t0)
 {

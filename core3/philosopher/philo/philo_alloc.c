@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 20:23:55 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/07 21:34:52 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/08 10:47:58 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ t_bool	philo_setup(t_arg *arg, t_info *info)
 	{
 		if (pthread_mutex_init(info->fork_arr + idx, NULL) != 0)
 		{
+			printf("mutex initialization failed.\n");
 			philo_mutex_destroy(idx, info);
 			philo_dealloc(arg->num_philo, info);
 			return (FALSE);
@@ -55,7 +56,7 @@ t_bool	philo_setup(t_arg *arg, t_info *info)
 	idx = 0;
 	while (idx < info->num)
 	{
-		info->item_arr[idx] = (t_philo_item){idx + 1, 0, arg,
+		info->item_arr[idx] = (t_philo_item){idx + 1, 0, *arg,
 		info->fork_arr + idx, info->fork_arr + ((idx + 1) % info->num)};
 		++idx;
 	}
@@ -83,7 +84,6 @@ void	philo_mutex_destroy(size_t num, t_info *info)
 {
 	size_t	idx;
 
-	printf("mutex initialization failed.\n");
 	idx = 0;
 	while (idx < num)
 	{

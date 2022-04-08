@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:14:09 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/07 22:03:07 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/08 10:52:13 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <stdlib.h>
 
 static void		*philo_eat(void *arg);
-static void		philo_start(t_arg *arg, t_info *info);
+static void		philo_start(t_info *info);
 
 void	philo_dinner(t_arg *arg)
 {
@@ -28,21 +28,20 @@ void	philo_dinner(t_arg *arg)
 
 	num = arg->num_philo;
 	info.num = num;
-	if (philo_alloc(num, &info) == FALSE)
+	if (philo_alloc(num, &info) == FALSE
+		|| philo_setup(arg, &info) == FALSE)
 		return ;
-	if (philo_setup(arg, &info) == FALSE)
-		return ;
-	philo_start(arg, &info);
+	philo_start(&info);
 }
 
-void		philo_start(t_arg *arg, t_info *info)
+void		philo_start(t_info *info)
 {
 	size_t	idx;
 	t_ms	init_time;
 
 	init_time = philo_get_time();
 	idx = 0;
-	while (idx < arg->num_philo)
+	while (idx < info->num)
 	{
 		info->item_arr[idx].init_time = init_time;
 		if (pthread_create(info->philo_arr + idx, NULL,
@@ -63,10 +62,12 @@ void		philo_start(t_arg *arg, t_info *info)
 
 void		*philo_eat(void *arg)
 {
-	t_philo_item	item;
-	size_t			len = 3;
+	const t_philo_item	item = *(t_philo_item *)arg;
+	size_t		len = 3;
 
-	item = *(t_philo_item *)arg;
+	philo_ready(&item);
+	if (item.id % 2 == 0)
+		usleep(item.arg.num_eat * 500);
 	while (len-- > 0)
 	{
 		philo_report(THINK, item.id, item.init_time);
@@ -74,11 +75,11 @@ void		*philo_eat(void *arg)
 		pthread_mutex_lock(item.r_fork);
 		philo_report(TAKE, item.id, item.init_time);
 		philo_report(EAT, item.id, item.init_time);
-		philo_eating(item.arg->num_eat);
+		philo_eating(item.arg.num_eat);
+		philo_report(SLEEP, item.id, item.init_time);
 		pthread_mutex_unlock(item.l_fork);
 		pthread_mutex_unlock(item.r_fork);
-		philo_report(SLEEP, item.id, item.init_time);
-		philo_sleeping(item.arg->num_slp);
+		philo_sleeping(item.arg.num_slp);
 	}
 	return (NULL);
 }
