@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 19:55:38 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/08 10:44:32 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/09 20:26:18 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_bool	philo_get_arg(int argc, char **argv, t_arg *arg)
 	arg->num_die = ft_atoi(argv[2]);
 	arg->num_eat = ft_atoi(argv[3]);
 	arg->num_slp = ft_atoi(argv[4]);
-	arg->num_esc = 1;
+	arg->num_esc = 0;
 	if (argc == 6)
 		arg->num_esc = ft_atoi(argv[5]);
 	ret = arg_check(arg);
@@ -41,11 +41,10 @@ t_bool	philo_get_arg(int argc, char **argv, t_arg *arg)
 
 t_bool	arg_check(t_arg *arg)
 {
-	if (arg->num_philo <= 0
-		|| arg->num_die <= 0
-		|| arg->num_eat <= 0
-		|| arg->num_slp <= 0
-		|| arg->num_esc <= 0)
+	if (arg->num_philo == 0
+		|| arg->num_die == 0
+		|| arg->num_eat == 0
+		|| arg->num_slp == 0)
 		return (FALSE);
 	return (TRUE);
 }

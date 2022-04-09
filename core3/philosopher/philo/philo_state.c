@@ -6,30 +6,37 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:17:50 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/08 17:32:34 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/09 22:19:07 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include "philo_state.h"
 #include <unistd.h>
+#include <stdio.h>
 
-void	philo_eating(t_philo_item *item)
+inline void	philo_think(t_philo_item *const item)
 {
-	usleep(item->arg.num_eat * 1000);
+	philo_report(THINK, item);
+	pthread_mutex_lock(item->l_fork);
+	pthread_mutex_lock(item->r_fork);
 }
 
-void	philo_sleeping(t_philo_item *item)
+inline void	philo_eat(t_philo_item *const item)
 {
-	usleep(item->arg.num_slp * 1000);
+	item->recent = philo_get_time(TIME_SCALE);
+	philo_report(TAKE, item);
+	while (item->arg->num_eat > philo_get_time(TIME_SCALE) - item->recent)
+		usleep(500);
+	pthread_mutex_unlock(item->l_fork);
+	pthread_mutex_unlock(item->r_fork);
+	item->arg->num_esc -= item->arg->num_eat * (!!item->arg->num_esc);
 }
 
-t_bool	philo_isdie(suseconds_t diff, suseconds_t num_die)
+inline void	philo_sleep(t_philo_item *const item)
 {
-	t_time	time;
-
-	gettimeofday(&time, NULL);
-	if (time.tv_usec - diff > num_die)
-		return (TRUE);
-	return (FALSE);
+	philo_report(SLEEP, item);
+	while (item->arg->num_slp + item->arg->num_eat
+			> philo_get_time(TIME_SCALE) - item->recent)
+		usleep(500);
 }

@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:15:40 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/08 17:32:43 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/09 17:28:58 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,17 @@
 # include "philo.h"
 # include <sys/time.h>
 
-void	philo_eating(t_philo_item *item);
-void	philo_sleeping(t_philo_item *item);
-t_bool	philo_isdie(suseconds_t diff, suseconds_t num_die);
+typedef void	(*t_state)(t_philo_item *const);
+
+void	philo_think(t_philo_item *const item);
+void	philo_eat(t_philo_item *const item);
+void	philo_sleep(t_philo_item *const item);
+
+const static t_state	g_philo_state[3]
+= {
+	philo_think,
+	philo_eat,
+	philo_sleep
+};
 
 #endif

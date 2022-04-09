@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:14:09 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/08 17:38:39 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/09 21:53:04 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,64 +18,61 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static void		*philo_eat(void *arg);
-static void		philo_start(t_info *info);
+static void		*philo_work(void *arg);
+static t_bool	philo_make(t_info *info);
 
-void	philo_dinner(t_arg *arg)
+t_bool	philo_dinner(t_arg *arg, t_info *info)
 {
 	size_t	num;
-	t_info	info;
 
 	num = arg->num_philo;
-	info.num = num;
-	if (philo_alloc(num, &info) == FALSE
-		|| philo_setup(arg, &info) == FALSE)
-		return ;
-	philo_start(&info);
-	philo_watch(&info);
+	info->num = num;
+	if (philo_alloc(num, info) == FALSE
+		|| philo_setup(arg, info) == FALSE
+		|| philo_make(info) == FALSE)
+		return (FALSE);
+	return (TRUE);
 }
 
-void	philo_start(t_info *info)
+t_bool	philo_make(t_info *info)
 {
-	size_t	idx;
-	t_ms	init_time;
+	size_t			idx;
+	t_ms			init_time;
 
-	init_time = philo_get_time() + info->item_arr->arg.num_philo;
+	init_time = philo_get_time(TIME_SCALE) + info->num;
 	idx = 0;
 	while (idx < info->num)
 	{
 		info->item_arr[idx].init_time = init_time;
 		if (pthread_create(info->philo_arr + idx, NULL,
-			philo_eat, info->item_arr + idx) != 0)
+			philo_work, info->item_arr + idx) != 0)
 		{
 			printf("threads creation failed.\n");
 			philo_destroy(idx, info);
-			break ;
+			return (FALSE);
 		}
 		++idx;
 	}
+	philo_ready(info->item_arr);
+	usleep(info->num * 100);
+	return (TRUE);
 }
 
-void	*philo_eat(void *arg)
+void	*philo_work(void *arg)
 {
-	t_philo_item	*item = (t_philo_item *)arg;
-	size_t			len = 3;
+	t_philo_item	*item;
+	int				state;
 
+	item = (t_philo_item *)arg;
 	philo_ready(item);
+	item->recent = item->init_time;
 	if (item->id % 2 == 0)
-		usleep(item->arg.num_eat * 500);
-	while (--len)
+		usleep(item->arg->num_eat * 500);
+	state = 0;
+	while (item->recent && item->goal > 0)
 	{
-		philo_report(THINK, item);
-		item->recent = pthread_mutex_lock(item->l_fork);
-		pthread_mutex_lock(item->r_fork);
-		philo_report(TAKE, item);
-		philo_report(EAT, item);
-		philo_eating(item);
-		pthread_mutex_unlock(item->l_fork);
-		pthread_mutex_unlock(item->r_fork);
-		philo_report(SLEEP, item);
-		philo_sleeping(item);
+		g_philo_state[state++](item);
+		state %= 3;
 	}
 	return (NULL);
 }

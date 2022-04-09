@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 18:37:12 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/06 20:40:10 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/09 20:05:51 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,9 @@ int	ft_atoi(const char *str)
 {
 	unsigned long long	num;
 	unsigned long long	temp;
-	int					ret;
-	int					neg;
 
 	while (ft_isspace(*str))
 		++str;
-	neg = *str == '-';
-	str += (neg || *str == '+');
 	num = 0;
 	temp = 0;
 	while (ft_isdigit(*str) && temp <= num)
@@ -34,9 +30,8 @@ int	ft_atoi(const char *str)
 		num = 10 * num + *str++ - 48;
 	}
 	if (temp > num || num > LONG_MAX)
-		return ((int)(LONG_MAX * !neg + (-LONG_MAX - 1) * neg));
-	ret = (1 - 2 * neg) * ((int)num);
-	return (ret);
+		return ((int)(LONG_MAX));
+	return ((int)num);
 }
 
 int	ft_isdigit(int c)

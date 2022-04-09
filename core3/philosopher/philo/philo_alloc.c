@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 20:23:55 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/08 17:17:58 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/09 21:53:15 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_bool	philo_alloc(size_t num, t_info *info)
 			|| item_arr == NULL)
 	{
 		printf("memory allocation failed.\n");
-		philo_dealloc(num, info);
+		philo_dealloc(info);
 		return (FALSE);
 	}
 	info->philo_arr = philo_arr;
@@ -48,7 +48,7 @@ t_bool	philo_setup(t_arg *arg, t_info *info)
 		{
 			printf("mutex initialization failed.\n");
 			philo_mutex_destroy(idx, info);
-			philo_dealloc(arg->num_philo, info);
+			philo_dealloc(info);
 			return (FALSE);
 		}
 		++idx;
@@ -56,28 +56,22 @@ t_bool	philo_setup(t_arg *arg, t_info *info)
 	idx = 0;
 	while (idx < info->num)
 	{
-		info->item_arr[idx] = (t_philo_item){idx + 1, 0, 0, *arg,
-		info->fork_arr + idx, info->fork_arr + ((idx + 1) % info->num)};
+		info->item_arr[idx] = (t_philo_item){idx + 1, 0, 0,
+			!arg->num_esc + arg->num_esc, arg,
+			info->fork_arr + idx, info->fork_arr + ((idx + 1) % info->num)};
 		++idx;
 	}
 	return (TRUE);
 }
 
-void	philo_dealloc(size_t num, t_info *info)
+void	philo_dealloc(t_info *info)
 {
-	size_t		idx;
-
-	idx = 0;
-	while (idx < num)
-	{
-		if (info->philo_arr != NULL)
-			free(info->philo_arr + idx);
-		if (info->fork_arr != NULL)
-			free(info->fork_arr + idx);
-		if (info->item_arr != NULL)
-			free(info->item_arr + idx);
-		++idx;
-	}
+	if (info->philo_arr != NULL)
+		free(info->philo_arr);
+	if (info->fork_arr != NULL)
+		free(info->fork_arr);
+	if (info->item_arr != NULL)
+		free(info->item_arr);
 }
 
 void	philo_mutex_destroy(size_t num, t_info *info)
@@ -97,11 +91,11 @@ void	philo_destroy(size_t num, t_info *info)
 	size_t		idx;
 
 	philo_mutex_destroy(info->num, info);
-	philo_dealloc(info->num, info);
 	idx = 0;
 	while (idx < num)
 	{
 		pthread_detach(info->philo_arr[idx]);
 		++idx;
 	}
+	philo_dealloc(info);
 }
