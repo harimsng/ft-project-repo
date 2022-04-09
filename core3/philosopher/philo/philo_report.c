@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 21:48:55 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/09 22:22:05 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/10 02:54:30 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,14 @@ void	philo_report(int idx, const t_philo_item *const item)
 		init = TRUE;
 	}
 	pthread_mutex_lock(&speak);
-	time = philo_get_time(TIME_SCALE) - item->init_time;
-	printf("%7lld %3zu %s\n", time, item->id, g_report[idx]);
-	if (idx == TAKE)
-		printf("%7lld %3zu %s\n", time, item->id, g_report[EAT]);
-	if (item->goal <= 0 && idx == DIE)
+	if (idx != DIE && item->goal <= 0)
+	{
+		pthread_mutex_unlock(&speak);
 		return ;
+	}
+	time = philo_get_time(TIME_SCALE) - item->init_time * TIME_SCALE;
+	printf("%8lld %3zu %s\n", time, item->id, g_report[idx]);
+	if (idx == TAKE)
+		printf("%8lld %3zu %s\n", time, item->id, g_report[EAT]);
 	pthread_mutex_unlock(&speak);
 }

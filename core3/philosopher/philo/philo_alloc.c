@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 20:23:55 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/09 21:53:15 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/10 01:49:48 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,9 @@ t_bool	philo_setup(t_arg *arg, t_info *info)
 	while (idx < info->num)
 	{
 		info->item_arr[idx] = (t_philo_item){idx + 1, 0, 0,
-			!arg->num_esc + arg->num_esc, arg,
-			info->fork_arr + idx, info->fork_arr + ((idx + 1) % info->num)};
+			arg->num_esc, arg,
+			info->fork_arr + idx,
+			info->fork_arr + ((idx + 1) % info->num), NULL};
 		++idx;
 	}
 	return (TRUE);
@@ -92,10 +93,12 @@ void	philo_destroy(size_t num, t_info *info)
 
 	philo_mutex_destroy(info->num, info);
 	idx = 0;
-	while (idx < num)
+	(void)num;
+	(void)idx;
+/*	while (idx < num)
 	{
 		pthread_detach(info->philo_arr[idx]);
 		++idx;
-	}
+	}*/
 	philo_dealloc(info);
 }

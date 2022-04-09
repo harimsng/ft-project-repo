@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 19:53:32 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/09 21:52:51 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/10 01:36:52 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef pthread_mutex_t			t_fork;
 typedef struct timeval			t_time;
 typedef int						t_bool;
 typedef unsigned long long int	t_ms;
+typedef long long int			t_int64;
 
 typedef struct s_arg
 {
@@ -36,10 +37,11 @@ typedef struct s_philo_item
 	size_t		id;
 	t_ms		init_time;
 	t_ms		recent;
-	long int	goal;
+	t_int64		goal;
 	t_arg		*arg;
 	t_fork		*l_fork;
 	t_fork		*r_fork;
+	t_fork		*recent_access;
 }			t_philo_item;
 
 typedef struct s_info

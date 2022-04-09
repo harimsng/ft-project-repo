@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:15:40 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/09 17:28:58 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/10 00:09:21 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	philo_think(t_philo_item *const item);
 void	philo_eat(t_philo_item *const item);
 void	philo_sleep(t_philo_item *const item);
 
-const static t_state	g_philo_state[3]
+static const t_state	g_philo_state[3]
 = {
 	philo_think,
 	philo_eat,

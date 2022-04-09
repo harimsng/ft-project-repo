@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:17:50 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/09 22:19:07 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/10 02:52:59 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,20 @@ inline void	philo_think(t_philo_item *const item)
 
 inline void	philo_eat(t_philo_item *const item)
 {
-	item->recent = philo_get_time(TIME_SCALE);
+	if (philo_access_recent(item, CHILD) == FALSE)
+		return ;
 	philo_report(TAKE, item);
-	while (item->arg->num_eat > philo_get_time(TIME_SCALE) - item->recent)
+	while (item->arg->num_eat > philo_get_time(1) - item->recent)
 		usleep(500);
 	pthread_mutex_unlock(item->l_fork);
 	pthread_mutex_unlock(item->r_fork);
-	item->arg->num_esc -= item->arg->num_eat * (!!item->arg->num_esc);
+	item->goal -= item->arg->num_eat;
 }
 
 inline void	philo_sleep(t_philo_item *const item)
 {
 	philo_report(SLEEP, item);
 	while (item->arg->num_slp + item->arg->num_eat
-			> philo_get_time(TIME_SCALE) - item->recent)
+			> philo_get_time(1) - item->recent)
 		usleep(500);
 }

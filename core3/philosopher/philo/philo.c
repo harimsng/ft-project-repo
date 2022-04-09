@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 15:23:42 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/09 22:07:17 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/10 02:50:30 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@ int	main(int argc, char *argv[])
 
 	if (philo_get_arg(argc, argv, &arg) == FALSE)
 		return (1);
+	printf("got arguments\n");
 	if (philo_dinner(&arg, &info) == FALSE)
 		return (1);
-	philo_watch(&arg, &info);
+	printf("watch starts\n");
+	philo_watch(&info);
 	printf("watch ends\n");
 	philo_join(&info);
 	printf("joined\n");

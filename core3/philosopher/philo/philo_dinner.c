@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:14:09 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/09 21:53:04 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/10 02:52:47 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_bool	philo_dinner(t_arg *arg, t_info *info)
 
 	num = arg->num_philo;
 	info->num = num;
+	arg->num_philo = 0;
 	if (philo_alloc(num, info) == FALSE
 		|| philo_setup(arg, info) == FALSE
 		|| philo_make(info) == FALSE)
@@ -39,7 +40,7 @@ t_bool	philo_make(t_info *info)
 	size_t			idx;
 	t_ms			init_time;
 
-	init_time = philo_get_time(TIME_SCALE) + info->num;
+	init_time = philo_get_time(1) + info->num;
 	idx = 0;
 	while (idx < info->num)
 	{
@@ -61,18 +62,22 @@ t_bool	philo_make(t_info *info)
 void	*philo_work(void *arg)
 {
 	t_philo_item	*item;
+	t_fork			recent_access;
 	int				state;
 
 	item = (t_philo_item *)arg;
+	pthread_mutex_init(&recent_access, NULL);
+	item->recent_access = &recent_access;
 	philo_ready(item);
 	item->recent = item->init_time;
 	if (item->id % 2 == 0)
 		usleep(item->arg->num_eat * 500);
 	state = 0;
-	while (item->recent && item->goal > 0)
+	while (item->goal > 0)
 	{
 		g_philo_state[state++](item);
 		state %= 3;
 	}
+	pthread_mutex_destroy(&recent_access);
 	return (NULL);
 }
