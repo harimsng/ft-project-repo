@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 21:48:55 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/10 02:54:30 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/10 23:08:36 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 static const char	*g_report[]
 = {
+	"is thinking",
 	"taken a fork",
 	"is eating",
 	"is sleeping",
-	"is thinking",
 	"died",
 };
 
@@ -34,14 +34,16 @@ void	philo_report(int idx, const t_philo_item *const item)
 		init = TRUE;
 	}
 	pthread_mutex_lock(&speak);
-	if (idx != DIE && item->goal <= 0)
+	if (idx != M_DIE && item->goal <= 0)
 	{
 		pthread_mutex_unlock(&speak);
 		return ;
 	}
 	time = philo_get_time(TIME_SCALE) - item->init_time * TIME_SCALE;
 	printf("%8lld %3zu %s\n", time, item->id, g_report[idx]);
-	if (idx == TAKE)
-		printf("%8lld %3zu %s\n", time, item->id, g_report[EAT]);
+	//if (idx == M_TAKE)
+	//	printf("%8lld %3zu %s\n", time, item->id, g_report[M_EAT]);
 	pthread_mutex_unlock(&speak);
+	if (idx == M_DIE)
+		pthread_mutex_destroy(&speak);
 }

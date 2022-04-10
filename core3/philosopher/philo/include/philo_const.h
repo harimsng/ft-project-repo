@@ -1,32 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_state.h                                      :+:      :+:    :+:   */
+/*   philo_const.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/07 18:15:40 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/10 00:09:21 by hseong           ###   ########.fr       */
+/*   Created: 2022/04/06 19:58:33 by hseong            #+#    #+#             */
+/*   Updated: 2022/04/11 01:06:05 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_STATE_H
-# define PHILO_STATE_H
+#ifndef PHILO_CONST_H
+# define PHILO_CONST_H
 
-# include "philo.h"
-# include <sys/time.h>
+# define TIME_SCALE (1)
 
-typedef void	(*t_state)(t_philo_item *const);
+# define CHILD (1)
+# define PARENT (0)
 
-void	philo_think(t_philo_item *const item);
-void	philo_eat(t_philo_item *const item);
-void	philo_sleep(t_philo_item *const item);
+# define TRUE (1)
+# define FALSE (0)
 
-static const t_state	g_philo_state[3]
-= {
-	philo_think,
-	philo_eat,
-	philo_sleep
+# define PHILO_STATES (5)
+enum e_state
+{
+	S_THINK,
+	S_LOCK_R,
+	S_LOCK_L,
+	S_TAKE_EAT,
+	S_SLEEP
+};
+
+enum e_msg
+{
+	M_THINK,
+	M_TAKE,
+	M_EAT,
+	M_SLEEP,
+	M_DIE
 };
 
 #endif

@@ -1,0 +1,6 @@
+date races
+	message		(inconsistent time order)
+	timestamp	(value overlapping causes infinite loop)
+	timestamp	(thread and mutex destroy, main thread locked on the thread's mutex)
+
+odd number of threads need more time and take more time until finish

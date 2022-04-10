@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 19:53:32 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/10 01:36:52 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/11 00:20:48 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_philo_item
 	t_arg		*arg;
 	t_fork		*l_fork;
 	t_fork		*r_fork;
-	t_fork		*recent_access;
+	t_fork		*access;
 }			t_philo_item;
 
 typedef struct s_info
