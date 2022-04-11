@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 20:23:55 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/11 14:00:39 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/11 14:28:22 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_bool	philo_alloc(size_t num, t_info *info)
 	fork_arr = malloc(sizeof(t_fork) * num);
 	item_arr = malloc(sizeof(t_philo_item) * num);
 	if (philo_arr == NULL || fork_arr == NULL
-			|| item_arr == NULL)
+		|| item_arr == NULL)
 	{
 		printf("memory allocation failed.\n");
 		philo_dealloc(info);

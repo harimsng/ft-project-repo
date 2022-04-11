@@ -1,11 +1,12 @@
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   philo_dinner.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/06 20:14:09 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/10 19:57:13 by hseong           ###   ########.fr       */
+/*   Created: 2022/04/11 14:25:04 by hseong            #+#    #+#             */
+/*   Updated: 2022/04/11 14:25:24 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +47,7 @@ t_bool	philo_make(t_info *info)
 	{
 		info->item_arr[idx].init_time = init_time;
 		if (pthread_create(info->philo_arr + idx, NULL,
-			philo_work, info->item_arr + idx) != 0)
+				philo_work, info->item_arr + idx) != 0)
 		{
 			printf("threads creation failed.\n");
 			philo_mutex_destroy(idx, info);
@@ -90,7 +91,7 @@ t_philo_item	*philo_work_init(t_philo_item *item, t_fork *access)
 	return (item);
 }
 
-void			philo_work_end(t_philo_item *item, int state)
+void	philo_work_end(t_philo_item *item, int state)
 {
 	if (state == S_LOCK_L || state == S_LOCK_R)
 		pthread_mutex_unlock(item->r_fork);

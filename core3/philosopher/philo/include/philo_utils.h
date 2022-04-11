@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   philo_utils.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/06 19:52:27 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/06 20:42:34 by hseong           ###   ########.fr       */
+/*   Created: 2022/04/11 14:22:46 by hseong            #+#    #+#             */
+/*   Updated: 2022/04/11 14:22:52 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#ifndef PHILO_UTILS_H
+# define PHILO_UTILS_H
 
 int		ft_atoi(const char *s);
 

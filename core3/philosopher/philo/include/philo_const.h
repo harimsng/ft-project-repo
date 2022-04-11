@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 19:58:33 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/11 01:06:05 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/11 14:22:02 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define FALSE (0)
 
 # define PHILO_STATES (5)
+
 enum e_state
 {
 	S_THINK,
