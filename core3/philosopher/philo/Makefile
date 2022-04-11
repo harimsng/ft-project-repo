@@ -1,7 +1,7 @@
 NAME	=	philo
 
 
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror -O3
 CC		=	gcc
 RM		=	rm -f
 DEBUG	=	-g3 -fsanitize=address

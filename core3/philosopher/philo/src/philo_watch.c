@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 22:06:20 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/11 00:21:19 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/11 14:13:52 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 static void		philo_stop(t_info *info);
 static t_bool	philo_goal_check(t_info *info);
 
-void	philo_watch(t_info *info)
+size_t	philo_watch(t_info *info)
 {
 	size_t			idx;
 	size_t			len;
@@ -37,17 +37,16 @@ void	philo_watch(t_info *info)
 				philo_stop(info);
 				philo_report(M_DIE, item_arr + idx);
 				pthread_mutex_unlock(item_arr[idx].access);
-				return ;
+				return (idx + 1);
 			}
 			++idx;
 		}
 		if (philo_goal_check(info) == TRUE)
-			return ;
+			return (0);
 	}
 }
-//printf("actual death time = %lld\n", temp_time - item_arr[idx].init_time);
 
-void	philo_join(t_info *info)
+void	philo_join(t_info *info, size_t	detach)
 {
 	size_t	idx;
 	size_t	len;
@@ -57,15 +56,15 @@ void	philo_join(t_info *info)
 	len = info->num;
 	while (idx < len)
 	{
-//		philo_errno = pthread_detach(info->philo_arr[idx]);
-//		if (philo_errno != 0)
-//			printf("#%zu thread detach error %d\n", idx + 1, philo_errno);
-		philo_errno = pthread_join(info->philo_arr[idx], NULL);
-		if (philo_errno != 0)
-			printf("#%zu thread join error %d\n", idx + 1, philo_errno);
+		if (detach - 1 == idx)
+			philo_errno = pthread_detach(info->philo_arr[idx]);
+		else
+			philo_errno = pthread_join(info->philo_arr[idx], NULL);
 		++idx;
 	}
 }
+//		if (philo_errno != 0)
+//			printf("#%zu thread join error %d\n", idx + 1, philo_errno);
 
 void	philo_stop(t_info *info)
 {

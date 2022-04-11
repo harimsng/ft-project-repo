@@ -49,13 +49,14 @@ t_bool	philo_make(t_info *info)
 			philo_work, info->item_arr + idx) != 0)
 		{
 			printf("threads creation failed.\n");
-			philo_destroy(idx, info);
+			philo_mutex_destroy(idx, info);
+			philo_dealloc(info);
 			return (FALSE);
 		}
 		++idx;
 	}
 	philo_ready(info->item_arr);
-	usleep(info->num * 100);
+	philo_msleep(info->item_arr->arg.num_die / 2);
 	return (TRUE);
 }
 
@@ -74,9 +75,9 @@ void	*philo_work(void *arg)
 		state %= PHILO_STATES;
 	}
 	philo_work_end(item, state - 1);
-	printf("#%zu thread terminated\n", item->id);
 	return (NULL);
 }
+//	printf("[#%5zu] ", item->id);
 
 t_philo_item	*philo_work_init(t_philo_item *item, t_fork *access)
 {
@@ -85,7 +86,7 @@ t_philo_item	*philo_work_init(t_philo_item *item, t_fork *access)
 	philo_ready(item);
 	item->recent = item->init_time;
 	if (item->id % 2 == 1)
-		philo_msleep(item->arg->num_eat / 2);
+		philo_msleep(item->arg.num_eat / 2);
 	return (item);
 }
 
@@ -95,5 +96,6 @@ void			philo_work_end(t_philo_item *item, int state)
 		pthread_mutex_unlock(item->r_fork);
 	if (state == S_LOCK_L)
 		pthread_mutex_unlock(item->l_fork);
+	philo_msleep(1000);
 	pthread_mutex_destroy(item->access);
 }
