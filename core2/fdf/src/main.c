@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 19:18:38 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/05 12:57:31 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/11 18:11:28 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,13 @@ int	main(int argc, char *argv[])
 	t_img_elem	img_elem;
 	t_map_info	map_info;
 	t_img_elem	sub_elem;
+	t_mlx_flag	mlx_flag;
 
 	ft_memset(&mlx_info, 0, sizeof(t_mlx_info));
 	mlx_info.img_elem = &img_elem;
 	mlx_info.map_info = &map_info;
 	mlx_info.sub_elem = &sub_elem;
+	mlx_info.mlx_flag = &mlx_flag;
 	fdf_init(argc, argv, &mlx_info);
 	mlx_key_hook(mlx_info.win_ptr, key_hook, &mlx_info);
 	mlx_loop_hook(mlx_info.mlx_ptr, fdf_loop, &mlx_info);
@@ -53,7 +55,7 @@ void	fdf_init(int argc, char **argv, t_mlx_info *mlx_info)
 	}
 	if (init_sub(mlx_info) != 0)
 		perror("sub-image initialization failed");
-	fdf_setup_map(mlx_info->map_info);
+	fdf_setup_map(mlx_info);
 	if (fdf_alloc_map(mlx_info->map_info) == FALSE)
 	{
 		ft_putstr_fd("memory allocation failed\n", 2);
@@ -68,7 +70,8 @@ int	fdf_loop(t_mlx_info *mlx_info)
 	fdf_projection(mlx_info->map_info);
 	fdf_update(mlx_info);
 	fdf_subtask(mlx_info);
-	fdf_wireframe(mlx_info->img_elem, mlx_info->map_info);
+	if (mlx_info->mlx_flag->wireframe_flag == TRUE)
+		fdf_wireframe(mlx_info->img_elem, mlx_info->map_info);
 	mlx_put_image_to_window(mlx_info->mlx_ptr,
 		mlx_info->win_ptr, mlx_info->img_ptr, 0, SUBIMG_HEIGHT);
 	return (0);
@@ -77,11 +80,13 @@ int	fdf_loop(t_mlx_info *mlx_info)
 void	fdf_subtask(t_mlx_info *mlx_info)
 {
 	t_map_info	*map_info;
+	t_mlx_flag	*mlx_flag;
 
 	map_info = mlx_info->map_info;
-	if (map_info->background_flag)
-		fdf_plot_loop(mlx_info->img_elem);
-	if (map_info->automove_flag == TRUE)
+	mlx_flag = mlx_info->mlx_flag;
+	if (mlx_flag->background_flag)
+		fdf_plot_loop(mlx_info);
+	if (mlx_flag->automove_flag == TRUE)
 	{
 		map_info->hor_angle += 0.03;
 //		map_info->ver_angle += 0.03;

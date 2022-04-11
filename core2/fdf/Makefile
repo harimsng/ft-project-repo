@@ -27,7 +27,9 @@ SRC		=	main.c\
 			keymap/fdf_keymap_projection_mac.c\
 			keymap/fdf_keymap_height_mac.c\
 			keymap/fdf_keymap_flag_mac.c\
+			keymap/fdf_keymap_flag2_mac.c\
 			fdf_color.c\
+			fdf_complex.c\
 			fdf_load_map.c\
 			fdf_manage_map.c\
 			fdf_interface.c\
@@ -44,6 +46,7 @@ INCL	=	fdf.h\
 			fdf_const.h\
 			fdf_type.h\
 			fdf_keymap.h\
+			fdf_complex.h\
 			mlx.h\
 			get_next_line.h\
 			libft.h
@@ -84,12 +87,12 @@ $(LFT_NAME):
 	cp $(LFT_DIR)/$(LFT_NAME) .
 
 
-$(NAME): $(LFT_NAME) $(LIB_NAME) $(OBJ) $(INCL)
+$(NAME): $(LFT_NAME) $(LIB_NAME) $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $(OBJ) -l$(LIB) -L. -l$(LFT) \
 		-framework AppKit -framework OpenGL -lz
 
-$(OBJ): %.o: %.c
-	$(CC) $(CFLAGS) -c -o $@ $^ -I$(INCL_DIR)
+$(OBJ): %.o: %.c $(INCL)
+	$(CC) $(CFLAGS) -c -o $@ $< -I$(INCL_DIR)
 
 clean:
 	$(RM) $(OBJ)

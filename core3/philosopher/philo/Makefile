@@ -1,7 +1,7 @@
 NAME	=	philo
 
 
-CFLAGS	=	-Wall -Wextra -Werror -O3
+CFLAGS	=	-Wall -Wextra -Werror
 CC		=	gcc
 RM		=	rm -f
 DEBUG	=	-g3 -fsanitize=address
@@ -27,6 +27,7 @@ INCL	=	philo.h\
 			philo_const.h\
 			philo_utils.h
 INCL_DIR=	include
+INCL	:=	$(INCL:%=$(INCL_DIR)/%)
 
 ifeq ($(DEBUG_FLAG), 1)
 CFLAGS	+=	$(DEBUG)
@@ -45,8 +46,8 @@ debug:
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $^
 
-$(OBJ): %.o: %.c
-	$(CC) $(CFLAGS) -c -o $@ $^ -I$(INCL_DIR)
+$(OBJ): %.o: %.c $(INCL)
+	$(CC) $(CFLAGS) -c -o $@ $< -I$(INCL_DIR)
 
 clean:
 	$(RM) $(OBJ)

@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 21:42:44 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/05 13:14:50 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/11 16:08:21 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ typedef void			(*t_key_func)(t_mlx_info *mlx_info);
 static void	dummy_func(t_mlx_info *mlx_info);
 static void	exit_program(t_mlx_info *mlx_info);
 
+// MacOS keycode
+// https://eastmanreference.com/complete-list-of-applescript-key-codes
 static const t_key_func	g_keycode_table[128] = {
 	/*0*/move_obj_right,
 	/*1*/move_obj_forward,
@@ -30,7 +32,7 @@ static const t_key_func	g_keycode_table[128] = {
 	/*8*/turn_background,
 	/*9*/turn_diag,
 	/*10*/dummy_func,
-	/*11*/dummy_func,
+	/*11*/turn_wireframe,
 	/*12*/move_obj_down,
 	/*13*/move_obj_back,
 	/*14*/move_obj_up,

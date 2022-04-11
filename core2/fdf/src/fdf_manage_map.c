@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 18:31:12 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/04 16:07:52 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/11 19:36:40 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,13 @@ static t_bool	dealloc(t_vertex **arr, int len);
 
 // align map to the center of the display.
 // y coordinate is higher(lower in the display) than mid-value.
-void	fdf_setup_map(t_map_info *map_info)
+void	fdf_setup_map(t_mlx_info *mlx_info)
 {
+	t_map_info	*map_info;
+	t_mlx_flag	*mlx_flag;
+
+	mlx_flag = mlx_info->mlx_flag;
+	map_info = mlx_info->map_info;
 	map_info->x0 = SCREEN_WIDTH / 2;
 	map_info->y0 = SCREEN_HEIGHT / 2;
 	map_info->hor_angle = HOR_ANGLE;
@@ -35,9 +40,10 @@ void	fdf_setup_map(t_map_info *map_info)
 	map_info->var_x = 0;
 	map_info->var_y = 0;
 	map_info->var_height = 0;
-	map_info->automove_flag = FALSE;
-	map_info->interface_flag = FALSE;
-	map_info->arg_flag = FALSE;
+	mlx_flag->automove_flag = FALSE;
+	mlx_flag->interface_flag = FALSE;
+	mlx_flag->wireframe_flag = TRUE;
+	mlx_flag->background_flag = FALSE;
 }
 
 t_bool	fdf_alloc_map(t_map_info *map_info)

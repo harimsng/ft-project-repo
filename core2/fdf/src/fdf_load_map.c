@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 17:58:01 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/05 10:55:48 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/11 16:20:16 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static void		dealloc_words(t_word_arr *words);
 
 t_bool	fdf_load_map(int argc, char **argv, t_map_info *map_info)
 {
-	t_bool	flag1;
-	int		fd;
+	t_bool		flag1;
+	int			fd;
 
 	ft_putstr_fd("loading map file\n", 1);
 	if (argc != 2 && argc != 4)
