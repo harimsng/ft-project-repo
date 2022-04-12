@@ -18,8 +18,92 @@
 5.5.1 Approaches to multi-processor scheduling
 Asymmetric multiprocessing
 	master server
-Symmetric multiprocessing (SMP)
+SMP, Symmetric multiprocessing 
 	shared ready queue
 	private ready queue for each threads
 
 5.5.2 Multicore processors
+software thread - hardware thread - CPU core
+
+hardware threads have its own instruction pointer and register set.
+they share pipeline and cache memory.
+
+5.5.3 Load balancing
+push migration
+pull migration
+
+5.5.4 Processor affinity
+NUMA (non-uniform memory access)
+
+5.5.5 HMP, Heterogeneous multiprocessing
+bigLITTLE of ARM processors
+big cores are faster and consumes powers more.
+little cores slower but efficient.
+power management
+
+		5.6 Real-Time CPU Scheduling
+
+Soft real-time systems
+Hard real-time systems
+
+5.6.1 Minimizing latency
+Interrupt latency
+from the time event occurs to the start of interrupt service routine.
+
+Dispatch latency
+the time between a process stops and next process starts.
+conflict + dispatch
+
+5.6.2 Priority-based scheduling
+only guarantee soft real-time
+
+5.6.3 Rate-monotonic scheduling
+static priority policy
+The shorter the period, Higher the priority.
+Worst case CPU utilization
+	N * (2 ^ (1 / N) - 1)
+N = 1, 100%
+N = 2, ~75%
+N = inf, ~69%
+this cannot guarantee safe scheduling
+if CPU utilization of the processes is higher than the worst case utilization.
+
+CPU utilization 
+
+5.6.4 Earliest-deadline-first scheduling
+The earlier the deadline, the higher the priority.
+priorities are adjusted by deadline which a process must announce to system.
+this doesn't require processes to be periodic
+	and constant amount of CPU time per burst.
+the only requirement is that a process must announce its deadline
+	to the scheduler when it's runnable.
+
+it's a theoretically optimal scheduling, but it's impossible to archive
+	100% CPU utilization
+	because of the cost of context switch and interrupt handling.
+
+5.6.5 Proportional share scheduling
+allocate specific ratio of the CPU utilization to processes.
+A:50%, B:30%, C:15%.
+admission-control policy would deny a process
+	if it demand CPU utilization higher than 15%.
+
+5.6.6 POSIX real-time scheduling
+SCHED_FIFO
+SCHED_RR
+pthread_attr_get(set)schedpolicy
+
+		5.7 Operating-System Examples
+process scheduling:
+	kernel thread scheduling in Windows and Solaris
+	task scheduling in Linux
+
+5.7.1 Example: Linux scheduling
+CFS: Completely Fair Scheduling
+scheduling classes
+nice value
+load balancing with CPU utilization time and priority.
+	higher utilization time, higher priority ~ higher load.
+
+5.7.2 Example: Windows scheduling
+dispathcher
