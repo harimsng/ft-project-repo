@@ -6,7 +6,11 @@
 int	main(void)
 {
 	int			test;
+	char		*str = "1" "2" "3" "\n";
 
+	printf("%d %d\n",
+		ft_printf(str),
+		printf(str));
 // character
 	printf("%d %d\n",
 		ft_printf("abcdefg12345!@#$\n"),
