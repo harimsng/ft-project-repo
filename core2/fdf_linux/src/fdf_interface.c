@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 19:13:45 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/04 15:42:39 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/11 19:36:28 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	fdf_interface(t_mlx_info *mlx_info)
 {
 	t_bool	flag;
 
-	flag = mlx_info->map_info->interface_flag;
+	flag = mlx_info->mlx_flag->interface_flag;
 	if (flag)
 		draw_unitvector(mlx_info->map_info, mlx_info->sub_elem);
 	mlx_put_image_to_window(mlx_info->mlx_ptr,

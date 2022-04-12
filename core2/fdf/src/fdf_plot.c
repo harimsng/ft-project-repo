@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 21:49:08 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/11 19:43:49 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/13 00:45:42 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	fdf_plot(int x, int y, double brightness, t_img_elem *img_elem)
 inline t_uint32	fdf_fractal(double x, double y, t_map_info *map_info)
 {
 	t_complex			z;
-	const static int	rad_2 = FRACT_RADIUS * FRACT_RADIUS;
+	static const int	rad_2 = FRACT_RADIUS * FRACT_RADIUS;
 	int					count;
 	double				temp;
 

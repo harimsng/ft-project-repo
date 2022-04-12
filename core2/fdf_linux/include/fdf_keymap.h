@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 16:26:57 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/07 00:18:23 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/13 01:27:11 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	project_isometric(t_mlx_info *mlx_info);
 void	project_perspective(t_mlx_info *mlx_info);
 void	automove_map(t_mlx_info *mlx_info);
 void	turn_interface(t_mlx_info *mlx_info);
+void	turn_background(t_mlx_info *mlx_info);
+void	turn_wireframe(t_mlx_info *mlx_info);
 void	set_default(t_mlx_info *mlx_info);
 
 void	move_obj_left(t_mlx_info *mlx_info);
@@ -278,7 +280,7 @@ static const t_key_func	g_keycode_table[256] = {
 /*96*/dummy_func,
 /*97*/move_obj_left,
 /*98*/dummy_func,
-/*99*/dummy_func,
+/*99*/turn_background,
 /*100*/move_obj_right,
 /*101*/move_obj_down,
 /*102*/dummy_func,
@@ -294,11 +296,11 @@ static const t_key_func	g_keycode_table[256] = {
 /*112*/dummy_func,
 /*113*/move_obj_up,
 /*114*/dummy_func,
-/*115*/move_obj_forward,
+/*115*/move_obj_back,
 /*116*/dummy_func,
 /*117*/scale_down,
-/*118*/dummy_func,
-/*119*/move_obj_back,
+/*118*/turn_wireframe,
+/*119*/move_obj_forward,
 /*120*/turn_interface,
 /*121*/dummy_func,
 /*122*/automove_map,

@@ -1,35 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_hook.c                                         :+:      :+:    :+:   */
+/*   fdf_complex.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/24 21:42:44 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/13 01:08:36 by hseong           ###   ########.fr       */
+/*   Created: 2022/04/11 15:48:26 by hseong            #+#    #+#             */
+/*   Updated: 2022/04/11 17:02:20 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include "fdf_keymap.h"
+#include "fdf_complex.h"
+#include <math.h>
 
-typedef void			(*t_key_func)(t_mlx_info *mlx_info);
-
-int	key_hook(int keycode, void *param)
+inline void	fdf_complex(t_complex *var, double x, double y)
 {
-	keycode &= 0xFF;
-	if (keycode > 127)
-		return (0);
-	g_keycode_table[keycode](param);
-	return (0);
+	var->r = x;
+	var->i = y;
 }
 
-void	dummy_func(t_mlx_info *mlx_info)
+inline t_uint32	fdf_complex_abs(t_complex *var)
 {
-	(void)mlx_info;
+	return (var->r * var->r + var->i * var->i);
 }
 
-void	exit_program(t_mlx_info *mlx_info)
+inline void	fdf_complex_mul(t_complex *to, t_complex *with)
 {
-	fdf_exit(0, mlx_info);
+	double	temp_r;
+
+	temp_r = to->r * with->r - to->i * with->i;
+	to->i = to->r * with->i + with->r * to->i;
+	to->r = temp_r;
 }

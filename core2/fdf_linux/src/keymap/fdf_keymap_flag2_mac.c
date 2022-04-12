@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_keymap_transl2_mac.c                           :+:      :+:    :+:   */
+/*   fdf_keymap_flag2_mac.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/01 19:48:40 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/02 19:34:47 by hseong           ###   ########.fr       */
+/*   Created: 2022/04/11 16:08:55 by hseong            #+#    #+#             */
+/*   Updated: 2022/04/11 16:25:36 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf_keymap.h"
 
-void	move_obj_up(t_mlx_info *mlx_info)
+void	turn_wireframe(t_mlx_info *mlx_info)
 {
-	mlx_info->map_info->var_height += HEIGHT_STEP;
-}
-
-void	move_obj_down(t_mlx_info *mlx_info)
-{
-	mlx_info->map_info->var_height -= HEIGHT_STEP;
+	mlx_info->mlx_flag->wireframe_flag ^= 1;
 }

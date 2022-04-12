@@ -27,7 +27,9 @@ SRC		=	main.c\
 			keymap/fdf_keymap_projection_mac.c\
 			keymap/fdf_keymap_height_mac.c\
 			keymap/fdf_keymap_flag_mac.c\
+			keymap/fdf_keymap_flag2_mac.c\
 			fdf_color.c\
+			fdf_complex.c\
 			fdf_load_map.c\
 			fdf_manage_map.c\
 			fdf_interface.c\
@@ -45,7 +47,7 @@ INCL	=	fdf.h\
 			fdf_const.h\
 			fdf_type.h\
 			fdf_keymap.h\
-			mlx.h\
+			fdf_complex.h\
 			get_next_line.h\
 			libft.h
 INCL_DIR=	include
@@ -58,13 +60,16 @@ LIB		=	mlx
 ifeq ($(shell uname), "Darwin")
 SYSDEPS =	-framework OpenGL -framework AppKit -lz -DSYS_MAC
 LIB_NAME=	libmlx_Darwin.a
-LIB		=	mlx_Darwin
-else
-SYSDEPS =	-lm -lXext -lX11	
-LIB_NAME=	libmlx_Linux.a
-LIB		=	mlx_Linux
-endif
 LIB_DIR	=	library
+LIB		=	mlx_Darwin
+INCL	+=	$(INCL_DIR)/mlx.h
+else
+SYSDEPS =	-lm -lXext -lX11 -pthread
+LIB_NAME=	libmlx_Linux.a
+LIB_DIR	=	library_Linux
+LIB		=	mlx_Linux
+INCL	+=	$(INCL_DIR)/mlx_Linux.h
+endif
 
 
 LFT_NAME=	libft.a
@@ -96,12 +101,12 @@ $(LFT_NAME):
 	cp $(LFT_DIR)/$(LFT_NAME) .
 
 
-$(NAME): $(LFT_NAME) $(LIB_NAME) $(OBJ) $(INCL)
+$(NAME): $(LFT_NAME) $(LIB_NAME) $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $(OBJ) -l$(LIB) -L. -l$(LFT) \
 	$(SYSDEPS)
 
-$(OBJ): %.o: %.c
-	$(CC) $(CFLAGS) -c -o $@ $^ -I$(INCL_DIR)
+$(OBJ): %.o: %.c $(INCL) 
+	$(CC) $(CFLAGS) -c -o $@ $< -I$(INCL_DIR)
 
 clean:
 	$(RM) $(OBJ)
