@@ -6,19 +6,20 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 19:18:38 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/11 18:11:28 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/13 17:46:21 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
 #include "mlx.h"
+#include "fdf.h"
 #include "libft.h"
 #include <stdio.h>
+#include <math.h>
 
-static void	fdf_update(t_mlx_info *mlx_info);
 static int	fdf_loop(t_mlx_info *mlx_info);
 static void	fdf_init(int argc, char **argv, t_mlx_info *mlx_info);
-static void	fdf_subtask(t_mlx_info *mlx_info);
+static void	fdf_task(t_mlx_info *mlx_info);
+static void	fdf_thread_join(t_mlx_info *mlx_info);
 
 int	main(int argc, char *argv[])
 {
@@ -67,36 +68,52 @@ void	fdf_init(int argc, char **argv, t_mlx_info *mlx_info)
 
 int	fdf_loop(t_mlx_info *mlx_info)
 {
-	fdf_projection(mlx_info->map_info);
-	fdf_update(mlx_info);
-	fdf_subtask(mlx_info);
-	if (mlx_info->mlx_flag->wireframe_flag == TRUE)
-		fdf_wireframe(mlx_info->img_elem, mlx_info->map_info);
+//	if (mlx_info->mlx_flag->wireframe_flag == TRUE)
+	fdf_projection(mlx_info->map_info, mlx_info->thread);
+	fdf_thread_join(mlx_info);
+	fdf_task(mlx_info);
+//	if (mlx_info->mlx_flag->wireframe_flag == TRUE)
+	fdf_wireframe(mlx_info->img_elem, mlx_info->map_info);
 	mlx_put_image_to_window(mlx_info->mlx_ptr,
 		mlx_info->win_ptr, mlx_info->img_ptr, 0, SUBIMG_HEIGHT);
 	return (0);
 }
 
-void	fdf_subtask(t_mlx_info *mlx_info)
+void	fdf_task(t_mlx_info *mlx_info)
 {
 	t_map_info	*map_info;
-	t_mlx_flag	*mlx_flag;
+	int			x;
+	int			y;
 
 	map_info = mlx_info->map_info;
-	mlx_flag = mlx_info->mlx_flag;
-	if (mlx_flag->background_flag)
-		fdf_plot_loop(mlx_info);
-	if (mlx_flag->automove_flag == TRUE)
+	fdf_mouse_get_pos(mlx_info, &x, &y);
+	map_info->var_y += y * cos(map_info->hor_angle) + x * sin(map_info->hor_angle);
+	map_info->var_x += -y * sin(map_info->hor_angle) + x * cos(map_info->hor_angle);
+//	map_info->var_x = (x - g_screen_hwidth) * cos(map_info->hor_angle)
+//	map_info->var_y = (y - g_screen_hheight) * sin(map_info->hor_angle)
+	mlx_do_sync(mlx_info->mlx_ptr);
+	ft_memset(mlx_info->img_elem->img_buf, 0, mlx_info->img_elem->arr_bytes);
+	ft_memset(mlx_info->sub_elem->img_buf, 0, mlx_info->sub_elem->arr_bytes);
+	//if (mlx_info->mlx_flag->background_flag)
+	//	fdf_plot_loop(mlx_info);
+	if (mlx_info->mlx_flag->automove_flag == TRUE)
 	{
-		map_info->hor_angle += 0.03;
+		map_info->var_x *= 1.04;
+		map_info->var_y *= 1.04;
+		mlx_info->map_info->fract_scale *= 1.04;
+		mlx_info->map_info->hor_angle += 0.01;
 //		map_info->ver_angle += 0.03;
 	}
 	fdf_interface(mlx_info);
 }
 
-void	fdf_update(t_mlx_info *mlx_info)
+void	fdf_thread_join(t_mlx_info *mlx_info)
 {
-	mlx_do_sync(mlx_info->mlx_ptr);
-	ft_memset(mlx_info->img_elem->img_buf, 0, mlx_info->img_elem->arr_bytes);
-	ft_memset(mlx_info->sub_elem->img_buf, 0, mlx_info->sub_elem->arr_bytes);
+	size_t		idx;
+	pthread_t	*thread;
+
+	thread = mlx_info->thread;
+	idx = 0;
+	while (idx < SCREEN_HEIGHT)
+		pthread_join(thread[idx++], NULL);
 }

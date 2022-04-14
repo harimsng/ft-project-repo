@@ -6,12 +6,12 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 17:54:03 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/04 14:50:07 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/13 15:11:24 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
 #include "mlx.h"
+#include "fdf.h"
 #include "libft.h"
 
 int	init_win(t_mlx_info *mlx_info)

@@ -6,12 +6,12 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 20:12:02 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/05 12:11:26 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/13 15:11:44 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "mlx.h"
+#include "libft.h"
 #include "fdf.h"
 #include <math.h>
 #include <stdlib.h>

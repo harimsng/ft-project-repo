@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 17:10:04 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/13 01:24:28 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/13 11:24:18 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define FDF_CONST_H
 
 // screen constants
-# define SCREEN_WIDTH (1920)
-# define SCREEN_HEIGHT (1080)
+# define SCREEN_WIDTH (960)
+# define SCREEN_HEIGHT (960)
 # define VP_DIST (500) // viewport distance
 # define SUBIMG_WIDTH (SCREEN_WIDTH)
 # define SUBIMG_HEIGHT (80)

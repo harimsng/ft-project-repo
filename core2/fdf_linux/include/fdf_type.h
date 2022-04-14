@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 20:03:29 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/11 19:36:26 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/13 13:09:28 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,19 @@
 # define FDF_TYPE_H
 
 # include <unistd.h>
+# include <pthread.h>
+# include "fdf_const.h"
 
 typedef unsigned int	t_pixel;
 typedef int				t_bool;
 typedef unsigned char	t_byte;
 typedef unsigned int	t_uint32;
+
+typedef struct s_mouse
+{
+	int	x;
+	int	y;
+}			t_mouse;
 
 typedef struct s_vertex
 {
@@ -26,7 +34,7 @@ typedef struct s_vertex
 	double	y;
 	double	z;
 	t_pixel	color;
-}						t_vertex;
+}			t_vertex;
 
 typedef struct s_map_info
 {
@@ -38,6 +46,7 @@ typedef struct s_map_info
 	int			col;
 	double		hor_scale;
 	double		ver_scale;
+	double		fract_scale;
 	double		hor_angle;
 	double		ver_angle;
 	double		gamma;
@@ -48,7 +57,7 @@ typedef struct s_map_info
 	int			projection;
 	t_bool		arg_flag;
 	t_bool		colored_flag;
-}						t_map_info;
+}				t_map_info;
 
 typedef struct s_mlx_flag
 {
@@ -56,7 +65,7 @@ typedef struct s_mlx_flag
 	t_bool		background_flag;
 	t_bool		interface_flag;
 	t_bool		automove_flag;
-}						t_mlx_flag;
+}			t_mlx_flag;
 
 typedef struct s_img_elem
 {
@@ -67,7 +76,7 @@ typedef struct s_img_elem
 	size_t	arr_bytes;
 	size_t	hor_px;
 	size_t	ver_px;
-}						t_img_elem;
+}			t_img_elem;
 
 typedef struct s_mlx_info
 {
@@ -79,6 +88,7 @@ typedef struct s_mlx_info
 	t_img_elem	*sub_elem;
 	t_map_info	*map_info;
 	t_mlx_flag	*mlx_flag;
-}						t_mlx_info;
+	pthread_t	thread[SCREEN_HEIGHT];
+}				t_mlx_info;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 19:26:20 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/11 18:11:18 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/13 15:05:30 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,12 @@ void	fdf_plot(int x, int y, double brightness, t_img_elem *img_elem);
 void	fdf_drawline(t_img_elem *img_elem, t_vertex *p0, t_vertex *p1);
 void	fdf_aa_drawline(t_img_elem *img_elem, t_vertex *p0, t_vertex *p1);
 void	fdf_wireframe(t_img_elem *img_elem, t_map_info *map_info);
-void	fdf_projection(t_map_info *map_info);
+void	fdf_projection(t_map_info *map_info, pthread_t *thread);
 t_pixel	grade_color_aa(t_pixel p0, t_pixel p1, double ratio, double brightness);
 t_pixel	grade_color(t_pixel p0, t_pixel p1, double ratio);
 void	fdf_interface(t_mlx_info *t_mlx_info);
+t_pixel	fdf_fractal(double x, double y, t_map_info *map_info);
+
 
 // hook functions
 int		key_hook(int keycode, void *param);
@@ -49,5 +51,6 @@ char	*get_next_line(int fd);
 void	get_frametime(t_mlx_info *mlx_info, t_map_info *map_info);
 double	fdf_modf(double num);
 void	fdf_debug(t_mlx_info *mlx_info);
+void	fdf_mouse_get_pos(t_mlx_info *mlx_info, int *x, int *y);
 
 #endif

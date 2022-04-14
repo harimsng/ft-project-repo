@@ -6,13 +6,13 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 19:13:45 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/11 19:36:28 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/13 16:52:49 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "mlx.h"
 #include "fdf.h"
 #include "fdf_transform.h"
-#include "mlx.h"
 #include <math.h>
 #include <time.h>
 #include <stdio.h>
@@ -78,8 +78,8 @@ void	get_frametime(t_mlx_info *mlx_info, t_map_info *map_info)
 	now = clock();
 	frametime = (float)(now - past) / CLOCKS_PER_SEC;
 	past = now;
-	snprintf(buf, 100, "fps = %6.2f  frametime = %6.4f \
-alpha = %6.2fdeg beta = %6.2lfdeg gamma = %6.2lfdeg",
+	snprintf(buf, 100, "fps = %6.2f  frametime = %6.4f | \
+alpha = %6.2f beta = %6.2lf gamma = %6.2lf",
 		1 / frametime, frametime,
 		fmod(map_info->hor_angle * 180.0 / M_PI, 360.0),
 		fmod(map_info->ver_angle * 180.0 / M_PI, 360.0),
@@ -91,15 +91,19 @@ alpha = %6.2fdeg beta = %6.2lfdeg gamma = %6.2lfdeg",
 
 void	fdf_debug(t_mlx_info *mlx_info)
 {
-	char		buf[100];
+	char		buf[150];
+	int			x;
+	int			y;
 	t_map_info	*map_info;
 
+	fdf_mouse_get_pos(mlx_info, &x, &y);
 	map_info = mlx_info->map_info;
-	snprintf(buf, 100,
-		"x = %5d y = %5d dx = %4.2lf dy = %4.2lf",
+	snprintf(buf, 150,
+		"x = %5d y = %5d | dx = %10.2lf dy = %10.2lf fract = %16.2lf | \
+m_x = %5d m_y = %5d",
 		map_info->x0 - g_screen_hwidth,
 		map_info->y0 - g_screen_hheight,
-		map_info->hor_scale, map_info->ver_scale);
+		map_info->hor_scale, map_info->ver_scale, map_info->fract_scale, x, y);
 	mlx_string_put(mlx_info->mlx_ptr, mlx_info->win_ptr,
 		0, 2 * TEXT_HEIGHT + 4, 0xFFFFFF, buf);
 }

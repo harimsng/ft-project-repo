@@ -6,11 +6,12 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 18:31:12 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/11 19:36:40 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/13 12:31:47 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include "fdf_complex.h"
 #include <stdlib.h>
 
 static t_bool	dealloc(t_vertex **arr, int len);
@@ -35,6 +36,7 @@ void	fdf_setup_map(t_mlx_info *mlx_info)
 		map_info->ver_scale = (double)SCREEN_HEIGHT
 			/ (map_info->col + map_info->row + map_info->max_height / 2.0);
 	}
+	map_info->fract_scale = FRACT_SCALE;
 	map_info->gamma = GAMMA;
 	map_info->projection = 0;
 	map_info->var_x = 0;

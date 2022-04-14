@@ -49,6 +49,7 @@ INCL	=	mlx.h\
 			fdf_type.h\
 			fdf_keymap.h\
 			fdf_complex.h\
+			fdf_colors.h\
 			get_next_line.h\
 			libft.h
 INCL_DIR=	include
@@ -67,7 +68,7 @@ SYSDEPS =	-lm -lXext -lX11 -pthread
 OBJDEPS	=
 LIB_NAME=	libmlx_Linux.a
 LIB_DIR	=	library_Linux
-LIB		=	mlx_Linux.a
+LIB		=	mlx_Linux
 endif
 
 
@@ -96,7 +97,7 @@ $(LIB_NAME):
 	echo $(LIB_NAME)
 	$(MAKE) -C $(LIB_DIR)
 	cp $(LIB_DIR)/$(LIB_NAME) .
-	cp $(LIB_DIR)/mlx.h include/mlx.h
+	cp $(LIB_DIR)/mlx.h $(INCL_DIR)/mlx.h
 
 $(LFT_NAME):
 	$(MAKE) -C $(LFT_DIR)
