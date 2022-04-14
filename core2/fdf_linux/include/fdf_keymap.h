@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 16:26:57 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/13 01:27:11 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/14 22:33:41 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	project_isometric(t_mlx_info *mlx_info);
 void	project_perspective(t_mlx_info *mlx_info);
 void	automove_map(t_mlx_info *mlx_info);
 void	turn_interface(t_mlx_info *mlx_info);
+void	turn_diag(t_mlx_info *mlx_info);
 void	turn_background(t_mlx_info *mlx_info);
 void	turn_wireframe(t_mlx_info *mlx_info);
 void	set_default(t_mlx_info *mlx_info);
@@ -58,7 +59,7 @@ static const t_key_func	g_keycode_table[128] = {
 	/*6*/automove_map,
 	/*7*/turn_interface,
 	/*8*/turn_background,
-	/*9*/turn_diag,
+	/*9*/turn_wireframe,
 	/*10*/dummy_func,
 	/*11*/dummy_func,
 	/*12*/move_obj_down,

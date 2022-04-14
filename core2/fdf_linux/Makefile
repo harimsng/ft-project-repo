@@ -43,7 +43,8 @@ OBJ		=	$(SRC:%.c=%.o)
 
 
 # header files
-INCL	=	fdf.h\
+INCL	=	mlx.h\
+			fdf.h\
 			fdf_const.h\
 			fdf_type.h\
 			fdf_keymap.h\
@@ -55,20 +56,18 @@ INCL	:=	$(INCL:%=$(INCL_DIR)/%)
 
 
 # library
-LIB_NAME=	libmlx.a
-LIB		=	mlx
-ifeq ($(shell uname), "Darwin")
-SYSDEPS =	-framework OpenGL -framework AppKit -lz -DSYS_MAC
-LIB_NAME=	libmlx_Darwin.a
+ifeq ($(shell uname), Darwin)
+SYSDEPS =	-framework OpenGL -framework AppKit -lz
+OBJDEPS	=	-DSYS_MAC
+LIB_NAME=	libmlx.dylib
 LIB_DIR	=	library
-LIB		=	mlx_Darwin
-INCL	+=	$(INCL_DIR)/mlx.h
+LIB		=	mlx
 else
 SYSDEPS =	-lm -lXext -lX11 -pthread
+OBJDEPS	=
 LIB_NAME=	libmlx_Linux.a
 LIB_DIR	=	library_Linux
-LIB		=	mlx_Linux
-INCL	+=	$(INCL_DIR)/mlx_Linux.h
+LIB		=	mlx_Linux.a
 endif
 
 
@@ -93,20 +92,22 @@ norm:
 
 
 $(LIB_NAME):
+	uname
+	echo $(LIB_NAME)
 	$(MAKE) -C $(LIB_DIR)
 	cp $(LIB_DIR)/$(LIB_NAME) .
+	cp $(LIB_DIR)/mlx.h include/mlx.h
 
 $(LFT_NAME):
 	$(MAKE) -C $(LFT_DIR)
 	cp $(LFT_DIR)/$(LFT_NAME) .
-
 
 $(NAME): $(LFT_NAME) $(LIB_NAME) $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $(OBJ) -l$(LIB) -L. -l$(LFT) \
 	$(SYSDEPS)
 
 $(OBJ): %.o: %.c $(INCL) 
-	$(CC) $(CFLAGS) -c -o $@ $< -I$(INCL_DIR)
+	$(CC) $(CFLAGS) -c -o $@ $< -I$(INCL_DIR) $(OBJDEPS)
 
 clean:
 	$(RM) $(OBJ)
