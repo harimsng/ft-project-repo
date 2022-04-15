@@ -93,8 +93,6 @@ norm:
 
 
 $(LIB_NAME):
-	uname
-	echo $(LIB_NAME)
 	$(MAKE) -C $(LIB_DIR)
 	cp $(LIB_DIR)/$(LIB_NAME) .
 	cp $(LIB_DIR)/mlx.h $(INCL_DIR)/mlx.h

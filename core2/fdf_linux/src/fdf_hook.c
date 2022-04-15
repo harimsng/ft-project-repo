@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 21:42:44 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/15 01:35:22 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/15 19:09:43 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void	fdf_mouse_get_pos(t_mlx_info *mlx_info, int *x, int *y)
 {
 #ifdef SYS_MAC
 	mlx_mouse_get_pos(mlx_info->win_ptr, x, y);
-	*x -= g_screen_hwidth;
-	*y -= g_screen_hheight;
-	mlx_mouse_move(mlx_info->win_ptr, 40, 40);
+	*x -= 0;
+	*y -= 112;
+	mlx_mouse_move(mlx_info->win_ptr, 0, SCREEN_HEIGHT);
 #else
 	mlx_mouse_get_pos(mlx_info->mlx_ptr, mlx_info->win_ptr, x, y);
 	*x -= 40;//g_screen_hwidth;
