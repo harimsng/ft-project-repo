@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 22:06:20 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/11 23:44:34 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/15 22:24:03 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ size_t	philo_watch(t_info *info)
 		idx = 0;
 		while (idx < len)
 		{
-			if (item_arr[idx].goal > 0
-				&& philo_access_recent(item_arr + idx, PARENT) == FALSE)
+			if (philo_access_recent(item_arr + idx, PARENT) == FALSE)
 			{
 				philo_stop(info);
 				philo_report(M_DIE, item_arr + idx);

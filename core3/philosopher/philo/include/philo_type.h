@@ -42,6 +42,7 @@ typedef struct s_philo_item
 	t_fork		*l_fork;
 	t_fork		*r_fork;
 	t_fork		*access;
+	t_fork		*speak;
 }			t_philo_item;
 
 typedef struct s_info
@@ -50,6 +51,7 @@ typedef struct s_info
 	t_philo			*philo_arr;
 	t_fork			*fork_arr;
 	t_philo_item	*item_arr;
+	t_fork			*speak;
 }			t_info;
 
 #endif

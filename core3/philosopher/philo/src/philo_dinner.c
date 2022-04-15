@@ -69,9 +69,8 @@ void	*philo_work(void *arg)
 
 	item = philo_work_init(arg, &access);
 	state = 0;
-	while (item->goal > 0)
+	while (g_philo_state[state](item))
 	{
-		g_philo_state[state](item);
 		++state;
 		state %= PHILO_STATES;
 	}

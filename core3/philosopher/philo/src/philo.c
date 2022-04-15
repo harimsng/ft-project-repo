@@ -17,14 +17,14 @@ int	main(int argc, char *argv[])
 {
 	t_arg	arg;
 	t_info	info;
-	size_t	detach;
+	t_fork	speak;
 
 	if (philo_get_arg(argc, argv, &arg) == FALSE)
 		return (1);
+	info.speak = &speak;
 	if (philo_dinner(&arg, &info) == FALSE)
 		return (1);
-	detach = philo_watch(&info);
-	philo_join(&info, detach);
+	philo_join(&info, philo_watch(&info));
 	philo_mutex_destroy(info.num, &info);
 	philo_dealloc(&info);
 	return (0);

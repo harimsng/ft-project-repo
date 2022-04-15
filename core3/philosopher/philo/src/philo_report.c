@@ -23,24 +23,17 @@ static const char *const	g_report[] = {
 
 void	philo_report(int idx, const t_philo_item *const item)
 {
-	static t_fork	speak;
-	static t_bool	init;
-	static t_ms		time;
+	t_ms		time;
 
-	if (init == FALSE)
-	{
-		pthread_mutex_init(&speak, NULL);
-		init = TRUE;
-	}
-	pthread_mutex_lock(&speak);
+	pthread_mutex_lock(item->speak);
 	if (idx != M_DIE && item->goal <= 0)
 	{
-		pthread_mutex_unlock(&speak);
+		pthread_mutex_unlock(item->speak);
 		return ;
 	}
 	time = philo_get_time(TIME_SCALE) - item->init_time * TIME_SCALE;
 	printf("%8lld %3zu %s\n", time, item->id, g_report[idx]);
-	pthread_mutex_unlock(&speak);
+	pthread_mutex_unlock(item->speak);
 	if (idx == M_DIE)
-		pthread_mutex_destroy(&speak);
+		pthread_mutex_destroy(item->speak);
 }

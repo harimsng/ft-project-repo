@@ -19,7 +19,7 @@
 t_bool	philo_get_arg(int argc, char **argv, t_arg *arg);
 
 t_bool	philo_dinner(t_arg *arg, t_info *info);
-void	philo_state(int state, const t_philo_item *const item);
+//t_bool	philo_state(int state, const t_philo_item *const item);
 void	philo_report(int idx, const t_philo_item *const item);
 
 // philo_alloc.c
