@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 19:13:45 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/13 16:52:49 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/16 00:17:49 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	fdf_debug(t_mlx_info *mlx_info)
 	fdf_mouse_get_pos(mlx_info, &x, &y);
 	map_info = mlx_info->map_info;
 	snprintf(buf, 150,
-		"x = %5d y = %5d | dx = %10.2lf dy = %10.2lf fract = %16.2lf | \
+		"x = %5d y = %5d | dx = %E dy = %E fract = %E | \
 m_x = %5d m_y = %5d",
 		map_info->x0 - g_screen_hwidth,
 		map_info->y0 - g_screen_hheight,
