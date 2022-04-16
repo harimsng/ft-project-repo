@@ -12,19 +12,19 @@
 
 #include "philo.h"
 
-static t_bool	philo_parent_job(t_philo_item *item);
+static t_bool	philo_parent_job(const t_philo_item *item);
 static t_bool	philo_child_job(t_philo_item *item);
 
-t_bool	philo_access_recent(t_philo_item *item, t_bool who)
+t_bool	philo_access_recent(const t_philo_item *item, t_bool who)
 {
 	pthread_mutex_lock(item->access);
 	if (who == PARENT)
 		return (philo_parent_job(item));
 	else
-		return (philo_child_job(item));
+		return (philo_child_job((t_philo_item *)item));
 }
 
-t_bool	philo_parent_job(t_philo_item *item)
+t_bool	philo_parent_job(const t_philo_item *item)
 {
 	if ((item->goal > 0)
 		&& (philo_get_time(1) - item->recent >= item->arg.num_die))
@@ -35,12 +35,11 @@ t_bool	philo_parent_job(t_philo_item *item)
 
 t_bool	philo_child_job(t_philo_item *item)
 {
-	if (item->goal <= 0)
+	if (item->goal > 0)
 	{
-		pthread_mutex_unlock(item->access);
-		return (FALSE);
+		item->recent = philo_get_time(1);
+		return (TRUE);
 	}
-	item->recent = philo_get_time(1);
 	pthread_mutex_unlock(item->access);
-	return (TRUE);
+	return (FALSE);
 }

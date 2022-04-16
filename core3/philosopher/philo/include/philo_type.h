@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 19:53:32 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/11 13:39:24 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/16 14:57:56 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_info
 	t_philo			*philo_arr;
 	t_fork			*fork_arr;
 	t_philo_item	*item_arr;
+	t_fork			*access_arr;
 	t_fork			*speak;
 }			t_info;
 

@@ -16,13 +16,13 @@
 # include "philo.h"
 # include <sys/time.h>
 
-typedef t_bool			(*t_state)(t_philo_item *const);
+typedef void		(*t_state)(t_philo_item *const);
 
-t_bool	philo_think(t_philo_item *const item);
-t_bool	philo_lock_l(t_philo_item *const item);
-t_bool	philo_lock_r(t_philo_item *const item);
-t_bool	philo_take_eat(t_philo_item *const item);
-t_bool	philo_sleep(t_philo_item *const item);
+void	philo_think(t_philo_item *const item);
+void	philo_lock_l(t_philo_item *const item);
+void	philo_lock_r(t_philo_item *const item);
+void	philo_take_eat(t_philo_item *const item);
+void	philo_sleep(t_philo_item *const item);
 
 static const t_state	g_philo_state[PHILO_STATES] = {
 	philo_think,

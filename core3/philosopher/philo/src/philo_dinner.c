@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 14:25:04 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/11 14:25:24 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/16 14:35:50 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ t_bool	philo_make(t_info *info)
 	while (idx < info->num)
 	{
 		info->item_arr[idx].init_time = init_time;
+		info->item_arr[idx].recent = init_time;
 		if (pthread_create(info->philo_arr + idx, NULL,
 				philo_work, info->item_arr + idx) != 0)
 		{
@@ -69,10 +70,14 @@ void	*philo_work(void *arg)
 
 	item = philo_work_init(arg, &access);
 	state = 0;
-	while (g_philo_state[state](item))
+	while (state > -1)
 	{
+		g_philo_state[state](item);
 		++state;
 		state %= PHILO_STATES;
+		pthread_mutex_lock(item->access);
+		state -= PHILO_STATES * (item->goal <= 0);
+		pthread_mutex_unlock(item->access);
 	}
 	philo_work_end(item, state - 1);
 	return (NULL);

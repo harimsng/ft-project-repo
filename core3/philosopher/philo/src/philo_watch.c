@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 22:06:20 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/15 22:24:03 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/16 14:42:12 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,9 @@ void	philo_stop(t_info *info)
 	item_arr = info->item_arr;
 	while (idx < len)
 	{
+		pthread_mutex_lock(item_arr[idx].access);
 		item_arr[idx].goal = 0;
+		pthread_mutex_unlock(item_arr[idx].access);
 		++idx;
 	}
 }
@@ -93,7 +95,9 @@ t_bool	philo_goal_check(t_info *info)
 	ret = TRUE;
 	while (idx < len)
 	{
+		pthread_mutex_lock(item_arr[idx].access);
 		ret &= item_arr[idx].goal <= 0;
+		pthread_mutex_unlock(item_arr[idx].access);
 		++idx;
 	}
 	return (ret);

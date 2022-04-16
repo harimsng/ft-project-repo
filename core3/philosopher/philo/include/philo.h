@@ -39,6 +39,6 @@ void	philo_msleep(t_ms time);
 void	philo_ready(const t_philo_item *const item);
 
 // philo_access.c
-t_bool	philo_access_recent(t_philo_item *item, t_bool who);
+t_bool	philo_access_recent(const t_philo_item *item, t_bool who);
 
 #endif
