@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 20:48:11 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/15 02:04:01 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/17 02:08:19 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	fdf_projection(t_map_info *map_info, pthread_t *thread)
 
 void	*transform_wrapper(void *arg)
 {
+	static int	frame;
 	int			x;
 	int			y;
 	int			hcol;
@@ -76,10 +77,12 @@ void	*transform_wrapper(void *arg)
 			= color * g_map_info->max_height / FRACT_MAXITER;
 		g_transform[g_map_info->projection](g_map_info,
 			g_map_info->map_proj[y] + x, g_map_info->map_origin[y] + x);
-		g_map_info->map_proj[y][x].color = g_color_arr[color + 220];
+		//														302
+		g_map_info->map_proj[y][x].color = g_color_arr[color + 368]; //+ (frame / 20)];
 //		g_map_info->map_proj[y][x].color = 0xD00000 + color + (color << 8);
 		++x;
 	}
+	frame += y == 0;
 	return (NULL);
 }
 
