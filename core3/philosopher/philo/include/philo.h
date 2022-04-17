@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 15:23:12 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/11 14:37:13 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/18 01:06:12 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	philo_msleep(t_ms time);
 void	philo_ready(const t_philo_item *const item);
 
 // philo_access.c
-t_bool	philo_access_parent(t_philo_item *item);
+t_bool	philo_access_parent(const t_philo_item *item);
 t_bool	philo_access_child(t_philo_item *item);
 
 #endif

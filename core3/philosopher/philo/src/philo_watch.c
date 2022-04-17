@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 22:06:20 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/16 14:42:12 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/18 01:28:53 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <unistd.h>
 #include <stdio.h>
 
-static void		philo_stop(t_info *info, size_t idx);
+static void		philo_stop(t_info *info);
 static t_bool	philo_goal_check(t_info *info);
 
 size_t	philo_watch(t_info *info)
@@ -33,9 +33,8 @@ size_t	philo_watch(t_info *info)
 		{
 			if (philo_access_parent(item_arr + idx) == FALSE)
 			{
-				philo_stop(info, idx);
+				philo_stop(info);
 				philo_report(M_DIE, item_arr + idx);
-				pthread_mutex_unlock(item_arr[idx].access);
 				return (idx + 1);
 			}
 			++idx;
@@ -60,11 +59,12 @@ void	philo_join(t_info *info, size_t	detach)
 			pthread_join(info->philo_arr[idx], NULL);
 		++idx;
 	}
+	pthread_mutex_destroy(info->item_arr->speak);
 }
 //		if (philo_errno != 0)
 //			printf("#%zu thread join error %d\n", idx + 1, philo_errno);
 
-void	philo_stop(t_info *info, size_t philo_idx)
+void	philo_stop(t_info *info)
 {
 	size_t			idx;
 	size_t			len;
@@ -75,11 +75,9 @@ void	philo_stop(t_info *info, size_t philo_idx)
 	item_arr = info->item_arr;
 	while (idx < len)
 	{
-		if (idx != philo_idx)
-			pthread_mutex_lock(item_arr[idx].access);
+		pthread_mutex_lock(item_arr[idx].access);
 		item_arr[idx].goal = 0;
-		if (idx != philo_idx)
-			pthread_mutex_unlock(item_arr[idx].access);
+		pthread_mutex_unlock(item_arr[idx].access);
 		++idx;
 	}
 }
