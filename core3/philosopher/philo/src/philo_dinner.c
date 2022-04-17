@@ -69,7 +69,9 @@ void	*philo_work(void *arg)
 	int				state;
 
 	item = philo_work_init(arg, &access);
-	state = 0;
+	pthread_mutex_lock(item->access);
+	state = -(item->goal <= 0);
+	pthread_mutex_unlock(item->access);
 	while (state > -1)
 	{
 		g_philo_state[state](item);
@@ -101,6 +103,6 @@ void	philo_work_end(t_philo_item *item, int state)
 		pthread_mutex_unlock(item->r_fork);
 	if (state == S_LOCK_L)
 		pthread_mutex_unlock(item->l_fork);
-	philo_msleep(1000);
+	philo_msleep(item->arg.num_philo * 2);
 	pthread_mutex_destroy(item->access);
 }

@@ -14,7 +14,7 @@
 #include <unistd.h>
 #include <stdio.h>
 
-static void		philo_stop(t_info *info);
+static void		philo_stop(t_info *info, size_t idx);
 static t_bool	philo_goal_check(t_info *info);
 
 size_t	philo_watch(t_info *info)
@@ -27,13 +27,13 @@ size_t	philo_watch(t_info *info)
 	item_arr = info->item_arr;
 	while (TRUE)
 	{
-		usleep(500);
+		usleep(200);
 		idx = 0;
 		while (idx < len)
 		{
-			if (philo_access_recent(item_arr + idx, PARENT) == FALSE)
+			if (philo_access_parent(item_arr + idx) == FALSE)
 			{
-				philo_stop(info);
+				philo_stop(info, idx);
 				philo_report(M_DIE, item_arr + idx);
 				pthread_mutex_unlock(item_arr[idx].access);
 				return (idx + 1);
@@ -64,7 +64,7 @@ void	philo_join(t_info *info, size_t	detach)
 //		if (philo_errno != 0)
 //			printf("#%zu thread join error %d\n", idx + 1, philo_errno);
 
-void	philo_stop(t_info *info)
+void	philo_stop(t_info *info, size_t philo_idx)
 {
 	size_t			idx;
 	size_t			len;
@@ -75,9 +75,11 @@ void	philo_stop(t_info *info)
 	item_arr = info->item_arr;
 	while (idx < len)
 	{
-		pthread_mutex_lock(item_arr[idx].access);
+		if (idx != philo_idx)
+			pthread_mutex_lock(item_arr[idx].access);
 		item_arr[idx].goal = 0;
-		pthread_mutex_unlock(item_arr[idx].access);
+		if (idx != philo_idx)
+			pthread_mutex_unlock(item_arr[idx].access);
 		++idx;
 	}
 }
@@ -95,9 +97,7 @@ t_bool	philo_goal_check(t_info *info)
 	ret = TRUE;
 	while (idx < len)
 	{
-		pthread_mutex_lock(item_arr[idx].access);
 		ret &= item_arr[idx].goal <= 0;
-		pthread_mutex_unlock(item_arr[idx].access);
 		++idx;
 	}
 	return (ret);
