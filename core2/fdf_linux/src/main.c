@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 19:18:38 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/15 15:56:55 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/17 01:59:58 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ void	fdf_task(t_mlx_info *mlx_info)
 	t_map_info	*map_info;
 	int			x;
 	int			y;
+	static double	autoscale = 1.04;
+	t_bool			autoflag = mlx_info->mlx_flag->automove_flag;
 
 	map_info = mlx_info->map_info;
 	fdf_mouse_get_pos(mlx_info, &x, &y);
@@ -96,14 +98,20 @@ void	fdf_task(t_mlx_info *mlx_info)
 	ft_memset(mlx_info->sub_elem->img_buf, 0, mlx_info->sub_elem->arr_bytes);
 	//if (mlx_info->mlx_flag->background_flag)
 	//	fdf_plot_loop(mlx_info);
+	map_info->fract_scale *= autoscale * autoflag + (1 / autoscale) * !autoflag;
+	map_info->var_x *= autoscale * autoflag + (1 / autoscale) * !autoflag;
+	map_info->var_y *= autoscale * autoflag + (1 / autoscale) * !autoflag;
+	map_info->hor_angle += 0.01;
+	/*
 	if (mlx_info->mlx_flag->automove_flag == TRUE)
 	{
+		mlx_info->map_info->fract_scale *= autoscale * autoflag + (1 / autoscale) * !autoflag;
 		map_info->var_x *= 1.04;
 		map_info->var_y *= 1.04;
-		mlx_info->map_info->fract_scale *= 1.04;
-		mlx_info->map_info->hor_angle += 0.01;
+		map_info->hor_angle += 0.01;
 //		map_info->ver_angle += 0.03;
 	}
+	*/
 	fdf_interface(mlx_info);
 }
 
