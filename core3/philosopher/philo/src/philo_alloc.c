@@ -11,9 +11,9 @@
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <stdio.h>
 #include <pthread.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 t_bool	philo_alloc(size_t num, t_info *info)
 {
@@ -71,7 +71,8 @@ t_bool	philo_setup(t_arg *arg, t_info *info)
 		info->item_arr[idx] = (t_philo_item){idx + 1, 0, 0,
 			arg->num_esc, *arg,
 			info->fork_arr + idx,
-			info->fork_arr + ((idx + 1) % info->num), info->access_arr + idx, info->speak};
+			info->fork_arr + ((idx + 1) % info->num),
+			info->access_arr + idx, info->speak};
 		++idx;
 	}
 	return (TRUE);
@@ -100,4 +101,5 @@ void	philo_mutex_destroy(size_t num, t_info *info)
 		pthread_mutex_destroy(info->access_arr + idx);
 		++idx;
 	}
+	pthread_mutex_destroy(info->item_arr->speak);
 }

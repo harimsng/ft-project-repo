@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 14:25:04 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/18 00:32:44 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/19 04:32:14 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 static void			*philo_work(void *arg);
 static t_bool		philo_make(t_info *info);
-static t_philo_item	*philo_work_init(t_philo_item *item, t_fork *access);
+static t_philo_item	*philo_work_init(t_philo_item *item);
 static void			philo_work_end(t_philo_item *item, int state);
 
 t_bool	philo_dinner(t_arg *arg, t_info *info)
@@ -65,33 +65,29 @@ t_bool	philo_make(t_info *info)
 void	*philo_work(void *arg)
 {
 	t_philo_item	*item;
-	t_fork			access;
 	int				state;
 
-	item = philo_work_init(arg, &access);
+	item = philo_work_init(arg);
 	pthread_mutex_lock(item->access);
 	state = -(item->goal <= 0);
 	pthread_mutex_unlock(item->access);
 	while (state > -1)
 	{
-		g_philo_state[state](item);
-		++state;
+		g_philo_state[state++](item);
 		state %= PHILO_STATES;
 		pthread_mutex_lock(item->access);
-		state -= PHILO_STATES * (item->goal <= 0);
+		state -= PHILO_STATES
+			* (item->goal <= 0
+			|| philo_get_time(1) - item->recent >= item->arg.num_die);
 		pthread_mutex_unlock(item->access);
 	}
-	philo_work_end(item, state - 1);
+	philo_work_end(item, (state + PHILO_STATES - 1) % PHILO_STATES);
 	return (NULL);
 }
-//	printf("[#%5zu] ", item->id);
 
-t_philo_item	*philo_work_init(t_philo_item *item, t_fork *access)
+t_philo_item	*philo_work_init(t_philo_item *item)
 {
-	pthread_mutex_init(access, NULL);
-	item->access = access;
 	philo_ready(item);
-	item->recent = item->init_time;
 	if (item->id % 2 == 1)
 		philo_msleep(item->arg.num_eat / 2);
 	return (item);
@@ -103,6 +99,4 @@ void	philo_work_end(t_philo_item *item, int state)
 		pthread_mutex_unlock(item->r_fork);
 	if (state == S_LOCK_L)
 		pthread_mutex_unlock(item->l_fork);
-	philo_msleep(item->arg.num_philo * 2);
-	pthread_mutex_destroy(item->access);
 }

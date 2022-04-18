@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 15:23:42 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/18 01:17:33 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/19 00:41:30 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	main(int argc, char *argv[])
 	info.speak = &speak;
 	if (philo_dinner(&arg, &info) == FALSE)
 		return (1);
-	philo_join(&info, philo_watch(&info));
+	philo_watch(&info);
+	philo_join(&info);
 	philo_mutex_destroy(info.num, &info);
 	philo_dealloc(&info);
 	return (0);

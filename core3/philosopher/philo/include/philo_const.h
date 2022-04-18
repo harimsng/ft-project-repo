@@ -6,13 +6,17 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 19:58:33 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/11 14:22:02 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/19 03:40:45 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_CONST_H
 # define PHILO_CONST_H
 
+# define INT_MIN (-2147483648LL)
+
+# define MAX_MONITOR (32)
+# define PER_MONITOR (20)
 # define TIME_SCALE (1)
 
 # define CHILD (1)

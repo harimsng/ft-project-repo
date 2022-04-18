@@ -4,3 +4,7 @@ date races
 	timestamp	(thread and mutex destroy, main thread locked on the thread's mutex)
 
 odd number of threads need more time and take more time until finish
+
+frequent use of mutex causes slowing down monitoring loop.
+
+a monitor thread dosen't work well when there're hundreds of threads.

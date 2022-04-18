@@ -16,7 +16,7 @@ SRC		=	philo.c\
 			philo_access.c\
 			philo_time.c\
 			philo_watch.c\
-			ft_atoi.c
+			ft_atou.c
 SRC_DIR	=	src
 SRC		:=	$(SRC:%=$(SRC_DIR)/%)
 

@@ -22,21 +22,19 @@ static const char *const	g_report[] = {
 };
 
 // item->goal must be signed integer
-void	philo_report(int idx, const t_philo_item *const item)
+void	philo_report(int idx, t_philo_item *item)
 {
-	t_ms		time;
-
-	pthread_mutex_lock(item->speak);
-	pthread_mutex_lock(item->access);
-	if (idx != M_DIE
-		&& (item->goal <= -(t_int64)((idx == M_EAT) * item->arg.num_eat)))
+	if (idx != M_DIE)
 	{
-		pthread_mutex_unlock(item->access);
-		pthread_mutex_unlock(item->speak);
-		return ;
+		pthread_mutex_lock(item->speak);
+		if (item->goal <= -(t_int64)((idx == M_EAT) * item->arg.num_eat))
+		{
+			pthread_mutex_unlock(item->speak);
+			return ;
+		}
 	}
-	pthread_mutex_unlock(item->access);
-	time = philo_get_time(TIME_SCALE) - item->init_time * TIME_SCALE;
-	printf("%8lld %3zu %s\n", time, item->id, g_report[idx]);
+	printf("%8lld %3zu %s\n",
+		philo_get_time(TIME_SCALE) - item->init_time * TIME_SCALE,
+		item->id, g_report[idx]);
 	pthread_mutex_unlock(item->speak);
 }
