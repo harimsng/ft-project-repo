@@ -6,13 +6,12 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:17:50 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/19 03:25:28 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/19 13:11:21 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include "philo_state.h"
-#include <unistd.h>
 
 inline void	philo_think(t_philo_item *const item)
 {

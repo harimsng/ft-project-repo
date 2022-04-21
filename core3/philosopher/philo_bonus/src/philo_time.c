@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 10:52:58 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/19 12:24:26 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/22 05:17:38 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,5 @@ void	philo_msleep(t_ms ms)
 
 	start = philo_get_time();
 	while (philo_get_time() - start < ms)
-		usleep(100);
+		usleep(500);
 }

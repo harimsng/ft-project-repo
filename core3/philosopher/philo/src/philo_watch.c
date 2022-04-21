@@ -30,10 +30,10 @@ void	philo_watch(t_info *info)
 		idx = 0;
 		while (idx < len)
 		{
-			if (philo_access_parent(info->item_arr + idx) == FALSE)
+			if (philo_access_parent(item_arr + idx) == FALSE)
 			{
 				philo_stop(info);
-				philo_report(M_DIE, info->item_arr + idx);
+				philo_report(M_DIE, item_arr + idx);
 				return ;
 			}
 			++idx;

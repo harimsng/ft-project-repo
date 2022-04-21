@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 19:55:38 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/18 22:52:16 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/19 08:46:53 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ t_bool	arg_check(t_arg *arg)
 {
 	if (arg->num_philo == 0
 		|| arg->num_die == 0
-		|| arg->num_eat == 0)
+		|| arg->num_eat == 0
+		|| arg->num_slp == 0)
 		return (FALSE);
 	return (TRUE);
 }

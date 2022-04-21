@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 22:21:03 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/19 13:10:46 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/22 01:36:20 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 # define TRUE (1)
 # define FALSE (0)
 
-static const char	*g_sem_name = "philo_forks";
+static const char	*g_sem_forks = "philo_forks";
 static const char	*g_sem_speak = "philo_speak";
+static const char	*g_sem_access = "philo_access";
+static const char	*g_sem_wait = "philo_monitor";
 
 enum e_message
 {
@@ -28,13 +30,12 @@ enum e_message
 	M_DIE
 };
 
-# define PHILO_STATES (5)
+# define PHILO_STATES (4)
 
 enum e_state
 {
 	S_THINK,
-	S_R_FORK,
-	S_L_FORK,
+	S_FORK,
 	S_EAT,
 	S_SLEEP
 };
