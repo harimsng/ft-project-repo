@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 14:25:04 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/19 04:32:14 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/21 20:40:02 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	*philo_work(void *arg)
 			|| philo_get_time(1) - item->recent >= item->arg.num_die);
 		pthread_mutex_unlock(item->access);
 	}
-	philo_work_end(item, (state + PHILO_STATES - 1) % PHILO_STATES);
+	philo_work_end(item, (state + 2 * PHILO_STATES - 1) % PHILO_STATES);
 	return (NULL);
 }
 

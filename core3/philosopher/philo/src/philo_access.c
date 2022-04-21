@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:35:32 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/19 04:26:07 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/21 20:46:33 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 
 inline t_bool	philo_access_parent(const t_philo_item *item)
 {
-	pthread_mutex_lock(item->access);
+//	pthread_mutex_lock(item->access);
 	if (philo_get_time(1) - item->recent >= item->arg.num_die
 		&& item->goal > 0)
 	{
 		pthread_mutex_lock(item->speak);
-		pthread_mutex_unlock(item->access);
+//		pthread_mutex_unlock(item->access);
 		return (FALSE);
 	}
-	pthread_mutex_unlock(item->access);
+//	pthread_mutex_unlock(item->access);
 	return (TRUE);
 }
 

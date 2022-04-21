@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 22:06:20 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/19 04:29:05 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/21 20:48:08 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ void	philo_watch(t_info *info)
 		usleep(100);
 	}
 }
-// dead thread is not terminated when the program have parent(ex. debbuger)
+
+// dead thread is not terminated by pthread_detach()
+// when the main process have parent(ex. debbuger)
 void	philo_join(t_info *info)
 {
 	size_t	idx;
@@ -51,6 +53,11 @@ void	philo_join(t_info *info)
 
 	idx = 0;
 	len = info->num;
+	if (info->num == 1)
+	{
+		pthread_detach(info->philo_arr[idx]);
+		return ;
+	}
 	while (idx < len)
 	{
 		pthread_join(info->philo_arr[idx], NULL);
