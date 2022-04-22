@@ -6,13 +6,13 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 09:22:02 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/22 06:11:22 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/22 22:30:26 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-t_bool	philo_dinner(t_info *info)
+int	philo_dinner(t_info *info)
 {
 	size_t			idx;
 	size_t			len;
@@ -30,13 +30,10 @@ t_bool	philo_dinner(t_info *info)
 		*item_arr = (t_philo_item){idx + 1, *info->arg,
 			init_time, info->arg->num_esc, 0, NULL, NULL, NULL};
 		if (philo == 0)
-		{
-			philo_work(item_arr);
-			return (FALSE);
-		}
+			return (philo_work(item_arr) + 1);
 		++item_arr;
 		info->philo_arr[idx] = philo;
 		++idx;
 	}
-	return (TRUE);
+	return (0);
 }

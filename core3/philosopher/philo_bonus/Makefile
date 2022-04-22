@@ -3,7 +3,7 @@ NAME	=	philo_bonus
 
 CC		=	gcc
 CFLAGS	=	-Wall -Wextra -Werror
-DEBUG	=	-g3 -fsanitize=address
+DEBUG	=	-g3 -fsanitize=thread
 RM		=	rm -f
 
 

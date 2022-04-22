@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 22:06:46 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/22 03:49:26 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/22 16:24:53 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,6 @@ typedef struct s_arg
 	t_ms		num_esc;
 }				t_arg;
 
-typedef struct s_sem
-{
-	t_fork		*forks;
-	t_fork		*speak;
-	t_fork		*access;
-	t_fork		*wait;
-}				t_sem;
-
 typedef struct s_philo_item
 {
 	size_t		id;
@@ -66,7 +58,6 @@ typedef struct s_info
 {
 	size_t			num;
 	t_arg			*arg;
-	t_sem			*sem_obj;
 	t_philo			*philo_arr;
 	t_philo_item	*item_arr;
 	t_thread		*thread_arr;

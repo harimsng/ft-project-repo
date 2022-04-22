@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 11:09:37 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/22 06:29:05 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/22 22:29:51 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void		philo_work_end(t_philo_item *item, pthread_t *monitor, int state);
 static void		*philo_monitor(void *arg);
 static t_bool	philo_access(t_philo_item *item);
 
-void	philo_work(t_philo_item *item)
+t_bool	philo_work(t_philo_item *item)
 {
 	int			state;
 	pthread_t	monitor;
@@ -36,6 +36,7 @@ void	philo_work(t_philo_item *item)
 	}
 	philo_work_end(item, &monitor,
 		(state + 2 * PHILO_STATES - 1) % PHILO_STATES);
+	return (item->recent == 0);
 }
 
 void	philo_work_init(t_philo_item *item, pthread_t *monitor)
@@ -61,6 +62,9 @@ void	philo_work_end(t_philo_item *item, pthread_t *monitor, int state)
 		sem_post(item->forks);
 		sem_post(item->forks);
 	}
+	sem_close(item->forks);
+	sem_close(item->access);
+	sem_close(item->speak);
 	pthread_join(*monitor, NULL);
 }
 
@@ -79,6 +83,8 @@ void	*philo_monitor(void *arg)
 			item->goal = 0;
 			sem_wait(item->speak);
 			sem_post(item->access);
+			philo_report(M_DIE, item);
+			return (NULL);
 		}
 	}
 	return (NULL);
