@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:35:32 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/21 20:46:33 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/25 17:20:44 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 inline t_bool	philo_access_parent(const t_philo_item *item)
 {
 //	pthread_mutex_lock(item->access);
-	if (philo_get_time(1) - item->recent >= item->arg.num_die
+	if (philo_get_time(1) - item->recent >= (t_ms)item->arg.num_die
 		&& item->goal > 0)
 	{
 		pthread_mutex_lock(item->speak);
@@ -33,11 +33,11 @@ t_bool	philo_access_child(t_philo_item *item)
 
 	time = philo_get_time(1);
 	pthread_mutex_lock(item->access);
-	if (time - item->recent < item->arg.num_die
+	if (time - item->recent < (t_ms)item->arg.num_die
 		&& item->goal > 0)
 	{
 		item->recent = time;
-		item->goal -= item->arg.num_eat;
+		--item->goal;
 		pthread_mutex_unlock(item->access);
 		return (TRUE);
 	}

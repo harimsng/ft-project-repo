@@ -6,13 +6,13 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 14:22:46 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/18 22:40:04 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/25 17:18:43 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_UTILS_H
 # define PHILO_UTILS_H
 
-unsigned int	ft_atou(const char *s);
+int	ft_atoi(const char *s);
 
 #endif
