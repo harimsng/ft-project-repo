@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 22:06:46 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/22 16:24:53 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/25 23:04:20 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ typedef pid_t					t_philo;
 typedef struct s_arg
 {
 	t_uint64	num_philo;
-	t_ms		num_die;
-	t_ms		num_eat;
-	t_ms		num_slp;
-	t_ms		num_esc;
+	t_int64		num_die;
+	t_int64		num_eat;
+	t_int64		num_slp;
+	t_int64		num_esc;
 }				t_arg;
 
 typedef struct s_philo_item

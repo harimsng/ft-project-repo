@@ -6,16 +6,24 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 08:50:15 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/22 18:11:47 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/25 21:31:38 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <signal.h>
+#include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 static t_bool	philo_sem_open(t_info *info);
+static void		philo_unlink(void);
+
+static const char	*g_sem_forks = "philo_sem_forks";
+static const char	*g_sem_speak = "philo_sem_speak";
+static const char	*g_sem_access = "philo_sem_access";
+static const char	*g_sem_wait = "philo_sem_monitor";
+static const char	*g_sem_dead = "philo_sem_dead";
 
 t_bool	philo_allocate(t_info *info)
 {
@@ -43,36 +51,32 @@ t_bool	philo_allocate(t_info *info)
 
 t_bool	philo_sem_open(t_info *info)
 {
-	t_fork	*sem_obj[4];
+	t_fork	*sem_obj[5];
 
+	philo_unlink();
 	sem_obj[0] = sem_open(g_sem_forks, O_CREAT, 0666, info->num);
 	sem_obj[1] = sem_open(g_sem_speak, O_CREAT, 0666, 1);
 	sem_obj[2] = sem_open(g_sem_access, O_CREAT, 0666, 1);
 	sem_obj[3] = sem_open(g_sem_wait, O_CREAT, 0666, 1);
-	if (sem_obj[0]== SEM_FAILED
-		|| sem_obj[1]== SEM_FAILED
-		|| sem_obj[2]== SEM_FAILED
-		|| sem_obj[3]== SEM_FAILED)
+	sem_obj[4] = sem_open(g_sem_dead, O_CREAT, 0666, 0);
+	if (sem_obj[0] == SEM_FAILED
+		|| sem_obj[1] == SEM_FAILED
+		|| sem_obj[2] == SEM_FAILED
+		|| sem_obj[3] == SEM_FAILED
+		|| sem_obj[4] == SEM_FAILED)
 	{
-		sem_unlink(g_sem_forks);
-		sem_unlink(g_sem_speak);
-		sem_unlink(g_sem_access);
-		sem_unlink(g_sem_wait);
+		philo_unlink();
 		return (FALSE);
 	}
 	sem_close(sem_obj[0]);
 	sem_close(sem_obj[1]);
 	sem_close(sem_obj[2]);
-	sem_close(sem_obj[3]);
 	return (TRUE);
 }
 
 void	philo_deallocate(t_info *info)
 {
-	sem_unlink(g_sem_forks);
-	sem_unlink(g_sem_speak);
-	sem_unlink(g_sem_access);
-	sem_unlink(g_sem_wait);
+	philo_unlink();
 	if (info->philo_arr != NULL)
 		free(info->philo_arr);
 	if (info->item_arr != NULL)
@@ -99,4 +103,13 @@ void	philo_terminate(t_info *info, size_t except, size_t len)
 		kill(info->philo_arr[idx], SIGINT);
 		++idx;
 	}
+}
+
+void		philo_unlink(void)
+{
+	sem_unlink(g_sem_forks);
+	sem_unlink(g_sem_speak);
+	sem_unlink(g_sem_access);
+	sem_unlink(g_sem_wait);
+	sem_unlink(g_sem_dead);
 }

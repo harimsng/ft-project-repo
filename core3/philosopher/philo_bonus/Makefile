@@ -16,7 +16,7 @@ SRC		=	philo.c\
 			philo_time.c\
 			philo_wait.c\
 			philo_work.c\
-			ft_atou.c
+			ft_atoi.c
 SRC_DIR	=	src
 SRC		:=	$(SRC:%=$(SRC_DIR)/%)
 OBJ		=	$(SRC:%.c=%.o)
@@ -30,6 +30,10 @@ INCL	:=	$(INCL:%=$(INCL_DIR)/%)
 
 ifeq ($(DEBUG_FLAG), 1)
 CFLAGS	+=	$(DEBUG)
+endif
+
+ifeq ($(shell uname), Linux)
+CFLAGS	+=	-pthread
 endif
 
 all: $(NAME)

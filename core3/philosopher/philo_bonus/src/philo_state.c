@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 11:12:39 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/22 16:38:44 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/25 20:39:31 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ inline void	philo_eat(t_philo_item *item)
 	sem_wait(item->access);
 	philo_report(M_EAT, item);
 	item->recent = philo_get_time();
-	item->goal -= item->arg.num_eat;
+	--item->goal;
 	sem_post(item->access);
 	philo_msleep(item->arg.num_eat);
 	sem_post(item->forks);

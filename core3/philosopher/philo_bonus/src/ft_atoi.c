@@ -6,22 +6,28 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 18:37:12 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/18 22:40:45 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/25 17:33:49 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define LONG_MAX (9223372036854775807LL)
+#ifndef LLONG_MAX
+# define LLONG_MAX 9223372036854775807LL
+#endif
 
-static int	ft_isdigit(int c);
 static int	ft_isspace(int c);
+static int	ft_isdigit(int c);
 
-unsigned int	ft_atou(const char *str)
+int	ft_atoi(const char *str)
 {
 	unsigned long long	num;
 	unsigned long long	temp;
+	int					ret;
+	int					neg;
 
 	while (ft_isspace(*str))
 		++str;
+	neg = *str == '-';
+	str += (neg || *str == '+');
 	num = 0;
 	temp = 0;
 	while (ft_isdigit(*str) && temp <= num)
@@ -29,21 +35,18 @@ unsigned int	ft_atou(const char *str)
 		temp = num;
 		num = 10 * num + *str++ - 48;
 	}
-	if (temp > num || num > LONG_MAX)
-		return ((unsigned int)(LONG_MAX));
-	return ((unsigned int)num);
-}
-
-int	ft_isdigit(int c)
-{
-	if (c > 47 && c < 58)
-		return (1);
-	return (0);
+	if (temp > num || num > LLONG_MAX)
+		return ((int)(LLONG_MAX * !neg + (-LLONG_MAX - 1)* neg));
+	ret = (1 - 2 * neg) * ((int)num);
+	return (ret);
 }
 
 int	ft_isspace(int c)
 {
-	if ((c > 8 && c < 14) || c == 32)
-		return (1);
-	return (0);
+	return ((c >= 9 && c <= 13) || c == 32);
+}
+
+int	ft_isdigit(int c)
+{
+	return (c >= 48 && c <= 57);
 }
