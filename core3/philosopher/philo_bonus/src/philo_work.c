@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 11:09:37 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/25 23:21:19 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/26 03:38:51 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ t_bool	philo_create(t_philo_item *item)
 {
 	t_thread	worker;
 
+	item->forks = sem_open(g_sem_forks, 0);
+	item->access = sem_open(g_sem_access, 0);
+	item->speak = sem_open(g_sem_speak, 0);
 	if (pthread_create(&worker, NULL, philo_work, item) != 0)
 	{
 		printf("monitoring thread creation failed\n");
@@ -39,15 +42,15 @@ t_bool	philo_create(t_philo_item *item)
 		philo_msleep(1);
 		if (philo_access(item))
 		{
-			printf("%zu dead\n", item->id);
 			item->recent = 0;
 			item->goal = 0;
 			sem_wait(item->speak);
 			philo_report(M_DIE, item);
+			return (1);
 		}
 	}
 	pthread_join(worker, NULL);
-	return (item->recent == 0);
+	return (0);
 }
 
 void	*philo_work(void *arg)
@@ -72,9 +75,6 @@ void	*philo_work(void *arg)
 
 void	philo_work_init(t_philo_item *item)
 {
-	item->forks = sem_open(g_sem_forks, 0);
-	item->access = sem_open(g_sem_access, 0);
-	item->speak = sem_open(g_sem_speak, 0);
 	philo_ready(item);
 	item->recent = item->init_time;
 	if (item->id % 2 == 1)
@@ -95,12 +95,9 @@ void	philo_work_end(t_philo_item *item, int state)
 
 t_bool	philo_access(t_philo_item *item)
 {
-			printf("%zu access wait\n", item->id);
 	sem_wait(item->access);
-			printf("%zu access acquired\n", item->id);
 	if (philo_get_time() - item->recent >= (t_ms)item->arg.num_die)
 		return (TRUE);
 	sem_post(item->access);
-			printf("%zu access post\n", item->id);
 	return (FALSE);
 }

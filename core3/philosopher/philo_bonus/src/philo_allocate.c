@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 08:50:15 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/25 21:31:38 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/26 01:56:10 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static const char	*g_sem_forks = "philo_sem_forks";
 static const char	*g_sem_speak = "philo_sem_speak";
 static const char	*g_sem_access = "philo_sem_access";
 static const char	*g_sem_wait = "philo_sem_monitor";
-static const char	*g_sem_dead = "philo_sem_dead";
 
 t_bool	philo_allocate(t_info *info)
 {
@@ -51,19 +50,17 @@ t_bool	philo_allocate(t_info *info)
 
 t_bool	philo_sem_open(t_info *info)
 {
-	t_fork	*sem_obj[5];
+	t_fork	*sem_obj[4];
 
 	philo_unlink();
 	sem_obj[0] = sem_open(g_sem_forks, O_CREAT, 0666, info->num);
 	sem_obj[1] = sem_open(g_sem_speak, O_CREAT, 0666, 1);
 	sem_obj[2] = sem_open(g_sem_access, O_CREAT, 0666, 1);
 	sem_obj[3] = sem_open(g_sem_wait, O_CREAT, 0666, 1);
-	sem_obj[4] = sem_open(g_sem_dead, O_CREAT, 0666, 0);
 	if (sem_obj[0] == SEM_FAILED
 		|| sem_obj[1] == SEM_FAILED
 		|| sem_obj[2] == SEM_FAILED
-		|| sem_obj[3] == SEM_FAILED
-		|| sem_obj[4] == SEM_FAILED)
+		|| sem_obj[3] == SEM_FAILED)
 	{
 		philo_unlink();
 		return (FALSE);
@@ -92,7 +89,6 @@ void	philo_terminate(t_info *info, size_t except, size_t len)
 	size_t			idx;
 
 	idx = 0;
-	printf("kill processes\n");
 	while (idx < len)
 	{
 		if (idx == except)
@@ -111,5 +107,4 @@ void		philo_unlink(void)
 	sem_unlink(g_sem_speak);
 	sem_unlink(g_sem_access);
 	sem_unlink(g_sem_wait);
-	sem_unlink(g_sem_dead);
 }
