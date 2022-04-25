@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 19:53:32 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/25 17:18:09 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/26 04:01:23 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef long long int			t_int64;
 typedef struct s_arg
 {
 	size_t	num_philo;
-	t_int64 num_die;
+	t_int64	num_die;
 	t_int64	num_eat;
 	t_int64	num_slp;
 	t_int64	num_esc;

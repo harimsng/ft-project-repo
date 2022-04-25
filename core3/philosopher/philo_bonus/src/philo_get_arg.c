@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 22:32:16 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/25 17:41:29 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/26 03:57:57 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,5 @@ t_bool	philo_check_arg(t_arg *arg)
 		|| arg->num_eat <= 0
 		|| arg->num_slp <= 0)
 		return (FALSE);
-	return(TRUE);
+	return (TRUE);
 }

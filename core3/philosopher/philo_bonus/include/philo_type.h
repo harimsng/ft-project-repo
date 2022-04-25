@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 22:06:46 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/26 01:51:39 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/26 04:00:09 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ typedef struct s_monitor
 	int				idx;
 	t_fork			*sem_wait;
 	void			*info;
-//	t_bool			*flag;
 }				t_monitor;
 
 typedef struct s_info

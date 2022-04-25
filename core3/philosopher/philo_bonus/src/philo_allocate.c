@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 08:50:15 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/26 01:56:10 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/26 03:57:30 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	philo_terminate(t_info *info, size_t except, size_t len)
 	}
 }
 
-void		philo_unlink(void)
+void	philo_unlink(void)
 {
 	sem_unlink(g_sem_forks);
 	sem_unlink(g_sem_speak);

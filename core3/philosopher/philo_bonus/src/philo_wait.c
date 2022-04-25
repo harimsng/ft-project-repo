@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 22:07:27 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/26 03:39:02 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/26 03:58:28 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_bool	philo_wait(t_info *info)
 	{
 		monitor_arr[idx] = (t_monitor){idx, sem_wait, info};
 		if (pthread_create(info->thread_arr + idx, NULL, philo_waitpid,
-			monitor_arr + idx) != 0)
+				monitor_arr + idx) != 0)
 		{
 			philo_terminate(info, info->num, info->num);
 			return (FALSE);

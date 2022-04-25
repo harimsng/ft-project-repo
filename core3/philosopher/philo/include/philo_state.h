@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:15:40 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/11 14:23:56 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/26 04:01:03 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "philo.h"
 # include <sys/time.h>
 
-typedef void		(*t_state)(t_philo_item *const);
+typedef void			(*t_state)(t_philo_item *const);
 
 void	philo_think(t_philo_item *const item);
 void	philo_lock_l(t_philo_item *const item);

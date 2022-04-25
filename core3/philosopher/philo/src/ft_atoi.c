@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 18:37:12 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/25 17:33:49 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/26 04:01:46 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_atoi(const char *str)
 		num = 10 * num + *str++ - 48;
 	}
 	if (temp > num || num > LLONG_MAX)
-		return ((int)(LLONG_MAX * !neg + (-LLONG_MAX - 1)* neg));
+		return ((int)(LLONG_MAX * !neg + (-LLONG_MAX - 1) * neg));
 	ret = (1 - 2 * neg) * ((int)num);
 	return (ret);
 }

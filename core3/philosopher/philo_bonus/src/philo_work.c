@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 11:09:37 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/26 03:38:51 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/26 03:59:45 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ t_bool	philo_create(t_philo_item *item)
 	if (pthread_create(&worker, NULL, philo_work, item) != 0)
 	{
 		printf("monitoring thread creation failed\n");
-		item->recent = 0;
 		item->goal = 0;
 	}
 	philo_ready(item);
