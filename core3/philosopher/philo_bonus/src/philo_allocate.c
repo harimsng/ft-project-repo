@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 08:50:15 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/26 03:57:30 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/26 22:10:20 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 static t_bool	philo_sem_open(t_info *info);
 static void		philo_unlink(void);
 
-static const char	*g_sem_forks = "philo_sem_forks";
-static const char	*g_sem_speak = "philo_sem_speak";
-static const char	*g_sem_access = "philo_sem_access";
-static const char	*g_sem_wait = "philo_sem_monitor";
+static const char	*g_sem_forks = "/philo_sem_forks";
+static const char	*g_sem_speak = "/philo_sem_speak";
+static const char	*g_sem_access = "/philo_sem_access";
+static const char	*g_sem_wait = "/philo_sem_monitor";
 
 t_bool	philo_allocate(t_info *info)
 {

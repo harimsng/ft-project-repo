@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 11:09:37 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/26 03:59:45 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/26 13:34:48 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 #include "philo_state.h"
 #include <stdio.h>
 
-static void		philo_work_init(t_philo_item *item);
+static t_bool	philo_work_init(t_philo_item *item, t_thread *worker);
 static void		philo_work_end(t_philo_item *item, int state);
 static void		*philo_work(void *arg);
-static t_bool	philo_access(t_philo_item *item);
+static int		philo_access(t_philo_item *item);
 
 static const char	*g_sem_forks = "philo_sem_forks";
 static const char	*g_sem_speak = "philo_sem_speak";
@@ -26,27 +26,26 @@ static const char	*g_sem_access = "philo_sem_access";
 t_bool	philo_create(t_philo_item *item)
 {
 	t_thread	worker;
+	int			ret;
 
-	item->forks = sem_open(g_sem_forks, 0);
-	item->access = sem_open(g_sem_access, 0);
-	item->speak = sem_open(g_sem_speak, 0);
-	if (pthread_create(&worker, NULL, philo_work, item) != 0)
-	{
-		printf("monitoring thread creation failed\n");
-		item->goal = 0;
-	}
+	philo_work_init(item, &worker);
 	philo_ready(item);
-	while (item->goal > 0)
+	while (TRUE)
 	{
 		philo_msleep(1);
-		if (philo_access(item))
+		ret = philo_access(item);
+		if (ret == 1)
 		{
 			item->recent = 0;
 			item->goal = 0;
 			sem_wait(item->speak);
+			sem_post(item->access);
 			philo_report(M_DIE, item);
+			pthread_detach(worker);
 			return (1);
 		}
+		else if (ret == 2)
+			break ;
 	}
 	pthread_join(worker, NULL);
 	return (0);
@@ -58,7 +57,9 @@ void	*philo_work(void *arg)
 	int				state;
 
 	item = arg;
-	philo_work_init(item);
+	philo_ready(item);
+	if (item->id % 2 == 1)
+		philo_msleep(item->arg.num_eat / 2);
 	state = 0;
 	while (state > -1)
 	{
@@ -72,12 +73,17 @@ void	*philo_work(void *arg)
 	return (NULL);
 }
 
-void	philo_work_init(t_philo_item *item)
+t_bool	philo_work_init(t_philo_item *item, t_thread *worker)
 {
-	philo_ready(item);
-	item->recent = item->init_time;
-	if (item->id % 2 == 1)
-		philo_msleep(item->arg.num_eat / 2);
+	item->forks = sem_open(g_sem_forks, 0);
+	item->access = sem_open(g_sem_access, 0);
+	item->speak = sem_open(g_sem_speak, 0);
+	if (pthread_create(worker, NULL, philo_work, item) != 0)
+	{
+		printf("monitoring thread creation failed\n");
+		return (FALSE);
+	}
+	return (TRUE);
 }
 
 void	philo_work_end(t_philo_item *item, int state)
@@ -92,11 +98,16 @@ void	philo_work_end(t_philo_item *item, int state)
 	sem_close(item->speak);
 }
 
-t_bool	philo_access(t_philo_item *item)
+int	philo_access(t_philo_item *item)
 {
 	sem_wait(item->access);
 	if (philo_get_time() - item->recent >= (t_ms)item->arg.num_die)
-		return (TRUE);
+		return (1);
+	else if (item->goal <= 0)
+	{
+		sem_post(item->access);
+		return (2);
+	}
 	sem_post(item->access);
-	return (FALSE);
+	return (0);
 }
