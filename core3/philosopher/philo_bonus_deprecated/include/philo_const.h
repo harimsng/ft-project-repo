@@ -1,36 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   philo_const.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/18 18:19:15 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/27 16:14:33 by hseong           ###   ########.fr       */
+/*   Created: 2022/04/18 22:21:03 by hseong            #+#    #+#             */
+/*   Updated: 2022/04/27 20:40:56 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#ifndef PHILO_CONST_H
+# define PHILO_CONST_H
 
-int	main(int argc, char *argv[])
+# define TRUE (1)
+# define FALSE (0)
+
+enum e_message
 {
-	t_info	info;
-	t_arg	arg;
-	int		ret;
+	M_THINK,
+	M_TAKE,
+	M_EAT,
+	M_SLEEP,
+	M_DIE
+};
 
-	info.arg = &arg;
-	if (philo_get_arg(info.arg, argc, argv) == FALSE)
-		return (1);
-	if (philo_allocate(&info) == FALSE)
-		return (1);
-	ret = philo_dinner(&info);
-	if (ret != 0)
-	{
-		philo_deallocate(&info);
-		return (ret - 1);
-	}
-	if (philo_wait(&info) == FALSE)
-		return (1);
-	philo_deallocate(&info);
-	return (0);
-}
+# define PHILO_STATES (4)
+
+enum e_state
+{
+	S_THINK,
+	S_FORK,
+	S_EAT,
+	S_SLEEP
+};
+
+#endif

@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 08:50:15 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/29 22:32:15 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/29 20:24:55 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
-#if __linux__
-# include <fcntl.h>
-#endif
 
 static t_bool	philo_sem_open(t_info *info);
 static void		philo_unlink(void);
@@ -25,7 +22,7 @@ static void		philo_unlink(void);
 static const char	*g_sem_forks = "/philo_sem_forks";
 static const char	*g_sem_speak = "/philo_sem_speak";
 static const char	*g_sem_access = "/philo_sem_access";
-static const char	*g_sem_monitor = "/philo_sem_monitor";
+static const char	*g_sem_wait = "/philo_sem_monitor";
 
 t_bool	philo_allocate(t_info *info)
 {
@@ -56,10 +53,10 @@ t_bool	philo_sem_open(t_info *info)
 	t_fork	*sem_obj[4];
 
 	philo_unlink();
-	sem_obj[0] = sem_open(g_sem_forks, O_CREAT | O_EXCL, 0666, info->num);
-	sem_obj[1] = sem_open(g_sem_speak, O_CREAT | O_EXCL, 0666, 1);
-	sem_obj[2] = sem_open(g_sem_access, O_CREAT | O_EXCL, 0666, 1);
-	sem_obj[3] = sem_open(g_sem_monitor, O_CREAT | O_EXCL, 0666, 1);
+	sem_obj[0] = sem_open(g_sem_forks, O_CREAT | O_EXCL, 0777, info->num);
+	sem_obj[1] = sem_open(g_sem_speak, O_CREAT | O_EXCL, 0777, 1);
+	sem_obj[2] = sem_open(g_sem_access, O_CREAT | O_EXCL, 0777, 1);
+	sem_obj[3] = sem_open(g_sem_wait, O_CREAT | O_EXCL, 0777, 1);
 	if (sem_obj[0] == SEM_FAILED
 		|| sem_obj[1] == SEM_FAILED
 		|| sem_obj[2] == SEM_FAILED
@@ -110,5 +107,5 @@ void	philo_unlink(void)
 	sem_unlink(g_sem_forks);
 	sem_unlink(g_sem_speak);
 	sem_unlink(g_sem_access);
-	sem_unlink(g_sem_monitor);
+	sem_unlink(g_sem_wait);
 }

@@ -6,22 +6,25 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 11:09:37 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/26 13:34:48 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/29 22:31:31 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include "philo_state.h"
 #include <stdio.h>
+#if __linux__
+# include <fcntl.h>
+#endif
 
 static t_bool	philo_work_init(t_philo_item *item, t_thread *worker);
 static void		philo_work_end(t_philo_item *item, int state);
 static void		*philo_work(void *arg);
 static int		philo_access(t_philo_item *item);
 
-static const char	*g_sem_forks = "philo_sem_forks";
-static const char	*g_sem_speak = "philo_sem_speak";
-static const char	*g_sem_access = "philo_sem_access";
+static const char	*g_sem_forks = "/philo_sem_forks";
+static const char	*g_sem_speak = "/philo_sem_speak";
+static const char	*g_sem_access = "/philo_sem_access";
 
 t_bool	philo_create(t_philo_item *item)
 {
@@ -75,9 +78,16 @@ void	*philo_work(void *arg)
 
 t_bool	philo_work_init(t_philo_item *item, t_thread *worker)
 {
-	item->forks = sem_open(g_sem_forks, 0);
-	item->access = sem_open(g_sem_access, 0);
-	item->speak = sem_open(g_sem_speak, 0);
+	item->forks = sem_open(g_sem_forks, O_CREAT, 0666, item->arg.num_philo);
+	item->access = sem_open(g_sem_access, O_CREAT, 0666, 1);
+	item->speak = sem_open(g_sem_speak, O_CREAT, 0666, 1);
+	if (item->forks == SEM_FAILED
+		|| item->access == SEM_FAILED
+		|| item->speak == SEM_FAILED)
+	{
+		printf("sem_open failed\n");
+		return (FALSE);
+	}
 	if (pthread_create(worker, NULL, philo_work, item) != 0)
 	{
 		printf("monitoring thread creation failed\n");

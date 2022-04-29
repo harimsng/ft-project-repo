@@ -1,36 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   philo_time.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/18 18:19:15 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/27 16:14:33 by hseong           ###   ########.fr       */
+/*   Created: 2022/04/19 10:52:58 by hseong            #+#    #+#             */
+/*   Updated: 2022/04/22 05:17:38 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <sys/time.h>
 
-int	main(int argc, char *argv[])
+t_ms	philo_get_time(void)
 {
-	t_info	info;
-	t_arg	arg;
-	int		ret;
+	struct timeval	time;
 
-	info.arg = &arg;
-	if (philo_get_arg(info.arg, argc, argv) == FALSE)
-		return (1);
-	if (philo_allocate(&info) == FALSE)
-		return (1);
-	ret = philo_dinner(&info);
-	if (ret != 0)
-	{
-		philo_deallocate(&info);
-		return (ret - 1);
-	}
-	if (philo_wait(&info) == FALSE)
-		return (1);
-	philo_deallocate(&info);
-	return (0);
+	gettimeofday(&time, NULL);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+}
+
+void	philo_ready(t_philo_item *item)
+{
+	t_ms	init_time;
+
+	init_time = item->init_time;
+	while (philo_get_time() < init_time)
+		usleep(100);
+}
+
+void	philo_msleep(t_ms ms)
+{
+	t_ms	start;
+
+	start = philo_get_time();
+	while (philo_get_time() - start < ms)
+		usleep(500);
 }

@@ -1,38 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_const.h                                      :+:      :+:    :+:   */
+/*   philo_state.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/18 22:21:03 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/27 20:43:51 by hseong           ###   ########.fr       */
+/*   Created: 2022/04/19 13:06:51 by hseong            #+#    #+#             */
+/*   Updated: 2022/04/26 03:56:46 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_CONST_H
-# define PHILO_CONST_H
+#ifndef PHILO_STATE_H
+# define PHILO_STATE_H
 
-# define TRUE (1)
-# define FALSE (0)
+# include "philo_type.h"
 
-enum e_message
-{
-	M_THINK,
-	M_TAKE,
-	M_EAT,
-	M_SLEEP,
-	M_DIE
-};
+void	philo_think(t_philo_item *item);
+void	philo_fork(t_philo_item *item);
+void	philo_eat(t_philo_item *item);
+void	philo_sleep(t_philo_item *item);
 
-# define PHILO_STATES (4)
+typedef void				(*t_state_func)(t_philo_item *);
 
-enum e_state
-{
-	S_THINK,
-	S_FORK,
-	S_EAT,
-	S_SLEEP
+static const t_state_func	g_philo_state[PHILO_STATES] = {
+	philo_think,
+	philo_fork,
+	philo_eat,
+	philo_sleep
 };
 
 #endif

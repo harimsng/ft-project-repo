@@ -3,4 +3,7 @@
 *.o
 *.dSYM
 *.a
+exam03
+.cache
 .DS_Store
+compile_commands.json

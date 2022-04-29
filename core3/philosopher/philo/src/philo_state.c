@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:17:50 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/19 13:11:21 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/28 15:55:45 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ inline void	philo_lock_r(t_philo_item *const item)
 
 inline void	philo_lock_l(t_philo_item *const item)
 {
+	if (item->r_fork == item->l_fork)
+	{
+		philo_msleep(item->arg.num_die + 1);
+		return ;
+	}
 	pthread_mutex_lock(item->l_fork);
 	philo_report(M_TAKE, item);
 }

@@ -6,13 +6,14 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 09:22:02 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/27 17:02:39 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/27 17:11:02 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdio.h>
-#include <stdlib.h>
+
+void	philo_child_deallocate(t_info *info);
 
 int	philo_dinner(t_info *info)
 {
@@ -34,11 +35,10 @@ int	philo_dinner(t_info *info)
 		else if (philo == -1)
 		{
 			printf("process creation failed\n");
-			return (3);
+			return (1);
 		}
 		++item_arr;
-		info->philo_arr[idx] = philo;
-		++idx;
+		info->philo_arr[idx++] = philo;
 	}
 	return (0);
 }

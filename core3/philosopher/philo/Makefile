@@ -4,7 +4,7 @@ NAME	=	philo
 CFLAGS	=	-Wall -Wextra -Werror
 CC		=	gcc
 RM		=	rm -f
-DEBUG	=	-g3 -fsanitize=address
+DEBUG	=	-g3 #-fsanitize=address
 
 
 SRC		=	philo.c\

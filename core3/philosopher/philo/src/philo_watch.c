@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 22:06:20 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/26 04:10:14 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/28 15:52:16 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,6 @@ void	philo_join(t_info *info)
 
 	idx = 0;
 	len = info->num;
-	if (info->num == 1)
-	{
-		pthread_detach(info->philo_arr[idx]);
-		return ;
-	}
 	while (idx < len)
 	{
 		pthread_join(info->philo_arr[idx], NULL);

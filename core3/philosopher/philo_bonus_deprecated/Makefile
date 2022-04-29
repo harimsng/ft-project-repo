@@ -3,7 +3,7 @@ NAME	=	philo_bonus
 
 CC		=	gcc
 CFLAGS	=	-Wall -Wextra -Werror
-DEBUG	=	-g3 #-fsanitize=thread
+DEBUG	=	-g3 -fsanitize=thread
 RM		=	rm -f
 
 
@@ -15,7 +15,9 @@ SRC		=	philo.c\
 			philo_state.c\
 			philo_time.c\
 			philo_wait.c\
+			philo_create.c\
 			philo_work.c\
+			philo_exit.c\
 			ft_atoi.c
 SRC_DIR	=	src
 SRC		:=	$(SRC:%=$(SRC_DIR)/%)
