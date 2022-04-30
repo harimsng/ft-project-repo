@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 08:50:15 by hseong            #+#    #+#             */
-/*   Updated: 2022/04/29 22:32:15 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/30 11:43:46 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	philo_terminate(t_info *info, size_t except, size_t len)
 			++idx;
 			continue ;
 		}
-		kill(info->philo_arr[idx], SIGINT);
+		kill(info->philo_arr[idx], SIGTERM);
 		++idx;
 	}
 }
