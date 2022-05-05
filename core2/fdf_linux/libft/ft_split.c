@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 18:16:11 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/29 18:53:38 by hseong           ###   ########.fr       */
+/*   Updated: 2022/05/04 15:30:05 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char			*ft_strchr(const char *set, int c);
 static char		*ft_strndup(const char *src, size_t len);
 static size_t	get_count(const char *str, char *delim);
 static char		**alloc_words(const char *str, size_t count, char *delim);
-static void		dealloc_words(char **str_arr, size_t size);
+static void		dealloc_words(char ***str_arr, size_t size);
 
 char	**ft_split(const char *str, char *delim)
 {
@@ -66,14 +66,16 @@ char	**alloc_words(const char *str, size_t count, char *delim)
 		++str_idx;
 	}
 	if (str_idx != count)
-		dealloc_words(str_arr, str_idx);
+		dealloc_words(&str_arr, str_idx);
 	return (str_arr);
 }
 
-void	dealloc_words(char **str_arr, size_t size)
+void	dealloc_words(char ***str_arr_ptr, size_t size)
 {
+	char		**str_arr;
 	size_t		idx;
 
+	str_arr = *str_arr_ptr;
 	idx = 0;
 	while (idx < size)
 	{
@@ -81,6 +83,7 @@ void	dealloc_words(char **str_arr, size_t size)
 		++idx;
 	}
 	free(str_arr);
+	*str_arr_ptr = NULL;
 }
 
 char	*ft_strndup(const char *src, size_t len)
