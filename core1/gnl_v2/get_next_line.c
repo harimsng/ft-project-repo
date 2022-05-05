@@ -6,84 +6,90 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 21:14:13 by hseong            #+#    #+#             */
-/*   Updated: 2022/01/24 21:30:03 by hseong           ###   ########.fr       */
+/*   Updated: 2022/04/30 12:26:56 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	fd_load(t_data *storage, t_buf *buf, int fd);
-void	fd_save(t_data *storage, t_buf *buf, int fd);
-int		fd_find(t_data **storage, int fd);
-int		eol_check(t_buf *buf);
+static void	hashtab_load(t_node *hashtab, t_buffer *buf, int fd);
+static void	hashtab_save(t_node *hashtab, t_buffer *buf, int fd);
+static int	hashtab_find(t_node **hashtab, t_buffer *buf, int fd);
+static int	process_line(t_line *line, t_buffer *buf);
 
 char	*get_next_line(int fd)
 {
-	static t_data	storage[1024];
-	t_line			buf;
+	static t_node	hashtab[HASHMAP_SIZE];
+	t_buffer		buf;
 	t_line			line;
 
-	line = {ft_memset(malloc(128), 0, 128), 0};
+	line = (t_line){ft_memset(malloc(128), 0, 128), 0};
 	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (NULL);
-	fd_load(storage + fd % 1024, &buf, fd);
-	buf.size += read(fd, buf + buf.size, BUFFER_SIZE - buf.size);
-	while (!eol_check(buf))
-		buf.size = read(fd, buf, BUFFER_SIZE);
+	hashtab_load(hashtab + fd % 1024, &buf, fd);
+	buf.size += read(fd, buf.str + buf.size, BUFFER_SIZE - buf.size);
+	while (!process_line(&line, &buf))
+		buf.size = read(fd, buf.str, BUFFER_SIZE);
 	if (buf.size != BUFFER_SIZE)
-		fd_save(storage + fd % 1024, &buf, fd);
-	ft_strlcpy(line, buf.str, buf.size);
-	return (line);
+		hashtab_save(hashtab + fd % 1024, &buf, fd);
+	ft_strlcpy(line.str, buf.str, buf.size);
+	return (line.str);
 }
 
-void	fd_save(t_data *storage, t_buf *buf, int fd)
+void	hashtab_save(t_node *hashtab, t_buffer *buf, int fd)
 {
-	if (buf->size == 0 || buf->str[buf->size - 1] == 0)
-		storage_free(&storage, fd);
-	else if (fd_find(&storage, fd) == 0)
+	if (hashtab_find(&hashtab, buf, fd) == 0)
 	{
-		storage->fd = fd;
-		storage->size = buf->size;
-		storage->next = NULL;
-		ft_strlcpy(storage->str, buf->str, buf->size);
-	}
-	else
-		storage_chaining(&storage, buf, fd);
-}
-
-void	fd_load(t_data *storage, t_buf *buf, int fd)
-{
-	*buf = (t_buf){{0, }, 0};
-	if (fd_find(&storage, fd) == 0)
+		hashtab->next = malloc(sizeof(t_node));
+		if (hashtab->next == NULL)
+			return ;
+		*hashtab->next = (t_node){{0, }, fd, buf->size, NULL};
+		ft_strlcpy(hashtab->next->str, buf->str, buf->size);
 		return ;
-	ft_strlcpy(buf->str, storage->str, storage->size);
-	buf->size = storage->size;
+	}
+	ft_strlcpy(hashtab->str, buf->str, buf->size);
+	hashtab->size = buf->size;
 }
 
-int	fd_find(t_data **storage, t_buf *buf, int fd)
+void	hashtab_load(t_node *hashtab, t_buffer *buf, int fd)
 {
-	t_data	*node;
+	t_node	*node;
 
-	node = *storage;
-	while (node != NULL && node->fd != fd)
-		node = node->next;
-	if (node == NULL)
-		return (0);
-	*storage = node;
-	return (1);
+	*buf = (t_buffer){{0, }, 0};
+	if (hashtab_find(&hashtab, buf, fd) == FAIL)
+		return ;
+	ft_strlcpy(buf->str, hashtab->str, hashtab->size);
+	buf->size = hashtab->size;
+	node = hashtab;
 }
 
-int	eol_check(t_buf *buf)
+int	hashtab_find(t_node **hashtab, t_buffer *buf, int fd)
+{
+	t_node	*node;
+
+	node = *hashtab;
+	while (node->next != NULL && node->fd != fd)
+		node = node->next;
+	*hashtab = node;
+	if (node->next == NULL && node->fd != fd)
+		return (FAIL);
+	return (SUCCESS);
+}
+
+int	process_line(t_line *line, t_buffer *buf)
 {
 	int		idx = 0;
 
 	while (idx < buf->size && buf->str[idx] != '\n')
 		++idx;
-
-	if (idx < buf->size || buf->size != BUFFER_SIZE)
+	if (idx < buf->size || buf->size != BUFFER_SIZE
+		|| buf->str[buf->size] == '\n')
 	{
-		buf->size = idx;
-		return (1);
+		append_line(line, buf, idx);
+		ft_strlcpy(buf->str, buf->str + idx, buf->size - idx);
+		buf->size -= idx;
+		return (LINEEND);
 	}
+	append_line(line, buf, idx);
 	return (0);
 }
