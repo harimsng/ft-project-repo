@@ -56,10 +56,10 @@ $(OBJS): %.o : %.c
 	$(CC) $(CFLAGS) $< -c -o $@ -I.
 
 clean:
-	rm -f $(OBJS) $(BNS_OBJS)
+	@rm -f $(OBJS) $(BNS_OBJS)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 

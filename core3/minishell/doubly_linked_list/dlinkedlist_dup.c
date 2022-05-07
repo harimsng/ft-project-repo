@@ -1,25 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   dlinkedlist_dup.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/18 22:35:53 by hseong            #+#    #+#             */
-/*   Updated: 2021/11/30 22:28:31 by hseong           ###   ########.fr       */
+/*   Created: 2022/02/11 17:25:35 by hseong            #+#    #+#             */
+/*   Updated: 2022/02/25 19:39:46 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include <stdlib.h>
+#include "dlinkedlist.h"
 
-void	*ft_memcpy(void	*dest, const void *src, size_t size)
+t_dlist	*duplicate_dlist(t_dlist *list)
 {
-	unsigned char		*d;
-	const unsigned char	*s;
+	t_dlist		*clone;
+	size_t		size;
+	size_t		idx;
 
-	d = dest;
-	s = src;
-	while (size--)
-		*d++ = *s++;
-	return (dest);
+	clone = malloc(sizeof(t_dlist));
+	dlist_init(clone);
+	size = list->size;
+	idx = 0;
+	list->cur = list->head;
+	while (idx < size)
+	{
+		push_back(clone, list->cur->item);
+		move_back(list);
+		++idx;
+	}
+	list->cur = NULL;
+	return (clone);
 }

@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_type.h                                   :+:      :+:    :+:   */
+/*   dlinkedlist_peek.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/04 19:05:47 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/07 20:19:56 by hseong           ###   ########.fr       */
+/*   Created: 2022/05/08 06:51:51 by hseong            #+#    #+#             */
+/*   Updated: 2022/05/08 06:54:27 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_TYPE_H
-# define MINISHELL_TYPE_H
+#include "dlinkedlist.h"
 
-# include <sys/_types/_size_t.h>
-
-# define ULLINT unsigned long long int
-# define LLINT long long int
-
-typedef ULLINT	t_uint64;
-typedef LLINT	t_int64;
-
-typedef struct s_token
+t_item	*peek_front(t_dlist *list)
 {
-	int		type;
-	char	*token;
-	t_int64	len;
-}				t_token;
+	if (list->size == 0)
+		return (EMPTY_ITEM);
+	return (list->head);
+}
 
-#endif
+t_item	*peek_back(t_dlist *list)
+{
+}

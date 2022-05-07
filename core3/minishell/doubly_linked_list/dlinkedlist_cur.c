@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_type.h                                   :+:      :+:    :+:   */
+/*   dlinkedlist_cur.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/04 19:05:47 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/07 20:19:56 by hseong           ###   ########.fr       */
+/*   Created: 2022/02/08 20:17:56 by hseong            #+#    #+#             */
+/*   Updated: 2022/02/25 19:39:34 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_TYPE_H
-# define MINISHELL_TYPE_H
+#include "dlinkedlist.h"
 
-# include <sys/_types/_size_t.h>
-
-# define ULLINT unsigned long long int
-# define LLINT long long int
-
-typedef ULLINT	t_uint64;
-typedef LLINT	t_int64;
-
-typedef struct s_token
+void	move_front(t_dlist *list)
 {
-	int		type;
-	char	*token;
-	t_int64	len;
-}				t_token;
+	if (list->cur == list->head)
+		return ;
+	list->cur = list->cur->prev;
+	--list->idx;
+}
 
-#endif
+void	move_back(t_dlist *list)
+{
+	if (list->cur == list->tail)
+		return ;
+	list->cur = list->cur->next;
+	++list->idx;
+}
+
+void	set_cur(t_dlist *list, t_item item)
+{
+	list->cur->item = item;
+}
