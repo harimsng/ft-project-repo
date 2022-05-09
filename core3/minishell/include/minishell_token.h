@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 21:54:15 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/08 05:45:43 by hseong           ###   ########.fr       */
+/*   Updated: 2022/05/09 15:31:34 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 enum e_token_type
 {
-	TOKEN_WORD,
+	TOKEN_WORD = 1,
 	TOKEN_ASSIGNMENT_WORD,
 	TOKEN_NEWLINE,
 	TOKEN_IO_NUMBER,
@@ -33,7 +33,7 @@ typedef struct s_token_context
 	t_uint64	start_idx;
 }				t_token_context;
 
-typedef void	(*t_char_func_wrapper)(void *, t_token_context *);
+typedef void	(*t_token_func)(void *, t_token_context *);
 typedef char	**t_token_arr;
 
 void	delimit_token(void *arg, t_token_context *context);
@@ -74,7 +74,7 @@ void	char_braces_close(void *arg, t_token_context *context);
 void	char_tilde(void *arg, t_token_context *context);
 
 static const
-	t_char_func_wrapper g_token_char_tab[128] = {
+	t_token_func	g_token_char_tab[128] = {
 	/*0 nul*/delimit_token,
 	/*1 soh*/do_nothing,
 	/*2 stx*/do_nothing,

@@ -4,7 +4,8 @@ CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
 
 SRC		= dlinkedlist.c\
-		  dlinkedlist_io.c\
+		  dlinkedlist_util.c\
+		  dlinkedlist_peek.c\
 		  dlinkedlist_cur.c\
 		  dlinkedlist_dup.c
 OBJ		= $(SRC:%.c=%.o)

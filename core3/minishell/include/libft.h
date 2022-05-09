@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 23:25:37 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/04 19:33:37 by hseong           ###   ########.fr       */
+/*   Updated: 2022/05/09 10:28:52 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,8 @@ void		ft_lstdelone(t_list *lst, void (*del)(void *));
 void		ft_lstclear(t_list **lst, void (*del)(void *));
 void		ft_lstiter(t_list *lst, void (*f)(void *));
 t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+
+int
+ft_execvpe(const char *filename, char *const *argv, char *const *envp);
 
 #endif

@@ -21,15 +21,17 @@ INCL_DIR=	include
 INCL	:=	$(INCL:%=$(INCL_DIR)/%)
 
 
+LIBFLAGS=	-L.
+
 LIBFT	=	libft.a
-LIBFT_NAME=	ft
 LIBFT_DIR=	libft
+LIBFLAGS+=	-lft
 LIBS	+=	LIBFT.lib
 
 
 DLLIST	=	libdlinkedlist.a
-DLLIST_NAME=dlinkedlist
 DLLIST_DIR=	doubly_linked_list
+LIBFLAGS+=	-ldlinkedlist
 LIBS	+=	DLLIST.lib
 
 
@@ -39,7 +41,7 @@ fast:
 	$(MAKE) all -j 8
 
 $(NAME): $(LIBS) $(OBJ)
-	$(CC) $(CFLAGS) -o $@ $^ -lreadline -L$(LIBFT_DIR) -l$(LIBFT_NAME)
+	$(CC) $(CFLAGS) -o $@ $(OBJ) -lreadline $(LIBFLAGS)
 
 $(OBJ): %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $< -I$(INCL_DIR)

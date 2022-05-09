@@ -6,12 +6,11 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:00:17 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/08 04:30:35 by hseong           ###   ########.fr       */
+/*   Updated: 2022/05/09 11:08:29 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "minishell_const.h"
 #include "libft.h"
 #include <readline/readline.h>
 #include <unistd.h>
@@ -20,7 +19,7 @@
 #include <sys/wait.h>
 # include <stdio.h>
 
-int	main(void)
+int	main(int argc, char *argv[], char *envp[])
 {
 	t_token_arr	token_arr;
 	char		*input_str;
@@ -28,6 +27,8 @@ int	main(void)
 	int			execve_ret;
 	int			state;
 
+	(void)argc;
+	(void)argv;
 	input_str = readline("$> ");
 	while (input_str != NULL)
 	{
@@ -35,7 +36,7 @@ int	main(void)
 		pid = fork();
 		if (pid == 0)
 		{
-			execve_ret = execvp(token_arr[0], token_arr);
+			execve_ret = ft_execvpe(token_arr[0], token_arr, envp);
 			minishell_free_token(&token_arr);
 			if (execve_ret == -1)
 				ft_putendl_fd(strerror(errno), 2);
