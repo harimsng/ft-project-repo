@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:00:17 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/09 11:08:29 by hseong           ###   ########.fr       */
+/*   Updated: 2022/05/10 17:50:43 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	main(int argc, char *argv[], char *envp[])
 	(void)argc;
 	(void)argv;
 	input_str = readline("$> ");
+	add_history(input_str);
 	while (input_str != NULL)
 	{
 		token_arr = ft_split(input_str, " \t\n");
@@ -45,6 +46,7 @@ int	main(int argc, char *argv[], char *envp[])
 		minishell_free_token(&token_arr);
 		waitpid(pid, &state, 0);
 		input_str = readline("$> ");
+		add_history(input_str);
 	}
 	return (0);
 }

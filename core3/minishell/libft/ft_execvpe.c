@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 16:01:20 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/15 17:47:09 by hseong           ###   ########.fr       */
+/*   Updated: 2022/05/10 18:23:00 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static size_t	get_path_tab_size(void);
 static const char	*g_path_table[] = {
 	"/usr/bin/",
 	"/bin",
+	"/Users/hseong/42backup/core3/minishell",
 	NULL
 };
 
