@@ -6,19 +6,19 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 18:35:23 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/18 05:14:08 by hseong           ###   ########.fr       */
+/*   Updated: 2022/05/18 19:45:03 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "c3d.h"
 #include "libft.h"
 
-static void	drawline_low_up(t_img_elem *img_elem, t_vec3 p0, t_vec3 p1);
-static void	drawline_low_down(t_img_elem *img_elem, t_vec3 p0, t_vec3 p1);
-static void	drawline_high_up(t_img_elem *img_elem, t_vec3 p0, t_vec3 p1);
-static void	drawline_high_down(t_img_elem *img_elem, t_vec3 p0, t_vec3 p1);
+static void	drawline_low_up(t_img_elem *img_elem, t_vec4 p0, t_vec4 p1);
+static void	drawline_low_down(t_img_elem *img_elem, t_vec4 p0, t_vec4 p1);
+static void	drawline_high_up(t_img_elem *img_elem, t_vec4 p0, t_vec4 p1);
+static void	drawline_high_down(t_img_elem *img_elem, t_vec4 p0, t_vec4 p1);
 
-void	c3d_drawline(t_img_elem *img_elem, t_vec3 *p0, t_vec3 *p1)
+void	c3d_drawline(t_img_elem *img_elem, t_vec4 *p0, t_vec4 *p1)
 {
 	int		dy;
 
@@ -46,7 +46,7 @@ void	c3d_drawline(t_img_elem *img_elem, t_vec3 *p0, t_vec3 *p1)
 	img_elem->img_buf[(int)p1->x + img_elem->hor_px * (int)p1->y] = p1->color;
 }
 
-void	drawline_low_down(t_img_elem *img_elem, t_vec3 p0, t_vec3 p1)
+void	drawline_low_down(t_img_elem *img_elem, t_vec4 p0, t_vec4 p1)
 {
 	int		dx;
 	int		dy;
@@ -71,7 +71,7 @@ void	drawline_low_down(t_img_elem *img_elem, t_vec3 p0, t_vec3 p1)
 	}
 }
 
-void	drawline_high_down(t_img_elem *img_elem, t_vec3 p0, t_vec3 p1)
+void	drawline_high_down(t_img_elem *img_elem, t_vec4 p0, t_vec4 p1)
 {
 	int		dx;
 	int		dy;
@@ -96,7 +96,7 @@ void	drawline_high_down(t_img_elem *img_elem, t_vec3 p0, t_vec3 p1)
 	}
 }
 
-void	drawline_low_up(t_img_elem *img_elem, t_vec3 p0, t_vec3 p1)
+void	drawline_low_up(t_img_elem *img_elem, t_vec4 p0, t_vec4 p1)
 {
 	int		dx;
 	int		dy;
@@ -121,7 +121,7 @@ void	drawline_low_up(t_img_elem *img_elem, t_vec3 p0, t_vec3 p1)
 	}
 }
 
-void	drawline_high_up(t_img_elem *img_elem, t_vec3 p0, t_vec3 p1)
+void	drawline_high_up(t_img_elem *img_elem, t_vec4 p0, t_vec4 p1)
 {
 	int		dx;
 	int		dy;

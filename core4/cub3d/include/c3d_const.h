@@ -6,26 +6,32 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 17:10:04 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/18 06:43:35 by hseong           ###   ########.fr       */
+/*   Updated: 2022/05/18 22:22:28 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef C3D_CONST_H
 # define C3D_CONST_H
 
+// environment constant
 # define SCREEN_WIDTH (1280)
 # define SCREEN_HEIGHT (1280)
-# define VP_DIST (500) // viewport distance
+# define VP_DIST (256) // viewport distance
 # define SUBIMG_WIDTH (SCREEN_WIDTH)
 # define SUBIMG_HEIGHT (80)
 # define TEXT_HEIGHT (16)
+# define MAX_TEXTURE (16)
 
 // map control coefficient
 # define FOV (60.0)
-# define GRID_WIDTH (128)
+# define MOUSE_SENSITIVITY (0.002)
+# define GRID_WIDTH (64)
+# define MASK_GRID_WIDTH (63)	// if grid_width = 2^n, mask = grid_width - 1
+# define LOG_GRID_WIDTH (6)		// log2(grid_width)
 # define X_STEP (8)
 # define Y_STEP (8)
-# define YAW_STEP (0.5);
+# define YAW_STEP (0.1)
+# define MAX_DIST (800)
 
 // maximum map size
 # define MAP_MAXROWS (2048)

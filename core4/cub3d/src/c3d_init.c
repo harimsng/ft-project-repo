@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 17:54:03 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/18 01:20:11 by hseong           ###   ########.fr       */
+/*   Updated: 2022/05/18 20:49:17 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	init_img(t_mlx_info *mlx_info, t_img_elem *img_elem)
 	return (0);
 }
 
+/*
 int	init_sub(t_mlx_info *mlx_info)
 {
 	t_img_elem	*sub_elem;
@@ -77,3 +78,4 @@ int	init_sub(t_mlx_info *mlx_info)
 	sub_elem->arr_bytes = sub_elem->line_bytes * sub_elem->ver_px;
 	return (0);
 }
+*/
