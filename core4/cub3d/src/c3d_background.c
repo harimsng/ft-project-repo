@@ -6,14 +6,12 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 07:37:53 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/18 08:55:13 by hseong           ###   ########.fr       */
+/*   Updated: 2022/05/19 00:09:08 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "c3d.h"
 #include "c3d_const.h"
-#include <sys/syslimits.h>
-# include <stdio.h>
 
 void	c3d_background(t_mlx_info *mlx_info)
 {

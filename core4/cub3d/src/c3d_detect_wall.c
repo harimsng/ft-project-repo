@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 22:39:28 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/18 22:35:58 by hseong           ###   ########.fr       */
+/*   Updated: 2022/05/19 00:08:48 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,9 @@ north_ray(t_map_info *map_info, const t_camera *camera, t_vec2 *point)
 	point->x += (camera->y - point->y) * ratio;
 	map_x = (int)point->x / GRID_WIDTH;
 	map_y = (int)point->y / GRID_WIDTH;
-	while (map_x >= 0 && map_y >= 0
-			&& map_x < map_info->col
-			&& map_y < map_info->row
-			&& map_info->map[map_y][map_x] != 1)
+	while (map_x < map_info->col
+		&& map_y < map_info->row
+		&& map_info->map[map_y][map_x] != 1)
 	{
 		point->y -= GRID_WIDTH;
 		point->x += GRID_WIDTH * ratio;
@@ -98,10 +97,9 @@ south_ray(t_map_info *map_info, const t_camera *camera, t_vec2 *point)
 	point->x += (point->y - camera->y) * ratio;
 	map_x = (int)point->x / GRID_WIDTH;
 	map_y = (int)point->y / GRID_WIDTH;
-	while (map_x >= 0 && map_y >= 0
-			&& map_x < map_info->col 
-			&& map_y < map_info->row
-			&& map_info->map[map_y][map_x] != 1)
+	while (map_x < map_info->col 
+		&& map_y < map_info->row
+		&& map_info->map[map_y][map_x] != 1)
 	{
 		point->y += GRID_WIDTH;
 		point->x += GRID_WIDTH * ratio;
@@ -125,10 +123,9 @@ east_ray(t_map_info *map_info, const t_camera *camera, t_vec2 *point)
 	point->y += (point->x - camera->x) * ratio;
 	map_x = (int)point->x / GRID_WIDTH;
 	map_y = (int)point->y / GRID_WIDTH;
-	while (map_x >= 0 && map_y >= 0
-			&& map_x < map_info->col 
-			&& map_y < map_info->row
-			&& map_info->map[map_y][map_x] != 1)
+	while (map_x < map_info->col 
+		&& map_y < map_info->row
+		&& map_info->map[map_y][map_x] != 1)
 	{
 		point->x += GRID_WIDTH;
 		point->y += GRID_WIDTH * ratio;
@@ -152,10 +149,9 @@ west_ray(t_map_info *map_info, const t_camera *camera, t_vec2 *point)
 	point->y += (camera->x - point->x) * ratio;
 	map_x = (int)point->x / GRID_WIDTH;
 	map_y = (int)point->y / GRID_WIDTH;
-	while (map_x >= 0 && map_y >= 0
-			&& map_x < map_info->col
-			&& map_y < map_info->row 
-			&& map_info->map[map_y][map_x] != 1)
+	while (map_x < map_info->col
+		&& map_y < map_info->row 
+		&& map_info->map[map_y][map_x] != 1)
 	{
 		point->x -= GRID_WIDTH;
 		point->y += GRID_WIDTH * ratio;
