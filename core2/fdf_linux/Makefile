@@ -1,5 +1,6 @@
 NAME	=	fdf
 
+
 CC		=	gcc
 CFLAGS	=	-Wall -Wextra -Werror -O3
 DEBUG	=	-g3 -fsanitize=address
@@ -63,12 +64,14 @@ OBJDEPS	=	-DSYS_MAC
 LIB_NAME=	libmlx.dylib
 LIB_DIR	=	library
 LIB		=	mlx
+$(shell cp $(LIB_DIR)/mlx.h include)
 else
 SYSDEPS =	-lm -lXext -lX11 -pthread
 OBJDEPS	=
 LIB_NAME=	libmlx_Linux.a
 LIB_DIR	=	library_Linux
 LIB		=	mlx_Linux
+$(shell cp $(LIB_DIR)/mlx.h include)
 endif
 
 
@@ -95,7 +98,6 @@ norm:
 $(LIB_NAME):
 	$(MAKE) -C $(LIB_DIR)
 	cp $(LIB_DIR)/$(LIB_NAME) .
-	cp $(LIB_DIR)/mlx.h $(INCL_DIR)/mlx.h
 
 $(LFT_NAME):
 	$(MAKE) -C $(LFT_DIR)
@@ -105,7 +107,7 @@ $(NAME): $(LFT_NAME) $(LIB_NAME) $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $(OBJ) -l$(LIB) -L. -l$(LFT) \
 	$(SYSDEPS)
 
-$(OBJ): %.o: %.c $(INCL) 
+$(OBJ): %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $< -I$(INCL_DIR) $(OBJDEPS)
 
 clean:
