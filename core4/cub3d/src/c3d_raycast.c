@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 01:59:26 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/18 21:19:08 by hseong           ###   ########.fr       */
+/*   Updated: 2022/05/21 19:13:40 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	c3d_raycast(t_mlx_info *mlx_info, t_camera *camera)
 {
 	double		angle;
 	t_vec2		point;
-	t_vec2		point_camera;
-	t_camera	temp_camera;
+	t_vec2		camera_vec2;
+	t_camera	temp;
 	int			count;
 
 	if (camera->angle < 0)
@@ -33,14 +33,14 @@ void	c3d_raycast(t_mlx_info *mlx_info, t_camera *camera)
 		camera->angle -= 2.0 * M_PI;
 	angle = 0.0;
 	count = 0;
-	point_camera = (t_vec2){camera->x, camera->y};
+	camera_vec2 = (t_vec2){camera->x, camera->y};
 	while (count < SCREEN_WIDTH)
 	{
-		temp_camera = (t_camera){camera->angle - g_half_fov + angle,
+		temp = (t_camera){camera->angle - g_half_fov + angle,
 			camera->x, camera->y};
-		c3d_detect_wall(mlx_info->map_info, &temp_camera, &point);
-		c3d_draw_scene(mlx_info, camera, count,
-			cos(angle - g_half_fov) * vec2_dist(&point_camera, &point));
+		c3d_detect_wall(mlx_info->map_info, &temp, &point);
+		c3d_draw_vline(mlx_info, camera, count,
+			cos(angle - g_half_fov) * vec2_dist(&camera_vec2, &point));
 		angle += g_angle_step;
 		++count;
 	}

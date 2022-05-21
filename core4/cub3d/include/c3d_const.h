@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 17:10:04 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/18 22:22:28 by hseong           ###   ########.fr       */
+/*   Updated: 2022/05/20 22:29:49 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 # define GRID_WIDTH (64)
 # define MASK_GRID_WIDTH (63)	// if grid_width = 2^n, mask = grid_width - 1
 # define LOG_GRID_WIDTH (6)		// log2(grid_width)
-# define X_STEP (8)
-# define Y_STEP (8)
+# define X_STEP (6)
+# define Y_STEP (6)
 # define YAW_STEP (0.1)
 # define MAX_DIST (800)
 

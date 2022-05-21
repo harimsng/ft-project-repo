@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 22:39:28 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/19 00:08:48 by hseong           ###   ########.fr       */
+/*   Updated: 2022/05/21 21:42:22 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include <math.h>
 
 #define SAFE_ANGLE (0.005)
+
+typedef double	(*t_ftoi)(double);
 
 static int
 north_ray(t_map_info *map_info, const t_camera *camera, t_vec2 *point);
@@ -63,22 +65,26 @@ north_ray(t_map_info *map_info, const t_camera *camera, t_vec2 *point)
 	size_t	map_x;
 	size_t	map_y;
 	double	ratio;
+	t_ftoi	ftoi;
 
+	ftoi = floor;
 	ratio = tan(camera->angle);
+	if (ratio < 0)
+		ftoi = ceil;
 	map_x = (int)camera->x / GRID_WIDTH;
 	map_y = (int)camera->y / GRID_WIDTH;
 	point->y = map_y * GRID_WIDTH - 1;
 	point->x += (camera->y - point->y) * ratio;
-	map_x = (int)point->x / GRID_WIDTH;
-	map_y = (int)point->y / GRID_WIDTH;
+	map_x = ftoi(point->x) / GRID_WIDTH;
+	map_y = (int)(point->y) / GRID_WIDTH;
 	while (map_x < map_info->col
 		&& map_y < map_info->row
 		&& map_info->map[map_y][map_x] != 1)
 	{
 		point->y -= GRID_WIDTH;
 		point->x += GRID_WIDTH * ratio;
-		map_x = (int)point->x / GRID_WIDTH;
-		map_y = (int)point->y / GRID_WIDTH;
+		map_x = ftoi(point->x) / GRID_WIDTH;
+		map_y = (int)(point->y) / GRID_WIDTH;
 	}
 	return (1);
 }
@@ -89,13 +95,18 @@ south_ray(t_map_info *map_info, const t_camera *camera, t_vec2 *point)
 	size_t	map_x;
 	size_t	map_y;
 	double	ratio;
+	t_ftoi	ftoi;
 
+	ftoi = floor;
+	ratio = tan(camera->angle);
+	if (ratio > 0)
+		ftoi = ceil;
 	ratio = tan(M_PI - camera->angle);
 	map_x = (int)camera->x / GRID_WIDTH;
 	map_y = (int)camera->y / GRID_WIDTH;
 	point->y = (map_y + 1) * GRID_WIDTH;
 	point->x += (point->y - camera->y) * ratio;
-	map_x = (int)point->x / GRID_WIDTH;
+	map_x = ftoi(point->x) / GRID_WIDTH;
 	map_y = (int)point->y / GRID_WIDTH;
 	while (map_x < map_info->col 
 		&& map_y < map_info->row
@@ -103,7 +114,7 @@ south_ray(t_map_info *map_info, const t_camera *camera, t_vec2 *point)
 	{
 		point->y += GRID_WIDTH;
 		point->x += GRID_WIDTH * ratio;
-		map_x = (int)(point->x) / GRID_WIDTH;
+		map_x = ftoi(point->x) / GRID_WIDTH;
 		map_y = (int)(point->y) / GRID_WIDTH;
 	}
 	return (1);
@@ -115,22 +126,27 @@ east_ray(t_map_info *map_info, const t_camera *camera, t_vec2 *point)
 	size_t	map_x;
 	size_t	map_y;
 	double	ratio;
+	t_ftoi	ftoi;
 
+	ftoi = floor;
+	ratio = tan(camera->angle);
+	if (ratio > 0)
+		ftoi = ceil;
 	ratio = tan(camera->angle - M_PI_2);
 	map_x = (int)camera->x / GRID_WIDTH;
 	map_y = (int)camera->y / GRID_WIDTH;
 	point->x = (map_x + 1) * GRID_WIDTH;
 	point->y += (point->x - camera->x) * ratio;
-	map_x = (int)point->x / GRID_WIDTH;
-	map_y = (int)point->y / GRID_WIDTH;
+	map_x = (int)(point->x) / GRID_WIDTH;
+	map_y = ftoi(point->y) / GRID_WIDTH;
 	while (map_x < map_info->col 
 		&& map_y < map_info->row
 		&& map_info->map[map_y][map_x] != 1)
 	{
 		point->x += GRID_WIDTH;
 		point->y += GRID_WIDTH * ratio;
-		map_x = (int)point->x / GRID_WIDTH;
-		map_y = (int)point->y / GRID_WIDTH;
+		map_x = (int)(point->x) / GRID_WIDTH;
+		map_y = ftoi(point->y) / GRID_WIDTH;
 	}
 	return (1);
 }
@@ -141,22 +157,27 @@ west_ray(t_map_info *map_info, const t_camera *camera, t_vec2 *point)
 	size_t	map_x;
 	size_t	map_y;
 	double	ratio;
+	t_ftoi	ftoi;
 
+	ftoi = floor;
+	ratio = tan(camera->angle);
+	if (ratio < 0)
+		ftoi = ceil;
 	ratio = tan(M_PI + M_PI_2 - camera->angle);
 	map_x = (int)camera->x / GRID_WIDTH;
 	map_y = (int)camera->y / GRID_WIDTH;
 	point->x = map_x * GRID_WIDTH - 1;
 	point->y += (camera->x - point->x) * ratio;
-	map_x = (int)point->x / GRID_WIDTH;
-	map_y = (int)point->y / GRID_WIDTH;
+	map_x = (int)(point->x) / GRID_WIDTH;
+	map_y = ftoi(point->y) / GRID_WIDTH;
 	while (map_x < map_info->col
 		&& map_y < map_info->row 
 		&& map_info->map[map_y][map_x] != 1)
 	{
 		point->x -= GRID_WIDTH;
 		point->y += GRID_WIDTH * ratio;
-		map_x = (int)point->x / GRID_WIDTH;
-		map_y = (int)point->y / GRID_WIDTH;
+		map_x = (int)(point->x) / GRID_WIDTH;
+		map_y = ftoi(point->y) / GRID_WIDTH;
 	}
 	return (1);
 }

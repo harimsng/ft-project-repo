@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 20:39:33 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/19 18:05:54 by hseong           ###   ########.fr       */
+/*   Updated: 2022/05/21 19:05:56 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <math.h>
 
 void
-c3d_draw_scene(t_mlx_info *mlx_info, t_camera *camera, int count, double dist)
+c3d_draw_vline(t_mlx_info *mlx_info, t_camera *camera, int count, double dist)
 {
 	t_pixel	*map;
 	size_t	hor_px;

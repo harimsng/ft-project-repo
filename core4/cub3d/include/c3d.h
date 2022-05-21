@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 19:26:20 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/18 22:14:40 by hseong           ###   ########.fr       */
+/*   Updated: 2022/05/21 19:06:30 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	c3d_raycast(t_mlx_info *mlx_info, t_camera *camera);
 void	c3d_raycast_overview(t_mlx_info *mlx_info, t_camera *camera);
 void	c3d_background(t_mlx_info *mlx_info);
 void
-c3d_draw_scene(t_mlx_info *mlx_info, t_camera *camera, int count, double dist);
+c3d_draw_vline(t_mlx_info *mlx_info, t_camera *camera, int count, double dist);
 void	c3d_fill_floor(t_mlx_info *mlx_info, t_pixel *img_buf);
 void	c3d_drawline(t_img_elem *img_elem, t_vec4 *p0, t_vec4 *p1);
 void	c3d_aa_drawline(t_img_elem *img_elem, t_vec4 *p0, t_vec4 *p1);

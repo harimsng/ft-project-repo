@@ -6,10 +6,11 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 19:18:38 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/18 22:14:23 by hseong           ###   ########.fr       */
+/*   Updated: 2022/05/21 21:07:57 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "c3d_const.h"
 #include "mlx.h"
 #include "c3d.h"
 #include "libft.h"
@@ -67,7 +68,7 @@ void	c3d_init(int argc, char **argv, t_mlx_info *mlx_info)
 	*/
 	mlx_do_key_autorepeaton(mlx_info->mlx_ptr);
 	ft_putstr_fd("rendering scene\n", 1);
-	*mlx_info->camera = (t_camera){0, 250, 250};
+	*mlx_info->camera = (t_camera){0, GRID_WIDTH * 3, GRID_WIDTH * 3};
 }
 
 int	c3d_loop(t_mlx_info *mlx_info)
