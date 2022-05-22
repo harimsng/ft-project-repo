@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 20:03:29 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/18 20:32:06 by hseong           ###   ########.fr       */
+/*   Updated: 2022/05/22 23:08:10 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,19 @@ typedef unsigned int	t_pixel;
 typedef int				t_bool;
 typedef unsigned char	t_byte;
 typedef unsigned int	t_uint32;
+typedef long long int	t_int64;
 
 typedef struct s_vec2
 {
 	double	x;
 	double	y;
 }			t_vec2;
+
+typedef struct s_ivec2
+{
+	t_int64	x;
+	t_int64	y;
+}			t_ivec2;
 
 typedef struct s_vec3
 {
@@ -60,6 +67,8 @@ typedef struct s_map_info
 typedef struct s_resource
 {
 	void	*texture_arr[MAX_TEXTURE];
+	t_ivec2	texture_info[MAX_TEXTURE];
+	int		size;
 }			t_resource;
 
 

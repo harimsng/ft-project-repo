@@ -11,11 +11,11 @@ SRC			=	main.c\
 				c3d_init.c\
 				c3d_detect_wall.c\
 				c3d_load_map.c\
+				c3d_load_texture.c\
 				c3d_raycast.c\
 				c3d_drawline.c\
 				c3d_background.c\
 				c3d_draw_scene.c\
-				c3d_detect_collision.c\
 				c3d_fill_floor.c\
 				c3d_util.c\
 				c3d_exit.c\
@@ -92,7 +92,7 @@ fclean: clean $(LIBS:%=%.clean)
 $(LIBS:%=%.clean): %.lib.clean:
 	$(RM) $($*)
 	@$(MAKE) -C $($*_DIR) clean
-	rm $*.lib
+	$(RM) $*.lib
 
 re: fclean
 	$(MAKE) all

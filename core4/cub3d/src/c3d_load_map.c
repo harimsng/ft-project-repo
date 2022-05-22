@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 17:58:01 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/18 07:57:51 by hseong           ###   ########.fr       */
+/*   Updated: 2022/05/22 21:41:18 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
 typedef char	**t_word_arr;
 
 char			*get_next_line(int fd);
-static t_bool	read_map(int fd, t_map_info *map_info);
-static t_bool	check_map(t_map_info *map_info, t_word_arr *words);
+static int		read_map(int fd, t_map_info *map_info);
+static int		check_map(t_map_info *map_info, t_word_arr *words);
 static void		dealloc_words(t_word_arr *words);
 
-t_bool	c3d_load_map(int argc, char **argv, t_map_info *map_info)
+int	c3d_load_map(int argc, char **argv, t_map_info *map_info)
 {
 	t_bool	flag1;
 	int		fd;
@@ -44,7 +44,7 @@ t_bool	c3d_load_map(int argc, char **argv, t_map_info *map_info)
 	return (flag1);
 }
 
-t_bool	read_map(int fd, t_map_info *map_info)
+int	read_map(int fd, t_map_info *map_info)
 {
 	char		*line;
 	t_word_arr	words[MAP_MAXROWS + 1];
@@ -52,7 +52,7 @@ t_bool	read_map(int fd, t_map_info *map_info)
 
 	line = get_next_line(fd);
 	if (line == NULL)
-		return (FALSE);
+		return (FAIL);
 	idx = 0;
 	while (line != NULL)
 	{
@@ -65,11 +65,11 @@ t_bool	read_map(int fd, t_map_info *map_info)
 	map_info->row = idx;
 	map_info->map = malloc(sizeof(t_vec3 *) * map_info->row);
 	if (map_info->map == NULL)
-		return (FALSE);
+		return (FAIL);
 	return (check_map(map_info, words));
 }
 
-t_bool	check_map(t_map_info *map_info, t_word_arr *words)
+int	check_map(t_map_info *map_info, t_word_arr *words)
 {
 	size_t	idx;
 	size_t	jdx;
@@ -92,7 +92,7 @@ t_bool	check_map(t_map_info *map_info, t_word_arr *words)
 	}
 	map_info->row = idx;
 	dealloc_words(words);
-	return (jdx == map_info->col);
+	return (!(jdx == map_info->col));
 }
 
 void	dealloc_words(t_word_arr *words)

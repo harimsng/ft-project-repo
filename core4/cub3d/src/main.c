@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 19:18:38 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/21 21:07:57 by hseong           ###   ########.fr       */
+/*   Updated: 2022/05/22 23:06:59 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,16 @@
 #include <stdio.h>
 #include <math.h>
 
-#define TEXTURE_DIR ("../resource")
-
 static int	c3d_loop(t_mlx_info *mlx_info);
 static void	c3d_init(int argc, char **argv, t_mlx_info *mlx_info);
 static void	c3d_task(t_mlx_info *mlx_info);
 //static void	c3d_thread_join(t_mlx_info *mlx_info);
+
+static const char	*g_texture_path[]
+	= {
+	"./resource/brick2.xpm",
+	NULL
+};
 
 int	main(int argc, char *argv[])
 {
@@ -47,16 +51,16 @@ int	main(int argc, char *argv[])
 void	c3d_init(int argc, char **argv, t_mlx_info *mlx_info)
 {
 	ft_memset(mlx_info->map_info, 0, sizeof(t_map_info));
-	if (c3d_load_map(argc, argv, mlx_info->map_info) == FALSE)
+	if (c3d_load_map(argc, argv, mlx_info->map_info) == FAIL)
 	{
 		ft_putstr_fd("invalid map format\n", 2);
 		c3d_exit(0x1, mlx_info);
 	}
-//	if (c3d_load_texture(TEXTURE_DIR, mlx_info) == FALSE)
-//	{
-//		ft_putstr_fd("unable to get texture data\n", 2);
-//		c3d_exit(0x1, mlx_info);
-//	}
+	if (c3d_load_texture(g_texture_path, mlx_info) == FAIL)
+	{
+		ft_putstr_fd("unable to get texture data\n", 2);
+		c3d_exit(0x1, mlx_info);
+	}
 	if (init_win(mlx_info) != 0 || init_img(mlx_info, mlx_info->img_elem) != 0)
 	{
 		perror("initialization failed");
@@ -78,7 +82,9 @@ int	c3d_loop(t_mlx_info *mlx_info)
 	c3d_fill_floor(mlx_info, mlx_info->img_elem->img_buf);
 	c3d_raycast(mlx_info, mlx_info->camera);
 	mlx_put_image_to_window(mlx_info->mlx_ptr,
-		mlx_info->win_ptr, mlx_info->img_ptr, 0, SUBIMG_HEIGHT);
+		mlx_info->win_ptr, mlx_info->img_ptr, 0, 0);
+	mlx_put_image_to_window(mlx_info->mlx_ptr,
+		mlx_info->win_ptr, mlx_info->resource->texture_arr[0], 0, 0);
 	return (0);
 }
 

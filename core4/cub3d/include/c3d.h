@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 19:26:20 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/21 19:06:30 by hseong           ###   ########.fr       */
+/*   Updated: 2022/05/22 22:41:16 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 int		init_win(t_mlx_info *mlx_info);
 int		init_img(t_mlx_info *mlx_info, t_img_elem *img_elem);
 int		init_sub(t_mlx_info *mlx_info);
-t_bool	c3d_load_map(int argc, char **argv, t_map_info *map_info);
+int		c3d_load_map(int argc, char **argv, t_map_info *map_info);
+int		c3d_load_texture(const char **path, t_mlx_info *mlx_info);
 void	c3d_exit(int status, t_mlx_info *mlx_info);
 t_bool	c3d_alloc_map(t_map_info *map_info);
 

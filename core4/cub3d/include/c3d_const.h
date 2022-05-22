@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 17:10:04 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/20 22:29:49 by hseong           ###   ########.fr       */
+/*   Updated: 2022/05/22 21:39:42 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,12 @@
 
 # define TRUE (1)
 # define FALSE (0)
+
+enum e_return
+{
+	SUCCESS,
+	FAIL
+};
 
 # define BYTE (0xFF)
 
