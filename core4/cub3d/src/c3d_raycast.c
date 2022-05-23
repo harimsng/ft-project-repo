@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 01:59:26 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/21 19:13:40 by hseong           ###   ########.fr       */
+/*   Updated: 2022/05/24 03:17:52 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	c3d_raycast(t_mlx_info *mlx_info, t_camera *camera)
 	{
 		temp = (t_camera){camera->angle - g_half_fov + angle,
 			camera->x, camera->y};
-		c3d_detect_wall(mlx_info->map_info, &temp, &point);
-		c3d_draw_vline(mlx_info, camera, count,
+		c3d_draw_vline(c3d_detect_wall(mlx_info->map_info, &temp, &point),
+			mlx_info, count,
 			cos(angle - g_half_fov) * vec2_dist(&camera_vec2, &point));
 		angle += g_angle_step;
 		++count;

@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 19:22:24 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/18 07:58:05 by hseong           ###   ########.fr       */
+/*   Updated: 2022/05/24 00:19:28 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ void	c3d_exit(int status, t_mlx_info *mlx_info)
 
 void	terminate_c3d(t_mlx_info *mlx_info)
 {
+	if (mlx_info->resource->size < 0)
+	{
+		mlx_info->resource->size *= -1;
+		c3d_destroy_texture(mlx_info);
+	}
 	if (mlx_info->sub_ptr != NULL)
 		mlx_destroy_image(mlx_info->mlx_ptr, mlx_info->sub_ptr);
 	if (mlx_info->img_ptr != NULL)

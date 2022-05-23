@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 21:37:38 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/23 17:26:41 by hseong           ###   ########.fr       */
+/*   Updated: 2022/05/24 03:42:36 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,35 +15,32 @@
 #include "libft.h"
 #include <stdio.h>
 
-typedef void	*(*t_mlx_image_func)();
+typedef void	*(*t_img_ext)(void *, char *, int *, int *);
 
-static t_mlx_image_func	which_image(char *path);
-static void				remove_texture(t_mlx_info *mlx_info);
+static t_img_ext	which_file(char *path);
+static int			get_image_attr(void *img_ptr, t_img_elem *attr_arr);
 
 int c3d_load_texture(const char **path, t_mlx_info *mlx_info)
 {
 	void		*img_ptr;
 	t_resource	*resource;
-	int			width;
-	int			height;
 	int			idx;
 
-	(void)which_image;
+	ft_putstr_fd("loading texture files\n", 1);
 	idx = 0;
 	resource = mlx_info->resource;
 	while (path[idx] && idx < MAX_TEXTURE)
 	{
-		printf("path = %s\n", path[idx]);
-		img_ptr = /*((which_image((char *)path[idx]))*/mlx_xpm_file_to_image(mlx_info->mlx_ptr, (char *)path[idx],
-			&width, &height);
-		if (img_ptr == NULL)
+		img_ptr = (which_file((char *)path[idx]))(mlx_info->mlx_ptr,
+			(char *)path[idx], (int *)&(resource->attr_arr + idx)->hor_px,
+			(int *)&(resource->attr_arr + idx)->ver_px);
+		if (img_ptr == NULL
+			|| get_image_attr(img_ptr, resource->attr_arr + idx) == FAIL)
 		{
-			remove_texture(mlx_info);
+			resource->size *= -1;
 			break ;
 		}
-		printf("%p %d\n", img_ptr, idx);
 		resource->texture_arr[idx] = img_ptr;
-		resource->texture_info[idx] = (t_ivec2){width, height};
 		++idx;
 		++resource->size;
 	}
@@ -52,12 +49,12 @@ int c3d_load_texture(const char **path, t_mlx_info *mlx_info)
 	return (path == NULL);
 }
 
-void	remove_texture(t_mlx_info *mlx_info)
+void	c3d_destroy_texture(t_mlx_info *mlx_info)
 {
 	int		idx;
 	t_resource	*resource;
 
-	printf("texture loading failed\n");
+	ft_putstr_fd("texture loading failed\n", 2);
 	idx = 0;
 	resource = mlx_info->resource;
 	while (idx < resource->size)
@@ -67,13 +64,29 @@ void	remove_texture(t_mlx_info *mlx_info)
 	}
 }
 
-t_mlx_image_func	which_image(char *path)
+t_img_ext	which_file(char *path)
 {
-	printf("path = %s\n", path);
-	if (ft_strnstr(path, ".xpm", 4) == 0)
+	char	*point;
+
+	while (*path)
+	{
+		if (*path == '.')
+			point = path++;
+		while (*path && *path != '.')
+			++path;
+	}
+	if (ft_strncmp(point, ".xpm", ft_strlen(point)) == 0)
 		return (mlx_xpm_file_to_image);
-//	else if (ft_strnstr(path, ".png", 4) == 0)
-//		return (mlx_png_file_to_image);
+	else if (ft_strncmp(point, ".png", ft_strlen(point)) == 0)
+		return (mlx_png_file_to_image);
 	return (NULL);
 }
 
+int	get_image_attr(void *img_ptr, t_img_elem *attr_ptr)
+{
+	attr_ptr->img_buf = (t_pixel *)mlx_get_data_addr(img_ptr,
+		&attr_ptr->depth_bits, 
+		&attr_ptr->line_bytes, &attr_ptr->endian);
+	printf("hor_px = %zu\n", attr_ptr->hor_px);
+	return (attr_ptr->img_buf == NULL);
+}

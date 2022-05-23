@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 19:18:38 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/23 17:26:04 by hseong           ###   ########.fr       */
+/*   Updated: 2022/05/24 05:18:15 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,19 @@ void	c3d_init(int argc, char **argv, t_mlx_info *mlx_info)
 	ft_memset(mlx_info->resource, 0, sizeof(t_resource));
 	if (c3d_load_map(argc, argv, mlx_info->map_info) == FAIL)
 	{
-		ft_putstr_fd("invalid map format\n", 2);
+		perror("invalid map format\n");
 		c3d_exit(0x1, mlx_info);
 	}
-	if (init_win(mlx_info) != 0 || init_img(mlx_info, mlx_info->img_elem) != 0)
+	if (init_win(mlx_info) == FAIL
+		|| init_img(mlx_info, mlx_info->img_elem) == FAIL)
 	{
 		perror("initialization failed");
 		c3d_exit(0x2, mlx_info);
 	}
 	if (c3d_load_texture(g_texture_path, mlx_info) == FAIL)
 	{
-		ft_putstr_fd("unable to get texture data\n", 2);
-		c3d_exit(0x1, mlx_info);
+		perror("unable to get texture data\n");
+		c3d_exit(0x4, mlx_info);
 	}
 	/*
 	if (init_sub(mlx_info) != 0)
@@ -85,18 +86,17 @@ int	c3d_loop(t_mlx_info *mlx_info)
 	c3d_raycast(mlx_info, mlx_info->camera);
 	mlx_put_image_to_window(mlx_info->mlx_ptr,
 		mlx_info->win_ptr, mlx_info->img_ptr, 0, 0);
-	mlx_put_image_to_window(mlx_info->mlx_ptr,
-		mlx_info->win_ptr, mlx_info->resource->texture_arr[0], 0, 0);
+	get_frametime(mlx_info);
 	return (0);
 }
 
 void	c3d_task(t_mlx_info *mlx_info)
 {
-	int		x;
-	int		y;
+//	int		x;
+//	int		y;
 
-	c3d_mouse_get_pos(mlx_info, &x, &y);
-	mlx_info->camera->angle += x * MOUSE_SENSITIVITY;
+//	c3d_mouse_get_pos(mlx_info, &x, &y);
+//	mlx_info->camera->angle += x * MOUSE_SENSITIVITY;
 	mlx_do_sync(mlx_info->mlx_ptr);
 	ft_memset(mlx_info->img_elem->img_buf, 0, mlx_info->img_elem->arr_bytes);
 //	ft_memset(mlx_info->sub_elem->img_buf, 0, mlx_info->sub_elem->arr_bytes);

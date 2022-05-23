@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 22:39:28 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/21 21:42:22 by hseong           ###   ########.fr       */
+/*   Updated: 2022/05/24 03:34:32 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,19 @@ c3d_detect_wall(t_map_info *map_info, t_camera *camera, t_vec2 *point)
 		contact |= 4 * east_ray(map_info, camera, &ver_point);
 	else if (angle > M_PI + SAFE_ANGLE && angle < 2 * M_PI - SAFE_ANGLE)
 		contact |= 8 * west_ray(map_info, camera, &ver_point);
-	*point = hor_point;
 	if ((contact & 3) == 0
 		|| (((contact & 12) != 0) && vec2_dist(&(t_vec2){camera->x, camera->y}, &hor_point)
 		> vec2_dist(&(t_vec2){camera->x, camera->y}, &ver_point)))
+	{
 		*point = ver_point;
-	return (!!contact);
+		contact = lround(point->y);
+	}
+	else
+	{
+		*point = hor_point;
+		contact = lround(point->x);
+	}
+	return (contact);
 }
 
 int
@@ -77,8 +84,7 @@ north_ray(t_map_info *map_info, const t_camera *camera, t_vec2 *point)
 	point->x += (camera->y - point->y) * ratio;
 	map_x = ftoi(point->x) / GRID_WIDTH;
 	map_y = (int)(point->y) / GRID_WIDTH;
-	while (map_x < map_info->col
-		&& map_y < map_info->row
+	while (map_x < map_info->col && map_y < map_info->row
 		&& map_info->map[map_y][map_x] != 1)
 	{
 		point->y -= GRID_WIDTH;
@@ -98,18 +104,16 @@ south_ray(t_map_info *map_info, const t_camera *camera, t_vec2 *point)
 	t_ftoi	ftoi;
 
 	ftoi = floor;
-	ratio = tan(camera->angle);
-	if (ratio > 0)
-		ftoi = ceil;
 	ratio = tan(M_PI - camera->angle);
+	if (ratio < 0)
+		ftoi = ceil;
 	map_x = (int)camera->x / GRID_WIDTH;
 	map_y = (int)camera->y / GRID_WIDTH;
 	point->y = (map_y + 1) * GRID_WIDTH;
 	point->x += (point->y - camera->y) * ratio;
 	map_x = ftoi(point->x) / GRID_WIDTH;
 	map_y = (int)point->y / GRID_WIDTH;
-	while (map_x < map_info->col 
-		&& map_y < map_info->row
+	while (map_x < map_info->col && map_y < map_info->row
 		&& map_info->map[map_y][map_x] != 1)
 	{
 		point->y += GRID_WIDTH;
@@ -129,18 +133,16 @@ east_ray(t_map_info *map_info, const t_camera *camera, t_vec2 *point)
 	t_ftoi	ftoi;
 
 	ftoi = floor;
-	ratio = tan(camera->angle);
-	if (ratio > 0)
-		ftoi = ceil;
 	ratio = tan(camera->angle - M_PI_2);
+	if (ratio < 0)
+		ftoi = ceil;
 	map_x = (int)camera->x / GRID_WIDTH;
 	map_y = (int)camera->y / GRID_WIDTH;
 	point->x = (map_x + 1) * GRID_WIDTH;
 	point->y += (point->x - camera->x) * ratio;
 	map_x = (int)(point->x) / GRID_WIDTH;
 	map_y = ftoi(point->y) / GRID_WIDTH;
-	while (map_x < map_info->col 
-		&& map_y < map_info->row
+	while (map_x < map_info->col && map_y < map_info->row
 		&& map_info->map[map_y][map_x] != 1)
 	{
 		point->x += GRID_WIDTH;
@@ -160,18 +162,16 @@ west_ray(t_map_info *map_info, const t_camera *camera, t_vec2 *point)
 	t_ftoi	ftoi;
 
 	ftoi = floor;
-	ratio = tan(camera->angle);
+	ratio = tan(M_PI + M_PI_2 - camera->angle);
 	if (ratio < 0)
 		ftoi = ceil;
-	ratio = tan(M_PI + M_PI_2 - camera->angle);
 	map_x = (int)camera->x / GRID_WIDTH;
 	map_y = (int)camera->y / GRID_WIDTH;
 	point->x = map_x * GRID_WIDTH - 1;
 	point->y += (camera->x - point->x) * ratio;
 	map_x = (int)(point->x) / GRID_WIDTH;
 	map_y = ftoi(point->y) / GRID_WIDTH;
-	while (map_x < map_info->col
-		&& map_y < map_info->row 
+	while (map_x < map_info->col && map_y < map_info->row 
 		&& map_info->map[map_y][map_x] != 1)
 	{
 		point->x -= GRID_WIDTH;

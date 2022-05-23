@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 20:03:29 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/22 23:08:10 by hseong           ###   ########.fr       */
+/*   Updated: 2022/05/24 01:02:38 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,28 +64,12 @@ typedef struct s_map_info
 	size_t	col;
 }			t_map_info;
 
-typedef struct s_resource
-{
-	void	*texture_arr[MAX_TEXTURE];
-	t_ivec2	texture_info[MAX_TEXTURE];
-	int		size;
-}			t_resource;
-
-
 /*
 typedef struct s_mouse
 {
 	int	x;
 	int	y;
 }			t_mouse;
-
-typedef struct s_mlx_flag
-{
-	t_bool		wireframe_flag;
-	t_bool		background_flag;
-	t_bool		interface_flag;
-	t_bool		automove_flag;
-}			t_mlx_flag;
 */
 
 typedef struct s_img_elem
@@ -99,6 +83,13 @@ typedef struct s_img_elem
 	size_t	ver_px;
 }			t_img_elem;
 
+typedef struct s_resource
+{
+	void		*texture_arr[MAX_TEXTURE];
+	t_img_elem	attr_arr[MAX_TEXTURE];
+	int			size;
+}			t_resource;
+
 typedef struct s_mlx_info
 {
 	void		*mlx_ptr;
@@ -109,7 +100,6 @@ typedef struct s_mlx_info
 	t_map_info	*map_info;
 	t_resource	*resource;
 	t_camera	*camera;
-//	t_mlx_flag	*mlx_flag;
 //	pthread_t	thread[SCREEN_HEIGHT];
 }			t_mlx_info;
 

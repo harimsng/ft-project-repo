@@ -2,7 +2,7 @@ NAME		=	cub3d
 
 
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror -O3
 DEBUG		=	-g3 -fsanitize=address
 RM			=	rm -f
 
@@ -20,6 +20,7 @@ SRC			=	main.c\
 				c3d_util.c\
 				c3d_exit.c\
 				c3d_hook.c\
+				c3d_interface.c\
 				keymap/c3d_keymap_transl_mac.c\
 				keymap/c3d_keymap_rotate_mac.c\
 				get_next_line.c
