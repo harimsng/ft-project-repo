@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 19:18:38 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/22 23:06:59 by hseong           ###   ########.fr       */
+/*   Updated: 2022/05/23 17:26:04 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,22 @@ int	main(int argc, char *argv[])
 void	c3d_init(int argc, char **argv, t_mlx_info *mlx_info)
 {
 	ft_memset(mlx_info->map_info, 0, sizeof(t_map_info));
+	ft_memset(mlx_info->img_elem, 0, sizeof(t_img_elem));
+	ft_memset(mlx_info->resource, 0, sizeof(t_resource));
 	if (c3d_load_map(argc, argv, mlx_info->map_info) == FAIL)
 	{
 		ft_putstr_fd("invalid map format\n", 2);
-		c3d_exit(0x1, mlx_info);
-	}
-	if (c3d_load_texture(g_texture_path, mlx_info) == FAIL)
-	{
-		ft_putstr_fd("unable to get texture data\n", 2);
 		c3d_exit(0x1, mlx_info);
 	}
 	if (init_win(mlx_info) != 0 || init_img(mlx_info, mlx_info->img_elem) != 0)
 	{
 		perror("initialization failed");
 		c3d_exit(0x2, mlx_info);
+	}
+	if (c3d_load_texture(g_texture_path, mlx_info) == FAIL)
+	{
+		ft_putstr_fd("unable to get texture data\n", 2);
+		c3d_exit(0x1, mlx_info);
 	}
 	/*
 	if (init_sub(mlx_info) != 0)

@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 21:37:38 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/22 23:11:53 by hseong           ###   ########.fr       */
+/*   Updated: 2022/05/23 17:26:41 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int c3d_load_texture(const char **path, t_mlx_info *mlx_info)
 	resource = mlx_info->resource;
 	while (path[idx] && idx < MAX_TEXTURE)
 	{
-		img_ptr = /*((which_image((char *)path[idx]))*/mlx_xpm_file_to_image(mlx_info, (char *)path[idx],
+		printf("path = %s\n", path[idx]);
+		img_ptr = /*((which_image((char *)path[idx]))*/mlx_xpm_file_to_image(mlx_info->mlx_ptr, (char *)path[idx],
 			&width, &height);
 		if (img_ptr == NULL)
 		{
@@ -48,7 +49,7 @@ int c3d_load_texture(const char **path, t_mlx_info *mlx_info)
 	}
 	if (idx == MAX_TEXTURE)
 		ft_putstr_fd("reached maximum textures. adjust MAX_TEXTURE\n", 2);
-	return (path != NULL);
+	return (path == NULL);
 }
 
 void	remove_texture(t_mlx_info *mlx_info)
@@ -56,9 +57,10 @@ void	remove_texture(t_mlx_info *mlx_info)
 	int		idx;
 	t_resource	*resource;
 
+	printf("texture loading failed\n");
 	idx = 0;
 	resource = mlx_info->resource;
-	while (idx < resource->size - 1)
+	while (idx < resource->size)
 	{
 		mlx_destroy_image(mlx_info->mlx_ptr, resource->texture_arr[idx]);
 		++idx;
@@ -67,10 +69,11 @@ void	remove_texture(t_mlx_info *mlx_info)
 
 t_mlx_image_func	which_image(char *path)
 {
-	if (ft_strnstr(path, ".png", 4) == 0)
-		return (mlx_png_file_to_image);
-	else if (ft_strnstr(path, ".xpm", 4) == 0)
+	printf("path = %s\n", path);
+	if (ft_strnstr(path, ".xpm", 4) == 0)
 		return (mlx_xpm_file_to_image);
+//	else if (ft_strnstr(path, ".png", 4) == 0)
+//		return (mlx_png_file_to_image);
 	return (NULL);
 }
 
