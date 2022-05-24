@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 21:37:38 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/24 03:42:36 by hseong           ###   ########.fr       */
+/*   Updated: 2022/05/24 09:42:15 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ t_img_ext	which_file(char *path)
 {
 	char	*point;
 
+	point = NULL;
 	while (*path)
 	{
 		if (*path == '.')
@@ -77,8 +78,8 @@ t_img_ext	which_file(char *path)
 	}
 	if (ft_strncmp(point, ".xpm", ft_strlen(point)) == 0)
 		return (mlx_xpm_file_to_image);
-	else if (ft_strncmp(point, ".png", ft_strlen(point)) == 0)
-		return (mlx_png_file_to_image);
+//	else if (ft_strncmp(point, ".png", ft_strlen(point)) == 0)
+//		return (mlx_png_file_to_image);
 	return (NULL);
 }
 

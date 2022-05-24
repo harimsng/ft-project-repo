@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 19:18:38 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/24 05:18:15 by hseong           ###   ########.fr       */
+/*   Updated: 2022/05/24 10:13:58 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	c3d_init(int argc, char **argv, t_mlx_info *mlx_info)
 	*/
 	mlx_do_key_autorepeaton(mlx_info->mlx_ptr);
 	ft_putstr_fd("rendering scene\n", 1);
-	*mlx_info->camera = (t_camera){0, GRID_WIDTH * 3, GRID_WIDTH * 3};
+	*mlx_info->camera = (t_camera){0, GRID_WIDTH * 2, GRID_WIDTH * 2};
 }
 
 int	c3d_loop(t_mlx_info *mlx_info)
@@ -92,11 +92,11 @@ int	c3d_loop(t_mlx_info *mlx_info)
 
 void	c3d_task(t_mlx_info *mlx_info)
 {
-//	int		x;
-//	int		y;
+	int		x;
+	int		y;
 
-//	c3d_mouse_get_pos(mlx_info, &x, &y);
-//	mlx_info->camera->angle += x * MOUSE_SENSITIVITY;
+	c3d_mouse_get_pos(mlx_info, &x, &y);
+	mlx_info->camera->angle += x * MOUSE_SENSITIVITY;
 	mlx_do_sync(mlx_info->mlx_ptr);
 	ft_memset(mlx_info->img_elem->img_buf, 0, mlx_info->img_elem->arr_bytes);
 //	ft_memset(mlx_info->sub_elem->img_buf, 0, mlx_info->sub_elem->arr_bytes);
