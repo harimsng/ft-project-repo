@@ -1,1 +1,1 @@
-This repository contains C source codes for 42seoul subjects submissions, libraries, public testers and config files I'm using on Cluster Mac.
+This repository contains various projects written in C about system programming, multi-threading and computer graphics.
