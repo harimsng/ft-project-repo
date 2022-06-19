@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 18:51:36 by hseong            #+#    #+#             */
-/*   Updated: 2022/03/17 16:18:46 by hseong           ###   ########.fr       */
+/*   Updated: 2022/06/09 13:50:02 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,16 @@ static void	dealloc_info(t_proc_info *proc_info, t_cmd_info *cmd_info);
 static void	dealloc_argv(char **argv);
 static void	wait_child(t_proc_info *proc_info, t_cmd_info *cmd_info);
 
-int	main(int argc, char *argv[])
+int	main(int argc, char *argv[], char *envp[])
 {
 	t_proc_info	*proc_info;
 	t_cmd_info	cmd_info;
 
+	(void)envp;
 	cmd_info = (t_cmd_info){argc, argv, 0, 0, NULL, {0, 0}, 0};
 	if (check_args(argc, argv, &cmd_info) == FALSE
 		|| set_io_files(&cmd_info, cmd_info.io_fd) == FALSE)
-		exit(1);
+		return (1);
 	proc_info = malloc(sizeof(t_proc_info) * cmd_info.cmd_num);
 	if (proc_info == NULL)
 		return (1);

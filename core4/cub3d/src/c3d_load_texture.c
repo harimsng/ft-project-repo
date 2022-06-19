@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 21:37:38 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/24 03:42:36 by hseong           ###   ########.fr       */
+/*   Updated: 2022/06/06 06:27:16 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,6 @@ int	get_image_attr(void *img_ptr, t_img_elem *attr_ptr)
 		&attr_ptr->depth_bits, 
 		&attr_ptr->line_bytes, &attr_ptr->endian);
 	printf("hor_px = %zu\n", attr_ptr->hor_px);
+	printf("line bytes = %d\n", attr_ptr->line_bytes);
 	return (attr_ptr->img_buf == NULL);
 }

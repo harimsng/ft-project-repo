@@ -11,6 +11,9 @@
  * @brief Allocates space for expression
  * @return The expression or NULL if not enough memory
  */
+
+int g_idx;
+
 static SExpression *allocateExpression()
 {
     SExpression *b = (SExpression *)malloc(sizeof(SExpression));

@@ -6,13 +6,14 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 22:39:28 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/24 03:34:32 by hseong           ###   ########.fr       */
+/*   Updated: 2022/06/06 05:58:46 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
+
 #include "c3d.h"
 #include "c3d_type.h"
-#include <math.h>
 
 #define SAFE_ANGLE (0.005)
 

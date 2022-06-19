@@ -6,13 +6,15 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 20:39:33 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/24 05:14:17 by hseong           ###   ########.fr       */
+/*   Updated: 2022/06/06 06:44:39 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
+#include <stdio.h>
+
 #include "c3d.h"
 #include "c3d_const.h"
-#include <math.h>
 
 static t_uint32	darken_color(t_uint32 color, double dist);
 
@@ -46,9 +48,13 @@ void	c3d_draw_vline(int contact, t_mlx_info *mlx_info,
 	while (len)
 	{
 		map[idx * hor_px + count]
-			= texture->img_buf
-			[jdx * texture->ver_px / len_origin * texture->hor_px
-			+ (contact % GRID_WIDTH) * texture->hor_px / GRID_WIDTH];
+			= darken_color(texture->img_buf
+//			[texture->hor_px * (jdx * texture->ver_px / len_origin)
+//			+ (contact * texture->hor_px / GRID_WIDTH)];
+			[(texture->line_bytes >> 2) * (jdx * texture->ver_px / len_origin)
+			+ (contact & MASK_GRID_WIDTH)
+			* (texture->hor_px >> LOG_GRID_WIDTH)], dist);
+//			+ (contact % GRID_WIDTH) * texture->hor_px / GRID_WIDTH];
 //			= darken_color(texture->img_buf
 //			[jdx * texture->ver_px / len_origin * texture->hor_px
 //			+ (contact % GRID_WIDTH) * texture->hor_px / GRID_WIDTH], dist);
@@ -69,8 +75,8 @@ t_uint32	darken_color(t_uint32 color, double dist)
 	red = (color & 0xFF0000) >> 16;
 	green = (color & 0xFF00) >> 8;
 	blue = color & 0xFF;
-	red = red * (1.0 - dist / (100 + dist));
-	green = green * (1.0 - dist / (100 + dist));
-	blue = blue * (1.0 - dist / (100 + dist));
+	red = red * (1.0 - dist / (DARKEN_DIST + dist));
+	green = green * (1.0 - dist / (DARKEN_DIST + dist));
+	blue = blue * (1.0 - dist / (DARKEN_DIST + dist));
 	return ((red << 16) + (green << 8) + blue);
 }

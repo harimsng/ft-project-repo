@@ -45,7 +45,7 @@
 extern int yydebug;
 #endif
 /* "%code requires" blocks.  */
-#line 17 "Parser.y"
+#line 19 "Parser.y"
 
   typedef void* yyscan_t;
 
@@ -74,7 +74,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 29 "Parser.y"
+#line 31 "Parser.y"
 
     int value;
     SExpression *expression;

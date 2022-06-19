@@ -80,10 +80,12 @@
 #include "Lexer.h"
 
 // reference the implementation provided in Lexer.l
+extern int		g_idx;
+
 int yyerror(SExpression **expression, yyscan_t scanner, const char *msg);
 
 
-#line 87 "Parser.c"
+#line 89 "Parser.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -509,7 +511,7 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    52,    52,    56,    57,    58,    59,    60
+       0,    54,    54,    58,    59,    60,    61,    62
 };
 #endif
 
@@ -1081,43 +1083,43 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* input: expr  */
-#line 52 "Parser.y"
+#line 54 "Parser.y"
            { *expression = (yyvsp[0].expression); }
-#line 1087 "Parser.c"
+#line 1089 "Parser.c"
     break;
 
   case 3: /* expr: expr "+" expr  */
-#line 56 "Parser.y"
-                          { (yyval.expression) = createOperation( eADD, (yyvsp[-2].expression), (yyvsp[0].expression) ); }
-#line 1093 "Parser.c"
+#line 58 "Parser.y"
+                          { (yyval.expression) = createOperation( eADD, (yyvsp[-2].expression), (yyvsp[0].expression) ); printf("%d: %d plus %d\n", g_idx++, (yyvsp[-2].expression)->value, (yyvsp[0].expression)->value);}
+#line 1095 "Parser.c"
     break;
 
   case 4: /* expr: expr "*" expr  */
-#line 57 "Parser.y"
-                          { (yyval.expression) = createOperation( eMULTIPLY, (yyvsp[-2].expression), (yyvsp[0].expression) ); }
-#line 1099 "Parser.c"
+#line 59 "Parser.y"
+                          { (yyval.expression) = createOperation( eMULTIPLY, (yyvsp[-2].expression), (yyvsp[0].expression) ); printf("%d: %d mul %d\n", g_idx++, (yyvsp[-2].expression)->value, (yyvsp[0].expression)->value);}
+#line 1101 "Parser.c"
     break;
 
   case 5: /* expr: expr "%" expr  */
-#line 58 "Parser.y"
-                          { (yyval.expression) = createOperation( eMOD, (yyvsp[-2].expression), (yyvsp[0].expression) ); }
-#line 1105 "Parser.c"
+#line 60 "Parser.y"
+                          { (yyval.expression) = createOperation( eMOD, (yyvsp[-2].expression), (yyvsp[0].expression) ); printf("%d: %d mod %d\n", g_idx++, (yyvsp[-2].expression)->value, (yyvsp[0].expression)->value);}
+#line 1107 "Parser.c"
     break;
 
   case 6: /* expr: "(" expr ")"  */
-#line 59 "Parser.y"
-                          { (yyval.expression) = (yyvsp[-1].expression); }
-#line 1111 "Parser.c"
+#line 61 "Parser.y"
+                          { (yyval.expression) = (yyvsp[-1].expression); printf("%d: paren\n", g_idx++);}
+#line 1113 "Parser.c"
     break;
 
   case 7: /* expr: "number"  */
-#line 60 "Parser.y"
-                          { (yyval.expression) = createNumber((yyvsp[0].value)); }
-#line 1117 "Parser.c"
+#line 62 "Parser.y"
+                          { (yyval.expression) = createNumber((yyvsp[0].value)); printf("%d: num %d\n", g_idx++, (yyvsp[0].value));}
+#line 1119 "Parser.c"
     break;
 
 
-#line 1121 "Parser.c"
+#line 1123 "Parser.c"
 
       default: break;
     }
@@ -1310,6 +1312,6 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 63 "Parser.y"
+#line 65 "Parser.y"
 
 

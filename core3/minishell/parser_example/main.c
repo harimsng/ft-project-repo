@@ -57,7 +57,8 @@ int main(void)
     int result = evaluate(e);
     printf("Result of '%s' is %d\n", test, result);
     deleteExpression(e);
-	ptr = strdup("1 + 2 % 3 + 4 + 9 * (1 + 2) % 4 ");
+//	ptr = strdup("1 + 2 % 3 + 4 + 9 * (1 + 2) % 4 ");
+	ptr = strdup("((1 + 5) % 4) * 5");
 	SExpression *e2 = getAST(ptr);
 	result = evaluate(e2);
 	printf("%s = %d\n", ptr, result);

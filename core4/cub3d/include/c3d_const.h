@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 17:10:04 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/24 05:02:23 by hseong           ###   ########.fr       */
+/*   Updated: 2022/06/08 17:24:16 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,23 @@
 // environment constant
 # define SCREEN_WIDTH (1920)
 # define SCREEN_HEIGHT (1280)
-# define VP_DIST (256) // viewport distance
+# define VP_DIST (386) // viewport distance
 # define SUBIMG_WIDTH (SCREEN_WIDTH)
 # define SUBIMG_HEIGHT (80)
 # define TEXT_HEIGHT (16)
 # define MAX_TEXTURE (16)
 
 // map control coefficient
-# define FOV (75.0)
+# define FOV (60.0)
 # define MOUSE_SENSITIVITY (0.002)
-# define GRID_WIDTH (64)
-# define MASK_GRID_WIDTH (63)	// if grid_width = 2^n, mask = grid_width - 1
-# define LOG_GRID_WIDTH (6)		// log2(grid_width)
-# define X_STEP (3)
-# define Y_STEP (3)
+# define GRID_WIDTH (256)
+# define MASK_GRID_WIDTH (255)	// if grid_width = 2^n, mask = grid_width - 1
+# define LOG_GRID_WIDTH (8)		// log2(grid_width)
+# define X_STEP (30)
+# define Y_STEP (30)
 # define YAW_STEP (0.1)
-# define MAX_DIST (800)
+# define MAX_DIST (3000)
+# define DARKEN_DIST (200)
 # define LIGHT_DIST (400)
 
 // maximum map size
