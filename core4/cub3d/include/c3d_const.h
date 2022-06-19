@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 17:10:04 by hseong            #+#    #+#             */
-/*   Updated: 2022/06/08 17:24:16 by hseong           ###   ########.fr       */
+/*   Updated: 2022/06/19 20:43:23 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define MAX_DIST (3000)
 # define DARKEN_DIST (200)
 # define LIGHT_DIST (400)
+# define HEIGHT_VAR (4)
 
 // maximum map size
 # define MAP_MAXROWS (2048)

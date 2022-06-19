@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 19:18:38 by hseong            #+#    #+#             */
-/*   Updated: 2022/06/06 06:49:13 by hseong           ###   ########.fr       */
+/*   Updated: 2022/06/19 20:42:37 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	c3d_init(int argc, char **argv, t_mlx_info *mlx_info)
 	*/
 	mlx_do_key_autorepeaton(mlx_info->mlx_ptr);
 	ft_putstr_fd("rendering scene\n", 1);
-	*mlx_info->camera = (t_camera){0, GRID_WIDTH * 3, GRID_WIDTH * 3};
+	*mlx_info->camera = (t_camera){0, GRID_WIDTH * 2, GRID_WIDTH * 2};
 }
 
 int	c3d_loop(t_mlx_info *mlx_info)

@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 21:42:44 by hseong            #+#    #+#             */
-/*   Updated: 2022/05/18 05:22:54 by hseong           ###   ########.fr       */
+/*   Updated: 2022/05/24 10:04:24 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ void	c3d_mouse_get_pos(t_mlx_info *mlx_info, int *x, int *y)
 	mlx_mouse_move(mlx_info->win_ptr, 100, SCREEN_HEIGHT - 50);
 #else
 	mlx_mouse_get_pos(mlx_info->mlx_ptr, mlx_info->win_ptr, x, y);
-	*x -= 40;//g_screen_hwidth;
-	*y -= 40;//g_screen_hheight;
+	*x -= SCREEN_WIDTH >> 1;//g_screen_hwidth;
+	*y -= SCREEN_HEIGHT >> 1;//g_screen_hheight;
 	mlx_mouse_move(mlx_info->mlx_ptr, mlx_info->win_ptr,
-			40, 40);
+			SCREEN_WIDTH >> 1, SCREEN_HEIGHT >> 1);
 			//g_screen_hwidth, g_screen_hheight);
 #endif
 }

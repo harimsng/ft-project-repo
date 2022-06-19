@@ -6,7 +6,11 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 20:39:33 by hseong            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/06/06 06:44:39 by hseong           ###   ########.fr       */
+=======
+/*   Updated: 2022/05/24 10:15:28 by hseong           ###   ########.fr       */
+>>>>>>> 186348f33fe95d3badae735b2d0b8b1eb8ec4daf
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +38,7 @@ void	c3d_draw_vline(int contact, t_mlx_info *mlx_info,
 		return ;
 	map = mlx_info->img_elem->img_buf;
 	hor_px = mlx_info->img_elem->hor_px;
-	len = 2 * GRID_WIDTH * VP_DIST / dist;
+	len = HEIGHT_VAR * GRID_WIDTH * VP_DIST / dist;
 	len_origin = len;
 	idx = (SCREEN_HEIGHT - len) >> 1;
 	jdx = 0;
@@ -57,7 +61,7 @@ void	c3d_draw_vline(int contact, t_mlx_info *mlx_info,
 //			+ (contact % GRID_WIDTH) * texture->hor_px / GRID_WIDTH];
 //			= darken_color(texture->img_buf
 //			[jdx * texture->ver_px / len_origin * texture->hor_px
-//			+ (contact % GRID_WIDTH) * texture->hor_px / GRID_WIDTH], dist);
+//			+ (contact % GRID_WIDTH) * texture->hor_px / GRID_WIDTH];
 		++idx;
 		++jdx;
 		--len;
