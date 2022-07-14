@@ -1,37 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*   RingBuffer.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/15 05:20:47 by hseong            #+#    #+#             */
-/*   Updated: 2022/07/15 05:41:31 by hseong           ###   ########.fr       */
+/*   Created: 2022/07/15 05:20:33 by hseong            #+#    #+#             */
+/*   Updated: 2022/07/15 05:43:36 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _PHONE_BOOK_HPP_
-#define _PHONE_BOOK_HPP_
+#ifndef _RING_BUFFER_HPP_
+#define _RING_BUFFER_HPP_
 
 #include "Contact.hpp"
-#include "RingBuffer.hpp"
 
-#define MAX_CONTACT (8)
+#define MAX_SIZE (8)
 
-class PhoneBook
+class	RingBuffer
 {
 private:
-	RingBuffer	m_phoneBook;
-	bool		getStringInput(char str[MAX_NAME]);
-	void		printContactInfo(int index);
+	typedef Contact	t_item;
 
 public:
-	PhoneBook();
-	~PhoneBook();
+	t_item	m_storage[MAX_SIZE];
+	int		m_start;
+	int		m_size;
 
-	//
-	bool	addContact(void);
-	bool	searchContact(void);
+	RingBuffer();
+	~RingBuffer();
+
+	void	pushBack(t_item item);
+	t_item	popFront(void);
+	int		getSize(void) const;
 };
 
 #endif

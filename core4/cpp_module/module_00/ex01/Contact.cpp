@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Contact.cpp                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/15 02:27:03 by hseong            #+#    #+#             */
+/*   Updated: 2022/07/15 05:18:05 by hseong           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Contact.hpp"
 
 Contact::Contact():
@@ -26,6 +38,7 @@ Contact::~Contact()
 {
 }
 
+// move this to more proper place
 void	Contact::setGSetterTable(void)
 {
 	this->m_getterTable[0] = &Contact::getFirstName;
@@ -50,10 +63,10 @@ int		Contact::getIndex(void) const
 	return this->m_index;
 }
 
-void		Contact::setFirstName(const char newFirstName[NAME_SIZE])
+void		Contact::setFirstName(const char newFirstName[MAX_NAME])
 {
 	int		i = 0;
-	for (; i < NAME_SIZE; ++i)
+	for (; i < MAX_NAME; ++i)
 		m_firstName[i] = newFirstName[i];
 	m_firstName[i] = '\0';
 }
@@ -63,12 +76,12 @@ const Contact::t_fixedArr	&Contact::getFirstName(void) const
 	return this->m_firstName;
 }
 
-void		Contact::setLastName(const char newLastName[NAME_SIZE])
+void		Contact::setLastName(const char newLastName[MAX_NAME])
 {
 	int		i = 0;
-	for (; i < NAME_SIZE; ++i)
+	for (; i < MAX_NAME; ++i)
 		m_lastName[i] = newLastName[i];
-	m_firstName[i] = '\0';
+	m_lastName[i] = '\0';
 }
 
 const Contact::t_fixedArr	&Contact::getLastName(void) const
@@ -76,12 +89,12 @@ const Contact::t_fixedArr	&Contact::getLastName(void) const
 	return this->m_lastName;
 }
 
-void		Contact::setNickname(const char newNickname[NAME_SIZE])
+void		Contact::setNickname(const char newNickname[MAX_NAME])
 {
 	int		i = 0;
-	for (; i < NAME_SIZE; ++i)
+	for (; i < MAX_NAME; ++i)
 		m_nickname[i] = newNickname[i];
-	m_firstName[i] = '\0';
+	m_nickname[i] = '\0';
 }
 
 const Contact::t_fixedArr	&Contact::getNickname(void) const
@@ -89,11 +102,12 @@ const Contact::t_fixedArr	&Contact::getNickname(void) const
 	return this->m_nickname;
 }
 
-void		Contact::setPhoneNumber(const char newPhoneNumber[NAME_SIZE])
+void		Contact::setPhoneNumber(const char newPhoneNumber[MAX_NAME])
 {
 	int		i = 0;
-	for (; i < NAME_SIZE; ++i)
+	for (; i < MAX_NAME; ++i)
 		m_phoneNumber[i] = newPhoneNumber[i];
+	m_phoneNumber[i] = '\0';
 }
 
 const Contact::t_fixedArr	&Contact::getPhoneNumber(void) const
@@ -101,12 +115,12 @@ const Contact::t_fixedArr	&Contact::getPhoneNumber(void) const
 	return this->m_phoneNumber;
 }
 
-void		Contact::setDarkestSecret(const char newDarkestSecret[NAME_SIZE])
+void		Contact::setDarkestSecret(const char newDarkestSecret[MAX_NAME])
 {
 	int		i = 0;
-	for (; i < NAME_SIZE; ++i)
+	for (; i < MAX_NAME; ++i)
 		m_darkestSecret[i] = newDarkestSecret[i];
-	m_firstName[i] = '\0';
+	m_darkestSecret[i] = '\0';
 }
 
 const Contact::t_fixedArr	&Contact::getDarkestSecret(void) const

@@ -1,14 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Contact.hpp                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/15 05:20:45 by hseong            #+#    #+#             */
+/*   Updated: 2022/07/15 05:39:38 by hseong           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef _CONTACT_HPP_
+#define _CONTACT_HPP_
+
 #include <iostream>
 #include <string>
 
-#define NAME_SIZE (64)
+#define MAX_NAME (64)
 #define NUM_DATA (5)
 
 class	Contact
 {
 public:
 	// typedefs for getter and setter tables.
-	typedef char	t_fixedArr[NAME_SIZE];
+	typedef char	t_fixedArr[MAX_NAME];
 	typedef const t_fixedArr	&(t_contactInfoGetter)(void) const;
 	typedef void				t_contactInfoSetter(const t_fixedArr);
 	typedef t_contactInfoGetter	Contact::*t_contactInfoGetterPtr;
@@ -38,18 +53,20 @@ public:
 	void				setIndex(int index);
 	int					getIndex(void) const;
 
-	void				setFirstName(const char newFirstName[NAME_SIZE]);
+	void				setFirstName(const char newFirstName[MAX_NAME]);
 	const t_fixedArr	&getFirstName(void) const;
 
-	void				setLastName(const char newLastName[NAME_SIZE]);
+	void				setLastName(const char newLastName[MAX_NAME]);
 	const t_fixedArr	&getLastName(void) const;
 
-	void				setNickname(const char newNickname[NAME_SIZE]);
+	void				setNickname(const char newNickname[MAX_NAME]);
 	const t_fixedArr	&getNickname(void) const;
 
-	void				setPhoneNumber(const char phoneNumber[NAME_SIZE]);
+	void				setPhoneNumber(const char phoneNumber[MAX_NAME]);
 	const t_fixedArr	&getPhoneNumber(void) const;
 
-	void				setDarkestSecret(const char darkestSecret[NAME_SIZE]);
+	void				setDarkestSecret(const char darkestSecret[MAX_NAME]);
 	const t_fixedArr	&getDarkestSecret(void) const;
 };
+
+#endif

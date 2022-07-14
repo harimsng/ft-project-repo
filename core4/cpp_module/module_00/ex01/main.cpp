@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/15 05:16:56 by hseong            #+#    #+#             */
+/*   Updated: 2022/07/15 05:45:15 by hseong           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <ios>
 #include <iostream>
 
 #include "PhoneBook.hpp"
@@ -13,7 +26,7 @@ int	main(void)
 	while (loopFlag && std::cin.eof() == false)
 	{
 		std::cout << "> ";
-		std::cin >> inputStr;
+		std::getline(std::cin, inputStr);
 		index = (inputStr == "ADD")
 			+ 2 * (inputStr == "SEARCH")
 			+ 3 * (inputStr == "EXIT");
