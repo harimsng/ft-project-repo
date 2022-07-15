@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 05:16:56 by hseong            #+#    #+#             */
-/*   Updated: 2022/07/15 05:45:15 by hseong           ###   ########.fr       */
+/*   Updated: 2022/07/15 18:48:11 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,18 @@ int	main(void)
 		std::getline(std::cin, inputStr);
 		index = (inputStr == "ADD")
 			+ 2 * (inputStr == "SEARCH")
-			+ 3 * (inputStr == "EXIT");
+			+ 8 * (inputStr == "EXIT");
 		switch (index)
 		{
 			case 1:
 				phoneBook.addContact();
 				break;
 			case 2:
-				phoneBook.searchContact();
+				while (phoneBook.searchContact() == false
+					&& std::cin.good() == true)
+					continue;
 				break;
-			case 3:
+			case 8:
 				loopFlag = false;
 				break;
 		}
