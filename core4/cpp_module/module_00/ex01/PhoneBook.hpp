@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 05:20:47 by hseong            #+#    #+#             */
-/*   Updated: 2022/07/15 14:43:10 by hseong           ###   ########.fr       */
+/*   Updated: 2022/07/16 21:00:16 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,25 @@
 
 class PhoneBook
 {
-private:
-	Contact		m_phoneBook[MAX_CONTACT];
-	int			m_start;
-	int			m_size;
-
-	bool		getStringInput(char str[MAX_NAME]);
-	void		printContactInfo(int index);
-	void		printInternal(Contact *contact);
-
 public:
 	PhoneBook();
 	~PhoneBook();
 
-	//
 	bool	addContact(void);
 	bool	searchContact(void);
 	void	showPhoneBook(void);
+
+private:
+	bool	getStringInput(char str[MAX_NAME]);
+	bool	getContactIndex(int &internalIdx);
+	void	printContactInfo(int index);
+	void	printFields(Contact *contact);
+
+
+private:
+	Contact	m_phoneBook[MAX_CONTACT];
+	int		m_start;
+	int		m_size;
 };
 
 #endif

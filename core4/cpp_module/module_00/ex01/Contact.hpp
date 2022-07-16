@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 05:20:45 by hseong            #+#    #+#             */
-/*   Updated: 2022/07/15 05:39:38 by hseong           ###   ########.fr       */
+/*   Updated: 2022/07/16 21:09:37 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ class	Contact
 {
 public:
 	// typedefs for getter and setter tables.
-	typedef char	t_fixedArr[MAX_NAME];
+	typedef char				t_fixedArr[MAX_NAME];
 	typedef const t_fixedArr	&(t_contactInfoGetter)(void) const;
 	typedef void				t_contactInfoSetter(const t_fixedArr);
 	typedef t_contactInfoGetter	Contact::*t_contactInfoGetterPtr;
@@ -33,23 +33,14 @@ public:
 	t_contactInfoSetterPtr		m_setterTable[NUM_DATA];
 
 private:
-	int				m_index;
-
-	// data for a contact
-	t_fixedArr		m_firstName;
-	t_fixedArr		m_lastName;
-	t_fixedArr		m_nickname;
-	t_fixedArr		m_phoneNumber;
-	t_fixedArr		m_darkestSecret;
-
 	void			setGSetterTable(void);
 
 public:
 	Contact();
-	Contact(int index);
 	~Contact();
 
-	// getters & setters for each member
+	void				printContact(void);
+
 	void				setIndex(int index);
 	int					getIndex(void) const;
 
@@ -67,6 +58,15 @@ public:
 
 	void				setDarkestSecret(const char darkestSecret[MAX_NAME]);
 	const t_fixedArr	&getDarkestSecret(void) const;
+
+
+private:
+	int				m_index;
+	t_fixedArr		m_firstName;
+	t_fixedArr		m_lastName;
+	t_fixedArr		m_nickname;
+	t_fixedArr		m_phoneNumber;
+	t_fixedArr		m_darkestSecret;
 };
 
 #endif

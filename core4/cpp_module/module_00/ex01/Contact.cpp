@@ -6,11 +6,19 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 02:27:03 by hseong            #+#    #+#             */
-/*   Updated: 2022/07/15 05:18:05 by hseong           ###   ########.fr       */
+/*   Updated: 2022/07/16 23:08:42 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Contact.hpp"
+
+static const char	*g_dataTable[NUM_DATA] = {
+	"first name",
+	"last name",
+	"nickname",
+	"phone number",
+	"darkset secret"
+};
 
 Contact::Contact():
 	m_index(-1),
@@ -20,47 +28,49 @@ Contact::Contact():
 	m_phoneNumber(""),
 	m_darkestSecret("")
 {
-	this->setGSetterTable();
-}
-
-Contact::Contact(int index):
-	m_index(index),
-	m_firstName(""),
-	m_lastName(""),
-	m_nickname(""),
-	m_phoneNumber(""),
-	m_darkestSecret("")
-{
-	this->setGSetterTable();
+	setGSetterTable();
 }
 
 Contact::~Contact()
 {
 }
 
+void	Contact::printContact(void)
+{
+	for (int i = 0; i < NUM_DATA; ++i)
+	{
+		std::cout.width(16);
+		std::cout.flags(std::ios::left);
+		std::cout << g_dataTable[i];
+		std::cout << " : \"";
+		std::cout << (this->*(m_getterTable[i]))();
+		std::cout << "\"\n";
+	}
+}
+
 // move this to more proper place
 void	Contact::setGSetterTable(void)
 {
-	this->m_getterTable[0] = &Contact::getFirstName;
-	this->m_getterTable[1] = &Contact::getLastName;
-	this->m_getterTable[2] = &Contact::getNickname;
-	this->m_getterTable[3] = &Contact::getPhoneNumber;
-	this->m_getterTable[4] = &Contact::getDarkestSecret;
-	this->m_setterTable[0] = &Contact::setFirstName;
-	this->m_setterTable[1] = &Contact::setLastName;
-	this->m_setterTable[2] = &Contact::setNickname;
-	this->m_setterTable[3] = &Contact::setPhoneNumber;
-	this->m_setterTable[4] = &Contact::setDarkestSecret;
+	m_getterTable[0] = &Contact::getFirstName;
+	m_getterTable[1] = &Contact::getLastName;
+	m_getterTable[2] = &Contact::getNickname;
+	m_getterTable[3] = &Contact::getPhoneNumber;
+	m_getterTable[4] = &Contact::getDarkestSecret;
+	m_setterTable[0] = &Contact::setFirstName;
+	m_setterTable[1] = &Contact::setLastName;
+	m_setterTable[2] = &Contact::setNickname;
+	m_setterTable[3] = &Contact::setPhoneNumber;
+	m_setterTable[4] = &Contact::setDarkestSecret;
 }
 
 void	Contact::setIndex(int index)
 {
-	this->m_index = index;
+	m_index = index;
 }
 
 int		Contact::getIndex(void) const
 {
-	return this->m_index;
+	return m_index;
 }
 
 void		Contact::setFirstName(const char newFirstName[MAX_NAME])
@@ -73,7 +83,7 @@ void		Contact::setFirstName(const char newFirstName[MAX_NAME])
 
 const Contact::t_fixedArr	&Contact::getFirstName(void) const
 {
-	return this->m_firstName;
+	return m_firstName;
 }
 
 void		Contact::setLastName(const char newLastName[MAX_NAME])
@@ -86,7 +96,7 @@ void		Contact::setLastName(const char newLastName[MAX_NAME])
 
 const Contact::t_fixedArr	&Contact::getLastName(void) const
 {
-	return this->m_lastName;
+	return m_lastName;
 }
 
 void		Contact::setNickname(const char newNickname[MAX_NAME])
@@ -99,7 +109,7 @@ void		Contact::setNickname(const char newNickname[MAX_NAME])
 
 const Contact::t_fixedArr	&Contact::getNickname(void) const
 {
-	return this->m_nickname;
+	return m_nickname;
 }
 
 void		Contact::setPhoneNumber(const char newPhoneNumber[MAX_NAME])
@@ -112,7 +122,7 @@ void		Contact::setPhoneNumber(const char newPhoneNumber[MAX_NAME])
 
 const Contact::t_fixedArr	&Contact::getPhoneNumber(void) const
 {
-	return this->m_phoneNumber;
+	return m_phoneNumber;
 }
 
 void		Contact::setDarkestSecret(const char newDarkestSecret[MAX_NAME])
@@ -125,5 +135,5 @@ void		Contact::setDarkestSecret(const char newDarkestSecret[MAX_NAME])
 
 const Contact::t_fixedArr	&Contact::getDarkestSecret(void) const
 {
-	return this->m_darkestSecret;
+	return m_darkestSecret;
 }
