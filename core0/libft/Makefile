@@ -32,17 +32,31 @@ BNS = ft_lstnew.c ft_lstadd_front.c\
 
 ADD = ft_execvpe.c
 SRC += $(ADD)
+SRC_BNS = $(BNS)
 
+SRC_DIR = src
+SRC_BNS_DIR = src_bns
+
+OBJS_DIR = obj
+OBJS_BNS_DIR = obj_bns
+
+# .c to .o
 OBJS = $(SRC:%.c=%.o)
-BNS_OBJS = $(BNS:%.c=%.o)
+OBJS_BNS = $(SRC_BNS:%.c=%.o)
 
-BNS_FLAG =
-
-ifeq ($(BNS_FLAG), 1)
-OBJS += $(BNS_OBJS)
-endif
+# prepend directory
+OBJS := $(OBJS:%=$(OBJS_DIR)/%)
+OBJS_BNS := $(OBJS_BNS:%=$(OBJS_BNS_DIR)/%)
+SRC := $(SRC:%=$(SRC_DIR)/%)
+SRC_BNS := $(SRC_BNS:%=$(SRC_BNS_DIR)/%)
 
 HDR = libft.h
+
+BNS_FLAG =
+ifeq ($(BNS_FLAG), 1)
+OBJS += $(OBJS_BNS)
+endif
+
 
 all: $(NAME)
 
@@ -52,11 +66,11 @@ bonus:
 $(NAME): $(OBJS)
 	ar rcs $@ $^
 
-$(OBJS): %.o : %.c
+$(OBJS): $(OBJS_DIR)%.o : $(SRC_DIR)%.c
 	$(CC) $(CFLAGS) $< -c -o $@ -I.
 
 clean:
-	rm -f $(OBJS) $(BNS_OBJS)
+	rm -f $(OBJS) $(OBJS_BNS)
 
 fclean: clean
 	rm -f $(NAME)
