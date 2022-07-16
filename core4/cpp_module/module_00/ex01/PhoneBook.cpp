@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/1j 02:26:40 by hseong            #+#    #+#             */
-/*   Updated: 2022/07/15 05:44:45 by hseong           ###   ########.fr       */
+/*   Updated: 2022/07/15 18:48:40 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@ static const char 	*g_promptTable[NUM_DATA] = {
 	"input the darkest secret : ",
 };
 
-PhoneBook::PhoneBook():
-	m_phoneBookStartIdx(0),
-	m_phoneBookSize(0)
+PhoneBook::PhoneBook()
+:
+	m_start(0),
+	m_size(0)
 {
 }
 
@@ -40,15 +41,16 @@ bool	PhoneBook::addContact(void)
 {
 	Contact	*contact;
 	char	buffer[MAX_NAME] = {0, };
-	int		phoneBookIdx;
 
-	if (m_phoneBook.getSize() == MAX_CONTACT)
-	{
-		std::cout << "Phonebook is full.\n";
-		return false;
-	}
 	std::cout << "input fields to make a contact\n";
-	contact = m_phoneBook.m_storage + m_phoneBook.m_start;
+	if (m_size == MAX_CONTACT)
+	{
+		std::cout << "WARNING: phone book is full. oldest contact has been removed.\n";
+		++m_start;
+		--m_size;
+	}
+	contact = m_phoneBook + (m_start + m_size++) % MAX_CONTACT;
+	contact->setIndex((m_start + m_size - 1) % MAX_CONTACT);
 	for (int i = 0; i < NUM_DATA; ++i)
 	{
 		std::cout << g_promptTable[i];
@@ -63,7 +65,6 @@ bool	PhoneBook::addContact(void)
 		}
 		(contact->*(contact->m_setterTable[i]))(buffer);
 	}
-	contact->setIndex(phoneBookIdx);
 	return true;
 }
 
@@ -99,31 +100,47 @@ there must be characters less than " << MAX_NAME - 1 << ".\n";
 	return true;
 }
 
-static void	printInternal(Contact *contact);
-
 bool	PhoneBook::searchContact(void)
 {
 	int		idx;
+	int		internalIdx;
 
-	std::cout << "input an index : \n";
+	showPhoneBook();
+	std::cout << "SEARCH: input an index > \n";
+	std::cin.width(10);
 	std::cin >> idx;
-	if (this->m_phoneBook[idx].getIndex() == -1)
+	if (std::cin.good() == false)
+	{
+		std::cout << "ERROR: invalid input.\n";
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		std::cin.clear(std::cin.rdstate() | std::cin.badbit);
+		return false;
+	}
+	if (idx <= 0 || idx > MAX_CONTACT)
+	{
+		std::cout << "ERROR: invalid range\n";
+		return false;
+	}
+	internalIdx = (m_start + idx - 1) % MAX_CONTACT;
+	if (this->m_phoneBook[internalIdx].getIndex() == -1)
 	{
 		std::cout << "it's an empty index.\n";
 		return false;
 	}
-	printInternal(this->m_phoneBook + idx);
+	std::cout << "|     index|first name| last name|  nickname|\
+       TEL|    secret|\n";
+	printInternal(this->m_phoneBook + internalIdx);
 	return true;
 }
 
-static void	printInternal(Contact *contact)
+void	PhoneBook::printInternal(Contact *contact)
 {
 	const char	*strPtr;
 
-	std::cout << "|     index|first name| last name|  nickname|\
-       TEL|    secret|\n|";
+	std::cout << '|';
 	std::cout.width(10);
-	std::cout << contact->getIndex() << '|';
+	std::cout << ((contact->getIndex() - m_start + MAX_CONTACT) % MAX_CONTACT) + 1 << '|';
 	for (int i = 0; i < NUM_DATA; ++i)
 	{
 		strPtr = (contact->*(contact->m_getterTable[i]))();
@@ -142,5 +159,20 @@ static void	printInternal(Contact *contact)
 		std::cout << '|';
 	}
 	std::cout << std::endl;
-	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+}
+
+void	PhoneBook::showPhoneBook(void)
+{
+	int		internalIdx;
+
+	if (m_size == 0)
+		std::cout << "phonebook is empty.\n";
+	else
+		std::cout << "|     index|first name| last name|  nickname|\
+       TEL|    secret|\n";
+	for (int i = 0; i < m_size; ++i)
+	{
+		internalIdx = (i + m_start) % MAX_CONTACT;
+		printInternal(this->m_phoneBook + internalIdx);
+	}
 }
