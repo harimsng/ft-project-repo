@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/1j 02:26:40 by hseong            #+#    #+#             */
-/*   Updated: 2022/07/16 22:49:07 by hseong           ###   ########.fr       */
+/*   Updated: 2022/07/17 19:44:40 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,20 @@ PhoneBook::PhoneBook()
 	m_start(0),
 	m_size(0)
 {
+}
+
+PhoneBook::PhoneBook(const Contact *contactArr, size_t size)
+:
+	m_start(0)
+{
+	if (size > MAX_CONTACT)
+		size = MAX_CONTACT;
+	for (size_t i = 0; i < size; ++i)
+	{
+		m_phoneBook[i] = contactArr[i];
+		m_phoneBook[i].setIndex(contactArr[i].getIndex());
+	}
+	m_size = size;
 }
 
 PhoneBook::~PhoneBook()
@@ -98,6 +112,7 @@ there must be characters less than " << MAX_NAME - 1 << ".\n";
 		std::cout << "\nERROR: an error occured during input.\n";
 		return false;
 	}
+	if ()//blank check
 	return true;
 }
 
@@ -128,7 +143,7 @@ bool	PhoneBook::getContactIndex(int &internalIdx)
 	if (std::cin.good() == false)
 	{
 		std::cin.clear();
-		std::cout << "ERROR: invalid input: \"" << buffer << "\"\n";
+		std::cout << "ERROR: invalid input\n";
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		std::cin.clear(std::cin.rdstate() | std::cin.failbit);
 		return false;
@@ -152,6 +167,8 @@ void	PhoneBook::showPhoneBook(void)
 {
 	int		internalIdx;
 
+	if (m_size == 0)
+		return;
 	std::cout << "|     index|first name| last name|  nickname|\
        TEL|    secret|\n";
 	for (int i = 0; i < m_size; ++i)
@@ -165,8 +182,6 @@ void	PhoneBook::printFields(Contact *contact)
 {
 	const char	*strPtr;
 
-	if (m_size == 0)
-		return;
 	std::cout << '|';
 	std::cout.width(10);
 	std::cout << ((contact->getIndex() - m_start + MAX_CONTACT) % MAX_CONTACT)

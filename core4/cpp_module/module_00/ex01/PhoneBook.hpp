@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 05:20:47 by hseong            #+#    #+#             */
-/*   Updated: 2022/07/16 21:00:16 by hseong           ###   ########.fr       */
+/*   Updated: 2022/07/17 18:26:01 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ class PhoneBook
 {
 public:
 	PhoneBook();
+	PhoneBook(const Contact *contactArr, size_t size);
 	~PhoneBook();
 
 	bool	addContact(void);

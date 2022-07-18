@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 05:20:45 by hseong            #+#    #+#             */
-/*   Updated: 2022/07/16 21:09:37 by hseong           ###   ########.fr       */
+/*   Updated: 2022/07/17 18:21:20 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,16 @@ public:
 
 private:
 	void			setGSetterTable(void);
+	size_t			strcpyInternal(t_fixedArr dst, const char *src);
 
 public:
 	Contact();
+	Contact(const int index,
+			const char *firstName,
+			const char *lastName,
+			const char *nickname,
+			const char *phoneNumber,
+			const char *darkestSecret);
 	~Contact();
 
 	void				printContact(void);

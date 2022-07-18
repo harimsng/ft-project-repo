@@ -1,7 +1,7 @@
 NAME		=	myAwesomePhonebook
 
 CXX			=	c++
-CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98
+CXXFLAGS	=	-Wall -Wextra -Werror -std=c++11
 DEBUG_OPT	=	-g3 -fsanitize=address
 IDIR		=	.
 
