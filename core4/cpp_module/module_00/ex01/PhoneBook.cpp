@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/1j 02:26:40 by hseong            #+#    #+#             */
-/*   Updated: 2022/07/17 19:44:40 by hseong           ###   ########.fr       */
+/*   Updated: 2022/07/18 17:56:46 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ bool	PhoneBook::getStringInput(char str[MAX_NAME])
 {
 	std::streamsize	count = 0;
 
+	while (std::cin.peek() == ' ' || std::cin.peek() == '\t')
+		std::cin.get();
 	std::cin.getline(str, MAX_NAME);
 	count = std::cin.gcount();
 	if (count == MAX_NAME - 1)
@@ -112,7 +114,6 @@ there must be characters less than " << MAX_NAME - 1 << ".\n";
 		std::cout << "\nERROR: an error occured during input.\n";
 		return false;
 	}
-	if ()//blank check
 	return true;
 }
 
@@ -137,7 +138,9 @@ bool	PhoneBook::getContactIndex(int &internalIdx)
 	std::string	buffer;
 
 	std::cout << "input an index or EXIT: ";
-	if (std::cin.peek() == ' ' || std::cin.peek() == '\n')
+	while (std::cin.peek() == ' ' || std::cin.peek() == '\t')
+		std::cin.get();
+	if (std::cin.peek() == '\n')
 		return false;
 	std::cin >> idx;
 	if (std::cin.good() == false)
