@@ -4,7 +4,7 @@ NAME	=	AccountBook
 RM		=	rm -f
 
 
-CXX		=	g++
+CXX		=	c++
 CXXFLAGS=	-Wall -Wextra -Werror -std=c++98
 DEBUG	=	-g -fsanitize=address
 

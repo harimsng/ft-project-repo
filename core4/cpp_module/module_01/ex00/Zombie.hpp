@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   RingBuffer.cpp                                     :+:      :+:    :+:   */
+/*   Zombie.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/15 05:24:29 by hseong            #+#    #+#             */
-/*   Updated: 2022/07/15 13:35:21 by hseong           ###   ########.fr       */
+/*   Created: 2022/07/18 18:12:32 by hseong            #+#    #+#             */
+/*   Updated: 2022/07/18 18:17:47 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "RingBuffer.hpp"
+#include <string>
 
-RingBuffer::RingBuffer():
-	start(0),
-	size(0)
+class	Zombie
 {
-}
+private:
+	std::string	m_Name;
+public:
+	Zombie();
+	Zombie(const std::string &name);
+	~Zombie();
 
-RingBuffer::~RingBuffer()
-{
-}
+	void	announce(void);
+};
