@@ -1,24 +1,24 @@
-#include "HumanA.hpp"
-#include "HumanB.hpp"
-#include "Weapon.hpp"
+#include <iostream>
+#include <string>
 
-int main()
+int	main(void)
 {
-	{
-		Weapon club = Weapon("crude spiked club");
-		HumanA bob("Bob", club);
-		bob.attack();
-		club.setType("some other type of club");
-		bob.attack();
-	}
-	{
-		Weapon club = Weapon("crude spiked club");
-		HumanB jim("Jim");
-		jim.setWeapon(club);
-		jim.attack();
-		club.setType("some other type of club");
-		jim.attack();
-	}
-	system("leaks $$");
+	std::string		stringVAR("HI THIS IS BRAIN");
+	std::string		*stringPTR(&stringVAR);
+	std::string		&stringREF(stringVAR);
+
+	std::cout.setf(std::cout.left);
+	std::cout.width(25);
+	std::cout << "address of stringVAR = " << &stringVAR << std::endl;
+	std::cout.width(25);
+	std::cout << "address of stringPTR = " << &stringPTR << std::endl;
+	std::cout.width(25);
+	std::cout << "address of stringREF = " << &stringREF << std::endl;
+	std::cout.width(25);
+	std::cout << "value of stringVAR = " << stringVAR << std::endl;
+	std::cout.width(25);
+	std::cout << "value of stringPTR = " << stringPTR << std::endl;
+	std::cout.width(25);
+	std::cout << "value of stringREF = " << stringREF << std::endl;
 	return 0;
 }

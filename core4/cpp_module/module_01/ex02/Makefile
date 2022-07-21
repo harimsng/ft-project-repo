@@ -1,4 +1,4 @@
-NAME		=	Violence
+NAME		=	HI
 
 
 CXX			=	c++
@@ -7,11 +7,7 @@ DEBUGFLAGS	=	-g -fsanitize=address
 RM			=	rm -f
 
 
-SRC			=	main.cpp\
-				HumanB.cpp\
-				HumanA.cpp\
-				Weapon.cpp
-
+SRC			=	main.cpp
 OBJ			=	$(SRC:%.cpp=%.o)
 
 ifeq ($(DEBUG_MODE), 1)

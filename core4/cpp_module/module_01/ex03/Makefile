@@ -8,11 +8,11 @@ RM			=	rm -f
 
 
 SRC			=	main.cpp\
-				Weapon.cpp\
+				HumanB.cpp\
 				HumanA.cpp\
-				HumanB.cpp
-OBJ			=	$(SRC:%.cpp=%.o)
+				Weapon.cpp
 
+OBJ			=	$(SRC:%.cpp=%.o)
 
 ifeq ($(DEBUG_MODE), 1)
 CXXFLAGS	+=	$(DEBUGFLAGS)
