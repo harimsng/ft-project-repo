@@ -6,9 +6,12 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 18:12:32 by hseong            #+#    #+#             */
-/*   Updated: 2022/07/19 15:29:17 by hseong           ###   ########.fr       */
+/*   Updated: 2022/07/20 00:41:25 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef _ZOMBIE_HPP_
+#define _ZOMBIE_HPP_
 
 #include <string>
 
@@ -24,3 +27,5 @@ public:
 	void	setName(std::string &name);
 	void	announce(void);
 };
+
+#endif
