@@ -4,101 +4,101 @@ SRC_LIST=""
 
 for CLASS in $CLASSES
 do
-	SRC_LIST="\t\t\t\t$CLASS\n$SRC_LIST"
+	SRC_LIST="\\
+				$CLASS.cpp$SRC_LIST"
 	touch $CLASS.hpp
 	touch $CLASS.cpp
 	HEADER_GUARD="$(echo $CLASS | gsed 's/[A-Z]/_&/g' | gsed 's/[a-z]/\U&/g' | gsed 's/$/_/')"
 
 ##### file contents
-HEADER_CONTENT="
-#ifndef $HEADER_GUARD
-\n#define $HEADER_GUARD
-\n
-\nclass	$CLASS
-\n{
-\n\t$CLASS();
-\n\t~$CLASS();
-\n\t$CLASS(const $CLASS &obj);
-\n\tconst $CLASS &operator=(const $CLASS &obj);
-\n};
-\n
-\n#endif"
-SOURCE_CONTENT="
-#include \"$CLASS.hpp\"
-\n
-\n$CLASS::$CLASS()
-\n{
-\n}
-\n
-\n$CLASS::~$CLASS()
-\n{
-\n}
-\n
-\n$CLASS::$CLASS(const $CLASS &obj)
-\n{
-\n}
-\n
-\nconst $CLASS &$CLASS::operator=(const $CLASS &obj)
-\n{
-\n\treturn *this;
-\n}"
+HEADER_CONTENT="#ifndef $HEADER_GUARD
+#define $HEADER_GUARD
+
+class	$CLASS
+{
+	$CLASS();
+	~$CLASS();
+	$CLASS(const $CLASS &obj);
+	$CLASS &operator=(const $CLASS &obj);
+};
+
+#endif"
+SOURCE_CONTENT="#include \"$CLASS.hpp\"
+
+$CLASS::$CLASS()
+{
+}
+
+$CLASS::~$CLASS()
+{
+}
+
+$CLASS::$CLASS(const $CLASS &obj)
+{
+	(void)obj;
+}
+
+$CLASS &$CLASS::operator=(const $CLASS &obj)
+{
+	return *this;
+}"
 #####
 
-	echo -e $HEADER_CONTENT > $CLASS.hpp
-	echo -e $SOURCE_CONTENT > $CLASS.cpp
+	printf '%b\n' "$HEADER_CONTENT" > $CLASS.hpp
+	printf '%b\n' "$SOURCE_CONTENT" > $CLASS.cpp
 done
 
-MAKEFILE_CONTENT="
-NAME\t\t=\t
-\n
-\n
-\nCXX\t\t\t=\tc++
-\nCXXFLAGS\t=\t-Wall -Wextra -Werror -std=c++98
-\nDEBUGFLAGS\t=\t-g -fsanitize=address
-\nRM\t\t\t=\trm -f
-\n
-\n
-\nSRC\t\t\t=\tmain.cpp
-\n$SRC_LIST
-\nOBJ\t\t\t=\t\$(SRC:%.cpp=%.o)
-\n
-\nifeq (\$(DEBUG_MODE), 1)
-\nCXXFLAGS\t+=\t\$(DEBUGFLAGS)
-\nCOMPILE_MODE=\tDEBUG.mode
-\nelse
-\nCOMPILE_MODE=\tRELEASE.mode
-\nendif
-\n
-\n
-\n.PHONY: all debug clean fclean re
-\n
-\nall: \$(COMPILE_MODE)
-\n\t\$(MAKE) \$(NAME)
-\n
-\nRELEASE.mode:
-\n\t\$(MAKE) fclean
-\n\ttouch RELEASE.mode
-\n
-\nDEBUG.mode:
-\n\t\$(MAKE) fclean
-\n\ttouch DEBUG.mode
-\n
-\ndebug:
-\n\t\$(MAKE) DEBUG_MODE=1 all
-\n
-\nclean:
-\n\t\$(RM) \$(OBJ)
-\n\t\$(RM) RELEASE.mode DEBUG.mode
-\n
-\nfclean: clean
-\n\t\$(RM) \$(NAME)
-\n
-\nre: fclean
-\n\t\$(MAKE) all
-\n
-\n\$(NAME): \$(OBJ)
-\n\t\$(CXX) \$(CXXFLAGS) -o \$@ \$^
-\n
-\n\$(OBJ): %.o: %.cpp
-\n\t\$(CXX) \$(CXXFLAGS) -c -o \$@ \$<"
-echo -e $MAKEFILE_CONTENT > Makefile
+MAKEFILE_CONTENT="NAME		=	
+
+
+CXX			=	c++
+CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98
+DEBUGFLAGS	=	-g -fsanitize=address
+RM			=	rm -f
+
+
+SRC			=	main.cpp$SRC_LIST
+OBJ			=	\$(SRC:%.cpp=%.o)
+
+ifeq (\$(DEBUG_MODE), 1)
+CXXFLAGS	+=	\$(DEBUGFLAGS)
+COMPILE_MODE=	DEBUG.mode
+else
+COMPILE_MODE=	RELEASE.mode
+endif
+
+
+.PHONY: all debug clean fclean re
+
+all: \$(COMPILE_MODE)
+	\$(MAKE) \$(NAME)
+
+RELEASE.mode:
+	\$(MAKE) fclean
+	touch RELEASE.mode
+
+DEBUG.mode:
+	\$(MAKE) fclean
+	touch DEBUG.mode
+
+debug:
+	\$(MAKE) DEBUG_MODE=1 all
+
+clean:
+	\$(RM) \$(OBJ)
+	\$(RM) RELEASE.mode DEBUG.mode
+
+fclean: clean
+	\$(RM) \$(NAME)
+
+re: fclean
+	\$(MAKE) all
+
+\$(NAME): \$(OBJ)
+	\$(CXX) \$(CXXFLAGS) -o \$@ \$^
+
+\$(OBJ): %.o: %.cpp
+	\$(CXX) \$(CXXFLAGS) -c -o \$@ \$<"
+printf '%b\n' "$MAKEFILE_CONTENT" > Makefile_temp
+cat Makefile_temp | sed 's/ $//' > Makefile
+rm Makefile_temp
