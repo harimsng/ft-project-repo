@@ -1,0 +1,27 @@
+#ifndef _WEAPON_ 
+#define _WEAPON_ 
+class Weapon 
+{ 
+	Weapon(); 
+	~Weapon(); 
+	Weapon(const Weapon obj); 
+	Weapon operator=(const Weapon obj); 
+};
+#ifndef _HUMAN_A_ 
+#define _HUMAN_A_ 
+class HumanA 
+{ 
+	HumanA(); 
+	~HumanA(); 
+	HumanA(const HumanA obj); 
+	HumanA operator=(const HumanA obj); 
+};
+#ifndef _HUMAN_B_ 
+#define _HUMAN_B_ 
+class HumanB 
+{ 
+	HumanB(); 
+	~HumanB(); 
+	HumanB(const HumanB obj); 
+	HumanB operator=(const HumanB obj); 
+};
