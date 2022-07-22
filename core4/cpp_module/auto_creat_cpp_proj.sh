@@ -45,6 +45,7 @@ $CLASS::$CLASS(const $CLASS &obj)
 
 $CLASS &$CLASS::operator=(const $CLASS &obj)
 {
+	(void)obj;
 	return *this;
 }"
 #####
@@ -53,7 +54,7 @@ $CLASS &$CLASS::operator=(const $CLASS &obj)
 	printf '%b\n' "$SOURCE_CONTENT" > $CLASS.cpp
 done
 
-MAKEFILE_CONTENT="NAME		=	
+MAKEFILE_CONTENT="NAME		=	$FILENAME
 
 
 CXX			=	c++
@@ -107,3 +108,29 @@ re: fclean
 printf '%b\n' "$MAKEFILE_CONTENT" > Makefile_temp
 cat Makefile_temp | sed 's/ $//' > Makefile
 rm Makefile_temp
+touch .vimspector.json
+VIMSPECTOR="{
+  \"configurations\": {
+  \"C - Launch\": {
+    \"adapter\": \"CodeLLDB\",
+    \"configuration\": {
+      \"name\": \"Cpp: Launch current file\",
+      \"type\": \"lldb\",
+      \"request\": \"launch\",
+      \"externalConsole\": false,
+      \"logging\": {
+        \"engineLogging\": true
+      },
+      \"stopOnEntry\": true,
+      \"stopAtEntry\": true,
+      \"debugOptions\": [],
+      \"MIMode\": \"lldb\",
+      \"cwd\" : \"${cwd}\",
+      \"args\" : [],
+      \"program\": \"$FILENAME\"
+    }
+  }
+  }
+}"
+
+printf '%b\n' "$VIMSPECTOR" > .vimspector.json
