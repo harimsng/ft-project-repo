@@ -1,6 +1,11 @@
 FILENAME=$1
 CLASSES=$(cat $FILENAME)
 SRC_LIST=""
+which gsed > /dev/null
+if [ $0 != "0" ]
+then
+SED=sed
+fi
 
 for CLASS in $CLASSES
 do
@@ -8,7 +13,7 @@ do
 				$CLASS.cpp$SRC_LIST"
 	touch $CLASS.hpp
 	touch $CLASS.cpp
-	HEADER_GUARD="$(echo $CLASS | gsed 's/[A-Z]/_&/g' | gsed 's/[a-z]/\U&/g' | gsed 's/$/_/')"
+	HEADER_GUARD="$(echo $CLASS | $SED 's/[A-Z]/_&/g' | $SED 's/[a-z]/\U&/g' | $SED 's/$/_/')"
 
 ##### file contents
 HEADER_CONTENT="#ifndef $HEADER_GUARD
