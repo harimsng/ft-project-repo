@@ -8,22 +8,16 @@
 class HumanA 
 { 
 private:
-	std::string		m_name;
-	const Weapon	*m_weapon;
-	const Weapon	m_defaultWeapon;
+	const std::string	m_name;
+	const Weapon		&m_weapon;
 
 public:
-	HumanA(); 
 	~HumanA(); 
-	HumanA(const std::string &name, Weapon &weapon);
-	HumanA(const HumanA &obj); 
-	const HumanA &operator=(const HumanA &obj); 
+	HumanA(const std::string &name, const Weapon &weapon);
 
 	// getters & setters
-	void				setName(const std::string &newName);
 	const std::string	&getName(void) const;
-	void				setWeapon(const Weapon &newWeapon);
-	const Weapon		*getWeapon(void) const;
+	const Weapon		&getWeapon(void) const;
 
 	void	attack();
 }; 

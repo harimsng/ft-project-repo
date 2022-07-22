@@ -1,11 +1,5 @@
 #include "Weapon.hpp" 
  
-Weapon::Weapon() 
-:
-	m_type("")
-{ 
-} 
- 
 Weapon::~Weapon() 
 { 
 } 
@@ -22,15 +16,16 @@ Weapon::Weapon(const char *type)
 {
 }
  
-Weapon::Weapon(const Weapon &obj) 
-{ 
+Weapon::Weapon(const Weapon &obj)
+{
 	*this = obj;
 } 
- 
-const Weapon &Weapon::operator=(const Weapon &obj) 
-{ 
+// 'this' in constructor is not const.
+
+const Weapon &Weapon::operator=(const Weapon &obj)
+{
 	this->m_type.assign(obj.m_type);
-	return *this; 
+	return *this;
 }
 
 // getter & setter
