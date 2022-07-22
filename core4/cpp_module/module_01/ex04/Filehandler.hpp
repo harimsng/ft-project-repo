@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 22:46:35 by hseong            #+#    #+#             */
-/*   Updated: 2022/07/22 23:03:58 by hseong           ###   ########.fr       */
+/*   Updated: 2022/07/23 03:30:24 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,21 @@ private:
 	std::ofstream		m_outStream;
 	const std::string	m_from;
 	const std::string	m_to;
+	const char			*m_inPathPtr;
+	const char			*m_outPathPtr;
 	bool				m_fail;
 
-	bool	substitute(std::string buffer);
+	void	substitute(std::string buffer);
+	void	printInfo(void) const;
 
 public:
 	Filehandler(const char *from, const char *to);
 
-	bool	openFile(const char *path);
-	bool	transformFile();
 	bool	getStatus(void) const;
+	void	openFile(const char *in, const char *out);
+	void	moveFile();
+	void	transformFile();
+	void	closeFile();
 };
 
 #endif
