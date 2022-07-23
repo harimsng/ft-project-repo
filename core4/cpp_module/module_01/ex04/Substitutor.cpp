@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 22:46:37 by hseong            #+#    #+#             */
-/*   Updated: 2022/07/23 13:19:21 by hseong           ###   ########.fr       */
+/*   Updated: 2022/07/23 19:28:15 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include "Substitutor.hpp"
 
-#define BUFFER_SIZE (128)
+#define BUFFER_SIZE (8)
 
 Substitutor::Substitutor(const char *from, const char *to)
 :
@@ -34,6 +34,14 @@ bool	Substitutor::isFail(void) const
 
 void	Substitutor::openFile(const char *path)
 {
+	if (m_from.size() > BUFFER_SIZE - 1)
+	{
+		std::cout << "pattern is too long. ";
+		std::cout << "miniSed can handle less than ";
+		std::cout << BUFFER_SIZE << " characters ( == BUFFER_SIZE ).\n";
+		m_inStream.setstate(std::ios_base::failbit);
+		return;
+	}
 	m_pathPtr = path;
 	m_tempPathPtr = "." + m_pathPtr + ".temp";
 	copyFile();
@@ -43,18 +51,14 @@ void	Substitutor::openFile(const char *path)
 
 void	Substitutor::transformFile(void)
 {
-	std::string	buffer;
-	char		rawBuffer[BUFFER_SIZE];
+	char	rawBuffer[BUFFER_SIZE];
 
 	if (isFail())
 		return;
-	printInfo();
-	buffer.resize(BUFFER_SIZE);
 	while (m_inStream.good() && m_outStream.good())
 	{
 		m_inStream.read(rawBuffer, BUFFER_SIZE);
-		buffer = rawBuffer;
-		transfer(buffer);
+		transfer(rawBuffer);
 	}
 	if (m_inStream.eof())
 	{
@@ -63,12 +67,19 @@ void	Substitutor::transformFile(void)
 	}
 }
 
-void	Substitutor::transfer(std::string buffer)
+/*
+ * buffersize = 9
+ * from = abcabc, to = 123123
+ * abcabcabcabcabcabc
+ *
+ * */
+void	Substitutor::transfer(const char *rawBuffer)
 {
-	size_t	pos = 0;
-	size_t	start = 0;
+	std::string	buffer(rawBuffer, m_inStream.gcount());
+	size_t		pos = 0;
+	size_t		start = 0;
+	size_t		nextReadPoint = 0;
 
-	buffer.resize(m_inStream.gcount());
 	pos = buffer.find(m_from);
 	while (m_outStream.good() && pos != std::string::npos)
 	{
@@ -77,7 +88,17 @@ void	Substitutor::transfer(std::string buffer)
 		start = pos + m_from.size();
 		pos = buffer.find(m_from, start);
 	}
-	m_outStream.write(buffer.data() + start, m_inStream.gcount() - start);
+	if (m_inStream.gcount() != BUFFER_SIZE)
+	{
+		m_outStream.write(buffer.data() + start, m_inStream.gcount() - start);
+		return;
+	}
+	nextReadPoint = BUFFER_SIZE - m_from.size() + 1;
+	if (start >= nextReadPoint)
+		nextReadPoint = start;
+	else
+		m_outStream.write(buffer.data() + start, nextReadPoint - start);
+	m_inStream.seekg(nextReadPoint - BUFFER_SIZE, std::ios_base::cur);
 }
 
 void	Substitutor::copyFile()

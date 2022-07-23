@@ -38,6 +38,7 @@ debug:
 clean:
 	$(RM) $(OBJ)
 	$(RM) RELEASE.mode DEBUG.mode
+	$(RM) .*.temp
 
 fclean: clean
 	$(RM) $(NAME)

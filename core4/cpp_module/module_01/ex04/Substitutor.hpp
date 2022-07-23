@@ -6,7 +6,7 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 22:46:35 by hseong            #+#    #+#             */
-/*   Updated: 2022/07/23 13:15:46 by hseong           ###   ########.fr       */
+/*   Updated: 2022/07/23 17:25:10 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,18 @@ private:
 	std::string			m_pathPtr;
 	std::string			m_tempPathPtr;
 
-	void	transfer(std::string buffer);
+	void	transfer(const char *rawBuffer);
 	void	printInfo(void) const;
 
 public:
 	Substitutor(const char *from, const char *to);
-	~Substitutor();
+	~Substitutor(void);
 
 	bool	isFail(void) const;
 	void	openFile(const char *path);
-	void	copyFile();
-	void	transformFile();
-	void	closeFile();
+	void	copyFile(void);
+	void	transformFile(void);
+	void	closeFile(void);
 };
 
 #endif
