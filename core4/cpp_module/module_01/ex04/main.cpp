@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "Filehandler.hpp"
+#include "Substitutor.hpp"
 
 int	main(int argc, char *argv[])
 {
@@ -11,15 +11,16 @@ int	main(int argc, char *argv[])
 		return 1;
 	}
 
-	Filehandler	filehandler(argv[2], argv[3]);
+	Substitutor	substitutor(argv[2], argv[3]);
 
-	filehandler.openFile(argv[1], ("." + std::string(argv[1]) + ".temp").data());
-	filehandler.transformFile();
-	filehandler.closeFile();
-	if (filehandler.getStatus())
+	substitutor.openFile(argv[1]);
+	substitutor.transformFile();
+	if (substitutor.isFail())
 	{
 		std::cout << "IO error\n";
+		substitutor.closeFile();
 		return 1;
 	}
+	substitutor.closeFile();
 	return 0;
 }

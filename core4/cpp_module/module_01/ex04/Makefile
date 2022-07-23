@@ -8,7 +8,7 @@ RM			=	rm -f
 
 
 SRC			=	main.cpp\
-				Filehandler.cpp
+				Substitutor.cpp
 OBJ			=	$(SRC:%.cpp=%.o)
 
 ifeq ($(DEBUG_MODE), 1)

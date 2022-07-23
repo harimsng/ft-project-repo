@@ -15,7 +15,7 @@
       "debugOptions": [],
       "MIMode": "lldb",
       "cwd" : "",
-      "args" : [],
+      "args" : ["input", "1", "11"],
       "program": "miniSed"
     }
   }
