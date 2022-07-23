@@ -1,13 +1,10 @@
 FILENAME=$1
 CLASSES=$(cat $FILENAME)
 SRC_LIST=""
-
 which gsed > /dev/null
-if [ $? != "0" ]
+if [ $0 != "0" ]
 then
 SED=sed
-else
-SED=gsed
 fi
 
 for CLASS in $CLASSES

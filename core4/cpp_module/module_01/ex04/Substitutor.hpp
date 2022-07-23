@@ -6,12 +6,12 @@
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 22:46:35 by hseong            #+#    #+#             */
-/*   Updated: 2022/07/23 17:25:10 by hseong           ###   ########.fr       */
+/*   Updated: 2022/07/23 19:38:56 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _FILEHANDLER_
-#define _FILEHANDLER_
+#ifndef _SUBSTITUTOR_
+#define _SUBSTITUTOR_
 
 #include <fstream>
 
