@@ -36,7 +36,7 @@ def copyFile():
         os.execve('/bin/cp', arg, os.environ)
     os.waitpid(pid, 0)
 
-def compFiles():
+def diffFiles():
     pid = os.fork()
     if pid == 0:
         arg = [diffPath, sedFilePath, myFilePath]
@@ -71,4 +71,4 @@ for testcase in tests:
     copyFile()
     executeSed()
     executeMinised()
-    compFiles()
+    diffFiles()

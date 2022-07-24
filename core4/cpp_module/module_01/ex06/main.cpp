@@ -5,27 +5,22 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseong <hseong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/24 17:34:09 by hseong            #+#    #+#             */
-/*   Updated: 2022/07/24 17:34:09 by hseong           ###   ########.fr       */
+/*   Created: 2022/07/24 17:34:54 by hseong            #+#    #+#             */
+/*   Updated: 2022/07/24 17:46:29 by hseong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <climits>
 #include <iostream>
 
 #include "Harl.hpp"
 
-int	main(void)
+int	main(int argc, char *argv[])
 {
-	Harl		harl;
+	Harl	harl;
 
-	for (unsigned long long int str = 0, i = 0;
-			str < (ULLONG_MAX >> 33);
-			++str)
+	if (argc != 2 || harl.filter(argv[1]) == false)
 	{
-		if (str % ((ULLONG_MAX >> 33) / 1000) == 0)
-			std::cout << i++ * 0.1 << "%\n";
-		harl.complain((char *)&str);
+		std::cout << "[ Probably complaining about insignificant problems ]\n";
+		return 0;
 	}
-	return 0;
 }
